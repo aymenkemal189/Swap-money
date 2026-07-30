@@ -333,7 +333,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_CwZ9cow7EtXLHBWp1
 const CHANNEL_LINK = 'https://t.me/swapmoneybirr';
 const CHANNEL_REWARD = 100;
 const AD_REWARD = 50;
-const DAILY_AD_LIMIT = 15;
+const DAILY_AD_LIMIT = 999999; // ገደቡን ወደ 999,999 መቀየር
 const MIN_WITHDRAW = 2000;
 
 /* ============ Telegram WebApp ============ */
@@ -459,27 +459,23 @@ function emptyState(msg){
 /* ============ Ads ============ */
 function renderAdList(){
   const adList = document.getElementById('adList');
-  const remaining = DAILY_AD_LIMIT - state.adsWatchedToday;
   let html = '';
-  if(remaining <= 0){
-    html = emptyState('ለዛሬ የ' + DAILY_AD_LIMIT + ' ማስታወቂያ ገደብ ላይ ደርሰዋል። ነገ ይመለሱ!');
-  }else{
-    const count = Math.min(6, remaining);
-    for(let i=0;i<count;i++){
-      html += `
-        <div class="card-item">
-          <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg></div>
-          <div class="info"><h4>Ad #${state.adsWatchedToday + i + 1}</h4><p>+${AD_REWARD} ETB</p></div>
-          <button class="action-btn" onclick="watchAd(event)">ይመልከቱ</button>
-        </div>`;
-    }
+  
+  // ሁልጊዜ 6 የማስታወቂያ Cardዎችን ያሳያል
+  for(let i = 0; i < 6; i++){
+    html += `
+      <div class="card-item">
+        <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg></div>
+        <div class="info"><h4>Ad #${state.totalAdsWatched + i + 1}</h4><p>+${AD_REWARD} ETB</p></div>
+        <button class="action-btn" onclick="watchAd(event)">ይመልከቱ</button>
+      </div>`;
   }
-  html += `<div style="text-align:center;font-size:11px;color:var(--sub);margin-top:6px;">${Math.max(remaining,0)} / ${DAILY_AD_LIMIT} ማስታወቂያዎች ቀርተዋል ዛሬ</div>`;
+  html += `<div style="text-align:center;font-size:11px;color:var(--sub);margin-top:6px;">♾️ ያለገደብ ማስታወቂያዎችን ማየት ይችላሉ</div>`;
   adList.innerHTML = html;
 }
 
+
 function watchAd(e){
-  if(state.adsWatchedToday >= DAILY_AD_LIMIT) return;
   const btn = e.target;
   btn.disabled = true;
   btn.innerText = 'እየተጫነ ነው...';
@@ -502,6 +498,7 @@ function watchAd(e){
     btn.innerText = 'ይመልከቱ';
   }
 }
+
 
 
 function completeAd(){
@@ -700,4 +697,3 @@ syncUserToSheet();
 </script>
 </body>
 </html>
-
