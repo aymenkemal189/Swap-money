@@ -138,7 +138,12 @@
   .nav-item.active svg{fill:var(--yellow);}
 
   .empty{text-align:center;padding:30px 10px;color:var(--sub);font-size:12.5px;}
-</style>
+  ... 
+  /* ሌሎች የ CSS ስታይሎችህ እና ኮዶችህ እዚህ ይኖራሉ */
+  </style>
+
+  <!-- 👇 ከዚህ በታች በትክክል ለጥፈው -->
+  <script src='//libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 </head>
 <body>
 
@@ -477,16 +482,27 @@ function watchAd(e){
   if(state.adsWatchedToday >= DAILY_AD_LIMIT) return;
   const btn = e.target;
   btn.disabled = true;
-  btn.innerText = 'እየተጠበቀ...';
+  btn.innerText = 'እየተጫነ ነው...';
 
-  if(tg && tg.openTelegramLink){
-    tg.openTelegramLink(CHANNEL_LINK);
+  if (typeof show_11460944 === 'function') {
+    show_11460944()
+      .then(() => {
+        completeAd();
+        btn.disabled = false;
+        btn.innerText = 'ይመልከቱ';
+      })
+      .catch((err) => {
+        toast('❌ ማስታወቂያ መጫን አልተቻለም፤ እባክዎ ድጋሚ ይሞክሩ');
+        btn.disabled = false;
+        btn.innerText = 'ይመልከቱ';
+      });
   } else {
-    window.open(CHANNEL_LINK, '_blank');
+    toast('⚠️ የማስታወቂያ ኤስዲኬ አልተጫነም፤ ገጹን Refresh ያድርጉ');
+    btn.disabled = false;
+    btn.innerText = 'ይመልከቱ';
   }
-
-  setTimeout(()=> completeAd(), 4000);
 }
+
 
 function completeAd(){
   state.balance += AD_REWARD;
@@ -684,3 +700,4 @@ syncUserToSheet();
 </script>
 </body>
 </html>
+
