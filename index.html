@@ -37,16 +37,19 @@
   .page.active{display:block;}
   @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
-  /* ---------- Balance Card (bigger, hero-style) ---------- */
+  /* ---------- Balance Card (Extra Big Balance Display) ---------- */
   .balance-card{position:relative;background:linear-gradient(155deg,#1c1a12 0%, #0f0e0a 60%, #0a0a0a 100%);border:1px solid #3a301a;border-radius:24px;padding:28px 22px 24px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.55);}
   .balance-card::before{content:"";position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,198,26,.2),transparent 70%);}
   .balance-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2;}
   .balance-label{font-size:13px;color:var(--sub);font-weight:600;letter-spacing:.3px;}
-  .coin-spin{width:34px;height:34px;animation:spin 3.5s linear infinite;flex-shrink:0;}
+  .coin-spin{width:38px;height:38px;animation:spin 3.5s linear infinite;flex-shrink:0;}
   @keyframes spin{from{transform:rotateY(0);}to{transform:rotateY(360deg);}}
-  .balance-amt{font-size:52px;font-weight:900;letter-spacing:-1.2px;margin-top:8px;position:relative;z-index:2;line-height:1;text-shadow:0 4px 20px rgba(255,198,26,.15);}
-  .balance-amt span{font-size:18px;color:var(--yellow);font-weight:800;margin-left:6px;}
-  .balance-stats{display:flex;gap:10px;margin-top:18px;position:relative;z-index:2;}
+  
+  /* ተለቅ ያለ ቀሪ ሂሳብ ቁጥር */
+  .balance-amt{font-size:64px;font-weight:900;letter-spacing:-1.5px;margin-top:10px;position:relative;z-index:2;line-height:1;text-shadow:0 4px 20px rgba(255,198,26,.2);color:var(--text);}
+  .balance-amt span{font-size:20px;color:var(--yellow);font-weight:800;margin-left:8px;}
+  
+  .balance-stats{display:flex;gap:10px;margin-top:22px;position:relative;z-index:2;}
   .bstat{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:10px 10px;}
   .bstat b{display:block;font-size:16px;font-weight:800;color:var(--yellow);}
   .bstat span{font-size:10.5px;color:var(--sub);}
@@ -60,7 +63,7 @@
   h3.section-title svg{width:15px;height:15px;fill:var(--yellow);}
   .section-sub{font-size:11.5px;color:var(--sub);margin-bottom:10px;}
 
-  /* ---------- Live withdrawal ticker ---------- */
+  /* ---------- Ticker ---------- */
   .ticker-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:14px;display:flex;align-items:center;gap:12px;overflow:hidden;position:relative;}
   .ticker-wrap::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);}
   .ticker-icon{width:36px;height:36px;border-radius:10px;background:var(--card-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -90,18 +93,27 @@
   .copy-btn{background:var(--yellow);border:none;border-radius:10px;padding:0 14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
   .copy-btn svg{width:16px;height:16px;fill:#0a0a0a;}
 
-  /* ---------- Leaderboard ---------- */
+  /* ---------- Leaderboard (Top 3 Cards + Standard List) ---------- */
+  .podium-container{display:flex;gap:8px;margin-bottom:16px;align-items:flex-end;}
+  .podium-card{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 8px;text-align:center;position:relative;overflow:hidden;}
+  .podium-card.rank-1{border-color:var(--yellow);background:linear-gradient(180deg,#241f0b 0%, #131313 100%);transform:scale(1.04);z-index:2;}
+  .podium-card.rank-2{border-color:#a1a1a1;}
+  .podium-card.rank-3{border-color:#cd8a52;}
+  .podium-badge{width:30px;height:30px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;}
+  .rank-1 .podium-badge{background:var(--yellow);color:#000;box-shadow:0 0 12px rgba(255,198,26,.4);}
+  .rank-2 .podium-badge{background:#e0e0e0;color:#000;}
+  .rank-3 .podium-badge{background:#cd8a52;color:#fff;}
+  .podium-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .podium-amt{font-size:12px;font-weight:900;color:var(--yellow);margin-top:4px;}
+
   .lb-item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px;}
   .rank-badge{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;background:var(--card-2);color:var(--sub);flex-shrink:0;}
-  .rank-badge.gold{background:linear-gradient(135deg,#FFD54A,#B8900F);color:#0a0a0a;}
-  .rank-badge.silver{background:linear-gradient(135deg,#d8d8d8,#8a8a8a);color:#0a0a0a;}
-  .rank-badge.bronze{background:linear-gradient(135deg,#cd8a52,#8a5a2e);color:#0a0a0a;}
   .lb-info{flex-grow:1;}
   .lb-info h4{font-size:13px;font-weight:700;}
   .lb-info span{font-size:10.5px;color:var(--sub);}
   .lb-amt{font-weight:800;color:var(--yellow);font-size:13px;}
 
-  /* ---------- Testimonials ---------- */
+  /* ---------- Testimonials & Form ---------- */
   .testi-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;}
   .testi-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
   .testi-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),var(--yellow-dim));display:flex;align-items:center;justify-content:center;font-weight:800;color:#0a0a0a;font-size:13px;flex-shrink:0;}
@@ -160,7 +172,6 @@
     </div>
   </div>
 
-  <!-- Live withdrawal ticker -->
   <div class="ticker-wrap">
     <div class="ticker-icon">
       <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 4.5L18.5 19h-13L12 6.5z"/></svg>
@@ -216,7 +227,7 @@
 <!-- 3. INVITE -->
 <section id="invite" class="page">
   <h3 class="section-title" style="margin-top:0;">
-    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
     ጓደኞችዎን ይጋብዙ
   </h3>
   <p class="section-sub">ለእያንዳንዱ ለሚጋብዟቸው ጓደኛ 20 ETB ቦነስ ያግኙ።</p>
@@ -230,13 +241,18 @@
   </div>
 </section>
 
-<!-- 4. LEADERBOARD -->
+<!-- 4. LEADERBOARD (Top 3 Cards + List) -->
 <section id="top" class="page">
   <h3 class="section-title" style="margin-top:0;">
     <svg viewBox="0 0 24 24"><path d="M5 16L3 5l5.5 4L12 3l3.5 6L21 5l-2 11H5zm14 3H5v2h14v-2z"/></svg>
     ከፍተኛ ገቢ ያገኙ
   </h3>
   <p class="section-sub">ከ50 በላይ ተጠቃሚዎች ደረጃ</p>
+
+  <!-- Top 3 Podium Cards -->
+  <div class="podium-container" id="podiumArea"></div>
+
+  <!-- 4-50 List -->
   <div class="card-list" id="leaderboardList"></div>
 </section>
 
@@ -293,7 +309,7 @@
     <span>Earn</span>
   </button>
   <button class="nav-item" data-page="invite" onclick="showPage('invite')">
-    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zM8 11c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3zM8 11c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
     <span>ጋብዝ</span>
   </button>
   <button class="nav-item" data-page="top" onclick="showPage('top')">
@@ -307,8 +323,8 @@
 </nav>
 
 <script>
-/* ============ Config ============ */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMHD2UG3mVQrxqytDkZpyYjEtRJythEKnC8sNBkz25RG8cDOc7T4t5NL1nMEmZehjdcA/exec';
+/* ============  ============ */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_CwZ9cow7EtXLHBWp1VLqyWdxcuZbKX7hB3deJjH3ND75J0e1xwsAA0Iokf9EBwsh/exec';
 const CHANNEL_LINK = 'https://t.me/swapmoneybirr';
 const CHANNEL_REWARD = 100;
 const AD_REWARD = 50;
@@ -350,8 +366,34 @@ function loadState(){
     return Object.assign(defaults, s);
   }catch(e){ return defaults; }
 }
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function saveState(){ 
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); 
+}
 let state = loadState();
+
+/* ============ Sync User To Sheet ============ */
+async function syncUserToSheet(){
+  if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
+  const user = tg.initDataUnsafe.user;
+  
+  const payload = {
+    action: 'syncUser',
+    userId: user.id,
+    username: user.username || user.first_name,
+    balance: state.balance,
+    totalAds: state.totalAdsWatched
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) { console.log('Sync error:', e); }
+}
 
 /* ============ Navigation ============ */
 function showPage(pageId){
@@ -423,7 +465,7 @@ function renderAdList(){
         <div class="card-item">
           <div class="icon-wrap"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7z"/></svg></div>
           <div class="info"><h4>Ad #${state.adsWatchedToday + i + 1}</h4><p>+${AD_REWARD} ETB</p></div>
-          <button class="action-btn" onclick="watchAd()">ይመልከቱ</button>
+          <button class="action-btn" onclick="watchAd(event)">ይመልከቱ</button>
         </div>`;
     }
   }
@@ -431,10 +473,9 @@ function renderAdList(){
   adList.innerHTML = html;
 }
 
-// Ad watch: redirects to the Telegram channel, then credits the reward when they come back
-function watchAd(){
+function watchAd(e){
   if(state.adsWatchedToday >= DAILY_AD_LIMIT) return;
-  const btn = event.target;
+  const btn = e.target;
   btn.disabled = true;
   btn.innerText = 'እየተጠበቀ...';
 
@@ -455,9 +496,10 @@ function completeAd(){
   if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   toast(`🎉 ${AD_REWARD} ETB ወደ ሂሳብዎ ተጨምሯል!`);
   render();
+  syncUserToSheet();
 }
 
-/* ============ Daily check-in ============ */
+/* ============ Daily Check-in & Channel Join ============ */
 function dailyCheckin(){
   if(state.lastCheckin === todayStr()) return;
   state.balance += 5;
@@ -466,9 +508,9 @@ function dailyCheckin(){
   if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   toast('✅ 5 ETB ተጨምሯል! ነገ እንደገና ይመለሱ');
   render();
+  syncUserToSheet();
 }
 
-/* ============ Channel join (redirects to Telegram) ============ */
 function joinChannel(){
   if(state.channelJoined){ toast('ይህን ስራ አስቀድመው አጠናቅቀዋል'); return; }
 
@@ -484,6 +526,7 @@ function joinChannel(){
     state.activity.unshift({ title:'የቴሌግራም ቻናል ተቀላቅሏል', amount: CHANNEL_REWARD, date: Date.now(), status:'ተጠናቋል' });
     toast(`🎉 ${CHANNEL_REWARD} ETB ለመቀላቀል ተጨምሯል!`);
     render();
+    syncUserToSheet();
   }, 3000);
 }
 
@@ -496,20 +539,45 @@ function copyRefLink(){
   if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 }
 
-/* ============ Leaderboard: 50 entries ============ */
+/* ============ Leaderboard (1-3 Top Cards + 4-50 List) ============ */
 const LB_FIRST = ['Yohannes','Marta','Bereket','Selam','Dawit','Hana','Mekdes','Samuel','Tsehay','Kidus','Elias','Ruth','Nardos','Yared','Betty','Abel','Fikirte','Nathan','Wubet','Solomon','Meron','Getahun','Rediet','Amanuel','Hiwot','Kalkidan','Mesfin','Alemitu','Girum','Sara'];
 const LB_LAST = ['Getachew','Girma','Assefa','Tesfaye','Bekele','Alemu','Wolde','Mekonnen','Haile','Desta','Kebede','Tadesse','Gebre','Abebe','Ayele'];
 function seedName(i){ return `${LB_FIRST[i % LB_FIRST.length]} ${LB_LAST[(i*3) % LB_LAST.length]}`; }
 
 function renderLeaderboard(){
+  const podiumArea = document.getElementById('podiumArea');
   const list = document.getElementById('leaderboardList');
-  const badgeClass = i => i===0?'gold':i===1?'silver':i===2?'bronze':'';
+  
+  // 1-3 Top Podium HTML
+  const p2Amt = Math.round(3140);
+  const p1Amt = Math.round(3200);
+  const p3Amt = Math.round(3080);
+
+  podiumArea.innerHTML = `
+    <div class="podium-card rank-2">
+      <div class="podium-badge">2</div>
+      <div class="podium-name">${seedName(1)}</div>
+      <div class="podium-amt">${p2Amt.toLocaleString()} ETB</div>
+    </div>
+    <div class="podium-card rank-1">
+      <div class="podium-badge">1</div>
+      <div class="podium-name">${seedName(0)}</div>
+      <div class="podium-amt">${p1Amt.toLocaleString()} ETB</div>
+    </div>
+    <div class="podium-card rank-3">
+      <div class="podium-badge">3</div>
+      <div class="podium-name">${seedName(2)}</div>
+      <div class="podium-amt">${p3Amt.toLocaleString()} ETB</div>
+    </div>
+  `;
+
+  // 4-50 Remaining List
   let html = '';
-  for(let i=0;i<50;i++){
+  for(let i=3; i<50; i++){
     const amt = Math.round(3200 - i*58 + (i%7)*11);
     html += `
       <div class="lb-item">
-        <div class="rank-badge ${badgeClass(i)}">${i+1}</div>
+        <div class="rank-badge">${i+1}</div>
         <div class="lb-info"><h4>${seedName(i)}</h4><span>ጠቅላላ ገቢ</span></div>
         <div class="lb-amt">${amt.toLocaleString()} ETB</div>
       </div>`;
@@ -531,6 +599,7 @@ const TESTIMONIALS = [
   { name:'Selam T.', text:'ጓደኞቼን ጋብዤ ተጨማሪ ቦነስ አገኘሁ፣ በጣም ደስ ብሎኛል።' },
   { name:'Dawit B.', text:'App ቀላል እና ለመጠቀም ምቹ ነው፣ ውጤቱም ግልጽ ነው።' }
 ];
+
 function renderTestimonials(){
   const wrap = document.getElementById('testimonialsList');
   wrap.innerHTML = TESTIMONIALS.map(t => `
@@ -546,7 +615,7 @@ function renderTestimonials(){
     </div>`).join('');
 }
 
-/* ============ Live withdrawal ticker (rotating, generic) ============ */
+/* ============ Live Ticker ============ */
 const TICKER_METHODS = ['Awash Bank','CBE Birr','Telebirr','Amole'];
 function rotateTicker(){
   const amt = (Math.floor(Math.random()*30)+18) * 100;
@@ -557,8 +626,8 @@ function rotateTicker(){
 }
 setInterval(rotateTicker, 6000);
 
-/* ============ Withdraw ============ */
-function handleWithdraw(e){
+/* ============ Withdraw (Working with Google Sheets) ============ */
+async function handleWithdraw(e){
   e.preventDefault();
   const method = document.getElementById('payMethod');
   const account = document.getElementById('payAccount').value.trim();
@@ -569,19 +638,49 @@ function handleWithdraw(e){
   if(isNaN(amount) || amount < MIN_WITHDRAW){ toast(`አነስተኛ የማውጫ መጠን ${MIN_WITHDRAW} ETB ነው`); return; }
   if(amount > state.balance){ toast('በቂ ቀሪ ሂሳብ የለዎትም'); return; }
 
-  state.balance -= amount;
-  state.withdrawals.unshift({ method: methodLabel, account, amount: amount.toFixed(2), status:'በሂደት ላይ', date: Date.now() });
-  state.activity.unshift({ title:`ወደ ${methodLabel} ተልኳል`, amount: -amount, date: Date.now(), status:'በሂደት ላይ' });
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'በመላክ ላይ...';
 
-  if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-  toast('✅ የክፍያ ጥያቄዎ ተልኳል! በ24 ሰዓት ውስጥ ይረጋገጣል');
-  document.getElementById('withdrawForm').reset();
-  render();
-  showPage('withdraw');
+  const userId = tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'GUEST_' + Date.now();
+
+  const payload = {
+    action: 'withdraw',
+    userId: userId,
+    method: methodLabel,
+    account: account,
+    amount: amount
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    state.balance -= amount;
+    state.withdrawals.unshift({ method: methodLabel, account, amount: amount.toFixed(2), status:'በሂደት ላይ', date: Date.now() });
+    state.activity.unshift({ title:`ወደ ${methodLabel} ተልኳል`, amount: -amount, date: Date.now(), status:'በሂደት ላይ' });
+
+    if(tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    toast('✅ የክፍያ ጥያቄዎ ተልኳል! በ24 ሰዓት ውስጥ ይረጋገጣል');
+    document.getElementById('withdrawForm').reset();
+    render();
+    showPage('withdraw');
+
+  } catch(err) {
+    toast('❌ ስህተት ተከሰቷል። እባክዎ ድጋሚ ይሞክሩ');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 4.5L18.5 19h-13L12 6.5z"/></svg> የክፍያ ጥያቄ ላክ`;
+  }
 }
 
 /* ============ Init ============ */
 render();
+syncUserToSheet();
 </script>
 </body>
 </html>
