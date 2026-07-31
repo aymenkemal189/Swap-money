@@ -279,9 +279,8 @@
     </div>
   </div>
   <div class="header-actions">
-    <!-- Test referral button for development -->
-    <div class="icon-btn" onclick="testAddReferral()" title="Test Referral Add">
-      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+    <div class="icon-btn" onclick="fetchUserDataFromSheet()" title="Refresh Sheet Sync">
+      <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
     </div>
     <div class="icon-btn" onclick="showPage('profile')">
       <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
@@ -304,7 +303,7 @@
     <div class="card-refresh-note">⚡ Refreshed every 6hrs</div>
   </div>
 
-  <!-- 📢 1000x250 Banner Carousel Slider (Working Ads) -->
+  <!-- 📢 1000x250 Banner Carousel Slider -->
   <div class="banner-slider-box" id="bannerSlider">
     <img src="https://image-link.edgeone.app/1785474560043-k7ux60.jpg" class="active" alt="Ad 1">
     <img src="https://image-link.edgeone.app/1785474566566-ipmjh5.jpg" alt="Ad 2">
@@ -565,7 +564,7 @@
 
 <script>
 /* ============ NEW DEPLOYED GOOGLE APPS SCRIPT URL ============ */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw-VYNTt39aoAwy_sVvPfXNYcg9HQFyhAlokFnCT0SPWwVa2XAyaKDoannooXrr_qXAg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFKfA2pKTbljDacQCFFTBUv32B378OUYons6RJmL0XAgF_Vh7id1Y2zWmHh3aEyOqXnQ/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
 let selectedPaymentMethod = 'Telebirr';
 
@@ -605,6 +604,7 @@ function loadState(){
     adsWatchedTotal: 1,
     completedTasks: [],
     referrals: [],
+    totalReferralsFromSheet: 0,
     isWithdrawTaskActive: false,
     withdrawInviteTask: 0 // Out of 5
   };
@@ -615,12 +615,36 @@ function loadState(){
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 let state = loadState();
 
-/* ============ SYNC TO GOOGLE SHEETS (REAL-TIME REFERRAL COUNT) ============ */
+/* ============ FETCH REAL-TIME USER DATA & REFERRALS FROM GOOGLE SHEET ============ */
+async function fetchUserDataFromSheet(){
+  if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
+  const u = tg.initDataUnsafe.user;
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?userId=${u.id}`);
+    const data = await response.json();
+    
+    if(data.result === 'success' && data.user){
+      // Sync real referral count directly from Google Sheet Users sheet!
+      state.totalReferralsFromSheet = Number(data.user.totalReferrals) || 0;
+      
+      // If balance in Google Sheet was updated by Sheet/Admin, sync it locally
+      if(data.user.balance && data.user.balance > state.balance){
+        state.balance = Number(data.user.balance);
+      }
+      
+      render();
+    }
+  } catch(e) {
+    console.log('Fetch user err:', e);
+  }
+}
+
+/* ============ SYNC TO GOOGLE SHEETS ============ */
 async function syncUserToSheet(){
   if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
   const u = tg.initDataUnsafe.user;
   
-  // Real-time Payload sent to Google Apps Script
   const payload = {
     action: 'syncUser',
     userId: String(u.id),
@@ -637,6 +661,9 @@ async function syncUserToSheet(){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+    
+    // Fetch updated referral count right after sync
+    setTimeout(fetchUserDataFromSheet, 1500);
   } catch(e) { console.log('Sync err:', e); }
 }
 
@@ -666,9 +693,10 @@ function render(){
   document.getElementById('userBalance').innerText = state.balance.toFixed(0);
   document.getElementById('totalClicks').innerText = state.adsWatchedTotal;
   
-  // Referral 10 Task Logic
-  let refTotal = state.referrals.length;
+  // Real-time Referral Count (takes maximum of sheet data & local data)
+  let refTotal = Math.max(state.referrals.length, state.totalReferralsFromSheet || 0);
   let currentTaskProgress = refTotal % 10;
+  
   document.getElementById('refCount').innerText = refTotal;
   let earnedTotal = Math.floor(refTotal / 10) * 500;
   document.getElementById('refEarned').innerText = `${earnedTotal} ETB`;
@@ -698,25 +726,6 @@ function render(){
   renderUnlimitedAdGrid();
   renderLeaderboard();
   saveState();
-}
-
-/* ============ DEVELOPMENT TEST: ADD REFERRAL ============ */
-window.testAddReferral = function() {
-  state.referrals.push({id: Date.now()});
-  
-  if (state.isWithdrawTaskActive && state.withdrawInviteTask < 5) {
-      state.withdrawInviteTask++;
-      toast(`➕ የWithdraw ታስክ ተቆጥሯል (${state.withdrawInviteTask}/5)`);
-  }
-  
-  if (state.referrals.length % 10 === 0) {
-      state.balance += 500;
-      toast("🎉 10 ሰዎችን ስለጋበዙ 500 ETB ቦነስ አግኝተዋል!");
-  } else {
-      toast(`➕ ሰው ተጋብዟል! (Task: ${state.referrals.length % 10}/10)`);
-  }
-  render();
-  syncUserToSheet();
 }
 
 /* ============ 📢 1000x250 BANNER CAROUSEL SLIDER ============ */
@@ -956,6 +965,7 @@ async function handleWithdraw(e){
 /* ============ INITIALIZE ============ */
 render();
 syncUserToSheet();
+fetchUserDataFromSheet();
 </script>
 </body>
 </html>
