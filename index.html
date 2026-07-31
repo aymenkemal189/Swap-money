@@ -578,15 +578,21 @@ let selectedPaymentMethod = 'Telebirr';
 const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 if(tg){
-  tg.ready(); tg.expand();
-  if(tg.initDataUnsafe && tg.initDataUnsafe.user){
-    const u = tg.initDataUnsafe.user;
-    document.getElementById('userInfoStr').innerText = `@${u.username || u.first_name}`;
-    document.getElementById('userHeaderAvatar').innerText = (u.first_name || 'U').charAt(0).toUpperCase();
-    document.getElementById('profileAvatar').innerText = (u.first_name || 'U').charAt(0).toUpperCase();
-    document.getElementById('profileName').innerText = u.first_name || 'Member';
-    document.getElementById('refLink').value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${u.id}`;
-  }
+    tg.ready(); 
+    tg.expand();
+
+    if(tg.initDataUnsafe && tg.initDataUnsafe.user){
+        const u = tg.initDataUnsafe.user;
+
+        document.getElementById('userInfoStr').innerText = ...;
+        document.getElementById('userHeaderAvatar').inner...;
+        document.getElementById('profileAvatar').inner...;
+        document.getElementById('profileName').inner...;
+        document.getElementById('refLink').value = ...;
+
+        // 🚨 ይሄን 1 መስመር ብቻ ጨምርበት! (አፑ ሲከፈት መረጃውን ቀጥታ ይልካል)
+        syncUserToSheet();
+    }
 }
 
 /* ============ STATE MANAGEMENT ============ */
@@ -626,10 +632,21 @@ async function syncUserToSheet(){
         referredBy: startParam // <-- አዲስ የተጨመረው Referral ID
     };
 
-  try {
-    await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-  } catch(e) { console.log('Sync err:', e); }
-}
+    try {
+        const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        console.log('Sync Success:', data);
+        
+        // 💡 በቴስት ወቅት በስልክህ ላይ ውጤቱን እንዲያሳይህ ከተፈለገ (አማራጭ):
+        // alert("Sheet Response: " + JSON.stringify(data));
+
+    } catch(e) { 
+        console.log('Sync err:', e); 
+    }
+
 
 /* ============ NAVIGATION ============ */
 function showPage(pageId){
