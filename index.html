@@ -137,10 +137,6 @@
     border-radius: 12px; font-size: 11.5px; font-weight: 900; cursor: pointer; transition: 0.15s; white-space: nowrap;
   }
   .btn-sm-yellow:disabled { background: var(--card-bg-light); color: var(--text-secondary); opacity: 0.6; }
-  .btn-sm-outline {
-    background: transparent; color: #fff; border: 1px solid var(--border-line); padding: 8px 12px;
-    border-radius: 12px; font-size: 11.5px; font-weight: 800; cursor: pointer; white-space: nowrap;
-  }
 
   /* Live Withdrawals Feed */
   .feed-list { display: flex; flex-direction: column; gap: 10px; }
@@ -283,7 +279,7 @@
     </div>
   </div>
   <div class="header-actions">
-    <!-- Test referral button for development - invisible logic triggers -->
+    <!-- Test referral button for development -->
     <div class="icon-btn" onclick="testAddReferral()" title="Test Referral Add">
       <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
     </div>
@@ -377,7 +373,6 @@
           <p>+150 ETB · ⏱️ 60s Timer</p>
         </div>
       </div>
-      <!-- Edit YouTube links here easily -->
       <button class="btn-sm-yellow" id="btnTaskYtSub" onclick="startTaskTimer('ytsub', 'https://www.youtube.com/@swapmoneyeth', 150, 60)">Subscribe & Start</button>
     </div>
 
@@ -402,7 +397,7 @@
   <div class="feed-list" id="withdrawalFeed"></div>
 </section>
 
-<!-- 2. EARN TAB (Unlimited Ads - Logic changed to 10 Ads) -->
+<!-- 2. EARN TAB (Unlimited Ads) -->
 <section id="earn" class="page">
   <div class="section-hdr" style="margin-top:0;">
     <span>Watch Unlimited Ads & Earn ☀️</span>
@@ -423,7 +418,7 @@
   <div class="lb-list" id="leaderboardList"></div>
 </section>
 
-<!-- 4. REFERRAL TAB (10 Invites = 500 Birr Direct Link) -->
+<!-- 4. REFERRAL TAB -->
 <section id="invite" class="page">
   <div class="ref-big-card" style="background: var(--card-mastercard-grad); padding:20px; border-radius:18px; text-align:center; margin-bottom:16px; border:1px solid var(--accent-yellow);">
     <p style="font-weight:800; color:var(--text-secondary);">10 ጓደኛ ሲጋብዙ</p>
@@ -569,30 +564,35 @@
 </nav>
 
 <script>
-/* ============ CONFIGURATION & BACKEND SCRIPT ============ */
+/* ============ NEW DEPLOYED GOOGLE APPS SCRIPT URL ============ */
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw-VYNTt39aoAwy_sVvPfXNYcg9HQFyhAlokFnCT0SPWwVa2XAyaKDoannooXrr_qXAg/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
 let selectedPaymentMethod = 'Telebirr';
 
-/* ============ TELEGRAM WEBAPP INIT ============ */
+/* ============ TELEGRAM WEBAPP INIT & REFERRAL EXTRACT ============ */
 const tg = window.Telegram ? window.Telegram.WebApp : null;
+let referrerId = "None";
 
 if(tg){
-    tg.ready(); 
-    tg.expand();
+  tg.ready(); tg.expand();
+  if(tg.initDataUnsafe && tg.initDataUnsafe.user){
+    const u = tg.initDataUnsafe.user;
+    document.getElementById('userInfoStr').innerText = `@${u.username || u.first_name}`;
+    document.getElementById('userHeaderAvatar').innerText = (u.first_name || 'U').charAt(0).toUpperCase();
+    document.getElementById('profileAvatar').innerText = (u.first_name || 'U').charAt(0).toUpperCase();
+    document.getElementById('profileName').innerText = u.first_name || 'Member';
+    document.getElementById('refLink').value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${u.id}`;
 
-    if(tg.initDataUnsafe && tg.initDataUnsafe.user){
-        const u = tg.initDataUnsafe.user;
-
-        document.getElementById('userInfoStr').innerText = ...;
-        document.getElementById('userHeaderAvatar').inner...;
-        document.getElementById('profileAvatar').inner...;
-        document.getElementById('profileName').inner...;
-        document.getElementById('refLink').value = ...;
-
-        // 🚨 ይሄን 1 መስመር ብቻ ጨምርበት! (አፑ ሲከፈት መረጃውን ቀጥታ ይልካል)
-        syncUserToSheet();
+    // Extract Telegram Referral parameter if user arrived via invitation link
+    if (tg.initDataUnsafe.start_param) {
+      let sp = tg.initDataUnsafe.start_param;
+      if (sp.startsWith('ref_')) {
+        referrerId = sp.replace('ref_', '');
+      } else {
+        referrerId = sp;
+      }
     }
+  }
 }
 
 /* ============ STATE MANAGEMENT ============ */
@@ -615,38 +615,30 @@ function loadState(){
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 let state = loadState();
 
-/* ============ SYNC TO GOOGLE SHEETS ============ */
+/* ============ SYNC TO GOOGLE SHEETS (REAL-TIME REFERRAL COUNT) ============ */
 async function syncUserToSheet(){
-    if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
-    const u = tg.initDataUnsafe.user;
+  if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
+  const u = tg.initDataUnsafe.user;
+  
+  // Real-time Payload sent to Google Apps Script
+  const payload = {
+    action: 'syncUser',
+    userId: String(u.id),
+    username: u.username || u.first_name || "Guest",
+    balance: Number(state.balance),
+    totalAds: Number(state.adsWatchedTotal),
+    referredBy: String(referrerId || "None")
+  };
 
-    // ከ Telegram Referral link የመጣውን የጋበዘውን ሰው ID መያዣ
-    const startParam = tg.initDataUnsafe.start_param || "";
-
-    const payload = {
-        action: 'syncUser',
-        userId: u.id,
-        username: u.username || u.first_name,
-        balance: state.balance,
-        totalAds: state.adsWatchedTotal,
-        referredBy: startParam // <-- አዲስ የተጨመረው Referral ID
-    };
-
-    try {
-        const res = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        console.log('Sync Success:', data);
-        
-        // 💡 በቴስት ወቅት በስልክህ ላይ ውጤቱን እንዲያሳይህ ከተፈለገ (አማራጭ):
-        // alert("Sheet Response: " + JSON.stringify(data));
-
-    } catch(e) { 
-        console.log('Sync err:', e); 
-    }
-
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) { console.log('Sync err:', e); }
+}
 
 /* ============ NAVIGATION ============ */
 function showPage(pageId){
@@ -677,15 +669,12 @@ function render(){
   // Referral 10 Task Logic
   let refTotal = state.referrals.length;
   let currentTaskProgress = refTotal % 10;
-  if(currentTaskProgress === 0 && refTotal > 0) currentTaskProgress = 10; // Show 10/10 temporarily if needed, though % 10 is 0. 
-  // Better calculation:
-  let progressDisplay = refTotal % 10;
   document.getElementById('refCount').innerText = refTotal;
   let earnedTotal = Math.floor(refTotal / 10) * 500;
   document.getElementById('refEarned').innerText = `${earnedTotal} ETB`;
   
-  document.getElementById('refTaskProgressText').innerText = `${progressDisplay}/10`;
-  document.getElementById('refTaskProgressBar').style.width = `${(progressDisplay / 10) * 100}%`;
+  document.getElementById('refTaskProgressText').innerText = `${currentTaskProgress}/10`;
+  document.getElementById('refTaskProgressBar').style.width = `${(currentTaskProgress / 10) * 100}%`;
 
   // Withdraw 5 Task Logic
   const wtNotice = document.getElementById('withdrawTaskNotice');
@@ -712,7 +701,6 @@ function render(){
 }
 
 /* ============ DEVELOPMENT TEST: ADD REFERRAL ============ */
-// User can click the notification icon in the header to simulate a referral link click for testing!
 window.testAddReferral = function() {
   state.referrals.push({id: Date.now()});
   
@@ -728,6 +716,7 @@ window.testAddReferral = function() {
       toast(`➕ ሰው ተጋብዟል! (Task: ${state.referrals.length % 10}/10)`);
   }
   render();
+  syncUserToSheet();
 }
 
 /* ============ 📢 1000x250 BANNER CAROUSEL SLIDER ============ */
@@ -748,7 +737,7 @@ const FEED_BANKS = ['Telebirr', 'Commercial Bank of Ethiopia', 'Awash Bank', 'Ba
 function rotateLiveFeed() {
   const name = FEED_NAMES[Math.floor(Math.random() * FEED_NAMES.length)];
   const bank = FEED_BANKS[Math.floor(Math.random() * FEED_BANKS.length)];
-  const amt = (Math.floor(Math.random() * 80) + 25) * 100; // Random amount above 2500
+  const amt = (Math.floor(Math.random() * 80) + 25) * 100;
   const mins = Math.floor(Math.random() * 8) + 1;
   
   const feedEl = document.getElementById('withdrawalFeed');
@@ -821,7 +810,7 @@ function startTaskTimer(taskId, url, reward, duration){
   }, 1000);
 }
 
-/* ============ ♾️ UNLIMITED ADS GRID (Rewards Change > 10) ============ */
+/* ============ ♾️ UNLIMITED ADS GRID ============ */
 function renderUnlimitedAdGrid(){
   const grid = document.getElementById('adGridArea');
   let html = '';
