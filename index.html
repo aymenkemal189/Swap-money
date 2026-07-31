@@ -279,6 +279,7 @@
     </div>
   </div>
   <div class="header-actions">
+    <!-- Refresh Button triggers real-time Google Sheet sync -->
     <div class="icon-btn" onclick="fetchUserDataFromSheet()" title="Refresh Sheet Sync">
       <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
     </div>
@@ -563,8 +564,8 @@
 </nav>
 
 <script>
-/* ============ NEW DEPLOYED GOOGLE APPS SCRIPT URL ============ */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFKfA2pKTbljDacQCFFTBUv32B378OUYons6RJmL0XAgF_Vh7id1Y2zWmHh3aEyOqXnQ/exec';
+/* ============ YOUR DEPLOYED GOOGLE APPS SCRIPT URL ============ */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDjVV0Dv6cKantVmlbq5e_YCNA_w5UCPqPym_e-S6te1vh0cech4Q9kCN92D7-uddtHQ/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
 let selectedPaymentMethod = 'Telebirr';
 
@@ -582,7 +583,7 @@ if(tg){
     document.getElementById('profileName').innerText = u.first_name || 'Member';
     document.getElementById('refLink').value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${u.id}`;
 
-    // Extract Telegram Referral parameter if user arrived via invitation link
+    // Telegram Referral parameter extraction
     if (tg.initDataUnsafe.start_param) {
       let sp = tg.initDataUnsafe.start_param;
       if (sp.startsWith('ref_')) {
@@ -595,7 +596,7 @@ if(tg){
 }
 
 /* ============ STATE MANAGEMENT ============ */
-const STORAGE_KEY = 'swapmoney_final_v8';
+const STORAGE_KEY = 'swapmoney_final_v9';
 
 function loadState(){
   let raw = localStorage.getItem(STORAGE_KEY);
@@ -615,7 +616,7 @@ function loadState(){
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 let state = loadState();
 
-/* ============ FETCH REAL-TIME USER DATA & REFERRALS FROM GOOGLE SHEET ============ */
+/* ============ REAL-TIME SYNC & FETCH FROM GOOGLE SHEETS ============ */
 async function fetchUserDataFromSheet(){
   if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
   const u = tg.initDataUnsafe.user;
@@ -625,11 +626,11 @@ async function fetchUserDataFromSheet(){
     const data = await response.json();
     
     if(data.result === 'success' && data.user){
-      // Sync real referral count directly from Google Sheet Users sheet!
+      // Read REAL-TIME totalReferrals directly from Google Sheet (Users Sheet, Col G)
       state.totalReferralsFromSheet = Number(data.user.totalReferrals) || 0;
       
-      // If balance in Google Sheet was updated by Sheet/Admin, sync it locally
-      if(data.user.balance && data.user.balance > state.balance){
+      // Update balance if Sheet has a higher balance (e.g. 500 ETB milestone added by Sheet)
+      if(data.user.balance && Number(data.user.balance) > state.balance){
         state.balance = Number(data.user.balance);
       }
       
@@ -640,7 +641,6 @@ async function fetchUserDataFromSheet(){
   }
 }
 
-/* ============ SYNC TO GOOGLE SHEETS ============ */
 async function syncUserToSheet(){
   if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
   const u = tg.initDataUnsafe.user;
@@ -662,8 +662,8 @@ async function syncUserToSheet(){
       body: JSON.stringify(payload)
     });
     
-    // Fetch updated referral count right after sync
-    setTimeout(fetchUserDataFromSheet, 1500);
+    // Fetch updated real-time referral count right after syncing
+    setTimeout(fetchUserDataFromSheet, 1200);
   } catch(e) { console.log('Sync err:', e); }
 }
 
@@ -693,8 +693,8 @@ function render(){
   document.getElementById('userBalance').innerText = state.balance.toFixed(0);
   document.getElementById('totalClicks').innerText = state.adsWatchedTotal;
   
-  // Real-time Referral Count (takes maximum of sheet data & local data)
-  let refTotal = Math.max(state.referrals.length, state.totalReferralsFromSheet || 0);
+  // Real-time Referral Count directly synced from Google Sheet Users sheet
+  let refTotal = Math.max(state.totalReferralsFromSheet || 0, state.referrals.length || 0);
   let currentTaskProgress = refTotal % 10;
   
   document.getElementById('refCount').innerText = refTotal;
@@ -962,10 +962,13 @@ async function handleWithdraw(e){
   }
 }
 
-/* ============ INITIALIZE ============ */
+/* ============ INITIALIZE & REAL-TIME BACKGROUND POLLING ============ */
 render();
 syncUserToSheet();
 fetchUserDataFromSheet();
+
+// Auto-sync real-time referral count from Google Sheet every 15 seconds
+setInterval(fetchUserDataFromSheet, 15000);
 </script>
 </body>
 </html>
