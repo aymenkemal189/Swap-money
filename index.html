@@ -570,7 +570,7 @@
 
 <script>
 /* ============ CONFIGURATION & BACKEND SCRIPT ============ */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_CwZ9cow7EtXLHBWp1VLqyWdxcuZbKX7hB3deJjH3ND75J0e1xwsAA0Iokf9EBwsh/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzw-VYNTt39aoAwy_sVvPfXNYcg9HQFyhAlokFnCT0SPWwVa2XAyaKDoannooXrr_qXAg/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
 let selectedPaymentMethod = 'Telebirr';
 
@@ -611,15 +611,21 @@ let state = loadState();
 
 /* ============ SYNC TO GOOGLE SHEETS ============ */
 async function syncUserToSheet(){
-  if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
-  const u = tg.initDataUnsafe.user;
-  const payload = {
-    action: 'syncUser',
-    userId: u.id,
-    username: u.username || u.first_name,
-    balance: state.balance,
-    totalAds: state.adsWatchedTotal
-  };
+    if(!tg || !tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
+    const u = tg.initDataUnsafe.user;
+
+    // ከ Telegram Referral link የመጣውን የጋበዘውን ሰው ID መያዣ
+    const startParam = tg.initDataUnsafe.start_param || "";
+
+    const payload = {
+        action: 'syncUser',
+        userId: u.id,
+        username: u.username || u.first_name,
+        balance: state.balance,
+        totalAds: state.adsWatchedTotal,
+        referredBy: startParam // <-- አዲስ የተጨመረው Referral ID
+    };
+
   try {
     await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
   } catch(e) { console.log('Sync err:', e); }
