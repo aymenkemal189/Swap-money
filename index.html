@@ -144,7 +144,7 @@
     background: var(--accent-yellow); color: #000; border: none; padding: 8px 14px;
     border-radius: 12px; font-size: 11.5px; font-weight: 900; cursor: pointer; transition: 0.15s; white-space: nowrap;
   }
-  .btn-sm-yellow:disabled { background: var(--card-bg-light); color: var(--text-secondary); opacity: 0.6; }
+  .btn-sm-yellow:disabled { background: var(--card-bg-light); color: var(--text-secondary); opacity: 0.6; cursor: not-allowed; }
 
   /* Live Withdrawals Feed */
   .feed-list { display: flex; flex-direction: column; gap: 10px; }
@@ -495,9 +495,9 @@
   </div>
 
   <div class="section-hdr">
-    <span>Watch Ads & Earn </span>
+    <span>Watch Ads & Earn ☀️</span>
   </div>
-  <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:14px;"> ማስታወቂያዎችን ይመልከቱ በእያንዳንዱ ማስታወቂያ ወደ ሂሳብዎ 50 ብር ይገባል ማሳሰቢያ ማስታወቂያ ለ 15 ሰከንድ አይተው x ምልክቱን ይጫኑ ሳይጨርሱ ከወጡ አይቆጠርም </p>
+  <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:14px;">ማስታወቂያዎችን ይመልከቱ በእያንዳንዱ ማስታወቂያ ወደ ሂሳብዎ 50 ብር ይገባል ማሳሰቢያ ማስታወቂያ ለ 15 ሰከንድ አይተው x ምልክቱን ይጫኑ ሳይጨርሱ ከወጡ አይቆጠርም</p>
   <div class="ad-grid" id="adGridArea"></div>
 </section>
 
@@ -506,7 +506,7 @@
   <div class="section-hdr" style="margin-top:0;">
     <span>ከፍተኛ ገቢ ያገኙ (Top 10)</span>
   </div>
-  <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:10px;">Live leaderboard </p>
+  <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:10px;">Live leaderboard</p>
 
   <div class="podium-wrap" id="podiumArea"></div>
   <div class="lb-list" id="leaderboardList"></div>
@@ -530,7 +530,7 @@
   </div>
 
   <div style="background:var(--card-bg); border:1px solid var(--border-line); border-radius:18px; padding:16px;">
-    <p style="font-size:11px; color:var(--text-secondary); font-weight:700; margin-bottom:8px;">የግብዣ ሊንክ </p>
+    <p style="font-size:11px; color:var(--text-secondary); font-weight:700; margin-bottom:8px;">የግብዣ ሊንክ</p>
     <input type="text" id="refLink" value="https://t.me/Swapmoney_bot/swapmoney?startapp=ref_123" style="width:100%; padding:12px; background:var(--bg-color); border:1px solid var(--border-line); border-radius:12px; color:#fff; font-size:11.5px; outline:none;" readonly>
 
     <div class="share-grid">
@@ -602,8 +602,8 @@
   </div>
 
   <div id="withdrawTaskNotice" style="display:none; background:rgba(239, 68, 68, 0.15); border:1px solid var(--red-color); padding:14px; border-radius:14px; margin-bottom:16px; text-align:center;">
-    <p style="font-size:12px; font-weight:800; color:#fff;">⚠️ ገንዘብ ለማውጣት 5 ሰዎችን መጋበዝ አለቦት!</p>
-    <h3 style="font-size:18px; color:var(--accent-yellow); margin-top:6px;" id="withdrawTaskProgressText">0/5</h3>
+    <p style="font-size:12px; font-weight:800; color:#fff;">⚠️ ገንዘብ ለማውጣት 10 ሰዎችን መጋበዝ አለቦት!</p>
+    <h3 style="font-size:18px; color:var(--accent-yellow); margin-top:6px;" id="withdrawTaskProgressText">0/10</h3>
     <button class="btn-sm-yellow" style="margin-top:10px;" onclick="showPage('invite')">ወደ ሪፈራል ሂድ</button>
   </div>
 
@@ -667,20 +667,20 @@
 </nav>
 
 <script>
-/* ============ EDITABLE SOCIAL LINKS (አዲስ ሊንኮችን እዚህ ይተኩ) ============ */
+/* ============ EDITABLE SOCIAL LINKS ============ */
 const LINK_TELEGRAM = 'https://t.me/SwapMoney_ETH';
 const LINK_YT_SUBSCRIBE = 'https://www.youtube.com/@swapmoneyeth';
-const LINK_YT_VIDEO_1 = 'https://youtu.be/WgRzYGYDDOs?si=foMIIKz6NJKhMizu'; // ቪዲዮ 1
-const LINK_YT_VIDEO_2 = 'https://youtu.be/WgRzYGYDDOs?si=foMIIKz6NJKhMizu'; // ቪዲዮ 2
+const LINK_YT_VIDEO_1 = 'https://youtu.be/WgRzYGYDDOs?si=foMIIKz6NJKhMizu';
+const LINK_YT_VIDEO_2 = 'https://youtu.be/WgRzYGYDDOs?si=foMIIKz6NJKhMizu';
 
-/* ============ YOUR DEPLOYED GOOGLE APPS SCRIPT URL ============ */
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDjVV0Dv6cKantVmlbq5e_YCNA_w5UCPqPym_e-S6te1vh0cech4Q9kCN92D7-uddtHQ/exec';
+/* ============ DEPLOYED GOOGLE APPS SCRIPT URL ============ */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFKfA2pKTbljDacQCFFTBUv32B378OUYons6RJmL0XAgF_Vh7id1Y2zWmHh3aEyOqXnQ/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
 let selectedPaymentMethod = 'Telebirr';
 
 let adClickCount = 0;
-let lastRewardedPopupTime = Date.now(); // Rate limiter for Rewarded Popup
-let appOpenTimestamp = Date.now();      // Tracks initial app open time for 2-min Ad Delay
+let lastRewardedPopupTime = Date.now();
+let appOpenTimestamp = Date.now();
 
 /* ============ TELEGRAM WEBAPP INIT & REFERRAL EXTRACT ============ */
 const tg = window.Telegram ? window.Telegram.WebApp : null;
@@ -696,7 +696,6 @@ if(tg){
     document.getElementById('profileName').innerText = u.first_name || 'Member';
     document.getElementById('refLink').value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${u.id}`;
 
-    // Telegram Referral parameter extraction
     if (tg.initDataUnsafe.start_param) {
       let sp = tg.initDataUnsafe.start_param;
       if (sp.startsWith('ref_')) {
@@ -708,11 +707,17 @@ if(tg){
   }
 }
 
-/* ============ STATE MANAGEMENT ============ */
-const STORAGE_KEY = 'swapmoney_final_v12';
+/* ============ DYNAMIC USER-SCOPED STORAGE KEY (ISOLATES USER ACCOUNTS) ============ */
+function getStorageKey() {
+  if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    return 'swapmoney_user_' + tg.initDataUnsafe.user.id;
+  }
+  return 'swapmoney_guest_v13';
+}
 
 function loadState(){
-  let raw = localStorage.getItem(STORAGE_KEY);
+  let key = getStorageKey();
+  let raw = localStorage.getItem(key);
   let defaults = {
     balance: 50.00, // Starts with 50 ETB welcome bonus
     adsWatchedTotal: 0,
@@ -720,17 +725,19 @@ function loadState(){
     referrals: [],
     totalReferralsFromSheet: 0,
     isWithdrawTaskActive: false,
-    withdrawInviteTask: 0,
     hasWelcomed: false
   };
   if(!raw) return defaults;
   try{ return Object.assign(defaults, JSON.parse(raw)); }catch(e){ return defaults; }
 }
 
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function saveState(){
+  let key = getStorageKey();
+  localStorage.setItem(key, JSON.stringify(state));
+}
 let state = loadState();
 
-/* ============ MONETAG IN-APP INTERSTITIAL INITIALIZATION (2 Min Timeout Delay & 2.5 Min Interval) ============ */
+/* ============ MONETAG IN-APP INTERSTITIAL INITIALIZATION ============ */
 if (typeof show_11460944 === 'function') {
   try {
     show_11460944({
@@ -739,14 +746,14 @@ if (typeof show_11460944 === 'function') {
         frequency: 2,
         capping: 0.1,
         interval: 150, // 2.5 minutes interval between auto ads
-        timeout: 120,  // Exactly 2 minutes (120 seconds) delay before 1st ad
+        timeout: 120,  // 2 minutes delay before first ad
         everyPage: false
       }
     });
   } catch(e) { console.log('InApp Init Error:', e); }
 }
 
-/* ============ WELCOME BONUS MODAL FOR FIRST TIME VISITORS ============ */
+/* ============ WELCOME BONUS MODAL ============ */
 function checkWelcomeBonus(){
   if(!state.hasWelcomed){
     state.hasWelcomed = true;
@@ -769,9 +776,12 @@ async function fetchUserDataFromSheet(){
     
     if(data.result === 'success' && data.user){
       state.totalReferralsFromSheet = Number(data.user.totalReferrals) || 0;
-      if(data.user.balance && Number(data.user.balance) > state.balance){
+      
+      // Single Source of Truth for Balance directly from Google Sheet
+      if(typeof data.user.balance !== 'undefined'){
         state.balance = Number(data.user.balance);
       }
+      
       render();
     }
   } catch(e) { console.log('Fetch user err:', e); }
@@ -843,18 +853,18 @@ function render(){
   updateTaskBtnStatus('ytwatch1', 'btnTaskYtWatch1', 'btnTaskYtWatch1_Home');
   updateTaskBtnStatus('ytwatch2', 'btnTaskYtWatch2', 'btnTaskYtWatch2_Home');
 
-  // Withdraw 5 Task Logic
+  // Withdraw 10 Invites Task Logic
   const wtNotice = document.getElementById('withdrawTaskNotice');
   const wtBtn = document.getElementById('withdrawSubmitBtn');
   if(state.isWithdrawTaskActive) {
     wtNotice.style.display = 'block';
-    document.getElementById('withdrawTaskProgressText').innerText = `${state.withdrawInviteTask}/5`;
-    if(state.withdrawInviteTask >= 5) {
-      wtNotice.innerHTML = `<p style="font-size:12px; font-weight:800; color:#10b981;">✅ 5 ሰው ጋብዘው ጨርሰዋል! አሁን ማውጣት ይችላሉ።</p>`;
+    document.getElementById('withdrawTaskProgressText').innerText = `${refTotal}/10`;
+    if(refTotal >= 10) {
+      wtNotice.innerHTML = `<p style="font-size:12px; font-weight:800; color:#10b981;">✅ 10 ሰው ጋብዘው ጨርሰዋል! አሁን ማውጣት ይችላሉ።</p>`;
       wtBtn.disabled = false;
     } else {
       wtBtn.disabled = true;
-      wtBtn.innerText = 'Complete Task First';
+      wtBtn.innerText = '10 ሰው መጋበዝ ያስፈልጋል';
     }
   } else {
     wtNotice.style.display = 'none';
@@ -918,7 +928,7 @@ bannerBox.addEventListener('touchend', (e) => {
 });
 
 /* ============ 🔄 5-SECOND LIVE WITHDRAWAL FEED ROTATOR ============ */
-const FEED_NAMES = ['Marta Girma', 'Yabsra Alemayehu', 'Bruk Weldemariyam', 'Ali beshir', 'Tesnim ebrahim', 'betelhem endale', 'Tedi sisay', 'Amanuel selamu', 'omer jemal', 'Abdulkerim shimels'];
+const FEED_NAMES = ['Marta Girma', 'Yabsra Alemayehu', 'Bruk Weldemariyam', 'Ali Beshir', 'Tesnim Ebrahim', 'Betelhem Endale', 'Tedi Sisay', 'Amanuel Selamu', 'Omer Jemal', 'Abdulkerim Shimels'];
 const FEED_BANKS = ['Telebirr', 'Commercial Bank of Ethiopia', 'Awash Bank', 'Bank of Abyssinia', 'Ethio Telecom Airtime', 'CBE Birr', 'Safaricom Airtime'];
 
 function rotateLiveFeed() {
@@ -1067,9 +1077,9 @@ function completeAd(){
 function renderLeaderboard(){
   const podium = document.getElementById('podiumArea');
   podium.innerHTML = `
-    <div class="podium-box rank-2"><div class="podium-avatar">A</div><div class="podium-name">Liwdad S</div><div class="podium-amt">23,325 ETB</div><div class="podium-rank-tag">#2</div></div>
-    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">M</div><div class="podium-name">Osman A</div><div class="podium-amt">26,765 ETB</div><div class="podium-rank-tag">#1</div></div>
-    <div class="podium-box rank-3"><div class="podium-avatar">F</div><div class="podium-name">liule M</div><div class="podium-amt">19,860 ETB</div><div class="podium-rank-tag">#3</div></div>
+    <div class="podium-box rank-2"><div class="podium-avatar">L</div><div class="podium-name">Liwdad S</div><div class="podium-amt">23,325 ETB</div><div class="podium-rank-tag">#2</div></div>
+    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">O</div><div class="podium-name">Osman A</div><div class="podium-amt">26,765 ETB</div><div class="podium-rank-tag">#1</div></div>
+    <div class="podium-box rank-3"><div class="podium-avatar">L</div><div class="podium-name">Liule M</div><div class="podium-amt">19,860 ETB</div><div class="podium-rank-tag">#3</div></div>
   `;
 
   const list = document.getElementById('leaderboardList');
@@ -1080,7 +1090,7 @@ function renderLeaderboard(){
     { rank: 7, name: 'Endalkchew H', amt: '7,236 ETB' },
     { rank: 8, name: 'Mesud A', amt: '7,160 ETB' },
     { rank: 9, name: 'Meluda B', amt: '6,908 ETB' },
-    { rank: 10, name: 'beemnet T', amt: '5,650 ETB' }
+    { rank: 10, name: 'Beemnet T', amt: '5,650 ETB' }
   ];
 
   list.innerHTML = lbData.map(i => `
@@ -1143,11 +1153,11 @@ async function handleWithdraw(e){
   if(amount > state.balance){ toast('በቂ ቀሪ ሂሳብ የለዎትም'); return; }
 
   let currentRefs = Math.max(state.totalReferralsFromSheet || 0, state.referrals.length || 0);
-  if(currentRefs < 5) {
+  if(currentRefs < 10) {
       state.isWithdrawTaskActive = true;
       saveState();
       render();
-      toast('ማሳሰቢያ: ገንዘብ ለማውጣት በመጀመሪያ 5 ሰዎችን መጋበዝ አለቦት!');
+      toast('ማሳሰቢያ: ገንዘብ ለማውጣት በመጀመሪያ 10 ሰዎችን መጋበዝ አለቦት!');
       return;
   }
 
