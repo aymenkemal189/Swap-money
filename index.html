@@ -328,7 +328,7 @@
   <div class="brand">
     <div class="user-avatar-header" id="userHeaderAvatar">U</div>
     <div class="header-info">
-      <h1 id="welcomeText">Welcome Back 👋</h1>
+      <h1 id="welcomeText">Welcome Back. </h1>
       <p id="userInfoStr">@user</p>
     </div>
   </div>
@@ -354,7 +354,7 @@
     </div>
     <div class="gb-subtitle">ጠቅላላ ቀሪ ሂሳብ</div>
     <div class="gb-amount"><span id="userBalance">50</span><span>ETB</span></div>
-    <div class="card-refresh-note">Swap Money Platform</div>
+    <div class="card-refresh-note">ጠቅላላ ገቢ</div>
   </div>
 
   <!-- 📢 7 Touch/Swipe Image Banner Carousel Slider -->
@@ -526,7 +526,7 @@
   </div>
 
   <div class="section-hdr">
-    <span>Watch Ads & Earn ☀️</span>
+    <span>Watch Ads & Earn </span>
   </div>
   <p style="font-size:11.5px; color:var(--text-secondary); margin-bottom:14px;">ማስታወቂያዎችን ይመልከቱ በእያንዳንዱ ማስታወቂያ ወደ ሂሳብዎ 50 ብር ይገባል ማሳሰቢያ ማስታወቂያ ለ 15 ሰከንድ አይተው x ምልክቱን ይጫኑ ሳይጨርሱ ከወጡ አይቆጠርም</p>
   <div class="ad-grid" id="adGridArea"></div>
@@ -608,11 +608,11 @@
 <!-- 5. WITHDRAW TAB -->
 <section id="withdraw" class="page">
   <div class="section-hdr" style="margin-top:0;">
-    <span>የባንክ ማውጫዎች (Bank Withdrawals)</span>
+    <span>የባንክ ማውጫዎች Bank Withdrawals </span>
   </div>
 
   <div style="background:rgba(255,198,26,0.12); border:1px solid var(--accent-yellow); border-radius:14px; padding:12px; font-size:12.5px; font-weight:900; color:#fff; text-align:center; margin-bottom:16px;">
-    ⚠️ ዝቅተኛው የመውጫ መጠን 2,500 ETB ነው::
+     የገንዘብ መጠኖ 2,500 ሲደርስ ማውጣት ይችላሉ ::
   </div>
 
   <!-- Official Bank Cards with Real Logos -->
@@ -620,7 +620,7 @@
     <div class="bank-card-item selected" onclick="selectBank('Telebirr', this)">
       <img src="https://www.fanamc.com/english/wp-content/uploads/2024/11/302744918_412729177637206_7434627968081460594_n-720x430.jpg" class="bank-logo-img" alt="Telebirr">
       <div class="bank-card-title">Telebirr</div>
-      <div class="bank-min-text">Min: 2500 ETB</div>
+      <div class="bank-min-text">Bones:25% </div>
     </div>
     <div class="bank-card-item" onclick="selectBank('Commercial Bank of Ethiopia', this)">
       <img src="https://capitalethiopia.com/wp-content/uploads/2021/08/CBE.jpg" class="bank-logo-img" alt="CBE">
@@ -663,8 +663,8 @@
 
   <form id="withdrawForm" onsubmit="handleWithdraw(event)">
     <div class="form-group">
-      <label id="accountInputLabel">የስልክ ቁጥር (Phone Number 09... / 07...)</label>
-      <input type="text" id="payAccount" placeholder="09... ወይም 07..." required>
+      <label id="accountInputLabel">ስልክ ቁጥር ወይም የባንክ አካውንት ያስገቡ </label>
+      <input type="text" id="payAccount" placeholder="09.. ወይም 1000.." required>
     </div>
     <div class="form-group">
       <label>Amount (ETB)</label>
@@ -999,7 +999,7 @@ bannerBox.addEventListener('touchend', (e) => {
 });
 
 /* ============ 🔄 5-SECOND LIVE WITHDRAWAL FEED ROTATOR ============ */
-const FEED_NAMES = ['Marta Girma', 'Yabsra Alemayehu', 'Bruk Weldemariyam', 'Ali Beshir', 'Tesnim Ebrahim', 'Betelhem Endale', 'Tedi Sisay', 'Amanuel Selamu', 'Omer Jemal', 'Abdulkerim Shimels'];
+const FEED_NAMES = ['Wizdan eliyas', 'liule Alemayehu', 'Tofik Yimam', 'Babi Mekonen', 'Tesnim Mohammed', 'Betelhem Endale', 'Tedi Sisay', 'Amanuel Selamu', 'Jemal Ahmed', 'Abdulkerim Shimels'];
 const FEED_BANKS = ['Telebirr', 'Commercial Bank of Ethiopia', 'Awash Bank', 'Bank of Abyssinia', 'Ethio Telecom Airtime', 'CBE Birr', 'Safaricom Airtime'];
 
 function rotateLiveFeed() {
