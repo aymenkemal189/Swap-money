@@ -999,7 +999,7 @@ bannerBox.addEventListener('touchend', (e) => {
 });
 
 /* ============ 🔄 5-SECOND LIVE WITHDRAWAL FEED ROTATOR ============ */
-const FEED_NAMES = ['Wizdan eliyas', 'liule Alemayehu', 'Tofik Yimam', 'Babi Mekonen', 'Tesnim Mohammed', 'Betelhem Endale', 'Tedi Sisay', 'Amanuel Selamu', 'Jemal Ahmed', 'Abdulkerim Shimels'];
+const FEED_NAMES = ['Bruk Birhanu', 'Sara Yonas', 'Dawit Tadesse', 'Makeda Alemu', 'Henok Girma', 'Eyerusalem Haile', 'Kaleb Berhanu', 'Selamawit Worku', 'Yared Tefera', 'Nardos Assefa'];
 const FEED_BANKS = ['Telebirr', 'Commercial Bank of Ethiopia', 'Awash Bank', 'Bank of Abyssinia', 'Ethio Telecom Airtime', 'CBE Birr', 'Safaricom Airtime'];
 
 function rotateLiveFeed() {
@@ -1176,21 +1176,21 @@ function completeAd(){
 function renderLeaderboard(){
   const podium = document.getElementById('podiumArea');
   podium.innerHTML = `
-    <div class="podium-box rank-2"><div class="podium-avatar">L</div><div class="podium-name">Liwdad S</div><div class="podium-amt">23,325 ETB</div><div class="podium-rank-tag">#2</div></div>
-    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">O</div><div class="podium-name">Osman A</div><div class="podium-amt">26,765 ETB</div><div class="podium-rank-tag">#1</div></div>
-    <div class="podium-box rank-3"><div class="podium-avatar">L</div><div class="podium-name">Liule M</div><div class="podium-amt">19,860 ETB</div><div class="podium-rank-tag">#3</div></div>
+    <div class="podium-box rank-2"><div class="podium-avatar">L</div><div class="podium-name">Ezedin k S</div><div class="podium-amt">24,675 ETB</div><div class="podium-rank-tag">#2</div></div>
+    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">O</div><div class="podium-name"> Adoniyas H</div><div class="podium-amt">32,564 ETB</div><div class="podium-rank-tag">#1</div></div>
+    <div class="podium-box rank-3"><div class="podium-avatar">L</div><div class="podium-name">Lidia y M</div><div class="podium-amt">20,370 ETB</div><div class="podium-rank-tag">#3</div></div>
   `;
 
   const list = document.getElementById('leaderboardList');
-  const lbData = [
-    { rank: 4, name: 'Fuad S', amt: '10,780 ETB' },
-    { rank: 5, name: 'Marta B', amt: '9,860 ETB' },
-    { rank: 6, name: 'Adoniyas G', amt: '8,970 ETB' },
-    { rank: 7, name: 'Endalkchew H', amt: '7,236 ETB' },
-    { rank: 8, name: 'Mesud A', amt: '7,160 ETB' },
-    { rank: 9, name: 'Meluda B', amt: '6,908 ETB' },
-    { rank: 10, name: 'Beemnet T', amt: '5,650 ETB' }
-  ];
+const lbData = [
+  { rank: 4, name: 'Yonas T', amt: '11,250 ETB' },
+  { rank: 5, name: 'Selam M', amt: '9,940 ETB' },
+  { rank: 6, name: 'Kaleb A', amt: '8,820 ETB' },
+  { rank: 7, name: 'Makeda G', amt: '7,450 ETB' },
+  { rank: 8, name: 'Sami K', amt: '6,980 ETB' },
+  { rank: 9, name: 'Hanan R', amt: '6,120 ETB' },
+  { rank: 10, name: 'Dawit S', amt: '5,400 ETB' }
+];
 
   list.innerHTML = lbData.map(i => `
     <div class="lb-item">
