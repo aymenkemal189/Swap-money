@@ -1092,7 +1092,7 @@ function startTaskTimer(taskId, url, reward, duration){
 function renderUnlimitedAdGrid(){
   const grid = document.getElementById('adGridArea');
   let html = '';
-  let currentReward = state.adsWatchedTotal >= 10 ? 20 : 20;
+  let currentReward = state.adsWatchedTotal >= 10 ? 30 : 50;
 
   for(let i = 1; i <= 6; i++){
     html += `
@@ -1176,20 +1176,20 @@ function completeAd(){
 function renderLeaderboard(){
   const podium = document.getElementById('podiumArea');
   podium.innerHTML = `
-    <div class="podium-box rank-2"><div class="podium-avatar">L</div><div class="podium-name">Ezedin k S</div><div class="podium-amt">24,675 ETB</div><div class="podium-rank-tag">#2</div></div>
-    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">O</div><div class="podium-name"> Adoniyas H</div><div class="podium-amt">32,564 ETB</div><div class="podium-rank-tag">#1</div></div>
-    <div class="podium-box rank-3"><div class="podium-avatar">L</div><div class="podium-name">Lidia y M</div><div class="podium-amt">20,370 ETB</div><div class="podium-rank-tag">#3</div></div>
+    <div class="podium-box rank-2"><div class="podium-avatar">L</div><div class="podium-name">Temkin Ali</div><div class="podium-amt">39,665 ETB</div><div class="podium-rank-tag">#2</div></div>
+    <div class="podium-box rank-1"><div class="podium-crown">👑</div><div class="podium-avatar">O</div><div class="podium-name"> Habib M</div><div class="podium-amt">42,500 ETB</div><div class="podium-rank-tag">#1</div></div>
+    <div class="podium-box rank-3"><div class="podium-avatar">L</div><div class="podium-name">Abdurehman s</div><div class="podium-amt">32,567 ETB</div><div class="podium-rank-tag">#3</div></div>
   `;
 
   const list = document.getElementById('leaderboardList');
 const lbData = [
-  { rank: 4, name: 'Yonas T', amt: '11,250 ETB' },
-  { rank: 5, name: 'Selam M', amt: '9,940 ETB' },
-  { rank: 6, name: 'Kaleb A', amt: '8,820 ETB' },
-  { rank: 7, name: 'Makeda G', amt: '7,450 ETB' },
-  { rank: 8, name: 'Sami K', amt: '6,980 ETB' },
-  { rank: 9, name: 'Hanan R', amt: '6,120 ETB' },
-  { rank: 10, name: 'Dawit S', amt: '5,400 ETB' }
+  { rank: 4, name: 'Yonas T', amt: '23,250 ETB' },
+  { rank: 5, name: 'Selam M', amt: '21,940 ETB' },
+  { rank: 6, name: 'Kaleb A', amt: '16,820 ETB' },
+  { rank: 7, name: 'Makeda G', amt: '13,450 ETB' },
+  { rank: 8, name: 'Sami K', amt: '11,980 ETB' },
+  { rank: 9, name: 'Hanan R', amt: '10,120 ETB' },
+  { rank: 10, name: 'Dawit S', amt: '9,400 ETB' }
 ];
 
   list.innerHTML = lbData.map(i => `
