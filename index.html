@@ -1446,7 +1446,7 @@ function quickExchangeSC(){
 
 async function exchangeOnServer(type, scAmount, etbAmount){
   if(!tgUser || !syncReady) return;
-  suppressSyncFromSheetUntil = Date.now() + 10000; // Pause pull sync for 10s to avoid race conditions
+  suppressSyncFromSheetUntil = Date.now() + 15000; // Pause pull sync for 15s to avoid race conditions
   try{
     const data = await apiPost({
       action: 'exchangeSC',
@@ -1457,14 +1457,19 @@ async function exchangeOnServer(type, scAmount, etbAmount){
       currentBalance: S.balance,
       currentSC: S.swapCoins
     });
-    if(data.result==='success'){
+    if(data && data.result==='success'){
       if(typeof data.newBalance === 'number') S.balance = data.newBalance;
+      else if(data.user && typeof data.user.balance === 'number') S.balance = Number(data.user.balance);
+
       if(typeof data.newSC === 'number') S.swapCoins = data.newSC;
+      else if(data.user && typeof data.user.swapCoins === 'number') S.swapCoins = Number(data.user.swapCoins);
+
       saveState();
       render();
+      flashSyncDot();
     } else {
       console.warn('[Swap Money] Exchange rejected by server:', data);
-      toast('❌ '+(data.message||'Exchange አልተሳካም'));
+      toast('❌ '+(data ? data.message || 'Exchange አልተሳካም' : 'Exchange አልተሳካም'));
       syncFromSheet();
     }
   }catch(e){
@@ -1699,7 +1704,7 @@ async function syncToSheet(){
     return;
   }
   try{
-    await apiPost({
+    const data = await apiPost({
       action:'syncUser',
       userId:String(tgUser.id),
       username:tgUser.username||tgUser.first_name||'Guest',
@@ -1708,7 +1713,21 @@ async function syncToSheet(){
       swapCoins:S.swapCoins,
       referredBy:String(referrerId||'None')
     });
-    setTimeout(syncFromSheet,1500);
+    if(data && data.result === 'success'){
+      if(data.user){
+        if(typeof data.user.balance !== 'undefined') S.balance = Number(data.user.balance) || 0;
+        if(typeof data.user.swapCoins !== 'undefined') S.swapCoins = Number(data.user.swapCoins) || 0;
+        if(typeof data.user.totalReferrals !== 'undefined') S.totalRefs = Number(data.user.totalReferrals) || 0;
+        if(typeof data.user.totalAds !== 'undefined') S.adsWatched = Number(data.user.totalAds) || 0;
+      } else {
+        if(typeof data.balance !== 'undefined') S.balance = Number(data.balance) || 0;
+        if(typeof data.swapCoins !== 'undefined') S.swapCoins = Number(data.swapCoins) || 0;
+        if(typeof data.totalReferrals !== 'undefined') S.totalRefs = Number(data.totalReferrals) || 0;
+      }
+      saveState();
+      render();
+      flashSyncDot();
+    }
   }catch(e){
     console.error('[Swap Money] syncToSheet request failed:', e);
   }
