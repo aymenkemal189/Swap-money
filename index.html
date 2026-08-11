@@ -202,7 +202,6 @@ header{
 .earn-grid-item.ad-type::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
 .egi-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .egi-icon img{width:100%;height:100%;object-fit:contain}
-.egi-icon svg{width:16px;height:16px}
 .egi-title{font-size:9.5px;font-weight:800;line-height:1.25}
 .egi-reward{font-size:11px;font-weight:900;color:var(--gold)}
 .egi-meta{font-size:8px;color:var(--muted);font-weight:700}
@@ -350,7 +349,7 @@ header{
       <div class="gm-close" onclick="closeGame()">✕</div>
     </div>
   </div>
-  <iframe class="gm-iframe" id="gmIframe" title="Game" allow="autoplay"></iframe>
+  <iframe class="gm-iframe" id="gmIframe" title="Game" allow="autoplay; fullscreen" allowfullscreen></iframe>
   <div class="gm-footer">
     <div class="gm-session">
       <img src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="sc">
@@ -763,7 +762,7 @@ header{
   </div>
 </section>
 
-<!-- ── BOTTOM NAV ── -->
+<!-- ── BOTTOM NAVIGATION (FIXED WITH EXACT DATA-P ATTRIBUTES) ── -->
 <nav class="bnav">
   <button class="ni active" data-p="home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
@@ -824,7 +823,7 @@ function isUnlimitedAdSlot(adsWatchedSoFar){
 }
 const TG_CHANNEL1  = 'https://t.me/SwapMoney_ETH';
 const TG_CHANNEL2  = 'https://t.me/swapmoneybirr';
-const TG_BOT       = 'https://t.me/Swapmoney_bot';         // ← still placeholder unless you gave a different one
+const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://www.youtube.com/@ethioonlinework1';
 
@@ -886,15 +885,8 @@ function getLevel(bal){
   return{n:1,label:'Level 1'};
 }
 
-/* ═══════════════ STREAK ═══════════════
-   Day-based login streak. Uses simple YYYY-MM-DD date keys
-   (not toDateString(), which can behave inconsistently across
-   locales/timezones) for reliable same-day / consecutive-day
-   comparisons.
-   Rule: first ever login = 1🔥. Logging in on the very next
-   calendar day = streak+1. Any gap of a day or more = reset to 1. */
+/* ═══════════════ STREAK ═══════════════ */
 function dateKey(d){
-  // YYYY-MM-DD in the user's local time — stable and easy to diff
   const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
   return `${y}-${m}-${day}`;
 }
@@ -902,7 +894,6 @@ function checkAndUpdateStreak(){
   const todayKey = dateKey(new Date());
 
   if(!S.lastLoginDate){
-    // Very first login ever recorded on this device
     S.streakDays = 1;
     S.lastLoginDate = todayKey;
     saveState();
@@ -910,18 +901,15 @@ function checkAndUpdateStreak(){
   }
 
   if(S.lastLoginDate === todayKey){
-    // Already counted today — do nothing (avoids double-count on refresh)
-    if(!S.streakDays || S.streakDays < 1) S.streakDays = 1; // safety floor
+    if(!S.streakDays || S.streakDays < 1) S.streakDays = 1;
     return;
   }
 
   const yesterdayKey = dateKey(new Date(Date.now() - 86400000));
 
   if(S.lastLoginDate === yesterdayKey){
-    // Consecutive day — streak continues
     S.streakDays = (Number(S.streakDays) || 0) + 1;
   } else {
-    // Missed one or more days — streak resets, today counts as day 1
     S.streakDays = 1;
   }
 
@@ -934,19 +922,26 @@ checkAndUpdateStreak();
 let _tt;
 function toast(msg){
   const el=document.getElementById('toast');
+  if(!el) return;
   el.textContent=msg;el.classList.add('show');
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ NAV ═══════════════ */
+/* ═══════════════ NAV & PAGE SWITCHING FIX ═══════════════
+   Guaranteed page switching without JS crashes or freezes! */
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
+  
   const pg=document.getElementById('page-'+id);
-  if(pg)pg.classList.add('active');
+  if(pg) pg.classList.add('active');
+  
   const nb=document.querySelector(`.ni[data-p="${id}"]`);
-  if(nb)nb.classList.add('active');
-  if(tg?.HapticFeedback)tg.HapticFeedback.impactOccurred('light');
+  if(nb) nb.classList.add('active');
+  
+  if(tg?.HapticFeedback){
+    try{ tg.HapticFeedback.impactOccurred('light'); }catch(e){}
+  }
   render();
 }
 
@@ -957,13 +952,12 @@ function render(){
   const refs = S.totalRefs||0;
   const lv   = getLevel(bal);
 
-  // Header
   setText('hdrSC', sc.toFixed(2));
   setText('levelChip', `⭐ ${lv.label}`);
   const streak = S.streakDays||0;
-  document.getElementById('streakChip').textContent = streak>0 ? `${streak}🔥` : '';
+  const strEl = document.getElementById('streakChip');
+  if(strEl) strEl.textContent = streak>0 ? `${streak}🔥` : '';
 
-  // Home
   setText('mainBalance', bal.toLocaleString());
   setText('balSub', `Level ${lv.n} — ${lv.label}`);
   setText('scBalance', sc.toFixed(2));
@@ -975,25 +969,20 @@ function render(){
   setText('stSC', sc.toFixed(2)+' SC');
   setText('stSCEtb', (sc*SC_TO_ETB).toFixed(2));
 
-  // Withdraw
   setText('wdBalDisplay', bal.toLocaleString());
   renderWdButton();
 
-  // Exchange
   setText('exchAvailSC', sc.toFixed(2));
   setText('exchAvailETB', bal.toLocaleString());
 
-  // Referral
   const prog = refs%10;
   setText('refProgText', `${prog}/10`);
   setText('refCount', refs);
   setText('refEarned', (Math.floor(refs/10)*500 + (refs%10)*REF_BONUS).toLocaleString()+' ETB');
-  document.getElementById('refProgFill').style.width = `${prog/10*100}%`;
+  const pf = document.getElementById('refProgFill');
+  if(pf) pf.style.width = `${prog/10*100}%`;
 
-  // Streak in Earn
   renderStreakDays();
-
-  // Tasks (renderEarnTasks now renders both tasks AND ads grid)
   renderHomeTasks();
   renderEarnTasks();
   renderLeaderboard();
@@ -1001,11 +990,9 @@ function render(){
   saveState();
 }
 
-/* ═══════════════ STREAK DAYS RENDER ═══════════════
-   Rewards in ETB (per user's spec). Day 7 grants a special
-   "Level 3" boost message instead of plain ETB. */
+/* ═══════════════ STREAK DAYS RENDER ═══════════════ */
 const STREAK_LABELS = ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7'];
-const STREAK_SC      = [10,20,40,60,80,100,0];   // Day 7 handled specially (Level 3)
+const STREAK_SC      = [10,20,40,60,80,100,0];
 function renderStreakDays(){
   const el = document.getElementById('streakDaysEl');
   if(!el)return;
@@ -1013,12 +1000,10 @@ function renderStreakDays(){
   const claimedToday = S.streakClaimedFor === S.lastLoginDate;
   el.innerHTML = STREAK_LABELS.map((d,i)=>{
     const dayNum = i+1;
-    const passed = dayNum < streak;                 // already-lived-through day
-    const isToday = dayNum === streak;               // today's slot
+    const passed = dayNum < streak;
+    const isToday = dayNum === streak;
     const rewardLabel = dayNum===7 ? 'Level 3' : `+${STREAK_SC[i]}SC`;
-    let cls = '';
-    if(passed) cls='done';
-    else if(isToday) cls='today';
+    let cls = passed ? 'done' : (isToday ? 'today' : '');
     return `<div class="streak-day ${cls}">
       <div class="streak-day-icon">${passed?'✅':(isToday?'🎁':'🔒')}</div>
       <div style="font-size:7px">${d}</div>
@@ -1027,7 +1012,6 @@ function renderStreakDays(){
   }).join('');
   setText('earnStreakCount', `${streak}🔥`);
 
-  // Claim button state
   const btn = document.getElementById('streakClaimBtn');
   if(btn){
     if(claimedToday){
@@ -1045,7 +1029,6 @@ function claimStreakReward(){
   if(S.streakClaimedFor === S.lastLoginDate){toast('ዛሬ አስቀድመው ተቀብለዋል!');return;}
   const day = Math.min(S.streakDays||1, 7);
   if(day === 7){
-    // Special Level-3 style bonus — grant a generous SC reward too
     S.swapCoins = (S.swapCoins||0) + 200;
     toast('🏆 7 ቀን ተከታታይ Streak! Level 3 ማዕረግ ስጦታ +200 SC!');
   } else {
@@ -1060,18 +1043,11 @@ function claimStreakReward(){
   if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
 }
 
-/* ═══════════════ TASKS (shared: Home grid + Earn grid) ═══════════════
-   Rewards exactly as specified:
-   Telegram join 1  = 100 ETB
-   Telegram join 2  = 100 ETB
-   YouTube channel 1 subscribe = 100 ETB
-   YouTube channel 2 subscribe = 100 ETB
-   YouTube video 1 view = 50 ETB
-   YouTube video 2 view = 50 ETB */
+/* ═══════════════ TASKS LIST ═══════════════ */
 const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
 
-const YT_VID1 = 'https://youtu.be/WgRzYGYDDOs?si=0YC53eyjswiEPEB2';   // ← ራስህ ሊንክ ቀይር
+const YT_VID1 = 'https://youtu.be/WgRzYGYDDOs?si=0YC53eyjswiEPEB2';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
 
 const ALL_TASKS = [
@@ -1083,33 +1059,17 @@ const ALL_TASKS = [
   {id:'bunabot',label:'Buna Bot ይቀላቀሉ',        reward:50,  dur:30, link:BUNA_BOT,    icon:TG_ICON, bg:'rgba(0,136,204,.15)', type:'tg-type'},
 ];
 
-/* ── HOME: compact grid (2 cols) ── */
-/* Track which task IDs currently have an active countdown running,
-   so renderHomeTasks/renderEarnTasks never clobber a live countdown
-   button back to "Start" mid-timer. This was the root cause of the
-   countdown appearing to randomly reset/flicker ("on/off") — the
-   whole grid's innerHTML gets rebuilt every time render() runs
-   (e.g. every 20s auto-sync, or after any state change), which
-   wiped out the in-progress button text and re-created a fresh
-   "Start" button with no timer attached. */
 const activeTaskTimers = new Set();
 
 function renderHomeTasks(){
   const el = document.getElementById('homeTasksGrid');
   if(!el)return;
-  // If nothing is currently counting down, do a normal full rebuild.
   if(activeTaskTimers.size === 0){
     el.innerHTML = ALL_TASKS.map(t=>taskGridItemHTML(t,'htb_')).join('');
     return;
   }
-  // Otherwise, rebuild only the tasks that do NOT have a live
-  // countdown running, and leave the counting-down button's DOM
-  // node completely untouched so its live "27s / 26s / ..." text
-  // (written directly by startTask()'s own interval) is never
-  // reset back to "Start". This was the root cause of the
-  // countdown appearing to randomly flicker/reset.
   ALL_TASKS.forEach(t=>{
-    if(activeTaskTimers.has(t.id)) return; // leave it alone
+    if(activeTaskTimers.has(t.id)) return;
     const wrap = document.getElementById('htb_'+t.id)?.closest('.task-grid-item');
     if(wrap) wrap.outerHTML = taskGridItemHTML(t,'htb_');
   });
@@ -1124,7 +1084,6 @@ function taskGridItemHTML(t, prefix){
   </div>`;
 }
 
-/* ── EARN TAB: 3-column unified grid ── */
 function earnGridItemHTML(t){
   const done = S.completedTasks.includes(t.id);
   return `<div class="earn-grid-item ${t.type}">
@@ -1137,22 +1096,19 @@ function earnGridItemHTML(t){
   </div>`;
 }
 function renderEarnTasks(){
-  // Tasks grid — same "don't clobber a live countdown" strategy as
-  // renderHomeTasks() above.
   const tEl = document.getElementById('earnTaskGrid');
   if(tEl){
     if(activeTaskTimers.size === 0){
       tEl.innerHTML = ALL_TASKS.map(earnGridItemHTML).join('');
     } else {
       ALL_TASKS.forEach(t=>{
-        if(activeTaskTimers.has(t.id)) return; // leave the live countdown button alone
+        if(activeTaskTimers.has(t.id)) return;
         const wrap = document.getElementById('etb_'+t.id)?.closest('.earn-grid-item');
         if(wrap) wrap.outerHTML = earnGridItemHTML(t);
       });
     }
   }
 
-  // Ads grid — shows the next 6 upcoming ads with their real tier reward
   const aEl = document.getElementById('earnAdGrid');
   if(!aEl)return;
   const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW'];
@@ -1187,7 +1143,7 @@ const taskTimers = {};
 function startTask(id, url, reward, dur){
   if(S.completedTasks.includes(id)){toast('አስቀድሞ ተቀብለዋል!');return;}
   if(tg?.openLink) tg.openLink(url); else window.open(url,'_blank');
-  if(tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+  if(tg?.HapticFeedback) { try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
 
   const setBtn=(txt,dis=false)=>{
     [`htb_${id}`,`etb_${id}`].forEach(bid=>{
@@ -1197,28 +1153,14 @@ function startTask(id, url, reward, dur){
   };
   toast(`⏱️ ${dur}s ቆጣሪ ጀምሯል!`);
 
-  // Mark this task as "actively counting down" so any render() call
-  // (e.g. from the 20s auto-sync, or after claiming a different
-  // task/ad) will render its button in a disabled/counting state
-  // instead of resetting it back to a fresh "Start" — this was the
-  // exact cause of the countdown appearing to flicker on/off.
   activeTaskTimers.add(id);
-
-  // Use a wall-clock deadline (Date.now()) instead of counting
-  // interval ticks. When Telegram opens an external link, the
-  // WebView is often backgrounded and setInterval ticks get
-  // throttled or paused by the OS/browser — a tick-counter would
-  // undercount and never reach 0. Measuring elapsed real time
-  // fixes this: even if ticks are delayed, the moment the user
-  // returns to the app we correctly detect that dur seconds
-  // (or more) have actually passed.
   const deadline = Date.now() + dur*1000;
 
   function finishCountdown(){
     activeTaskTimers.delete(id);
     clearInterval(taskTimers[id]);
     document.removeEventListener('visibilitychange', onVisible);
-    if(S.completedTasks.includes(id)) return; // already claimed via another path
+    if(S.completedTasks.includes(id)) return;
     setBtn(`+${reward} ✨`,false);
     [`htb_${id}`,`etb_${id}`].forEach(bid=>{
       const b=document.getElementById(bid);
@@ -1235,11 +1177,8 @@ function startTask(id, url, reward, dur){
     } else {
       finishCountdown();
     }
-  },500); // check twice a second so the button catches up quickly once the tab is foregrounded again
+  },500);
 
-  // Also catch up immediately the moment the user comes back to
-  // this tab/app (visibilitychange fires reliably even after the
-  // WebView was backgrounded, unlike setInterval).
   const onVisible = ()=>{
     if(document.visibilityState==='visible'){
       const remaining = Math.max(0, Math.ceil((deadline - Date.now())/1000));
@@ -1252,40 +1191,18 @@ function startTask(id, url, reward, dur){
 }
 function claimTask(id,reward){
   if(S.completedTasks.includes(id)){toast('አስቀድሞ!');return;}
-  // Always credit locally immediately — never make the user lose
-  // a reward they already earned by completing the task.
   S.completedTasks.push(id);
   S.balance+=reward;
   saveState();
   toast(`🎉 +${reward} ETB ተጨምሯል!`);
-  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
   render();
-  if(syncReady){
-    syncToSheet();
-  } else {
-    pendingSyncAfterInit = true;
-  }
+  if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC ═══════════════
-   IMPORTANT: the real ad SDK (show_11460944) can resolve in as
-   little as ~15 seconds depending on the ad network's own content,
-   which was letting users get rewarded faster than intended. To
-   guarantee a full, consistent 30-second watch time regardless of
-   how long the underlying ad actually plays, we ALWAYS run our own
-   visible 30s on-screen countdown as the single source of truth
-   for when the reward is granted. The real ad SDK (if available)
-   is still triggered at the same time purely so a real ad
-   impression happens, but it no longer controls the timing.
-
-   After the FIRST (rewarded) ad's 30s finishes, an "✕" close
-   button appears. If the user taps it, we don't just close the
-   modal — we immediately show one more ad automatically (same 30s
-   flow) but this one pays NOTHING; it's purely an extra
-   impression. Tapping ✕ on that bonus ad simply closes everything
-   with no further chaining. */
+/* ═══════════════ AD WATCH LOGIC ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
-let isBonusAd=false; // true while showing the no-reward follow-up ad
+let isBonusAd=false;
 
 function watchAd(btn){
   if(adRunning)return;
@@ -1296,8 +1213,6 @@ function watchAd(btn){
       toast(`⚠️ 91 ነጻ ማስታወቂያ አልቋል — ተጨማሪ ማስታወቂያ ለማየት ${UNLIMITED_AD_SC_COST} SC ያስፈልጋል`);
       return;
     }
-    // Charge the SC cost UP FRONT, before the ad even starts, so
-    // there's no way to watch the ad and then back out of paying.
     S.swapCoins -= UNLIMITED_AD_SC_COST;
     saveState();
     render();
@@ -1312,25 +1227,17 @@ function watchAd(btn){
     ? `30 ሰከንድ ያዩ — ${UNLIMITED_AD_SC_COST} SC ተከፍሏል (ያልተገደበ ማስታወቂያ)`
     : `30 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${getAdReward(S.adsWatched)} ETB</strong> ይጨምራሉ!`;
 
-  // Fire the real ad SDK in the background purely for a genuine ad
-  // impression/revenue — but its resolve time no longer decides
-  // when the reward is granted. If it errors out that's fine too;
-  // it doesn't affect our own countdown below.
   if(typeof show_11460944 === 'function'){
     show_11460944().catch((err)=>{
-      console.warn('[Swap Money] Real ad SDK reported an issue (non-fatal, our own 30s countdown still governs reward timing):', err);
+      console.warn('[Swap Money] Real ad SDK reported an issue (non-fatal):', err);
     });
-  } else {
-    console.warn('[Swap Money] Ad SDK (show_11460944) not found — showing the standard 30s countdown only.');
   }
 
-  // Our own visible countdown is now ALWAYS the thing that grants
-  // the reward, guaranteeing a full 30 seconds every time.
   runFallbackCountdown();
 }
 
 function runFallbackCountdown(durationMs){
-  durationMs = durationMs || 30000; // default stays 30s for normal/bonus ads
+  durationMs = durationMs || 30000;
   const durSec = Math.round(durationMs/1000);
   const modal=document.getElementById('adModal');
   const fill=document.getElementById('adBarFill');
@@ -1360,33 +1267,25 @@ function runFallbackCountdown(durationMs){
 function creditAdReward(){
   adRunning=false;
   const wasUnlimited = isUnlimitedAdSlot(S.adsWatched);
-  // Compute the reward BEFORE incrementing adsWatched, so it
-  // matches exactly what was shown to the user on the button.
   const earnedReward = getAdReward(S.adsWatched);
   S.adsWatched++;
 
   if(wasUnlimited){
-    // SC was already deducted up front in watchAd() — no ETB reward
-    // for these, just confirm the ad was watched.
     saveState();
     toast('✅ ማስታወቂያውን አጠናቀዋል');
     render();
     if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
     document.getElementById('adDesc').innerHTML = `✅ ማስታወቂያ ታይቷል። ✕ ይንኩ ለመዝጋት`;
   } else {
-    // User watched the full ad — ALWAYS credit them locally right away.
-    // This guarantees "watched ad but got no money" can never happen.
     S.balance+=earnedReward;
     saveState();
     toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
     render();
     if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
-    // Reward is locked in — now offer the option to close, or the
-    // user can tap ✕ to trigger one bonus (unpaid) ad automatically.
     document.getElementById('adDesc').innerHTML = `🎉 <strong style="color:var(--gold)">+${earnedReward} ETB</strong> ተጨምሯል! ✕ ይንኩ ለመዝጋት`;
   }
 
-  if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
   document.getElementById('adCloseBtn').style.display='flex';
   document.getElementById('adCloseBtn').style.alignItems='center';
   document.getElementById('adCloseBtn').style.justifyContent='center';
@@ -1395,32 +1294,24 @@ function creditAdReward(){
 function closeAdAndShowAnother(){
   const modal=document.getElementById('adModal');
   if(isBonusAd){
-    // This was already the no-reward bonus ad — just close for good.
     modal.classList.remove('active');
     document.getElementById('adCloseBtn').style.display='none';
     adRunning=false;
     isBonusAd=false;
     return;
   }
-  // First close tap after a REWARDED ad — automatically queue one
-  // more ad with no payout, exactly as requested. Uses the same
-  // guaranteed 30s on-screen countdown (not the SDK's own timing)
-  // for a consistent experience.
   isBonusAd=true;
   document.getElementById('adCloseBtn').style.display='none';
   document.getElementById('adTitle').textContent='ተጨማሪ ማስታወቂያ';
   document.getElementById('adDesc').textContent='ይህ ተጨማሪ ማስታወቂያ ነው — ክፍያ የለውም';
 
   if(typeof show_11460944 === 'function'){
-    show_11460944().catch(()=>{
-      console.warn('[Swap Money] Bonus ad SDK issue (non-fatal)');
-    });
+    show_11460944().catch(()=>{});
   }
   runFallbackCountdown();
 }
 
 function finishBonusAd(){
-  // No reward — just close out cleanly.
   const modal=document.getElementById('adModal');
   modal.classList.remove('active');
   adRunning=false;
@@ -1488,82 +1379,99 @@ function rotateFeed(){
 }
 setInterval(rotateFeed,5000);rotateFeed();
 
+/* ═══════════════ API POST HELPER (TEXT/PLAIN PREVENTS CORS BLOCKING) ═══════════════ */
+async function apiPost(payload){
+  const res = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  });
+  return await res.json();
+}
+
 /* ═══════════════ EXCHANGE ═══════════════ */
 function calcSC2ETB(){
-  const sc=parseFloat(document.getElementById('sc2etbInput').value)||0;
-  document.getElementById('sc2etbOut').value=(sc*SC_TO_ETB).toFixed(2);
+  const sc=parseFloat(document.getElementById('sc2etbInput')?.value || 0);
+  const out = document.getElementById('sc2etbOut');
+  if(out) out.value = (sc*SC_TO_ETB).toFixed(2);
   setText('exchWillGet',(sc*SC_TO_ETB).toFixed(2)+' ETB');
 }
 function calcETB2SC(){
-  const etb=parseFloat(document.getElementById('etb2scInput').value)||0;
-  document.getElementById('etb2scOut').value=Math.floor(etb*ETB_TO_SC);
+  const etb=parseFloat(document.getElementById('etb2scInput')?.value || 0);
+  const out = document.getElementById('etb2scOut');
+  if(out) out.value = Math.floor(etb*ETB_TO_SC);
   setText('exchSCWillGet',Math.floor(etb*ETB_TO_SC)+' SC');
 }
 function doExchange(type){
   if(type==='sc2etb'){
-    const sc=parseFloat(document.getElementById('sc2etbInput').value)||0;
-    if(sc<=0){toast('SC amount ያስገቡ');return;}
+    const sc=parseFloat(document.getElementById('sc2etbInput')?.value || 0);
+    if(isNaN(sc) || sc<=0){toast('እባክዎ SC መጠን ያስገቡ');return;}
     if(sc>S.swapCoins){toast('በቂ SC የለዎትም');return;}
     const etb=sc*SC_TO_ETB;
     S.swapCoins-=sc; S.balance+=etb;
     addExchHistory(`${sc} SC → ${etb.toFixed(2)} ETB`,'sc2etb');
     toast(`✅ ${etb.toFixed(2)} ETB ተጨምሯል!`);
-    document.getElementById('sc2etbInput').value='';
-    document.getElementById('sc2etbOut').value='';
+    if(document.getElementById('sc2etbInput')) document.getElementById('sc2etbInput').value='';
+    if(document.getElementById('sc2etbOut')) document.getElementById('sc2etbOut').value='';
     saveState(); render();
     exchangeOnServer('sc2etb', sc, null);
   } else {
-    const etb=parseFloat(document.getElementById('etb2scInput').value)||0;
-    if(etb<=0){toast('ETB amount ያስገቡ');return;}
+    const etb=parseFloat(document.getElementById('etb2scInput')?.value || 0);
+    if(isNaN(etb) || etb<=0){toast('እባክዎ ETB መጠን ያስገቡ');return;}
     if(etb>S.balance){toast('በቂ ETB ቀሪ ሂሳብ የለዎትም');return;}
     const sc=Math.floor(etb*ETB_TO_SC);
     S.balance-=etb; S.swapCoins+=sc;
     addExchHistory(`${etb} ETB → ${sc} SC`,'etb2sc');
     toast(`✅ ${sc} SC ተጨምሯል!`);
-    document.getElementById('etb2scInput').value='';
-    document.getElementById('etb2scOut').value='';
+    if(document.getElementById('etb2scInput')) document.getElementById('etb2scInput').value='';
+    if(document.getElementById('etb2scOut')) document.getElementById('etb2scOut').value='';
     saveState(); render();
     exchangeOnServer('etb2sc', null, etb);
   }
-  if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
 }
 function quickExchangeSC(){
-  const sc=parseFloat(document.getElementById('wdScInput').value)||0;
-  if(sc<=0){toast('SC amount ያስገቡ');return;}
+  const sc=parseFloat(document.getElementById('wdScInput')?.value || 0);
+  if(isNaN(sc) || sc<=0){toast('እባክዎ SC መጠን ያስገቡ');return;}
   if(sc>S.swapCoins){toast('በቂ SC የለዎትም');return;}
   const etb=sc*SC_TO_ETB;
   S.swapCoins-=sc; S.balance+=etb;
   addExchHistory(`${sc} SC → ${etb.toFixed(2)} ETB (Quick)`,'sc2etb');
   toast(`✅ ${etb.toFixed(2)} ETB ወደ ሂሳብ ተጨምሯል!`);
-  document.getElementById('wdScInput').value='';
-  document.getElementById('wdScOut').value='';
+  if(document.getElementById('wdScInput')) document.getElementById('wdScInput').value='';
+  if(document.getElementById('wdScOut')) document.getElementById('wdScOut').value='';
   saveState(); render();
   exchangeOnServer('sc2etb', sc, null);
 }
-/* Dedicated exchange sync — uses the backend's exchangeSC action
-   (not syncUser) because exchanges legitimately DECREASE one side
-   of the balance. */
+
 async function exchangeOnServer(type, scAmount, etbAmount){
   if(!tgUser || !syncReady) return;
-  suppressSyncFromSheetUntil = Date.now() + 5000;
+  suppressSyncFromSheetUntil = Date.now() + 10000; // Pause pull sync for 10s to avoid race conditions
   try{
-    const res = await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'exchangeSC',userId:String(tgUser.id),type,scAmount,etbAmount})});
-    const data = await res.json();
+    const data = await apiPost({
+      action: 'exchangeSC',
+      userId: String(tgUser.id),
+      type: type,
+      scAmount: scAmount,
+      etbAmount: etbAmount,
+      currentBalance: S.balance,
+      currentSC: S.swapCoins
+    });
     if(data.result==='success'){
-      // CRITICAL FIX: Direct server response values are authoritative!
       if(typeof data.newBalance === 'number') S.balance = data.newBalance;
       if(typeof data.newSC === 'number') S.swapCoins = data.newSC;
       saveState();
       render();
     } else {
       console.warn('[Swap Money] Exchange rejected by server:', data);
-      toast('❌ '+(data.message||'Exchange failed — please try again'));
+      toast('❌ '+(data.message||'Exchange አልተሳካም'));
+      syncFromSheet();
     }
   }catch(e){
     console.error('[Swap Money] Exchange failed to reach server:', e);
   }
 }
+
 function addExchHistory(label, type){
   if(!S.exchangeHistory) S.exchangeHistory=[];
   S.exchangeHistory.unshift({label,type,date:new Date().toLocaleString()});
@@ -1586,14 +1494,16 @@ function renderExchangeHistory(){
     </div>`).join('');
 }
 
-/* ═══════════════ WITHDRAW ═══════════════ */
+/* ═══════════════ WITHDRAW (PRE-SYNC FIRST) ═══════════════ */
 function selMethod(name, el){
   S.selectedMethod=name;
   document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('sel'));
   if(el)el.classList.add('sel');
   const isPhone=name.includes('Telebirr')||name.includes('Telecom')||name.includes('Safaricom');
-  document.getElementById('wdAcctLabel').textContent=isPhone?`የስልክ ቁጥር (${name})`:`Account Number (${name})`;
-  document.getElementById('wdAcct').placeholder=isPhone?'09... ወይም 07...':'Account Number';
+  const lbl = document.getElementById('wdAcctLabel');
+  const inp = document.getElementById('wdAcct');
+  if(lbl) lbl.textContent=isPhone?`የስልክ ቁጥር (${name})`:`Account Number (${name})`;
+  if(inp) inp.placeholder=isPhone?'09... ወይም 07...':'Account Number';
   saveState(); toast(`✓ ${name} ተመርጧል`);
 }
 function renderWdButton(){
@@ -1601,12 +1511,14 @@ function renderWdButton(){
   const notice=document.getElementById('wdTaskNotice');
   const refs=S.totalRefs||0;
   if(S.isWdTaskActive&&refs<10){
-    notice.style.display='block';
-    notice.textContent=`⏳ ገንዘብ ለማውጣት 10 ሰዎችን ይጋብዙ (${refs}/10)`;
-    btn.disabled=true; btn.textContent=`${refs}/10 ሰው ሲሞላ`;
+    if(notice){
+      notice.style.display='block';
+      notice.textContent=`⏳ ገንዘብ ለማውጣት 10 ሰዎችን ይጋብዙ (${refs}/10)`;
+    }
+    if(btn){ btn.disabled=true; btn.textContent=`${refs}/10 ሰው ሲሞላ`; }
   } else {
-    notice.style.display='none';
-    btn.disabled=false; btn.textContent='Confirm Withdrawal';
+    if(notice) notice.style.display='none';
+    if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
   }
 }
 async function submitWithdraw(){
@@ -1621,26 +1533,43 @@ async function submitWithdraw(){
     toast('10 ሰዎችን ጋብዘው ያጠናቅቁ!'); return;
   }
   const btn=document.getElementById('wdBtn');
-  btn.disabled=true; btn.textContent='Processing…';
+  if(btn){ btn.disabled=true; btn.textContent='Processing…'; }
   const uid=tgUser?tgUser.id:('GUEST_'+Date.now());
+
+  // Step 1: Force Sync current balance to server FIRST so sheet is 100% up-to-date
+  await syncToSheet();
+
+  // Step 2: Submit Withdrawal Request
   try{
-    const res  = await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'withdraw',userId:String(uid),method:S.selectedMethod,account:acct,amount:amt})});
-    const data = await res.json();
+    const data = await apiPost({
+      action: 'withdraw',
+      userId: String(uid),
+      method: S.selectedMethod,
+      account: acct,
+      amount: amt,
+      currentBalance: S.balance
+    });
 
     if(data.result === 'success'){
-      S.balance-=amt; saveState(); render();
-      document.getElementById('wdModal').classList.add('active');
-      if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('warning');
-      document.getElementById('wdAcct').value='';
-      document.getElementById('wdAmt').value='';
+      if(typeof data.newBalance === 'number'){
+        S.balance = data.newBalance;
+      } else {
+        S.balance -= amt;
+      }
+      saveState(); render();
+      document.getElementById('wdModal')?.classList.add('active');
+      if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('warning'); }catch(e){} }
+      if(document.getElementById('wdAcct')) document.getElementById('wdAcct').value='';
+      if(document.getElementById('wdAmt')) document.getElementById('wdAmt').value='';
     } else {
-      toast('❌ '+(data.message||'Withdrawal failed — please try again'));
+      toast('❌ '+(data.message||'የማውጫ ጥያቄው አልተሳካም'));
     }
   }catch(e){
-    toast('❌ Network error — your balance was NOT deducted. Try again.');
+    toast('❌ Network error — እባክዎ ደግመው ይሞክሩ');
   }
-  finally{btn.disabled=false;btn.textContent='Confirm Withdrawal';}
+  finally{
+    if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
+  }
 }
 
 /* ═══════════════ GAME MODAL ═══════════════ */
@@ -1651,23 +1580,24 @@ function openGame(key){
   setText('gmTitle', GAME_TITLES[key]);
   setText('gmSCDisplay', (S.swapCoins||0).toFixed(2)+' SC');
   const iframe=document.getElementById('gmIframe');
-  iframe.src=GAME_URLS[key]+'?sc='+(S.swapCoins||0)+'&uid='+(tgUser?.id||'guest');
-  document.getElementById('gameModal').classList.add('open');
+  if(iframe) iframe.src=GAME_URLS[key]+'?sc='+(S.swapCoins||0)+'&uid='+(tgUser?.id||'guest');
+  document.getElementById('gameModal')?.classList.add('open');
   document.body.style.overflow='hidden';
-  if(tg?.HapticFeedback)tg.HapticFeedback.impactOccurred('medium');
+  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
 }
 function closeGame(){
   if(gameSessionCoins>0){
     toast(`🎉 +${gameSessionCoins} SC ጌሙ ላይ አግኝተዋል!`);
-    if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+    if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
     if(syncReady){
       syncToSheet();
     } else {
       pendingSyncAfterInit = true;
     }
   }
-  document.getElementById('gameModal').classList.remove('open');
-  document.getElementById('gmIframe').src='';
+  document.getElementById('gameModal')?.classList.remove('open');
+  const iframe = document.getElementById('gmIframe');
+  if(iframe) iframe.src='';
   document.body.style.overflow='';
   currentGame=null; render();
 }
@@ -1699,9 +1629,10 @@ window.addEventListener('message',e=>{
 
     adRunning = true;
     isBonusAd = true;
-    document.getElementById('adCloseBtn').style.display='none';
-    document.getElementById('adTitle').textContent='ማስታወቂያ';
-    document.getElementById('adDesc').textContent='አጭር ማስታወቂያ';
+    const closeBtn = document.getElementById('adCloseBtn');
+    if(closeBtn) closeBtn.style.display='none';
+    setText('adTitle','ማስታወቂያ');
+    setText('adDesc','አጭር ማስታወቂያ');
 
     if(typeof show_11460944 === 'function'){
       show_11460944('pop').catch(()=>{
@@ -1717,12 +1648,15 @@ window.addEventListener('message',e=>{
 
 /* ═══════════════ SHARE ═══════════════ */
 function copyRefLink(){
-  const v=document.getElementById('refLinkInp').value;
+  const inp = document.getElementById('refLinkInp');
+  if(!inp) return;
+  const v=inp.value;
   try{navigator.clipboard.writeText(v);}catch(e){const i=document.createElement('input');i.value=v;document.body.appendChild(i);i.select();document.execCommand('copy');i.remove();}
   toast('📋 ሊንክ ኮፒ ሆኗል!');
 }
 function shareSocial(p){
-  const url=encodeURIComponent(document.getElementById('refLinkInp').value);
+  const inp = document.getElementById('refLinkInp');
+  const url=encodeURIComponent(inp ? inp.value : '');
   const txt=encodeURIComponent('Swap Money ላይ ተቀላቀሉ — ዕለታዊ ገንዘብ ያግኙ!');
   if(p==='telegram') window.open(`https://t.me/share/url?url=${url}&text=${txt}`,'_blank');
   else if(p==='whatsapp') window.open(`https://api.whatsapp.com/send?text=${txt}%20${url}`,'_blank');
@@ -1741,38 +1675,39 @@ async function syncFromSheet(){
     const data=await res.json();
     if(data.result==='success'&&data.user){
       const u=data.user;
-      // CRITICAL FIX: Direct assignment from server (NO Math.max override)
-      // Allows Admin balance edits and Exchange reductions to reflect instantly!
       if(typeof u.balance!=='undefined')     S.balance = Number(u.balance) || 0;
       if(typeof u.totalAds!=='undefined')    S.adsWatched = Number(u.totalAds) || 0;
       if(typeof u.swapCoins!=='undefined')   S.swapCoins = Number(u.swapCoins) || 0;
       if(typeof u.totalReferrals!=='undefined') S.totalRefs = Number(u.totalReferrals) || 0;
       render(); flashSyncDot();
-    } else {
-      console.warn('[Swap Money] syncFromSheet got non-success result:', data);
+    } else if(data.result === 'not_found' && !S.hasWelcomed){
+      S.hasWelcomed = true;
+      if(S.balance === 0) S.balance = WELCOME_ETB;
+      saveState();
+      render();
+      syncToSheet();
     }
   }catch(e){
-    console.error('[Swap Money] syncFromSheet failed — check SCRIPT_URL and deployment. Error:', e);
+    console.error('[Swap Money] syncFromSheet failed:', e);
   }
 }
 
 async function syncToSheet(){
   if(!tgUser)return;
   if(!syncReady){
-    console.warn('[Swap Money] syncToSheet blocked: not ready yet, will retry after init');
+    console.warn('[Swap Money] syncToSheet blocked: not ready yet');
     return;
   }
   try{
-    const res = await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        action:'syncUser',
-        userId:String(tgUser.id),
-        username:tgUser.username||tgUser.first_name||'Guest',
-        balance:S.balance,
-        totalAds:S.adsWatched,
-        swapCoins:S.swapCoins,
-        referredBy:String(referrerId||'None')
-      })});
+    await apiPost({
+      action:'syncUser',
+      userId:String(tgUser.id),
+      username:tgUser.username||tgUser.first_name||'Guest',
+      balance:S.balance,
+      totalAds:S.adsWatched,
+      swapCoins:S.swapCoins,
+      referredBy:String(referrerId||'None')
+    });
     setTimeout(syncFromSheet,1500);
   }catch(e){
     console.error('[Swap Money] syncToSheet request failed:', e);
@@ -1813,7 +1748,6 @@ async function safeInit(){
     const data = await res.json();
 
     if(data.result === 'success' && data.user){
-      // ── EXISTING USER ── Direct assignment from server
       const u = data.user;
       S.balance    = Number(u.balance)        || 0;
       S.adsWatched = Number(u.totalAds)       || 0;
@@ -1824,15 +1758,15 @@ async function safeInit(){
       toast('✅ ውሂብዎ ከ server ተመልሷል');
 
     } else if(data.result === 'not_found'){
-      if(!S.hasWelcomed){
-        S.hasWelcomed = true;
-        if(S.balance === 0) S.balance = WELCOME_ETB;
-        saveState();
-        setTimeout(()=>{
-          toast(`🎉 እንኳን ደህና መጡ! ${WELCOME_ETB} ETB የመግቢያ ቦነስ!`);
-          if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-        },800);
-      }
+      S.hasWelcomed = true;
+      if(S.balance === 0) S.balance = WELCOME_ETB;
+      saveState();
+      syncReady = true;
+      await syncToSheet();
+      setTimeout(()=>{
+        toast(`🎉 እንኳን ደህና መጡ! ${WELCOME_ETB} ETB የመግቢያ ቦነስ!`);
+        if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
+      },800);
     } else {
       console.error('[Swap Money] Unexpected server response during init:', data);
       setTimeout(safeInit, 4000);
@@ -1840,7 +1774,7 @@ async function safeInit(){
     }
 
   }catch(e){
-    console.error('[Swap Money] Failed to reach Google Apps Script. Check SCRIPT_URL and deployment. Error:', e);
+    console.error('[Swap Money] Failed to reach Google Apps Script. Check SCRIPT_URL. Error:', e);
     render();
     setTimeout(safeInit, 4000);
     return;
@@ -1871,9 +1805,10 @@ function maybeShowForcedAd(){
 
   adRunning = true;
   isBonusAd = true;
-  document.getElementById('adCloseBtn').style.display='none';
-  document.getElementById('adTitle').textContent='ማስታወቂያ';
-  document.getElementById('adDesc').textContent='አጭር ማስታወቂያ';
+  const closeBtn = document.getElementById('adCloseBtn');
+  if(closeBtn) closeBtn.style.display='none';
+  setText('adTitle','ማስታወቂያ');
+  setText('adDesc','አጭር ማስታወቂያ');
 
   if(typeof show_11460944 === 'function'){
     show_11460944().then(()=>{
