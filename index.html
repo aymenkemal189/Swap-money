@@ -816,7 +816,7 @@ function toast(msg){
 /* ═══════════════ ACTIVITY TRACKER & GUARD ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
-let lastLocalMutationTime = 0; // Timestamp guard against race condition GET requests
+let lastLocalMutationTime = 0;
 
 function markLocalMutation(){
   lastLocalMutationTime = Date.now();
@@ -875,7 +875,8 @@ function render(){
   setText('wdBalDisplay', bal.toLocaleString());
   renderWdButton();
 
-  const prog = refs%10;
+  // FIX FINDING #1: Milestone progress percentage display (10/10 milestone)
+  const prog = (refs % 10 === 0 && refs > 0) ? 10 : (refs % 10);
   setText('refProgText', `${prog}/10`);
   setText('refCount', refs);
   setText('refEarned', (Math.floor(refs/10)*500 + (refs%10)*REF_BONUS).toLocaleString()+' ETB');
@@ -1636,6 +1637,4 @@ setInterval(()=>{
 </script>
 </body>
 </html>
-
-
 
