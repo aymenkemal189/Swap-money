@@ -335,7 +335,7 @@ header{
 <header>
   <div class="hdr-av" id="hdrAv">U</div>
   <div class="hdr-info">
-    <h4 id="hdrWelcome">Welcome Back 👋</h4>
+    <h4 id="hdrWelcome">Welcome Back 👋🔥</h4>
     <p>
       <span id="hdrUser">@user</span>
       <span class="level-chip" id="levelChip">⭐ Level 1</span>
@@ -479,26 +479,26 @@ header{
   <div class="games-grid">
     <div class="game-card" onclick="openGame('spin')" style="background:linear-gradient(145deg,#1a1008,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/RZj4tTzf/20260805-175624.png" alt="Spin">
-      <div class="game-card-name">Spin wheel </div>
-      <div class="game-card-sub">  </div>
+      <div class="game-card-name">Spin Wheel</div>
+      <div class="game-card-sub">Spin &amp; Win SC</div>
       <button class="game-card-btn">Spin Now</button>
     </div>
     <div class="game-card" onclick="openGame('scratch')" style="background:linear-gradient(145deg,#0e1520,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/LX97gqhV/20260805-175646.png" alt="Scratch">
       <div class="game-card-name">Scratch Card</div>
-      <div class="game-card-sub"> </div>
+      <div class="game-card-sub">Win Big SC</div>
       <button class="game-card-btn">Scratch</button>
     </div>
     <div class="game-card" onclick="openGame('coin')" style="background:linear-gradient(145deg,#0e1808,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/zvWP9TQf/20260805-175704.png" alt="Coin">
       <div class="game-card-name">Coin Flip</div>
-      <div class="game-card-sub">  </div>
+      <div class="game-card-sub">Flip &amp; Earn SC</div>
       <button class="game-card-btn">Flip Now</button>
     </div>
     <div class="game-card" onclick="openGame('guess')" style="background:linear-gradient(145deg,#12081a,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/rsCN1jbr/20260805-175722.png" alt="Guess">
       <div class="game-card-name">Number Guess</div>
-      <div class="game-card-sub"></div>
+      <div class="game-card-sub">Guess &amp; Win SC</div>
       <button class="game-card-btn">Play Now</button>
     </div>
   </div>
@@ -535,7 +535,7 @@ header{
 ════════════════════════ -->
 <section class="page" id="page-ads">
   <div class="earn-hero" style="background:linear-gradient(135deg,#1f1205,#0d1018);border-color:var(--gold)">
-<img src="https://i.postimg.cc/XNkKJTtZ/20260812-113715.png" style="width:66px;height:66px;object-fit:contain;margin-bottom:6px" alt="tv">
+    <div style="font-size:32px">📺</div>
     <h2>Watch Ads &amp; Earn Money</h2>
     <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
   </div>
@@ -556,7 +556,7 @@ header{
 
   <!-- Unlimited Ads Grid -->
   <div class="sh">
-    <h3>📺 Unlimited Ads </h3>
+    <h3>📺 Unlimited Ads Grid</h3>
     <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
   </div>
   <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል (ከ 91 በኋላ በ 20 SC)</p>
@@ -651,7 +651,7 @@ header{
   </div>
 
   <div class="wd-form">
-    <div class="min-notice"> አነስተኛ የማውጫ መጠን: 2,500 ETB</div>
+    <div class="min-notice">⚠️ አነስተኛ የማውጫ መጠን: 2,500 ETB</div>
     <label class="form-label" id="wdAcctLabel">የስልክ ቁጥር (Telebirr)</label>
     <input class="form-input" id="wdAcct" placeholder="09... ወይም 07...">
     <label class="form-label">Amount (ETB)</label>
@@ -661,7 +661,7 @@ header{
   </div>
 </section>
 
-<!-- ── BOTTOM NAVIGATION (5 TABS WITH WATCH ADS IN MIDDLE) ── -->
+<!-- ── BOTTOM NAVIGATION (5 TABS) ── -->
 <nav class="bnav">
   <button class="ni active" data-p="home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
@@ -689,14 +689,14 @@ const WELCOME_ETB  = 50;
 const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 
-/* ── Ad reward tiers (After 91 ads, cost is 20 SC per unlimited ad) ── */
+/* ── Ad reward tiers ── */
 const AD_TIERS = [
   {upTo:6,  reward:50},
   {upTo:26, reward:30},
   {upTo:41, reward:20},
   {upTo:91, reward:10},
 ];
-const UNLIMITED_AD_SC_COST = 20; // Updated to 20 SC for unlimited ads
+const UNLIMITED_AD_SC_COST = 20;
 function getAdReward(adsWatchedSoFar){
   const adNumber = adsWatchedSoFar + 1;
   for(const tier of AD_TIERS){
@@ -813,9 +813,16 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ ACTIVITY TRACKER & FORCED ADS ═══════════════ */
+/* ═══════════════ ACTIVITY TRACKER & GUARD ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
+let lastLocalMutationTime = 0; // Timestamp guard against race condition GET requests
+
+function markLocalMutation(){
+  lastLocalMutationTime = Date.now();
+  saveState();
+  render();
+}
 
 function recordActivity(){
   activityCount++;
@@ -827,7 +834,7 @@ function recordActivity(){
 
 /* ═══════════════ NAV & PAGE SWITCHING ═══════════════ */
 function showPage(id){
-  recordActivity(); // Record activity on page change
+  recordActivity();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
   
@@ -878,7 +885,6 @@ function render(){
   renderStreakDays();
   renderHomeTasks();
   renderEarnTasks();
-  saveState();
 }
 
 /* ═══════════════ STREAK DAYS RENDER ═══════════════ */
@@ -929,9 +935,8 @@ function claimStreakReward(){
     toast(`🔥 Day ${day} ቦነስ +${reward} SC ተጨምሯል!`);
   }
   S.streakClaimedFor = S.lastLoginDate;
-  saveState();
+  markLocalMutation();
   if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-  render();
   if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
 }
 
@@ -1002,7 +1007,6 @@ function renderEarnTasks(){
     }
   }
 
-  // Render Ads Grid on Earn page & Middle Ads page
   const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW'];
   const BGS = [
     'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
@@ -1095,14 +1099,13 @@ function claimTask(id,reward){
   if(S.completedTasks.includes(id)){toast('አስቀድሞ!');return;}
   S.completedTasks.push(id);
   S.balance+=reward;
-  saveState();
+  markLocalMutation();
   toast(`🎉 +${reward} ETB ተጨምሯል!`);
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
-  render();
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC (17 SECONDS COUNTDOWN) ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
@@ -1117,8 +1120,7 @@ function watchAd(btn){
       return;
     }
     S.swapCoins -= UNLIMITED_AD_SC_COST;
-    saveState();
-    render();
+    markLocalMutation();
   }
 
   btn.disabled=true;
@@ -1136,11 +1138,11 @@ function watchAd(btn){
     });
   }
 
-  runFallbackCountdown(17000); // 17 SECONDS COUNTDOWN
+  runFallbackCountdown(17000);
 }
 
 function runFallbackCountdown(durationMs){
-  durationMs = durationMs || 17000; // 17 seconds default
+  durationMs = durationMs || 17000;
   const durSec = Math.round(durationMs/1000);
   const modal=document.getElementById('adModal');
   const fill=document.getElementById('adBarFill');
@@ -1174,16 +1176,14 @@ function creditAdReward(){
   S.adsWatched++;
 
   if(wasUnlimited){
-    saveState();
+    markLocalMutation();
     toast('✅ ማስታወቂያውን አጠናቀዋል');
-    render();
     if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
     document.getElementById('adDesc').innerHTML = `✅ ማስታወቂያ ታይቷል። ✕ ይንኩ ለመዝጋት`;
   } else {
     S.balance+=earnedReward;
-    saveState();
+    markLocalMutation();
     toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
-    render();
     if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
     document.getElementById('adDesc').innerHTML = `🎉 <strong style="color:var(--gold)">+${earnedReward} ETB</strong> ተጨምሯል! ✕ ይንኩ ለመዝጋት`;
   }
@@ -1212,7 +1212,7 @@ function closeAdAndShowAnother(){
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(()=>{});
   }
-  runFallbackCountdown(17000); // 17 SECONDS FOR BONUS AD
+  runFallbackCountdown(17000);
 }
 
 function finishBonusAd(){
@@ -1287,7 +1287,7 @@ function selMethod(name, el){
   const inp = document.getElementById('wdAcct');
   if(lbl) lbl.textContent=isPhone?`የስልክ ቁጥር (${name})`:`Account Number (${name})`;
   if(inp) inp.placeholder=isPhone?'09... ወይም 07...':'Account Number';
-  saveState(); toast(`✓ ${name} ተመርጧል`);
+  markLocalMutation(); toast(`✓ ${name} ተመርጧል`);
 }
 
 function renderWdButton(){
@@ -1315,7 +1315,7 @@ async function submitWithdraw(){
   if(amt>S.balance){toast('በቂ ቀሪ ሂሳብ የለዎትም');return;}
   const refs=S.totalRefs||0;
   if(refs<10){
-    S.isWdTaskActive=true; saveState(); render();
+    S.isWdTaskActive=true; markLocalMutation();
     toast('10 ሰዎችን ጋብዘው ያጠናቅቁ!'); return;
   }
   const btn=document.getElementById('wdBtn');
@@ -1340,7 +1340,7 @@ async function submitWithdraw(){
       } else {
         S.balance -= amt;
       }
-      saveState(); render();
+      markLocalMutation();
       document.getElementById('wdModal')?.classList.add('active');
       if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('warning'); }catch(e){} }
       if(document.getElementById('wdAcct')) document.getElementById('wdAcct').value='';
@@ -1375,6 +1375,7 @@ function closeGame(){
   if(gameSessionCoins>0){
     toast(`🎉 +${gameSessionCoins} SC ጌሙ ላይ አግኝተዋል!`);
     if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
+    markLocalMutation();
     if(syncReady){
       syncToSheet();
     } else {
@@ -1396,7 +1397,7 @@ window.addEventListener('message',e=>{
     const amt = e.data.amount;
     gameSessionCoins += amt;
     S.swapCoins = (S.swapCoins||0) + amt;
-    saveState();
+    markLocalMutation();
     setText('gmSessionCoins', gameSessionCoins.toFixed(2)+' SC');
     setText('gmSCDisplay', S.swapCoins.toFixed(2)+' SC');
   }
@@ -1453,11 +1454,16 @@ function shareSocial(p){
   else copyRefLink();
 }
 
-/* ═══════════════ GOOGLE SHEETS SYNC ═══════════════ */
-let suppressSyncFromSheetUntil = 0;
+/* ═══════════════ GOOGLE SHEETS SYNC (PROTECTED PULL SYNC) ═══════════════ */
 async function syncFromSheet(){
   if(!tgUser)return;
-  if(Date.now() < suppressSyncFromSheetUntil) return;
+  
+  // TIMESTAMP GUARD: Do not pull sync from sheet if local state mutated in the last 15 seconds!
+  if(Date.now() - lastLocalMutationTime < 15000) {
+    console.warn('[Swap Money] Pull sync blocked by local mutation timestamp guard');
+    return;
+  }
+  
   try{
     const res=await fetch(`${SCRIPT_URL}?action=getUser&userId=${tgUser.id}`);
     const data=await res.json();
@@ -1472,8 +1478,7 @@ async function syncFromSheet(){
     } else if(data.result === 'not_found' && !S.hasWelcomed){
       S.hasWelcomed = true;
       if(S.balance === 0) S.balance = WELCOME_ETB;
-      saveState();
-      render();
+      markLocalMutation();
       syncToSheet();
     }
   }catch(e){
@@ -1541,7 +1546,7 @@ async function safeInit(){
     if(!S.hasWelcomed){
       S.hasWelcomed = true;
       if(S.balance === 0) S.balance = WELCOME_ETB;
-      saveState(); render();
+      markLocalMutation();
     }
     return;
   }
@@ -1563,7 +1568,7 @@ async function safeInit(){
     } else if(data.result === 'not_found'){
       S.hasWelcomed = true;
       if(S.balance === 0) S.balance = WELCOME_ETB;
-      saveState();
+      markLocalMutation();
       syncReady = true;
       await syncToSheet();
       setTimeout(()=>{
@@ -1594,9 +1599,9 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 20000);
 
-/* ═══════════════ FORCED ADS SCHEDULER (2 MINS FIRST, THEN EVERY 5 ACTIVITIES) ═══════════════ */
+/* ═══════════════ FORCED ADS SCHEDULER ═══════════════ */
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 minutes grace period for first ad
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000;
 
 function maybeShowForcedAd(isActivityTrigger){
   if(adRunning) return;
@@ -1605,7 +1610,7 @@ function maybeShowForcedAd(isActivityTrigger){
 
   if(!initialForcedAdShown){
     const elapsed = Date.now() - APP_OPEN_TIME;
-    if(elapsed < FORCED_AD_GRACE_MS) return; // Wait 2 minutes
+    if(elapsed < FORCED_AD_GRACE_MS) return;
     initialForcedAdShown = true;
   }
 
@@ -1623,7 +1628,6 @@ function maybeShowForcedAd(isActivityTrigger){
   }
 }
 
-// Check for the initial 2-minute forced ad
 setInterval(()=>{
   if(!initialForcedAdShown){
     maybeShowForcedAd(false);
@@ -1632,3 +1636,6 @@ setInterval(()=>{
 </script>
 </body>
 </html>
+
+
+
