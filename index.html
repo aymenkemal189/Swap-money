@@ -96,15 +96,12 @@ header{
 
 /* ── SC CARD ── */
 .sc-card{background:linear-gradient(145deg,#0f1520,#0a0e18);border:1px solid rgba(255,198,26,.2);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
-.sc-card::after{content:'';position:absolute;right:0;top:0;bottom:0;width:35%;background:linear-gradient(90deg,transparent,rgba(255,198,26,.03))}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
 .sc-title-row{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:900}
 .sc-new-badge{font-size:8px;background:var(--gold-grad);color:#000;padding:1px 6px;border-radius:10px;font-weight:900}
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
-.sc-etb{font-size:10px;color:var(--muted)}
-.sc-rate{font-size:10px;color:var(--green);font-weight:700}
 
 /* ── QA ROW ── */
 .qa-row{display:flex;justify-content:space-around;margin:10px 0 12px}
@@ -157,34 +154,13 @@ header{
 .feed-info p{font-size:10px;color:var(--muted);margin-top:1px}
 .feed-amount{font-size:14px;font-weight:900;color:var(--gold)}
 
-/* ── EXCHANGE TAB ── */
-.exch-hero{background:linear-gradient(145deg,#1a1508,#0e1018);border:1px solid rgba(255,198,26,.28);border-radius:18px;padding:16px;text-align:center;margin-bottom:10px}
-.exch-hero-rate{font-size:28px;font-weight:900;color:var(--gold);margin:8px 0 4px}
-.exch-hero-sub{font-size:11px;color:var(--muted)}
-.exch-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
-.exch-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.exch-input-wrap{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
-.exch-input-label{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.exch-input{width:100%;background:none;border:none;color:#fff;font-size:18px;font-weight:900;outline:none;font-family:var(--font)}
-.exch-arrow{width:32px;height:32px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;box-shadow:0 3px 10px var(--gold-glow)}
-.exch-arrow svg{width:16px;height:16px;fill:#000}
-.exch-info-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:10px;padding:8px 10px;background:var(--card2);border-radius:10px}
-.exch-info-row span{font-weight:700;color:var(--gold)}
-.exch-history-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2)}
-.exch-history-item:last-child{border-bottom:none}
-.exch-h-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.exch-h-info{flex:1;margin-left:8px}
-.exch-h-info h5{font-size:11px;font-weight:800}
-.exch-h-info p{font-size:10px;color:var(--muted)}
-.exch-h-amt{font-size:12px;font-weight:900}
-
 /* ── EARN TAB ── */
 .earn-hero{background:linear-gradient(135deg,#1a1008,#0d1018);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .earn-hero img{width:56px;height:56px;object-fit:contain}
 .earn-hero h2{font-size:18px;font-weight:900}
 .earn-hero p{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* ── GAME CARDS (compact, 1 row of 4) ── */
+/* ── GAME CARDS ── */
 .games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
 .game-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:9px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.15s;position:relative;overflow:hidden}
 .game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.35))}
@@ -220,23 +196,6 @@ header{
 .streak-day.done{background:rgba(255,198,26,.1);border-color:rgba(255,198,26,.35);color:var(--gold)}
 .streak-day.today{background:rgba(255,198,26,.14);border-color:var(--gold);color:var(--gold)}
 .streak-day-icon{font-size:14px}
-
-/* ── TOP TAB ── */
-.podium-row{display:flex;gap:6px;align-items:flex-end;margin-bottom:14px}
-.pod{flex:1;background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:12px 6px;text-align:center;position:relative}
-.pod.p1{background:linear-gradient(180deg,#201808,#111520);border-color:var(--gold);transform:scale(1.04);z-index:2}
-.pod-av{width:38px;height:38px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#000;margin:0 auto 6px}
-.pod.p2 .pod-av{background:linear-gradient(135deg,#b0b8c8,#8899aa)}
-.pod.p3 .pod-av{background:linear-gradient(135deg,#cd7f32,#a0522d);color:#fff}
-.pod-name{font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pod-amt{font-size:11px;font-weight:900;color:var(--gold)}
-.pod-tag{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);background:var(--gold-grad);color:#000;font-size:8px;font-weight:900;padding:1px 7px;border-radius:8px}
-.lb-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.lb-left{display:flex;align-items:center;gap:8px}
-.lb-rank{width:24px;height:24px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted)}
-.lb-av{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
-.lb-name{font-size:12px;font-weight:800}
-.lb-score{font-size:13px;font-weight:900;color:var(--gold)}
 
 /* ── REFERRAL TAB ── */
 .ref-hero{background:linear-gradient(145deg,#1a1208,#0d1018);border:1px solid rgba(255,198,26,.3);border-radius:18px;padding:16px;text-align:center;margin-bottom:10px}
@@ -331,9 +290,9 @@ header{
     <button id="adCloseBtn" onclick="closeAdAndShowAnother()" style="display:none;position:absolute;top:12px;right:14px;background:var(--card2);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;color:var(--muted);font-size:14px;cursor:pointer;font-family:var(--font)">✕</button>
     <div class="ad-play-ring"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     <div class="ad-title" id="adTitle">ማስታወቂያ #1 በሂደት ላይ</div>
-    <div class="ad-desc" id="adDesc">30 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">50 ETB</strong> ይጨምራሉ!</div>
+    <div class="ad-desc" id="adDesc">17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">50 ETB</strong> ይጨምራሉ!</div>
     <div class="ad-bar-bg"><div class="ad-bar-fill" id="adBarFill"></div></div>
-    <div class="ad-timer-txt" id="adTimerTxt">30s ቀርቷል</div>
+    <div class="ad-timer-txt" id="adTimerTxt">17s ቀርቷል</div>
   </div>
 </div>
 
@@ -376,7 +335,7 @@ header{
 <header>
   <div class="hdr-av" id="hdrAv">U</div>
   <div class="hdr-info">
-    <h4 id="hdrWelcome">Welcome Back 👋🔥</h4>
+    <h4 id="hdrWelcome">Welcome Back 👋</h4>
     <p>
       <span id="hdrUser">@user</span>
       <span class="level-chip" id="levelChip">⭐ Level 1</span>
@@ -421,14 +380,9 @@ header{
   <div class="sc-card">
     <img class="sc-img" src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="SC">
     <div class="sc-info">
-      <div class="sc-title-row">Swap Coin <span class="sc-new-badge">New</span></div>
-      <div class="sc-sub">Trade, Swap &amp; Earn More</div>
+      <div class="sc-title-row">Swap Coin <span class="sc-new-badge">Game SC</span></div>
+      <div class="sc-sub">Play Mini-Games &amp; Earn SC Points</div>
       <div class="sc-amount"><span id="scBalance">0</span> SC</div>
-      <div class="sc-etb">≈ <span id="scEtbEquiv">0.00</span> ETB</div>
-    </div>
-    <div style="text-align:right;flex-shrink:0">
-      <div class="sc-rate">1 ETB = 2 SC</div>
-      <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;margin-top:6px" onclick="showPage('exchange')">Exchange</button>
     </div>
   </div>
 
@@ -438,17 +392,17 @@ header{
       <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
       <span class="qa-label">Deposit</span>
     </div>
-    <div class="qa-item" onclick="showPage('exchange')">
-      <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg></div>
-      <span class="qa-label">Exchange</span>
+    <div class="qa-item" onclick="showPage('earn')">
+      <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
+      <span class="qa-label">Earn</span>
+    </div>
+    <div class="qa-item" onclick="showPage('ads')">
+      <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zM8 8l8 4-8 4V8z"/></svg></div>
+      <span class="qa-label">Watch Ads</span>
     </div>
     <div class="qa-item" onclick="showPage('withdraw')">
       <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8z"/></svg></div>
       <span class="qa-label">Withdraw</span>
-    </div>
-    <div class="qa-item" onclick="toast('⏳ History coming soon!')">
-      <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg></div>
-      <span class="qa-label">History</span>
     </div>
     <div class="qa-item" onclick="showPage('invite')">
       <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
@@ -472,7 +426,7 @@ header{
     </div>
     <div class="stat-box">
       <div class="stat-icon" style="background:rgba(255,198,26,.1)"><svg viewBox="0 0 24 24" style="fill:var(--gold)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
-      <div class="stat-info"><b id="stSC">0 SC</b><span>Swap Coins</span><div class="stat-change">≈ <span id="stSCEtb">0</span> ETB</div></div>
+      <div class="stat-info"><b id="stSC">0 SC</b><span>Swap Coins</span><div class="stat-change">Points</div></div>
     </div>
   </div>
 
@@ -510,74 +464,6 @@ header{
 </section>
 
 <!-- ════════════════════════
-     EXCHANGE PAGE
-════════════════════════ -->
-<section class="page" id="page-exchange">
-
-  <div class="exch-hero">
-    <img src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" style="width:44px;height:44px;object-fit:contain;margin-bottom:6px" alt="SC">
-    <div style="font-size:11px;font-weight:700;color:var(--muted)">Current Exchange Rate</div>
-    <div class="exch-hero-rate">1 ETB = 2 SC</div>
-    <div class="exch-hero-sub">1 SC = 0.50 ETB · ወደፊት Market Cap ይቀየራል</div>
-  </div>
-
-  <!-- SC → ETB -->
-  <div class="exch-card">
-    <div class="card-title">🔄 SC → ETB (ወደ ETB ቀይር)</div>
-    <div class="exch-row">
-      <div class="exch-input-wrap">
-        <div class="exch-input-label">Swap Coins (SC)</div>
-        <input class="exch-input" type="number" id="sc2etbInput" placeholder="0" min="1" oninput="calcSC2ETB()">
-      </div>
-      <div class="exch-arrow">
-        <svg viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
-      </div>
-      <div class="exch-input-wrap">
-        <div class="exch-input-label">Ethiopian Birr (ETB)</div>
-        <input class="exch-input" id="sc2etbOut" placeholder="0.00" readonly style="color:var(--gold)">
-      </div>
-    </div>
-    <div class="exch-info-row">
-      <span>ያለዎ SC: <span id="exchAvailSC">0</span></span>
-      <span>ይቀበላሉ: <span id="exchWillGet">0.00 ETB</span></span>
-    </div>
-    <button class="btn btn-gold btn-block" onclick="doExchange('sc2etb')">SC → ETB Exchange አድርግ</button>
-  </div>
-
-  <!-- ETB → SC -->
-  <div class="exch-card">
-    <div class="card-title">🔄 ETB → SC (Swap Coin ግዛ)</div>
-    <div class="exch-row">
-      <div class="exch-input-wrap">
-        <div class="exch-input-label">Ethiopian Birr (ETB)</div>
-        <input class="exch-input" type="number" id="etb2scInput" placeholder="0" min="1" oninput="calcETB2SC()">
-      </div>
-      <div class="exch-arrow">
-        <svg viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
-      </div>
-      <div class="exch-input-wrap">
-        <div class="exch-input-label">Swap Coins (SC)</div>
-        <input class="exch-input" id="etb2scOut" placeholder="0" readonly style="color:var(--purple)">
-      </div>
-    </div>
-    <div class="exch-info-row">
-      <span>ያለዎ ETB: <span id="exchAvailETB">0</span></span>
-      <span>ይቀበላሉ: <span id="exchSCWillGet">0 SC</span></span>
-    </div>
-    <button class="btn btn-gold btn-block" onclick="doExchange('etb2sc')">ETB → SC Exchange አድርግ</button>
-  </div>
-
-  <!-- Exchange History -->
-  <div class="card">
-    <div class="card-title">📋 Exchange ታሪክ</div>
-    <div id="exchHistoryList">
-      <div style="text-align:center;padding:16px;color:var(--muted);font-size:12px">ምንም exchange ታሪክ የለም</div>
-    </div>
-  </div>
-
-</section>
-
-<!-- ════════════════════════
      EARN PAGE
 ════════════════════════ -->
 <section class="page" id="page-earn">
@@ -593,26 +479,26 @@ header{
   <div class="games-grid">
     <div class="game-card" onclick="openGame('spin')" style="background:linear-gradient(145deg,#1a1008,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/RZj4tTzf/20260805-175624.png" alt="Spin">
-      <div class="game-card-name">Spin Wheel</div>
-      <div class="game-card-sub">Spin &amp; Win SC</div>
+      <div class="game-card-name">Spin wheel </div>
+      <div class="game-card-sub">  </div>
       <button class="game-card-btn">Spin Now</button>
     </div>
     <div class="game-card" onclick="openGame('scratch')" style="background:linear-gradient(145deg,#0e1520,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/LX97gqhV/20260805-175646.png" alt="Scratch">
       <div class="game-card-name">Scratch Card</div>
-      <div class="game-card-sub">Win Big SC</div>
+      <div class="game-card-sub"> </div>
       <button class="game-card-btn">Scratch</button>
     </div>
     <div class="game-card" onclick="openGame('coin')" style="background:linear-gradient(145deg,#0e1808,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/zvWP9TQf/20260805-175704.png" alt="Coin">
       <div class="game-card-name">Coin Flip</div>
-      <div class="game-card-sub">Flip &amp; Earn SC</div>
+      <div class="game-card-sub">  </div>
       <button class="game-card-btn">Flip Now</button>
     </div>
     <div class="game-card" onclick="openGame('guess')" style="background:linear-gradient(145deg,#12081a,#111520)">
       <img class="game-card-img" src="https://i.postimg.cc/rsCN1jbr/20260805-175722.png" alt="Guess">
       <div class="game-card-name">Number Guess</div>
-      <div class="game-card-sub">Guess &amp; Win SC</div>
+      <div class="game-card-sub"></div>
       <button class="game-card-btn">Play Now</button>
     </div>
   </div>
@@ -639,22 +525,46 @@ header{
     <h3>📺 Watch Ads &amp; Earn</h3>
     <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
   </div>
-  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">30 ሰከንድ ያዩ — 50 ETB ወደ ሂሳብዎ ይገባል</p>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — 50 ETB ወደ ሂሳብዎ ይገባል</p>
   <div class="earn-grid" id="earnAdGrid"></div>
 
 </section>
 
 <!-- ════════════════════════
-     TOP PAGE
+     WATCH ADS PAGE (NEW MIDDLE TAB)
 ════════════════════════ -->
-<section class="page" id="page-top">
-  <div class="sh" style="margin-top:0"><h3>🏆 Top Earners</h3><span style="font-size:9px;background:rgba(16,185,129,.12);color:var(--green);padding:2px 7px;border-radius:8px;font-weight:800">● LIVE</span></div>
-  <div class="podium-row" id="podiumEl"></div>
-  <div id="lbListEl"></div>
+<section class="page" id="page-ads">
+  <div class="earn-hero" style="background:linear-gradient(135deg,#1f1205,#0d1018);border-color:var(--gold)">
+<img src="https://i.postimg.cc/XNkKJTtZ/20260812-113715.png" style="width:66px;height:66px;object-fit:contain;margin-bottom:6px" alt="tv">
+    <h2>Watch Ads &amp; Earn Money</h2>
+    <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
+  </div>
+
+  <!-- Video Tutorial Guide Grid -->
+  <div class="card" style="padding:12px;margin-bottom:10px">
+    <div class="card-title" style="font-size:12px">▶️ ብር እንዴት እንደሚያገኙ ለማየት</div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="flex:1;border-radius:10px;overflow:hidden;height:85px;background:#000;flex-shrink:0">
+        <iframe src="https://www.youtube.com/embed/WgRzYGYDDOs" style="width:100%;height:100%;border:none" title="Tutorial Video" allowfullscreen></iframe>
+      </div>
+      <div style="flex:1;font-size:10px;color:var(--muted);line-height:1.5">
+        <strong style="color:#fff;display:block;margin-bottom:3px;font-size:11px">አሰራሩን ይረዱ!</strong>
+        ቪዲዮውን በመመልከት እንዴት ማስታወቂያ አይተው ብር ማሰብሰብ እንደሚችሉ ይወቁ።
+      </div>
+    </div>
+  </div>
+
+  <!-- Unlimited Ads Grid -->
+  <div class="sh">
+    <h3>📺 Unlimited Ads </h3>
+    <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
+  </div>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል (ከ 91 በኋላ በ 20 SC)</p>
+  <div class="earn-grid" id="mainAdGrid"></div>
 </section>
 
 <!-- ════════════════════════
-     INVITE PAGE
+     REFERRAL PAGE
 ════════════════════════ -->
 <section class="page" id="page-invite">
   <div class="ref-hero">
@@ -715,18 +625,7 @@ header{
   <div class="wd-balance">
     <h3>ጠቅላላ ቀሪ ሂሳብ</h3>
     <div class="amt"><span id="wdBalDisplay">0</span><span> ETB</span></div>
-    <p>Min: 2,500 ETB · SC ☞ Exchange ከፍቶ ወደ ETB ቀይር</p>
-  </div>
-
-  <!-- SC quick exchange -->
-  <div class="card" style="margin-bottom:10px">
-    <div class="card-title">🔄 SC → ETB (Quick)</div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <input class="form-input" type="number" id="wdScInput" placeholder="SC amount" style="margin:0;flex:1" oninput="document.getElementById('wdScOut').value=(parseFloat(this.value||0)*0.5).toFixed(2)+' ETB'">
-      <div style="font-size:18px;color:var(--gold)">⇄</div>
-      <input class="form-input" id="wdScOut" readonly placeholder="0.00 ETB" style="margin:0;flex:1;color:var(--gold)">
-    </div>
-    <button class="btn btn-gold btn-block" style="margin-top:8px" onclick="quickExchangeSC()">Exchange &amp; Add to ETB</button>
+    <p>Min Withdrawal: 2,500 ETB</p>
   </div>
 
   <div class="sh"><h3>Bank / Provider</h3></div>
@@ -752,7 +651,7 @@ header{
   </div>
 
   <div class="wd-form">
-    <div class="min-notice">⚠️ አነስተኛ የማውጫ መጠን: 2,500 ETB</div>
+    <div class="min-notice"> አነስተኛ የማውጫ መጠን: 2,500 ETB</div>
     <label class="form-label" id="wdAcctLabel">የስልክ ቁጥር (Telebirr)</label>
     <input class="form-input" id="wdAcct" placeholder="09... ወይም 07...">
     <label class="form-label">Amount (ETB)</label>
@@ -762,7 +661,7 @@ header{
   </div>
 </section>
 
-<!-- ── BOTTOM NAVIGATION (FIXED WITH EXACT DATA-P ATTRIBUTES) ── -->
+<!-- ── BOTTOM NAVIGATION (5 TABS WITH WATCH ADS IN MIDDLE) ── -->
 <nav class="bnav">
   <button class="ni active" data-p="home" onclick="showPage('home')">
     <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
@@ -770,8 +669,8 @@ header{
   <button class="ni" data-p="earn" onclick="showPage('earn')">
     <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>Earn
   </button>
-  <button class="ni" data-p="exchange" onclick="showPage('exchange')">
-    <svg viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>Exchange
+  <button class="ni" data-p="ads" onclick="showPage('ads')">
+    <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zM8 8l8 4-8 4V8z"/></svg>Watch Ads
   </button>
   <button class="ni" data-p="invite" onclick="showPage('invite')">
     <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Referral
@@ -786,37 +685,24 @@ header{
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
 const BOT_USERNAME = 'Swapmoney_bot';
-const SC_TO_ETB    = 0.5;   // 1 SC = 0.50 ETB
-const ETB_TO_SC    = 2;     // 1 ETB = 2 SC
 const WELCOME_ETB  = 50;
 const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 
-/* ── Ad reward tiers ──
-   Ads 1–6   → 50 ETB each
-   Ads 7–26  → 30 ETB each  (20 ads)
-   Ads 27–41 → 20 ETB each  (15 ads)
-   Ads 42–91 → 10 ETB each  (50 ads)
-   Total: 91 ETB-rewarded ads.
-
-   After all 91 are used up, watching more ads no longer pays ETB.
-   Instead, each additional ad COSTS 10 Swap Coins (paid up front,
-   before the ad plays) and is otherwise unlimited — this lets
-   active users keep engaging with ads by spending SC they've
-   earned from games, without printing unlimited free ETB. */
+/* ── Ad reward tiers (After 91 ads, cost is 20 SC per unlimited ad) ── */
 const AD_TIERS = [
   {upTo:6,  reward:50},
   {upTo:26, reward:30},
   {upTo:41, reward:20},
   {upTo:91, reward:10},
 ];
-const UNLIMITED_AD_SC_COST = 10;
+const UNLIMITED_AD_SC_COST = 20; // Updated to 20 SC for unlimited ads
 function getAdReward(adsWatchedSoFar){
-  const adNumber = adsWatchedSoFar + 1; // the ad about to be watched
+  const adNumber = adsWatchedSoFar + 1;
   for(const tier of AD_TIERS){
     if(adNumber <= tier.upTo) return tier.reward;
   }
-  return 0; // beyond 91 — no ETB reward; these are SC-cost "unlimited" ads instead
+  return 0;
 }
 function isUnlimitedAdSlot(adsWatchedSoFar){
   return (adsWatchedSoFar + 1) > 91;
@@ -863,7 +749,7 @@ function loadState(){
     completedTasks:[], referrals:[], totalRefs:0,
     isWdTaskActive:false, hasWelcomed:false,
     selectedMethod:'Telebirr', streakDays:0,
-    lastLoginDate:'', streakClaimedFor:'', exchangeHistory:[],
+    lastLoginDate:'', streakClaimedFor:'',
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -927,9 +813,21 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ NAV & PAGE SWITCHING FIX ═══════════════
-   Guaranteed page switching without JS crashes or freezes! */
+/* ═══════════════ ACTIVITY TRACKER & FORCED ADS ═══════════════ */
+let activityCount = 0;
+let initialForcedAdShown = false;
+
+function recordActivity(){
+  activityCount++;
+  if(initialForcedAdShown && activityCount >= 5){
+    activityCount = 0;
+    maybeShowForcedAd(true);
+  }
+}
+
+/* ═══════════════ NAV & PAGE SWITCHING ═══════════════ */
 function showPage(id){
+  recordActivity(); // Record activity on page change
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
   
@@ -961,19 +859,14 @@ function render(){
   setText('mainBalance', bal.toLocaleString());
   setText('balSub', `Level ${lv.n} — ${lv.label}`);
   setText('scBalance', sc.toFixed(2));
-  setText('scEtbEquiv', (sc*SC_TO_ETB).toFixed(2));
   setText('stEarn', bal.toLocaleString()+' ETB');
   setText('stAds', S.adsWatched||0);
   setText('stRefs', refs);
   setText('stRefBonus', (refs*REF_BONUS).toLocaleString());
   setText('stSC', sc.toFixed(2)+' SC');
-  setText('stSCEtb', (sc*SC_TO_ETB).toFixed(2));
 
   setText('wdBalDisplay', bal.toLocaleString());
   renderWdButton();
-
-  setText('exchAvailSC', sc.toFixed(2));
-  setText('exchAvailETB', bal.toLocaleString());
 
   const prog = refs%10;
   setText('refProgText', `${prog}/10`);
@@ -985,8 +878,6 @@ function render(){
   renderStreakDays();
   renderHomeTasks();
   renderEarnTasks();
-  renderLeaderboard();
-  renderExchangeHistory();
   saveState();
 }
 
@@ -1026,6 +917,7 @@ function renderStreakDays(){
   }
 }
 function claimStreakReward(){
+  recordActivity();
   if(S.streakClaimedFor === S.lastLoginDate){toast('ዛሬ አስቀድመው ተቀብለዋል!');return;}
   const day = Math.min(S.streakDays||1, 7);
   if(day === 7){
@@ -1095,6 +987,7 @@ function earnGridItemHTML(t){
     <button class="egi-btn" id="etb_${t.id}" ${done?'disabled':''} onclick="startTask('${t.id}','${t.link}',${t.reward},${t.dur})">${done?'ተቀብለዋል':'Start'}</button>
   </div>`;
 }
+
 function renderEarnTasks(){
   const tEl = document.getElementById('earnTaskGrid');
   if(tEl){
@@ -1109,8 +1002,7 @@ function renderEarnTasks(){
     }
   }
 
-  const aEl = document.getElementById('earnAdGrid');
-  if(!aEl)return;
+  // Render Ads Grid on Earn page & Middle Ads page
   const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW'];
   const BGS = [
     'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
@@ -1125,7 +1017,8 @@ function renderEarnTasks(){
     badge: BADGES[i],
     bg: BGS[i],
   }));
-  aEl.innerHTML = ADS.map(ad=>`
+
+  const adHtml = ADS.map(ad=>`
     <div class="earn-grid-item ad-type">
       <div class="egi-icon" style="background:${ad.bg}">
         <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center">
@@ -1134,13 +1027,20 @@ function renderEarnTasks(){
       </div>
       <div class="egi-title">${ad.unlimited ? 'Bonus Ad ∞' : 'Ad #'+ad.num}</div>
       <div class="egi-reward" style="${ad.unlimited?'color:var(--purple)':''}">${ad.unlimited ? '-'+UNLIMITED_AD_SC_COST+' SC' : '+'+ad.reward+' ETB'}</div>
-      <div class="egi-meta">⏱️30s · <span style="color:${BADGE_COLOR[ad.badge]};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
+      <div class="egi-meta">⏱️17s · <span style="color:${BADGE_COLOR[ad.badge]};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
       <button class="egi-btn" onclick="watchAd(this)">Watch</button>
     </div>`).join('');
+
+  const aEl = document.getElementById('earnAdGrid');
+  if(aEl) aEl.innerHTML = adHtml;
+
+  const mEl = document.getElementById('mainAdGrid');
+  if(mEl) mEl.innerHTML = adHtml;
 }
 
 const taskTimers = {};
 function startTask(id, url, reward, dur){
+  recordActivity();
   if(S.completedTasks.includes(id)){toast('አስቀድሞ ተቀብለዋል!');return;}
   if(tg?.openLink) tg.openLink(url); else window.open(url,'_blank');
   if(tg?.HapticFeedback) { try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
@@ -1189,7 +1089,9 @@ function startTask(id, url, reward, dur){
   };
   document.addEventListener('visibilitychange', onVisible);
 }
+
 function claimTask(id,reward){
+  recordActivity();
   if(S.completedTasks.includes(id)){toast('አስቀድሞ!');return;}
   S.completedTasks.push(id);
   S.balance+=reward;
@@ -1200,11 +1102,12 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC (17 SECONDS COUNTDOWN) ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
 function watchAd(btn){
+  recordActivity();
   if(adRunning)return;
 
   const unlimited = isUnlimitedAdSlot(S.adsWatched);
@@ -1224,8 +1127,8 @@ function watchAd(btn){
   isBonusAd=false;
   document.getElementById('adCloseBtn').style.display='none';
   document.getElementById('adDesc').innerHTML = unlimited
-    ? `30 ሰከንድ ያዩ — ${UNLIMITED_AD_SC_COST} SC ተከፍሏል (ያልተገደበ ማስታወቂያ)`
-    : `30 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${getAdReward(S.adsWatched)} ETB</strong> ይጨምራሉ!`;
+    ? `17 ሰከንድ ያዩ — ${UNLIMITED_AD_SC_COST} SC ተከፍሏል (ያልተገደበ ማስታወቂያ)`
+    : `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${getAdReward(S.adsWatched)} ETB</strong> ይጨምራሉ!`;
 
   if(typeof show_11460944 === 'function'){
     show_11460944().catch((err)=>{
@@ -1233,11 +1136,11 @@ function watchAd(btn){
     });
   }
 
-  runFallbackCountdown();
+  runFallbackCountdown(17000); // 17 SECONDS COUNTDOWN
 }
 
 function runFallbackCountdown(durationMs){
-  durationMs = durationMs || 30000;
+  durationMs = durationMs || 17000; // 17 seconds default
   const durSec = Math.round(durationMs/1000);
   const modal=document.getElementById('adModal');
   const fill=document.getElementById('adBarFill');
@@ -1292,6 +1195,7 @@ function creditAdReward(){
 }
 
 function closeAdAndShowAnother(){
+  recordActivity();
   const modal=document.getElementById('adModal');
   if(isBonusAd){
     modal.classList.remove('active');
@@ -1308,7 +1212,7 @@ function closeAdAndShowAnother(){
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(()=>{});
   }
-  runFallbackCountdown();
+  runFallbackCountdown(17000); // 17 SECONDS FOR BONUS AD
 }
 
 function finishBonusAd(){
@@ -1342,23 +1246,6 @@ function finishBonusAd(){
   });
 })();
 
-/* ═══════════════ LEADERBOARD ═══════════════ */
-const LB_DATA=[
-  {n:'Adoniyas H',a:32564},{n:'Ezedin K',a:24675},{n:'Lidia Y',a:20370},
-  {n:'Yonas T',a:11250},{n:'Selam M',a:9940},{n:'Kaleb A',a:8820},
-  {n:'Makeda G',a:7450},{n:'Sami K',a:6980},{n:'Hanan R',a:6120},{n:'Dawit S',a:5400},
-];
-function renderLeaderboard(){
-  const pod=document.getElementById('podiumEl');
-  if(pod) pod.innerHTML=`
-    <div class="pod p2"><div class="pod-av" style="color:#000">E</div><div class="pod-name">Ezedin K</div><div class="pod-amt">24,675</div><div class="pod-tag">#2</div></div>
-    <div class="pod p1"><div style="font-size:16px;margin-bottom:4px">👑</div><div class="pod-av">A</div><div class="pod-name">Adoniyas H</div><div class="pod-amt">32,564</div><div class="pod-tag">#1</div></div>
-    <div class="pod p3"><div class="pod-av" style="color:#fff">L</div><div class="pod-name">Lidia Y</div><div class="pod-amt">20,370</div><div class="pod-tag">#3</div></div>`;
-  const lb=document.getElementById('lbListEl');
-  if(lb) lb.innerHTML=LB_DATA.slice(3).map((d,i)=>`
-    <div class="lb-item"><div class="lb-left"><div class="lb-rank">${i+4}</div><div class="lb-av">${d.n[0]}</div><div class="lb-name">${d.n}</div></div><div class="lb-score">${d.a.toLocaleString()}</div></div>`).join('');
-}
-
 /* ═══════════════ LIVE FEED ═══════════════ */
 const FEED_NAMES=['Bruk B','Sara Y','Dawit T','Makeda A','Henok G','Eyerusalem H','Kaleb B','Selamawit W'];
 const FEED_BANKS=['Telebirr','CBE Bank','Awash Bank','Abyssinia','Ethio Telecom'];
@@ -1379,7 +1266,7 @@ function rotateFeed(){
 }
 setInterval(rotateFeed,5000);rotateFeed();
 
-/* ═══════════════ API POST HELPER (TEXT/PLAIN PREVENTS CORS BLOCKING) ═══════════════ */
+/* ═══════════════ API POST HELPER ═══════════════ */
 async function apiPost(payload){
   const res = await fetch(SCRIPT_URL, {
     method: 'POST',
@@ -1389,118 +1276,9 @@ async function apiPost(payload){
   return await res.json();
 }
 
-/* ═══════════════ EXCHANGE ═══════════════ */
-function calcSC2ETB(){
-  const sc=parseFloat(document.getElementById('sc2etbInput')?.value || 0);
-  const out = document.getElementById('sc2etbOut');
-  if(out) out.value = (sc*SC_TO_ETB).toFixed(2);
-  setText('exchWillGet',(sc*SC_TO_ETB).toFixed(2)+' ETB');
-}
-function calcETB2SC(){
-  const etb=parseFloat(document.getElementById('etb2scInput')?.value || 0);
-  const out = document.getElementById('etb2scOut');
-  if(out) out.value = Math.floor(etb*ETB_TO_SC);
-  setText('exchSCWillGet',Math.floor(etb*ETB_TO_SC)+' SC');
-}
-function doExchange(type){
-  if(type==='sc2etb'){
-    const sc=parseFloat(document.getElementById('sc2etbInput')?.value || 0);
-    if(isNaN(sc) || sc<=0){toast('እባክዎ SC መጠን ያስገቡ');return;}
-    if(sc>S.swapCoins){toast('በቂ SC የለዎትም');return;}
-    const etb=sc*SC_TO_ETB;
-    S.swapCoins-=sc; S.balance+=etb;
-    addExchHistory(`${sc} SC → ${etb.toFixed(2)} ETB`,'sc2etb');
-    toast(`✅ ${etb.toFixed(2)} ETB ተጨምሯል!`);
-    if(document.getElementById('sc2etbInput')) document.getElementById('sc2etbInput').value='';
-    if(document.getElementById('sc2etbOut')) document.getElementById('sc2etbOut').value='';
-    saveState(); render();
-    exchangeOnServer('sc2etb', sc, null);
-  } else {
-    const etb=parseFloat(document.getElementById('etb2scInput')?.value || 0);
-    if(isNaN(etb) || etb<=0){toast('እባክዎ ETB መጠን ያስገቡ');return;}
-    if(etb>S.balance){toast('በቂ ETB ቀሪ ሂሳብ የለዎትም');return;}
-    const sc=Math.floor(etb*ETB_TO_SC);
-    S.balance-=etb; S.swapCoins+=sc;
-    addExchHistory(`${etb} ETB → ${sc} SC`,'etb2sc');
-    toast(`✅ ${sc} SC ተጨምሯል!`);
-    if(document.getElementById('etb2scInput')) document.getElementById('etb2scInput').value='';
-    if(document.getElementById('etb2scOut')) document.getElementById('etb2scOut').value='';
-    saveState(); render();
-    exchangeOnServer('etb2sc', null, etb);
-  }
-  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
-}
-function quickExchangeSC(){
-  const sc=parseFloat(document.getElementById('wdScInput')?.value || 0);
-  if(isNaN(sc) || sc<=0){toast('እባክዎ SC መጠን ያስገቡ');return;}
-  if(sc>S.swapCoins){toast('በቂ SC የለዎትም');return;}
-  const etb=sc*SC_TO_ETB;
-  S.swapCoins-=sc; S.balance+=etb;
-  addExchHistory(`${sc} SC → ${etb.toFixed(2)} ETB (Quick)`,'sc2etb');
-  toast(`✅ ${etb.toFixed(2)} ETB ወደ ሂሳብ ተጨምሯል!`);
-  if(document.getElementById('wdScInput')) document.getElementById('wdScInput').value='';
-  if(document.getElementById('wdScOut')) document.getElementById('wdScOut').value='';
-  saveState(); render();
-  exchangeOnServer('sc2etb', sc, null);
-}
-
-async function exchangeOnServer(type, scAmount, etbAmount){
-  if(!tgUser || !syncReady) return;
-  suppressSyncFromSheetUntil = Date.now() + 15000; // Pause pull sync for 15s to avoid race conditions
-  try{
-    const data = await apiPost({
-      action: 'exchangeSC',
-      userId: String(tgUser.id),
-      type: type,
-      scAmount: scAmount,
-      etbAmount: etbAmount,
-      currentBalance: S.balance,
-      currentSC: S.swapCoins
-    });
-    if(data && data.result==='success'){
-      if(typeof data.newBalance === 'number') S.balance = data.newBalance;
-      else if(data.user && typeof data.user.balance === 'number') S.balance = Number(data.user.balance);
-
-      if(typeof data.newSC === 'number') S.swapCoins = data.newSC;
-      else if(data.user && typeof data.user.swapCoins === 'number') S.swapCoins = Number(data.user.swapCoins);
-
-      saveState();
-      render();
-      flashSyncDot();
-    } else {
-      console.warn('[Swap Money] Exchange rejected by server:', data);
-      toast('❌ '+(data ? data.message || 'Exchange አልተሳካም' : 'Exchange አልተሳካም'));
-      syncFromSheet();
-    }
-  }catch(e){
-    console.error('[Swap Money] Exchange failed to reach server:', e);
-  }
-}
-
-function addExchHistory(label, type){
-  if(!S.exchangeHistory) S.exchangeHistory=[];
-  S.exchangeHistory.unshift({label,type,date:new Date().toLocaleString()});
-  if(S.exchangeHistory.length>20) S.exchangeHistory.pop();
-}
-function renderExchangeHistory(){
-  const el=document.getElementById('exchHistoryList');
-  if(!el)return;
-  if(!S.exchangeHistory||S.exchangeHistory.length===0){
-    el.innerHTML='<div style="text-align:center;padding:12px;color:var(--muted);font-size:11px">ምንም exchange ታሪክ የለም</div>';
-    return;
-  }
-  el.innerHTML=S.exchangeHistory.map(h=>`
-    <div class="exch-history-item">
-      <div class="exch-h-icon" style="background:${h.type==='sc2etb'?'rgba(16,185,129,.15)':'rgba(139,92,246,.15)'}">
-        ${h.type==='sc2etb'?'💰':'🪙'}
-      </div>
-      <div class="exch-h-info"><h5>${h.label}</h5><p>${h.date}</p></div>
-      <div class="exch-h-amt" style="color:${h.type==='sc2etb'?'var(--green)':'var(--purple)'}">${h.type==='sc2etb'?'+ETB':'+SC'}</div>
-    </div>`).join('');
-}
-
-/* ═══════════════ WITHDRAW (PRE-SYNC FIRST) ═══════════════ */
+/* ═══════════════ WITHDRAW ═══════════════ */
 function selMethod(name, el){
+  recordActivity();
   S.selectedMethod=name;
   document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('sel'));
   if(el)el.classList.add('sel');
@@ -1511,6 +1289,7 @@ function selMethod(name, el){
   if(inp) inp.placeholder=isPhone?'09... ወይም 07...':'Account Number';
   saveState(); toast(`✓ ${name} ተመርጧል`);
 }
+
 function renderWdButton(){
   const btn=document.getElementById('wdBtn');
   const notice=document.getElementById('wdTaskNotice');
@@ -1526,7 +1305,9 @@ function renderWdButton(){
     if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
   }
 }
+
 async function submitWithdraw(){
+  recordActivity();
   const acct=document.getElementById('wdAcct').value.trim();
   const amt=parseFloat(document.getElementById('wdAmt').value);
   if(!acct){toast('ሂሳብ/ስልክ ቁጥር ያስገቡ');return;}
@@ -1541,10 +1322,8 @@ async function submitWithdraw(){
   if(btn){ btn.disabled=true; btn.textContent='Processing…'; }
   const uid=tgUser?tgUser.id:('GUEST_'+Date.now());
 
-  // Step 1: Force Sync current balance to server FIRST so sheet is 100% up-to-date
   await syncToSheet();
 
-  // Step 2: Submit Withdrawal Request
   try{
     const data = await apiPost({
       action: 'withdraw',
@@ -1580,6 +1359,7 @@ async function submitWithdraw(){
 /* ═══════════════ GAME MODAL ═══════════════ */
 let gameSessionCoins=0, currentGame=null;
 function openGame(key){
+  recordActivity();
   currentGame=key; gameSessionCoins=0;
   setText('gmSessionCoins','0 SC');
   setText('gmTitle', GAME_TITLES[key]);
@@ -1591,6 +1371,7 @@ function openGame(key){
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
 }
 function closeGame(){
+  recordActivity();
   if(gameSessionCoins>0){
     toast(`🎉 +${gameSessionCoins} SC ጌሙ ላይ አግኝተዋል!`);
     if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
@@ -1646,13 +1427,14 @@ window.addEventListener('message',e=>{
         finishBonusAd();
       });
     } else {
-      runFallbackCountdown(15000);
+      finishBonusAd();
     }
   }
 });
 
 /* ═══════════════ SHARE ═══════════════ */
 function copyRefLink(){
+  recordActivity();
   const inp = document.getElementById('refLinkInp');
   if(!inp) return;
   const v=inp.value;
@@ -1660,6 +1442,7 @@ function copyRefLink(){
   toast('📋 ሊንክ ኮፒ ሆኗል!');
 }
 function shareSocial(p){
+  recordActivity();
   const inp = document.getElementById('refLinkInp');
   const url=encodeURIComponent(inp ? inp.value : '');
   const txt=encodeURIComponent('Swap Money ላይ ተቀላቀሉ — ዕለታዊ ገንዘብ ያግኙ!');
@@ -1684,6 +1467,7 @@ async function syncFromSheet(){
       if(typeof u.totalAds!=='undefined')    S.adsWatched = Number(u.totalAds) || 0;
       if(typeof u.swapCoins!=='undefined')   S.swapCoins = Number(u.swapCoins) || 0;
       if(typeof u.totalReferrals!=='undefined') S.totalRefs = Number(u.totalReferrals) || 0;
+      saveState();
       render(); flashSyncDot();
     } else if(data.result === 'not_found' && !S.hasWelcomed){
       S.hasWelcomed = true;
@@ -1810,36 +1594,41 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 20000);
 
-/* ═══════════════ FORCED ADS SCHEDULER (EVERY 2 MINS) ═══════════════ */
+/* ═══════════════ FORCED ADS SCHEDULER (2 MINS FIRST, THEN EVERY 5 ACTIVITIES) ═══════════════ */
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 5 * 60 * 1000;
-const FORCED_AD_INTERVAL_MS = 2 * 60 * 1000;
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 minutes grace period for first ad
 
-function maybeShowForcedAd(){
-  const elapsed = Date.now() - APP_OPEN_TIME;
-  if(elapsed < FORCED_AD_GRACE_MS) return;
+function maybeShowForcedAd(isActivityTrigger){
   if(adRunning) return;
   if(document.getElementById('gameModal')?.classList.contains('open')) return;
   if(document.visibilityState !== 'visible') return;
 
+  if(!initialForcedAdShown){
+    const elapsed = Date.now() - APP_OPEN_TIME;
+    if(elapsed < FORCED_AD_GRACE_MS) return; // Wait 2 minutes
+    initialForcedAdShown = true;
+  }
+
   adRunning = true;
   isBonusAd = true;
-  const closeBtn = document.getElementById('adCloseBtn');
-  if(closeBtn) closeBtn.style.display='none';
-  setText('adTitle','ማስታወቂያ');
-  setText('adDesc','አጭር ማስታወቂያ');
 
   if(typeof show_11460944 === 'function'){
     show_11460944().then(()=>{
       finishBonusAd();
     }).catch(()=>{
-      runFallbackCountdown();
+      finishBonusAd();
     });
   } else {
-    runFallbackCountdown();
+    finishBonusAd();
   }
 }
-setInterval(maybeShowForcedAd, FORCED_AD_INTERVAL_MS);
+
+// Check for the initial 2-minute forced ad
+setInterval(()=>{
+  if(!initialForcedAdShown){
+    maybeShowForcedAd(false);
+  }
+}, 10000);
 </script>
 </body>
 </html>
