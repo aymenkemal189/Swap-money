@@ -308,7 +308,7 @@ header{
       <div class="gm-close" onclick="closeGame()">✕</div>
     </div>
   </div>
-  <iframe class="gm-iframe" id="gmIframe" title="Game" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <iframe class="gm-iframe" id="gmIframe" title="Game" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms" allowfullscreen></iframe>
   <div class="gm-footer">
     <div class="gm-session">
       <img src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="sc">
@@ -540,6 +540,22 @@ header{
     <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
   </div>
 
+<!-- 200,000 ETB Prediction Prize Pool Banner -->
+<div class="card predict-banner" onclick="openGame('predict')" style="position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:35px;padding:35px;margin-bottom:14px;box-shadow:0 8px 25px rgba(255,215,0,.15);cursor:pointer;background:#120c02">
+  
+  <!-- የምስሉ መስመር (src) -->
+  <img src="https://i.postimg.cc/D0xgjfWM/20260813-164722.jpg" alt="banner" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0.85;pointer-events:none">
+  
+  <!-- በላዩ ላይ የሚታየው ፅሁፍና በተን -->
+  <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">PRIZE POOL</div>
+      <div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:var(--font)">200,000 <span style="font-size:16px;color:#fff">ETB</span></div>
+    </div>
+    <button class="btn btn-gold" style="padding:12px 22px;font-size:14px;border-radius:25px;box-shadow:0 4px 15px rgba(255,215,0,.3)">Predict &gt;</button>
+  </div>
+</div>
+
   <!-- Video Tutorial Guide Grid -->
   <div class="card" style="padding:12px;margin-bottom:10px">
     <div class="card-title" style="font-size:12px">▶️ ብር እንዴት እንደሚያገኙ ለማየት</div>
@@ -559,7 +575,7 @@ header{
     <h3>📺 Unlimited Ads Grid</h3>
     <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
   </div>
-  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል (ከ 91 በኋላ በ 20 SC)</p>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል (ከ 91 በኋላ በ 10 ETB)</p>
   <div class="earn-grid" id="mainAdGrid"></div>
 </section>
 
@@ -689,20 +705,19 @@ const WELCOME_ETB  = 50;
 const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 
-/* ── Ad reward tiers ── */
+/* ── Ad reward tiers (Ads >91 pay 10 ETB continuously) ── */
 const AD_TIERS = [
   {upTo:6,  reward:50},
   {upTo:26, reward:30},
   {upTo:41, reward:20},
   {upTo:91, reward:10},
 ];
-const UNLIMITED_AD_SC_COST = 20;
 function getAdReward(adsWatchedSoFar){
   const adNumber = adsWatchedSoFar + 1;
   for(const tier of AD_TIERS){
     if(adNumber <= tier.upTo) return tier.reward;
   }
-  return 0;
+  return 10; // Unlimited ads past 91 pay 10 ETB
 }
 function isUnlimitedAdSlot(adsWatchedSoFar){
   return (adsWatchedSoFar + 1) > 91;
@@ -713,16 +728,18 @@ const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://www.youtube.com/@ethioonlinework1';
 
-/* Game URLs (GitHub Pages) */
+/* Game & Predict URLs (GitHub Pages) */
 const GAME_URLS = {
   spin:    'https://aymenkemal189.github.io/Spin-wheel/',
   scratch: 'https://aymenkemal189.github.io/Scrach-card/',
   coin:    'https://aymenkemal189.github.io/Coin-flip/',
   guess:   'https://aymenkemal189.github.io/Number-guss/',
+  predict: 'https://aymenkemal189.github.io/Predict/', // Prediction Iframe URL
 };
 const GAME_TITLES = {
   spin:'🌀 Spin Wheel', scratch:'🎟 Scratch Card',
   coin:'🪙 Coin Flip',  guess:'🔢 Number Guess',
+  predict:'🎯 Predict & Win 200,000 ETB',
 };
 
 /* ═══════════════ TELEGRAM INIT ═══════════════ */
@@ -875,7 +892,6 @@ function render(){
   setText('wdBalDisplay', bal.toLocaleString());
   renderWdButton();
 
-  // FIX FINDING #1: Milestone progress percentage display (10/10 milestone)
   const prog = (refs % 10 === 0 && refs > 0) ? 10 : (refs % 10);
   setText('refProgText', `${prog}/10`);
   setText('refCount', refs);
@@ -1031,7 +1047,7 @@ function renderEarnTasks(){
         </div>
       </div>
       <div class="egi-title">${ad.unlimited ? 'Bonus Ad ∞' : 'Ad #'+ad.num}</div>
-      <div class="egi-reward" style="${ad.unlimited?'color:var(--purple)':''}">${ad.unlimited ? '-'+UNLIMITED_AD_SC_COST+' SC' : '+'+ad.reward+' ETB'}</div>
+      <div class="egi-reward">+${ad.reward} ETB</div>
       <div class="egi-meta">⏱️17s · <span style="color:${BADGE_COLOR[ad.badge]};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
       <button class="egi-btn" onclick="watchAd(this)">Watch</button>
     </div>`).join('');
@@ -1106,7 +1122,7 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC (UNLIMITED ADS PAY 10 ETB) ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
@@ -1114,24 +1130,14 @@ function watchAd(btn){
   recordActivity();
   if(adRunning)return;
 
-  const unlimited = isUnlimitedAdSlot(S.adsWatched);
-  if(unlimited){
-    if((S.swapCoins||0) < UNLIMITED_AD_SC_COST){
-      toast(`⚠️ 91 ነጻ ማስታወቂያ አልቋል — ተጨማሪ ማስታወቂያ ለማየት ${UNLIMITED_AD_SC_COST} SC ያስፈልጋል`);
-      return;
-    }
-    S.swapCoins -= UNLIMITED_AD_SC_COST;
-    markLocalMutation();
-  }
-
   btn.disabled=true;
   adClickCount++;
   adRunning=true;
   isBonusAd=false;
   document.getElementById('adCloseBtn').style.display='none';
-  document.getElementById('adDesc').innerHTML = unlimited
-    ? `17 ሰከንድ ያዩ — ${UNLIMITED_AD_SC_COST} SC ተከፍሏል (ያልተገደበ ማስታወቂያ)`
-    : `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${getAdReward(S.adsWatched)} ETB</strong> ይጨምራሉ!`;
+  
+  const earnedReward = getAdReward(S.adsWatched);
+  document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${earnedReward} ETB</strong> ይጨምራሉ!`;
 
   if(typeof show_11460944 === 'function'){
     show_11460944().catch((err)=>{
@@ -1172,22 +1178,14 @@ function runFallbackCountdown(durationMs){
 
 function creditAdReward(){
   adRunning=false;
-  const wasUnlimited = isUnlimitedAdSlot(S.adsWatched);
   const earnedReward = getAdReward(S.adsWatched);
   S.adsWatched++;
+  S.balance += earnedReward; // Adds ETB reward continuously
 
-  if(wasUnlimited){
-    markLocalMutation();
-    toast('✅ ማስታወቂያውን አጠናቀዋል');
-    if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
-    document.getElementById('adDesc').innerHTML = `✅ ማስታወቂያ ታይቷል። ✕ ይንኩ ለመዝጋት`;
-  } else {
-    S.balance+=earnedReward;
-    markLocalMutation();
-    toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
-    if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
-    document.getElementById('adDesc').innerHTML = `🎉 <strong style="color:var(--gold)">+${earnedReward} ETB</strong> ተጨምሯል! ✕ ይንኩ ለመዝጋት`;
-  }
+  markLocalMutation();
+  toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
+  if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
+  document.getElementById('adDesc').innerHTML = `🎉 <strong style="color:var(--gold)">+${earnedReward} ETB</strong> ተጨምሯል! ✕ ይንኩ ለመዝጋት`;
 
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
   document.getElementById('adCloseBtn').style.display='flex';
@@ -1459,7 +1457,6 @@ function shareSocial(p){
 async function syncFromSheet(){
   if(!tgUser)return;
   
-  // TIMESTAMP GUARD: Do not pull sync from sheet if local state mutated in the last 15 seconds!
   if(Date.now() - lastLocalMutationTime < 15000) {
     console.warn('[Swap Money] Pull sync blocked by local mutation timestamp guard');
     return;
@@ -1637,4 +1634,3 @@ setInterval(()=>{
 </script>
 </body>
 </html>
-
