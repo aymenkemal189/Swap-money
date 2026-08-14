@@ -1353,79 +1353,84 @@ async function submitWithdraw(){
   finally{
     if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
   }
-}
 
-/* ═══════════════ GAME MODAL ═══════════════ */
+/* ═══════════════ GAME MODAL & IFRAME MESSAGE LISTENER ═══════════════ */
 let gameSessionCoins=0, currentGame=null;
+
 function openGame(key){
   recordActivity();
   currentGame=key; gameSessionCoins=0;
   setText('gmSessionCoins','0 SC');
-  setText('gmTitle', GAME_TITLES[key]);
+  setText('gmTitle', GAME_TITLES[key] || '🎮 Game');
   setText('gmSCDisplay', (S.swapCoins||0).toFixed(2)+' SC');
-  const iframe=document.getElementById('gmIframe');
-  if(iframe) iframe.src=GAME_URLS[key]+'?sc='+(S.swapCoins||0)+'&uid='+(tgUser?.id||'guest');
+  
+  const iframe = document.getElementById('gmIframe');
+  const targetUrl = GAME_URLS[key];
+  
+  if(iframe && targetUrl && targetUrl.trim() !== ''){
+    iframe.src = targetUrl + '?sc=' + (S.swapCoins||0) + '&uid=' + (tgUser?.id||'guest');
+    iframe.setAttribute('allow', 'autoplay; fullscreen; accelerometer; gyroscope');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms');
+  }
+  
   document.getElementById('gameModal')?.classList.add('open');
   document.body.style.overflow='hidden';
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
 }
+
 function closeGame(){
   recordActivity();
-  if(gameSessionCoins>0){
+  if(gameSessionCoins > 0){
     toast(`🎉 +${gameSessionCoins} SC ጌሙ ላይ አግኝተዋል!`);
     if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
     markLocalMutation();
-    if(syncReady){
-      syncToSheet();
-    } else {
-      pendingSyncAfterInit = true;
-    }
+    if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
   }
   document.getElementById('gameModal')?.classList.remove('open');
   const iframe = document.getElementById('gmIframe');
-  if(iframe) iframe.src='';
-  document.body.style.overflow='';
-  currentGame=null; render();
+  if(iframe) iframe.src = '';
+  document.body.style.overflow = '';
+  currentGame = null; render();
 }
 
+/* ── IFRAME GAME RECEIVER (MESSAGE LISTENER) ── */
 let lastGameAdTime = 0;
 const GAME_AD_MIN_GAP_MS = 20000;
-window.addEventListener('message',e=>{
-  if(!e.data)return;
-  if(e.data.type==='sc_earned'&&typeof e.data.amount==='number'){
-    const amt = e.data.amount;
-    gameSessionCoins += amt;
-    S.swapCoins = (S.swapCoins||0) + amt;
+
+window.addEventListener('message', function(e) {
+  if (!e.data) return;
+
+  // 1. ጨዋታው ላይ Coin ሲያሸንፉ ወደ SC ባላንስ ይደምራል
+  if (e.data.type === 'sc_earned' && (typeof e.data.amount === 'number' || typeof e.data.amount === 'string')) {
+    const earnedSC = Number(e.data.amount) || 0;
+    gameSessionCoins += earnedSC;
+    S.swapCoins = (S.swapCoins || 0) + earnedSC;
     markLocalMutation();
-    setText('gmSessionCoins', gameSessionCoins.toFixed(2)+' SC');
-    setText('gmSCDisplay', S.swapCoins.toFixed(2)+' SC');
+    setText('gmSessionCoins', gameSessionCoins.toFixed(2) + ' SC');
+    setText('gmSCDisplay', S.swapCoins.toFixed(2) + ' SC');
+    toast(`🎉 +${earnedSC} SC ጌሙ ላይ አግኝተዋል!`);
+    if (syncReady) { syncToSheet(); } else { pendingSyncAfterInit = true; }
   }
-  if(e.data.type==='sc_balance_request'){
+
+  // 2. ጨዋታው SC Balance ሲጠይቅ
+  if (e.data.type === 'sc_balance_request') {
     document.getElementById('gmIframe')?.contentWindow?.postMessage(
-      {type:'sc_balance',amount:S.swapCoins||0},'*'
+      { type: 'sc_balance', amount: S.swapCoins || 0 }, '*'
     );
   }
-  if(e.data.type==='trigger_game_ad'){
+
+  // 3. ጨዋታው ውስጥ ማስታወቂያ ሲጠየቅ ከዋናው ገጽ ማስታወቂያ ያስነሳል
+  if (e.data.type === 'trigger_game_ad') {
     const gameModalOpen = document.getElementById('gameModal')?.classList.contains('open');
-    if(!gameModalOpen) return;
-    if(adRunning) return;
+    if (!gameModalOpen || adRunning) return;
     const now = Date.now();
-    if(now - lastGameAdTime < GAME_AD_MIN_GAP_MS) return;
+    if (now - lastGameAdTime < GAME_AD_MIN_GAP_MS) return;
     lastGameAdTime = now;
 
     adRunning = true;
     isBonusAd = true;
-    const closeBtn = document.getElementById('adCloseBtn');
-    if(closeBtn) closeBtn.style.display='none';
-    setText('adTitle','ማስታወቂያ');
-    setText('adDesc','አጭር ማስታወቂያ');
-
-    if(typeof show_11460944 === 'function'){
-      show_11460944('pop').catch(()=>{
-        return show_11460944().catch(()=>{});
-      }).finally(()=>{
-        finishBonusAd();
-      });
+    if (typeof show_11460944 === 'function') {
+      show_11460944('pop').catch(() => show_11460944().catch(() => {})).finally(() => finishBonusAd());
     } else {
       finishBonusAd();
     }
