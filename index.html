@@ -1395,10 +1395,7 @@ function closeGame(){
   currentGame = null; render();
 }
 
-/* ── IFRAME GAME RECEIVER (MESSAGE LISTENER) ── */
-let lastGameAdTime = 0;
-const GAME_AD_MIN_GAP_MS = 20000;
-
+/* ── IFRAME GAME RECEIVER (MONETAG FIX) ── */
 window.addEventListener('message', function(e) {
   if (!e.data) return;
 
@@ -1421,20 +1418,17 @@ window.addEventListener('message', function(e) {
     );
   }
 
-  // 3. ጨዋታው ውስጥ ማስታወቂያ ሲጠየቅ ከዋናው ገጽ ማስታወቂያ ያስነሳል
+  // 3. ጨዋታው ውስጥ ማስታወቂያ ሲጠየቅ ከዋናው ገጽ ማስታወቂያ ያስነሳል (MONETAG FIX)
   if (e.data.type === 'trigger_game_ad') {
     const gameModalOpen = document.getElementById('gameModal')?.classList.contains('open');
-    if (!gameModalOpen || adRunning) return;
-    const now = Date.now();
-    if (now - lastGameAdTime < GAME_AD_MIN_GAP_MS) return;
-    lastGameAdTime = now;
+    if (!gameModalOpen) return;
 
-    adRunning = true;
-    isBonusAd = true;
     if (typeof show_11460944 === 'function') {
-      show_11460944('pop').catch(() => show_11460944().catch(() => {})).finally(() => finishBonusAd());
-    } else {
-      finishBonusAd();
+      try {
+        show_11460944(); // Calls Monetag SDK cleanly without blocking locks or 'pop' string!
+      } catch (err) {
+        console.warn('[Swap Money] Monetag Game Ad error:', err);
+      }
     }
   }
 });
