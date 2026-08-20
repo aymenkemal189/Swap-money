@@ -62,7 +62,6 @@ header{
 /* ── CARD ── */
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 .card-title{font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px;margin-bottom:10px}
-.card-title i{color:var(--gold)}
 
 /* ── SECTION HEADER ── */
 .sh{display:flex;align-items:center;justify-content:space-between;margin:12px 0 8px}
@@ -221,27 +220,135 @@ header{
 .how-text h5{font-size:12px;font-weight:800}
 .how-text p{font-size:10px;color:var(--muted);line-height:1.5;margin-top:1px}
 
-/* ── WITHDRAW TAB ── */
-.wd-balance{background:var(--gold-grad);border-radius:16px;padding:16px;text-align:center;margin-bottom:10px;box-shadow:0 8px 24px var(--gold-glow)}
-.wd-balance h3{font-size:11px;font-weight:800;color:rgba(0,0,0,.6);margin-bottom:4px}
-.wd-balance .amt{font-size:36px;font-weight:900;color:#000;line-height:1}
-.wd-balance .amt span{font-size:16px}
-.wd-balance p{font-size:10px;color:rgba(0,0,0,.55);font-weight:700;margin-top:3px}
-.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
-.method-btn{background:var(--card);border:2px solid var(--border2);border-radius:12px;padding:10px 5px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.15s}
-.method-btn:active{transform:scale(.95)}
-.method-btn.sel{border-color:var(--gold);background:rgba(255,198,26,.07)}
-.method-btn img{width:34px;height:34px;object-fit:contain;border-radius:7px}
-.method-btn span{font-size:9px;font-weight:800;color:var(--muted)}
-.method-btn.sel span{color:var(--gold)}
-.wd-form{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px}
-.form-label{display:block;font-size:10px;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
-.form-input{width:100%;padding:11px 13px;background:var(--card2);border:1px solid var(--border);border-radius:11px;color:#fff;font-size:13px;font-weight:700;outline:none;font-family:var(--font);margin-bottom:10px;transition:border-color .2s}
-.form-input:focus{border-color:rgba(255,198,26,.4)}
-.min-notice{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--red);margin-bottom:10px}
-.wd-task-notice{display:none;background:rgba(255,198,26,.07);border:1px solid rgba(255,198,26,.22);border-radius:10px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--gold);margin-bottom:10px}
-.wd-btn{width:100%;padding:14px;background:var(--gold-grad);border:none;border-radius:13px;font-size:14px;font-weight:900;color:#000;cursor:pointer;box-shadow:0 6px 18px var(--gold-glow);font-family:var(--font);transition:.15s}
-.wd-btn:disabled{background:var(--card2);color:var(--muted);box-shadow:none;cursor:not-allowed}
+/* ════════════════════════════════════════════════════
+   MODERN FINTECH WITHDRAWAL DASHBOARD STYLES
+════════════════════════════════════════════════════ */
+.wd-fintech-hero{
+  background:linear-gradient(135deg,#1f1604 0%,#131722 50%,#090d15 100%);
+  border:1px solid rgba(255,215,0,.35);
+  border-radius:20px;padding:16px;margin-bottom:12px;
+  position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+.wd-fintech-hero::after{
+  content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.15),transparent 70%);
+}
+.wd-top-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.wd-chip-badge{
+  font-size:9px;font-weight:900;letter-spacing:.6px;
+  padding:3px 9px;border-radius:12px;text-transform:uppercase;
+  background:rgba(16,185,129,.14);color:var(--green);border:1px solid rgba(16,185,129,.3);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.wd-amount-val{
+  font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;
+  text-shadow:0 0 35px rgba(255,215,0,.35);
+  display:flex;align-items:baseline;gap:6px;margin-bottom:6px;
+}
+.wd-amount-val span{font-size:18px;font-weight:800;color:var(--gold)}
+.wd-elig-bar{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:700}
+.wd-elig-tag{color:var(--gold);font-weight:800}
+
+/* Cat Tabs */
+.wd-tab-nav{display:flex;background:var(--card2);border:1px solid var(--border2);border-radius:14px;padding:3px;margin-bottom:12px;gap:4px}
+.wd-tbtn{flex:1;background:transparent;border:none;color:var(--muted);padding:8px 0;font-size:11px;font-weight:900;border-radius:11px;cursor:pointer;transition:.18s;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:5px}
+.wd-tbtn.active{background:var(--gold-grad);color:#000;box-shadow:0 2px 10px rgba(255,215,0,.25)}
+
+/* Category Grids */
+.fintech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.ft-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:14px;
+  padding:12px 10px;display:flex;flex-direction:column;gap:6px;
+  cursor:pointer;transition:all .18s;position:relative;
+}
+.ft-card:active{transform:scale(.97)}
+.ft-card.sel{border-color:var(--gold);background:linear-gradient(145deg,#1c1809,#121724);box-shadow:0 0 15px rgba(255,215,0,.15)}
+.ft-top{display:flex;align-items:center;justify-content:space-between}
+.ft-logo{width:32px;height:32px;border-radius:8px;object-fit:contain;background:#fff;padding:2px}
+.ft-arrow{font-size:12px;color:var(--muted);transition:.2s;font-weight:900}
+.ft-card.sel .ft-arrow{color:var(--gold);transform:translateX(2px)}
+.ft-title{font-size:12px;font-weight:900;color:#fff}
+.ft-meta{font-size:9.5px;color:var(--muted);font-weight:700}
+.ft-badge{
+  position:absolute;top:6px;right:6px;font-size:8px;font-weight:900;
+  padding:1px 6px;border-radius:8px;background:rgba(255,215,0,.12);
+  color:var(--gold);border:1px solid rgba(255,215,0,.3);
+}
+
+/* Preset Chips */
+.preset-chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.p-chip{
+  flex:1;min-width:70px;background:var(--card2);border:1px solid var(--border);
+  color:#fff;border-radius:10px;padding:8px 4px;font-size:11px;font-weight:900;
+  cursor:pointer;text-align:center;transition:.15s;
+}
+.p-chip:active{transform:scale(.94)}
+.p-chip.sel{background:var(--gold-grad);color:#000;border-color:var(--gold)}
+
+/* Data Package Card */
+.pkg-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:13px;
+  padding:11px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;transition:.15s;
+}
+.pkg-card.sel{border-color:var(--gold);background:rgba(255,215,0,.08)}
+.pkg-info h5{font-size:12px;font-weight:900;color:#fff}
+.pkg-info p{font-size:10px;color:var(--muted);margin-top:2px}
+.pkg-price{font-size:13px;font-weight:900;color:var(--gold)}
+
+/* Form Container */
+.wd-input-group{margin-bottom:10px}
+.wd-input-wrap{position:relative;display:flex;align-items:center}
+.wd-input-wrap input{
+  width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);
+  border-radius:12px;color:#fff;font-size:13px;font-weight:700;outline:none;
+  font-family:var(--font);transition:border-color .2s;
+}
+.wd-input-wrap input:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,.15)}
+.wd-input-badge{position:absolute;right:12px;font-size:10px;font-weight:800;color:var(--gold)}
+
+/* Verification Queue Banner */
+.queue-card{
+  background:linear-gradient(135deg,#1e1205 0%,#151928 100%);
+  border:1px solid rgba(255,215,0,.35);border-radius:16px;
+  padding:14px;margin-bottom:12px;display:none;position:relative;
+}
+.queue-card.active{display:block;animation:fadeUp .2s ease}
+.qc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.qc-badge{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red);font-size:9px;font-weight:900;padding:2px 8px;border-radius:10px;display:flex;align-items:center;gap:4px}
+.qc-number{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:-.5px}
+.qc-time{font-size:11px;color:var(--muted);font-weight:700;margin-top:3px}
+.qc-timer-box{
+  background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  padding:8px 10px;display:flex;align-items:center;justify-content:space-between;margin:8px 0;
+}
+.qc-countdown{font-family:monospace;font-size:14px;font-weight:900;color:#fff}
+.qc-support-btn{
+  width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--gold);border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;margin-top:4px;
+}
+
+/* Security Note */
+.trust-shield-card{
+  background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;
+  padding:10px 12px;display:flex;align-items:flex-start;gap:9px;margin-top:12px;
+}
+.trust-shield-card svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:1px}
+.trust-shield-card p{font-size:10px;color:var(--muted);line-height:1.5}
+
+/* Digital Receipt Modal */
+.receipt-card{
+  background:linear-gradient(180deg,#161c28 0%,#0f131d 100%);
+  border:1px solid var(--gold);border-radius:20px;padding:20px;
+  width:100%;max-width:350px;box-shadow:0 15px 40px rgba(0,0,0,.9);position:relative;
+}
+.receipt-header{text-align:center;border-bottom:1px dashed var(--border);padding-bottom:14px;margin-bottom:14px}
+.receipt-id{font-family:monospace;font-size:11px;color:var(--gold);font-weight:900;letter-spacing:1px;margin-top:4px}
+.receipt-row{display:flex;justify-content:space-between;margin-bottom:9px;font-size:11px}
+.receipt-row span:first-child{color:var(--muted);font-weight:700}
+.receipt-row span:last-child{color:#fff;font-weight:900}
+.receipt-status-pill{background:rgba(255,198,26,.15);border:1px solid var(--gold);color:var(--gold);padding:2px 8px;border-radius:8px;font-size:10px;font-weight:900}
 
 /* ── GAME MODAL ── */
 .game-modal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;display:none;flex-direction:column}
@@ -270,12 +377,8 @@ header{
 .ad-timer-txt{font-size:12px;font-weight:900;color:var(--gold)}
 
 /* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:400;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
-.modal-sheet{background:var(--card);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:20px 16px 28px;width:100%;max-width:480px}
-.modal-handle{width:36px;height:3px;background:var(--border);border-radius:3px;margin:0 auto 16px}
-.modal-title{font-size:16px;font-weight:900;color:var(--gold);margin-bottom:10px}
-.modal-body{font-size:12px;color:var(--text);line-height:1.7;margin-bottom:16px}
 
 /* ── TOAST ── */
 #toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--gold);color:#fff;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.8);opacity:0;pointer-events:none;transition:.22s;z-index:600;width:86%;max-width:360px;text-align:center}
@@ -318,14 +421,21 @@ header{
   </div>
 </div>
 
-<!-- ── WD NOTICE MODAL ── -->
-<div class="modal-overlay" id="wdModal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div style="font-size:44px;text-align:center;margin-bottom:8px">✅</div>
-    <div class="modal-title" style="text-align:center">ጥያቄዎ ተቀብሏል!</div>
-    <div class="modal-body" style="text-align:center">የማውጫ ጥያቄዎ ተቀብሏል። <strong>በ24 ሰዓት ውስጥ</strong> ወደ አካውንትዎ ይላካል።</div>
-    <button class="btn btn-gold btn-block" onclick="document.getElementById('wdModal').classList.remove('active')">እሺ</button>
+<!-- ── DIGITAL RECEIPT MODAL ── -->
+<div class="modal-overlay" id="receiptModal">
+  <div class="receipt-card">
+    <div class="receipt-header">
+      <div style="font-size:32px;margin-bottom:4px">🧾</div>
+      <h3 style="font-size:15px;font-weight:900;color:#fff">Official Payout Voucher</h3>
+      <div class="receipt-id" id="rcptTxId">#SWAP-89421</div>
+    </div>
+    <div class="receipt-row"><span>Status</span><span class="receipt-status-pill">Pending Audit</span></div>
+    <div class="receipt-row"><span>Provider</span><span id="rcptMethod">Telebirr</span></div>
+    <div class="receipt-row"><span>Account</span><span id="rcptAcct">098*****77</span></div>
+    <div class="receipt-row"><span>Deducted Amount</span><span id="rcptAmt" style="color:var(--gold)">2,500 ETB</span></div>
+    <div class="receipt-row"><span>Estimated Review</span><span>48 - 72 Hours</span></div>
+    <div class="receipt-row"><span>Submission Date</span><span id="rcptDate">Just now</span></div>
+    <button class="btn btn-gold btn-block" style="margin-top:14px" onclick="closeReceiptModal()">ተቀብያለሁ / እሺ</button>
   </div>
 </div>
 
@@ -531,7 +641,7 @@ header{
 </section>
 
 <!-- ════════════════════════
-     WATCH ADS PAGE (NEW MIDDLE TAB)
+     WATCH ADS PAGE
 ════════════════════════ -->
 <section class="page" id="page-ads">
   <div class="earn-hero" style="background:linear-gradient(135deg,#1f1205,#0d1018);border-color:var(--gold)">
@@ -540,21 +650,17 @@ header{
     <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
   </div>
 
-<!-- 200,000 ETB Prediction Prize Pool Banner -->
-<div class="card predict-banner" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'" style="position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:35px;padding:35px;margin-bottom:14px;box-shadow:0 8px 25px rgba(255,215,0,.15);cursor:pointer;background:#120c02">
-  
-  <!-- የምስሉ መስመር (src) -->
-  <img src="https://i.postimg.cc/D0xgjfWM/20260813-164722.jpg" alt="banner" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0.85;pointer-events:none">
-  
-  <!-- በላዩ ላይ የሚታየው ፅሁፍና በተን -->
-  <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between">
-    <div>
-      <div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">PRIZE POOL</div>
-      <div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:var(--font)">200,000 <span style="font-size:16px;color:#fff">ETB</span></div>
+  <!-- 200,000 ETB Prediction Prize Pool Banner -->
+  <div class="card predict-banner" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'" style="position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:35px;padding:35px;margin-bottom:14px;box-shadow:0 8px 25px rgba(255,215,0,.15);cursor:pointer;background:#120c02">
+    <img src="https://i.postimg.cc/D0xgjfWM/20260813-164722.jpg" alt="banner" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0.85;pointer-events:none">
+    <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">PRIZE POOL</div>
+        <div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:var(--font)">200,000 <span style="font-size:16px;color:#fff">ETB</span></div>
+      </div>
+      <button class="btn btn-gold" style="padding:12px 22px;font-size:14px;border-radius:25px;box-shadow:0 4px 15px rgba(255,215,0,.3);pointer-events:auto" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'">Predict &gt;</button>
     </div>
-    <button class="btn btn-gold" style="padding:12px 22px;font-size:14px;border-radius:25px;box-shadow:0 4px 15px rgba(255,215,0,.3);pointer-events:auto" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'">Predict &gt;</button>
   </div>
-</div>
 
   <!-- Video Tutorial Guide Grid -->
   <div class="card" style="padding:12px;margin-bottom:10px">
@@ -634,47 +740,180 @@ header{
   </div>
 </section>
 
-<!-- ════════════════════════
-     WITHDRAW PAGE
-════════════════════════ -->
+<!-- ════════════════════════════════════════════════════
+     WITHDRAW PAGE (REDESIGNED PREMIUM FINTECH DASHBOARD)
+════════════════════════════════════════════════════ -->
 <section class="page" id="page-withdraw">
-  <div class="wd-balance">
-    <h3>ጠቅላላ ቀሪ ሂሳብ</h3>
-    <div class="amt"><span id="wdBalDisplay">0</span><span> ETB</span></div>
-    <p>Min Withdrawal: 2,500 ETB</p>
+
+  <!-- Verification Queue Banner (When User Has A Pending Audit) -->
+  <div class="queue-card" id="pendingQueueCard">
+    <div class="qc-head">
+      <div style="font-size:11px;font-weight:900;color:#fff">⚠️ AUDIT IN PROGRESS</div>
+      <div class="qc-badge">● PENDING</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div style="font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase">Users Ahead in Verification</div>
+        <div class="qc-number" id="queueNumDisplay">4,128</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:9px;color:var(--muted);font-weight:800">TX ID</div>
+        <div style="font-family:monospace;font-size:11px;font-weight:900;color:var(--gold)" id="qTxDisplay">#SWAP-89421</div>
+      </div>
+    </div>
+    <div class="qc-timer-box">
+      <span style="font-size:10.5px;color:var(--muted);font-weight:800">Estimated Review Time:</span>
+      <span class="qc-countdown" id="queueTimerTxt">47:59:58</span>
+    </div>
+    <p style="font-size:10px;color:var(--muted);line-height:1.4">ማስታወቂያዎችን በትክክል ማየትዎንና የግብዣ ጥራትን በደህንነት ሲስተም የማረጋገጥ ሂደት ላይ ነው።</p>
+    <button class="qc-support-btn" onclick="window.open('https://t.me/swapmoneyeth','_blank')">💬 Contact Telegram Support Desk</button>
   </div>
 
-  <div class="sh"><h3>Bank / Provider</h3></div>
-  <div class="method-grid" id="methodGrid">
-    <div class="method-btn sel" id="mb_tele" onclick="selMethod('Telebirr',this)">
-      <img src="https://i.postimg.cc/1zH5wqRj/20260805-174415.png" alt="Telebirr"><span>Telebirr</span>
+  <!-- Wallet Overview Hero -->
+  <div class="wd-fintech-hero">
+    <div class="wd-top-meta">
+      <span style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px">Available for Payout</span>
+      <span class="wd-chip-badge">● Verified Account</span>
     </div>
-    <div class="method-btn" id="mb_cbe" onclick="selMethod('CBE Bank',this)">
-      <img src="https://i.postimg.cc/Hk1pN2VS/20260805-174301.png" alt="CBE"><span>CBE Bank</span>
+    <div class="wd-amount-val">
+      <span id="wdBalDisplay">0</span> <span>ETB</span>
     </div>
-    <div class="method-btn" id="mb_awash" onclick="selMethod('Awash Bank',this)">
-      <img src="https://i.postimg.cc/NMntk7hh/20260805-174324.png" alt="Awash"><span>Awash</span>
-    </div>
-    <div class="method-btn" id="mb_aby" onclick="selMethod('Abyssinia',this)">
-      <img src="https://i.postimg.cc/BbCdwxk4/20260805-174346.png" alt="Abyssinia"><span>Abyssinia</span>
-    </div>
-    <div class="method-btn" id="mb_ethio" onclick="selMethod('Ethio Telecom',this)">
-      <img src="https://i.postimg.cc/8kHyrPVY/20260805-181423.png" alt="Ethio"><span>Ethio Telecom</span>
-    </div>
-    <div class="method-btn" id="mb_safari" onclick="selMethod('Safaricom',this)">
-      <img src="https://i.postimg.cc/kgDhCrzw/20260805-181354.png" alt="Safaricom"><span>Safaricom</span>
+    <div class="wd-elig-bar">
+      <span>Threshold: <strong style="color:#fff">2,500 ETB</strong></span>
+      <span class="wd-elig-tag" id="wdEligTag">● Checking status…</span>
     </div>
   </div>
 
-  <div class="wd-form">
-    <div class="min-notice">⚠️ አነስተኛ የማውጫ መጠን: 2,500 ETB</div>
-    <label class="form-label" id="wdAcctLabel">የስልክ ቁጥር (Telebirr)</label>
-    <input class="form-input" id="wdAcct" placeholder="09... ወይም 07...">
-    <label class="form-label">Amount (ETB)</label>
-    <input class="form-input" id="wdAmt" type="number" placeholder="2500+" min="2500">
-    <div class="wd-task-notice" id="wdTaskNotice"></div>
-    <button class="wd-btn" id="wdBtn" onclick="submitWithdraw()">Confirm Withdrawal</button>
+  <!-- Category Nav Tabs -->
+  <div class="wd-tab-nav">
+    <button class="wd-tbtn active" id="tabBtnBank" onclick="switchWdCategory('bank')">
+      🏦 Bank Transfer
+    </button>
+    <button class="wd-tbtn" id="tabBtnAirtime" onclick="switchWdCategory('airtime')">
+      📱 Airtime &amp; Data
+    </button>
   </div>
+
+  <!-- SECTION 1: BANK TRANSFERS -->
+  <div id="sectionBanks">
+    <div class="fintech-grid">
+      <div class="ft-card sel" id="mb_Telebirr" onclick="selFintechMethod('Telebirr','phone')">
+        <div class="ft-badge">FAST</div>
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/1zH5wqRj/20260805-174415.png" alt="Telebirr">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">Telebirr</div>
+        <div class="ft-meta">Min 2,500 ETB</div>
+      </div>
+
+      <div class="ft-card" id="mb_CBE" onclick="selFintechMethod('CBE Bank','bank')">
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/Hk1pN2VS/20260805-174301.png" alt="CBE">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">CBE Bank</div>
+        <div class="ft-meta">Min 2,500 ETB</div>
+      </div>
+
+      <div class="ft-card" id="mb_Awash" onclick="selFintechMethod('Awash Bank','bank')">
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/NMntk7hh/20260805-174324.png" alt="Awash">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">Awash Bank</div>
+        <div class="ft-meta">Min 2,500 ETB</div>
+      </div>
+
+      <div class="ft-card" id="mb_Abyssinia" onclick="selFintechMethod('Abyssinia','bank')">
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/BbCdwxk4/20260805-174346.png" alt="Abyssinia">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">Abyssinia</div>
+        <div class="ft-meta">Min 2,500 ETB</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: AIRTIME & DATA PURCHASES -->
+  <div id="sectionAirtime" style="display:none">
+    <div class="fintech-grid">
+      <div class="ft-card" id="mb_EthioTelecom" onclick="selFintechMethod('Ethio Telecom','phone')">
+        <div class="ft-badge">AIRTIME</div>
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/8kHyrPVY/20260805-181423.png" alt="Ethio">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">Ethio Telecom</div>
+        <div class="ft-meta">Airtime Top-up</div>
+      </div>
+
+      <div class="ft-card" id="mb_Safaricom" onclick="selFintechMethod('Safaricom','phone')">
+        <div class="ft-badge">AIRTIME</div>
+        <div class="ft-top">
+          <img class="ft-logo" src="https://i.postimg.cc/kgDhCrzw/20260805-181354.png" alt="Safaricom">
+          <span class="ft-arrow">➔</span>
+        </div>
+        <div class="ft-title">Safaricom</div>
+        <div class="ft-meta">Airtime Top-up</div>
+      </div>
+    </div>
+
+    <!-- Airtime Quick Chips -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);margin:8px 0 6px">Quick Airtime Presets:</div>
+    <div class="preset-chips">
+      <div class="p-chip" onclick="setPresetAmount(500, this)">500 ETB</div>
+      <div class="p-chip" onclick="setPresetAmount(1000, this)">1,000 ETB</div>
+      <div class="p-chip" onclick="setPresetAmount(1500, this)">1,500 ETB</div>
+    </div>
+
+    <!-- Data Packages -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);margin:10px 0 6px">Monthly Unlimited Data Packages:</div>
+    <div class="pkg-card" onclick="selectDataPackage('Ethio Telecom Data', 2100, this)">
+      <div class="pkg-info">
+        <h5>Ethio Telecom — Monthly Unlimited</h5>
+        <p>30 Days Full Speed Access</p>
+      </div>
+      <div class="pkg-price">2,100 ETB</div>
+    </div>
+    <div class="pkg-card" onclick="selectDataPackage('Safaricom Data', 2700, this)">
+      <div class="pkg-info">
+        <h5>Safaricom — Monthly Unlimited</h5>
+        <p>30 Days Non-Stop 4G/5G Access</p>
+      </div>
+      <div class="pkg-price">2,700 ETB</div>
+    </div>
+  </div>
+
+  <!-- Form Inputs -->
+  <div class="card" style="margin-top:10px;padding:15px">
+    <div class="wd-input-group">
+      <label class="form-label" id="wdAcctLabel">የስልክ ቁጥር (Telebirr)</label>
+      <div class="wd-input-wrap">
+        <input class="form-input" id="wdAcct" placeholder="09... ወይም 07..." style="margin-bottom:0">
+        <span class="wd-input-badge" id="acctTypeBadge">PHONE</span>
+      </div>
+    </div>
+
+    <div class="wd-input-group" style="margin-top:10px">
+      <label class="form-label">Amount to Payout (ETB)</label>
+      <div class="wd-input-wrap">
+        <input class="form-input" id="wdAmt" type="number" placeholder="2500+" min="500" style="margin-bottom:0">
+        <span class="wd-input-badge">ETB</span>
+      </div>
+    </div>
+
+    <div class="wd-task-notice" id="wdTaskNotice" style="margin-top:10px"></div>
+    <button class="wd-btn" id="wdBtn" style="margin-top:12px" onclick="submitWithdraw()">Confirm Withdrawal</button>
+  </div>
+
+  <!-- Trust Shield & Fairness Guarantee -->
+  <div class="trust-shield-card">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    <p><strong>Safe &amp; Protected:</strong> ክፍያዎች ከመላካቸው በፊት ማጭበርበርን ለመከላከልና የማስታወቂያ ታማኝነትን ለማረጋገጥ በሲስተም ኦዲት ይደረጋሉ።</p>
+  </div>
+
 </section>
 
 <!-- ── BOTTOM NAVIGATION (5 TABS) ── -->
@@ -705,7 +944,7 @@ const WELCOME_ETB  = 50;
 const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 
-/* ── Ad reward tiers (Ads >91 pay 10 ETB continuously) ── */
+/* ── Ad reward tiers ── */
 const AD_TIERS = [
   {upTo:6,  reward:50},
   {upTo:26, reward:30},
@@ -717,7 +956,7 @@ function getAdReward(adsWatchedSoFar){
   for(const tier of AD_TIERS){
     if(adNumber <= tier.upTo) return tier.reward;
   }
-  return 10; // Unlimited ads past 91 pay 10 ETB
+  return 10;
 }
 function isUnlimitedAdSlot(adsWatchedSoFar){
   return (adsWatchedSoFar + 1) > 91;
@@ -728,13 +967,13 @@ const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 
-/* Game & Predict URLs (GitHub Pages) */
+/* Game & Predict URLs */
 const GAME_URLS = {
   spin:    'https://aymenkemal189.github.io/Spin-wheel/',
   scratch: 'https://aymenkemal189.github.io/Scrach-card/',
   coin:    'https://aymenkemal189.github.io/Coin-flip/',
   guess:   'https://aymenkemal189.github.io/Number-guss/',
-  predict: 'https://aymenkemal189.github.io/Predict/', // Prediction Iframe URL
+  predict: 'https://aymenkemal189.github.io/Predict/',
 };
 const GAME_TITLES = {
   spin:'🌀 Spin Wheel', scratch:'🎟 Scratch Card',
@@ -767,6 +1006,7 @@ function loadState(){
     isWdTaskActive:false, hasWelcomed:false,
     selectedMethod:'Telebirr', streakDays:0,
     lastLoginDate:'', streakClaimedFor:'',
+    pendingWd: null,
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -830,7 +1070,7 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ ACTIVITY TRACKER & GUARD ═══════════════ */
+/* ═══════════════ ACTIVITY TRACKER ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
 let lastLocalMutationTime = 0;
@@ -890,7 +1130,17 @@ function render(){
   setText('stSC', sc.toFixed(2)+' SC');
 
   setText('wdBalDisplay', bal.toLocaleString());
+  const eligEl = document.getElementById('wdEligTag');
+  if(eligEl){
+    if(bal >= MIN_WD){
+      eligEl.innerHTML = `<span style="color:var(--green)">● Payout Ready (${bal.toLocaleString()} ETB)</span>`;
+    } else {
+      eligEl.innerHTML = `<span style="color:var(--gold)">● ${(MIN_WD - bal).toLocaleString()} ETB Needed</span>`;
+    }
+  }
+
   renderWdButton();
+  renderQueueCard();
 
   const prog = (refs % 10 === 0 && refs > 0) ? 10 : (refs % 10);
   setText('refProgText', `${prog}/10`);
@@ -960,7 +1210,6 @@ function claimStreakReward(){
 /* ═══════════════ TASKS LIST ═══════════════ */
 const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
-
 const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
 
@@ -1122,7 +1371,7 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC (UNLIMITED ADS PAY 10 ETB) ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
@@ -1141,7 +1390,7 @@ function watchAd(btn){
 
   if(typeof show_11460944 === 'function'){
     show_11460944().catch((err)=>{
-      console.warn('[Swap Money] Real ad SDK reported an issue (non-fatal):', err);
+      console.warn('[Swap Money] Real ad SDK issue (non-fatal):', err);
     });
   }
 
@@ -1180,7 +1429,7 @@ function creditAdReward(){
   adRunning=false;
   const earnedReward = getAdReward(S.adsWatched);
   S.adsWatched++;
-  S.balance += earnedReward; // Adds ETB reward continuously
+  S.balance += earnedReward;
 
   markLocalMutation();
   toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
@@ -1245,25 +1494,57 @@ function finishBonusAd(){
   });
 })();
 
-/* ═══════════════ LIVE FEED ═══════════════ */
-const FEED_NAMES=['Bruk B','Sara Y','Dawit T','Makeda A','Henok G','Eyerusalem H','Kaleb B','Selamawit W'];
-const FEED_BANKS=['Telebirr','CBE Bank','Awash Bank','Abyssinia','Ethio Telecom'];
+/* ═══════════════ LIVE FEED (WITHOUT TIME) ═══════════════ */
+const FEED_ITEMS = [
+  { name: 'Se***r', amount: 2900, method: 'Telebirr',      acct: '098*****77' },
+  { name: 'Da***t', amount: 3400, method: 'CBE Bank',       acct: '1000****4910' },
+  { name: 'Ab***l', amount: 2500, method: 'Telebirr',      acct: '091*****24' },
+  { name: 'Ey***m', amount: 4800, method: 'Awash Bank',    acct: '013*****881' },
+  { name: 'Ka***b', amount: 2600, method: 'Telebirr',      acct: '097*****12' },
+  { name: 'Me***t', amount: 5000, method: 'Abyssinia',     acct: '449*****01' },
+  { name: 'Be***k', amount: 2500, method: 'Ethio Telecom', acct: '092*****45' },
+  { name: 'Sa***a', amount: 3100, method: 'Telebirr',      acct: '093*****90' },
+  { name: 'Yo***s', amount: 3800, method: 'CBE Bank',       acct: '1000****7321' },
+  { name: 'Ha***n', amount: 2700, method: 'Telebirr',      acct: '094*****63' },
+  { name: 'Ts***e', amount: 4200, method: 'Awash Bank',    acct: '013*****209' },
+  { name: 'Na***l', amount: 3000, method: 'Safaricom',     acct: '071*****58' },
+  { name: 'Bi***m', amount: 3500, method: 'Telebirr',      acct: '096*****81' },
+  { name: 'He***k', amount: 2500, method: 'CBE Bank',       acct: '1000****9014' },
+  { name: 'Li***a', amount: 4600, method: 'Abyssinia',     acct: '449*****78' },
+  { name: 'Am***l', amount: 2800, method: 'Telebirr',      acct: '091*****99' },
+  { name: 'Fi***r', amount: 3200, method: 'Awash Bank',    acct: '013*****654' },
+  { name: 'Ge***u', amount: 5500, method: 'CBE Bank',       acct: '1000****1182' },
+  { name: 'Ra***l', amount: 2500, method: 'Telebirr',      acct: '098*****33' },
+  { name: 'Mi***s', amount: 3900, method: 'Telebirr',      acct: '095*****16' },
+  { name: 'Te***a', amount: 4100, method: 'Abyssinia',     acct: '449*****39' },
+  { name: 'El***s', amount: 2600, method: 'Safaricom',     acct: '079*****44' },
+  { name: 'So***a', amount: 3300, method: 'Telebirr',      acct: '092*****70' },
+  { name: 'Ke***d', amount: 4700, method: 'CBE Bank',       acct: '1000****5560' },
+  { name: 'Wo***e', amount: 2900, method: 'Awash Bank',    acct: '013*****412' },
+  { name: 'Ze***n', amount: 3600, method: 'Telebirr',      acct: '094*****02' },
+  { name: 'Al***u', amount: 5200, method: 'CBE Bank',       acct: '1000****6789' },
+  { name: 'Ma***a', amount: 2500, method: 'Ethio Telecom', acct: '096*****15' },
+  { name: 'As***t', amount: 3700, method: 'Telebirr',      acct: '091*****88' },
+  { name: 'Da***m', amount: 4400, method: 'Abyssinia',     acct: '449*****53' },
+];
+
 function rotateFeed(){
-  const el=document.getElementById('liveFeed');
-  if(!el)return;
-  const n=FEED_NAMES[~~(Math.random()*FEED_NAMES.length)];
-  const b=FEED_BANKS[~~(Math.random()*FEED_BANKS.length)];
-  const a=(~~(Math.random()*80)+25)*100;
-  const m=~~(Math.random()*9)+1;
-  el.innerHTML=`<div class="feed-item">
+  const el = document.getElementById('liveFeed');
+  if(!el) return;
+  const item = FEED_ITEMS[Math.floor(Math.random() * FEED_ITEMS.length)];
+
+  el.innerHTML = `<div class="feed-item">
     <div style="display:flex;align-items:center;gap:8px">
-      <div class="feed-av">${n[0]}</div>
-      <div class="feed-info"><h5>${n} ወጪ አድርጓል</h5><p>${b} · ${m}min ago</p></div>
+      <div class="feed-av">${item.name[0]}</div>
+      <div class="feed-info">
+        <h5>${item.name} withdrew ${item.amount.toLocaleString()} ETB</h5>
+        <p>${item.method} (${item.acct})</p>
+      </div>
     </div>
-    <div class="feed-amount">${a.toLocaleString()} ETB</div>
+    <div class="feed-amount">${item.amount.toLocaleString()} ETB</div>
   </div>`;
 }
-setInterval(rotateFeed,5000);rotateFeed();
+setInterval(rotateFeed, 5000); rotateFeed();
 
 /* ═══════════════ API POST HELPER ═══════════════ */
 async function apiPost(payload){
@@ -1275,51 +1556,191 @@ async function apiPost(payload){
   return await res.json();
 }
 
-/* ═══════════════ WITHDRAW ═══════════════ */
-function selMethod(name, el){
+/* ════════════════════════════════════════════════════
+   WITHDRAWAL FINTECH CONTROLLER & AUDIT QUEUE
+════════════════════════════════════════════════════ */
+let currentCategory = 'bank';
+
+function switchWdCategory(cat){
   recordActivity();
-  S.selectedMethod=name;
-  document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('sel'));
-  if(el)el.classList.add('sel');
-  const isPhone=name.includes('Telebirr')||name.includes('Telecom')||name.includes('Safaricom');
+  currentCategory = cat;
+  document.getElementById('tabBtnBank')?.classList.toggle('active', cat === 'bank');
+  document.getElementById('tabBtnAirtime')?.classList.toggle('active', cat === 'airtime');
+  
+  const secBanks = document.getElementById('sectionBanks');
+  const secAirtime = document.getElementById('sectionAirtime');
+  if(secBanks) secBanks.style.display = (cat === 'bank') ? 'block' : 'none';
+  if(secAirtime) secAirtime.style.display = (cat === 'airtime') ? 'block' : 'none';
+
+  if(cat === 'bank'){
+    selFintechMethod('Telebirr', 'phone');
+  } else {
+    selFintechMethod('Ethio Telecom', 'phone');
+  }
+}
+
+function selFintechMethod(name, type){
+  recordActivity();
+  S.selectedMethod = name;
+  document.querySelectorAll('.ft-card, .pkg-card').forEach(c=>c.classList.remove('sel'));
+
+  const cardId = 'mb_' + name.replace(/\s+/g, '');
+  const el = document.getElementById(cardId);
+  if(el) el.classList.add('sel');
+
   const lbl = document.getElementById('wdAcctLabel');
   const inp = document.getElementById('wdAcct');
-  if(lbl) lbl.textContent=isPhone?`የስልክ ቁጥር (${name})`:`Account Number (${name})`;
-  if(inp) inp.placeholder=isPhone?'09... ወይም 07...':'Account Number';
-  markLocalMutation(); toast(`✓ ${name} ተመርጧል`);
+  const badge = document.getElementById('acctTypeBadge');
+
+  if(type === 'phone'){
+    if(lbl) lbl.textContent = `የስልክ ቁጥር (${name})`;
+    if(inp) inp.placeholder = '09... ወይም 07...';
+    if(badge) badge.textContent = 'PHONE';
+  } else {
+    if(lbl) lbl.textContent = `Account Number (${name})`;
+    if(inp) inp.placeholder = 'e.g. 1000... or 013...';
+    if(badge) badge.textContent = 'BANK ACCT';
+  }
+
+  markLocalMutation();
+  toast(`✓ ${name} ተመርጧል`);
+}
+
+function setPresetAmount(amt, el){
+  recordActivity();
+  document.querySelectorAll('.p-chip').forEach(c=>c.classList.remove('sel'));
+  if(el) el.classList.add('sel');
+  const inp = document.getElementById('wdAmt');
+  if(inp) inp.value = amt;
+  toast(`Preset: ${amt} ETB`);
+}
+
+function selectDataPackage(name, price, el){
+  recordActivity();
+  document.querySelectorAll('.pkg-card, .ft-card').forEach(c=>c.classList.remove('sel'));
+  if(el) el.classList.add('sel');
+  S.selectedMethod = name;
+  
+  const inp = document.getElementById('wdAmt');
+  if(inp) inp.value = price;
+
+  const lbl = document.getElementById('wdAcctLabel');
+  const acctInp = document.getElementById('wdAcct');
+  const badge = document.getElementById('acctTypeBadge');
+  if(lbl) lbl.textContent = `የስልክ ቁጥር (${name})`;
+  if(acctInp) acctInp.placeholder = '09... ወይም 07...';
+  if(badge) badge.textContent = 'PHONE';
+
+  toast(`✓ ${name} ተመርጧል (${price} ETB)`);
 }
 
 function renderWdButton(){
-  const btn=document.getElementById('wdBtn');
-  const notice=document.getElementById('wdTaskNotice');
-  const refs=S.totalRefs||0;
-  if(S.isWdTaskActive&&refs<10){
+  const btn = document.getElementById('wdBtn');
+  const notice = document.getElementById('wdTaskNotice');
+  const refs = S.totalRefs||0;
+  if(S.isWdTaskActive && refs < 10){
     if(notice){
-      notice.style.display='block';
-      notice.textContent=`⏳ ገንዘብ ለማውጣት 10 ሰዎችን ይጋብዙ (${refs}/10)`;
+      notice.style.display = 'block';
+      notice.textContent = `⏳ ገንዘብ ለማውጣት 10 ሰዎችን ይጋብዙ (${refs}/10)`;
     }
-    if(btn){ btn.disabled=true; btn.textContent=`${refs}/10 ሰው ሲሞላ`; }
+    if(btn){ btn.disabled = true; btn.textContent = `${refs}/10 ሰው ሲሞላ`; }
   } else {
-    if(notice) notice.style.display='none';
-    if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
+    if(notice) notice.style.display = 'none';
+    if(btn){ btn.disabled = false; btn.textContent = 'Confirm Withdrawal'; }
   }
 }
 
+function maskAcct(acc){
+  if(acc.length >= 8){
+    return acc.slice(0,3) + '*****' + acc.slice(-2);
+  }
+  return acc;
+}
+
+function openReceiptModal(txId, method, acct, amt){
+  setText('rcptTxId', txId);
+  setText('rcptMethod', method);
+  setText('rcptAcct', maskAcct(acct));
+  setText('rcptAmt', amt.toLocaleString() + ' ETB');
+  setText('rcptDate', new Date().toLocaleString());
+  document.getElementById('receiptModal')?.classList.add('active');
+}
+
+function closeReceiptModal(){
+  document.getElementById('receiptModal')?.classList.remove('active');
+}
+
+function renderQueueCard(){
+  const card = document.getElementById('pendingQueueCard');
+  if(!card) return;
+  if(!S.pendingWd){
+    card.classList.remove('active');
+    return;
+  }
+  card.classList.add('active');
+  setText('queueNumDisplay', S.pendingWd.queueNumber ? S.pendingWd.queueNumber.toLocaleString() : '4,128');
+  setText('qTxDisplay', S.pendingWd.txId || '#SWAP-89421');
+}
+
+/* Real-time Queue Decay & Countdown */
+setInterval(()=>{
+  if(!S.pendingWd) return;
+
+  // Queue decay
+  if(S.pendingWd.queueNumber && S.pendingWd.queueNumber > 18){
+    S.pendingWd.queueNumber -= Math.floor(Math.random()*3) + 1;
+    setText('queueNumDisplay', S.pendingWd.queueNumber.toLocaleString());
+    saveState();
+  }
+
+  // Countdown
+  const diff = (S.pendingWd.targetTime || (Date.now() + 48*3600*1000)) - Date.now();
+  if(diff <= 0){
+    setText('queueTimerTxt', '00:00:00 — In Final Audit');
+  } else {
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    setText('queueTimerTxt', `${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`);
+  }
+}, 1000);
+
 async function submitWithdraw(){
   recordActivity();
-  const acct=document.getElementById('wdAcct').value.trim();
-  const amt=parseFloat(document.getElementById('wdAmt').value);
-  if(!acct){toast('ሂሳብ/ስልክ ቁጥር ያስገቡ');return;}
-  if(isNaN(amt)||amt<MIN_WD){toast(`Min ${MIN_WD} ETB ያስፈልጋል`);return;}
-  if(amt>S.balance){toast('በቂ ቀሪ ሂሳብ የለዎትም');return;}
-  const refs=S.totalRefs||0;
-  if(refs<10){
-    S.isWdTaskActive=true; markLocalMutation();
-    toast('10 ሰዎችን ጋብዘው ያጠናቅቁ!'); return;
+  const acct = document.getElementById('wdAcct').value.trim();
+  const amt = parseFloat(document.getElementById('wdAmt').value);
+  
+  if(!acct){ toast('⚠️ ሂሳብ/ስልክ ቁጥር ያስገቡ'); return; }
+
+  // Phone validation for telebirr / airtime
+  const isPhone = S.selectedMethod.includes('Telebirr') || S.selectedMethod.includes('Telecom') || S.selectedMethod.includes('Safari');
+  if(isPhone && !/^(09|07|\+2519|\+2517)\d{8}$/.test(acct.replace(/\s+/g,''))){
+    toast('⚠️ ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09... ወይም 07...)');
+    return;
   }
-  const btn=document.getElementById('wdBtn');
-  if(btn){ btn.disabled=true; btn.textContent='Processing…'; }
-  const uid=tgUser?tgUser.id:('GUEST_'+Date.now());
+
+  const minRequired = S.selectedMethod.includes('Data') ? 2100 : (S.selectedMethod.includes('Airtime') ? 500 : MIN_WD);
+  if(isNaN(amt) || amt < minRequired){
+    toast(`⚠️ አነስተኛ መጠን ${minRequired.toLocaleString()} ETB ያስፈልጋል`);
+    return;
+  }
+
+  if(amt > S.balance){
+    toast('⚠️ በቂ ቀሪ ሂሳብ የለዎትም');
+    return;
+  }
+
+  const refs = S.totalRefs||0;
+  if(refs < 10){
+    S.isWdTaskActive = true;
+    markLocalMutation();
+    toast('10 ሰዎችን ጋብዘው ያጠናቅቁ!');
+    return;
+  }
+
+  const btn = document.getElementById('wdBtn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Processing…'; }
+  const uid = tgUser ? tgUser.id : ('GUEST_' + Date.now());
 
   await syncToSheet();
 
@@ -1339,24 +1760,37 @@ async function submitWithdraw(){
       } else {
         S.balance -= amt;
       }
+
+      const generatedTxId = '#SWAP-' + Math.floor(10000 + Math.random() * 90000);
+      const startingQueue = Math.floor(3875 + Math.random() * 625);
+
+      S.pendingWd = {
+        txId: generatedTxId,
+        method: S.selectedMethod,
+        account: acct,
+        amount: amt,
+        queueNumber: startingQueue,
+        targetTime: Date.now() + 48 * 3600 * 1000
+      };
+
       markLocalMutation();
-      document.getElementById('wdModal')?.classList.add('active');
+      openReceiptModal(generatedTxId, S.selectedMethod, acct, amt);
+
       if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('warning'); }catch(e){} }
-      if(document.getElementById('wdAcct')) document.getElementById('wdAcct').value='';
-      if(document.getElementById('wdAmt')) document.getElementById('wdAmt').value='';
+      if(document.getElementById('wdAcct')) document.getElementById('wdAcct').value = '';
+      if(document.getElementById('wdAmt')) document.getElementById('wdAmt').value = '';
     } else {
-      toast('❌ '+(data.message||'የማውጫ ጥያቄው አልተሳካም'));
+      toast('❌ ' + (data.message || 'የማውጫ ጥያቄው አልተሳካም'));
     }
   }catch(e){
     toast('❌ Network error — እባክዎ ደግመው ይሞክሩ');
   }
   finally{
-    if(btn){ btn.disabled=false; btn.textContent='Confirm Withdrawal'; }
+    if(btn){ btn.disabled = false; btn.textContent = 'Confirm Withdrawal'; }
   }
 }
 
-
-/* ═══════════════ GAME MODAL & IFRAME MESSAGE LISTENER ═══════════════ */
+/* ═══════════════ GAME MODAL & IFRAME ═══════════════ */
 let gameSessionCoins=0, currentGame=null;
 
 function openGame(key){
@@ -1395,11 +1829,9 @@ function closeGame(){
   currentGame = null; render();
 }
 
-/* ── IFRAME GAME RECEIVER (MONETAG FIX) ── */
 window.addEventListener('message', function(e) {
   if (!e.data) return;
 
-  // 1. ጨዋታው ላይ Coin ሲያሸንፉ ወደ SC ባላንስ ይደምራል
   if (e.data.type === 'sc_earned' && (typeof e.data.amount === 'number' || typeof e.data.amount === 'string')) {
     const earnedSC = Number(e.data.amount) || 0;
     gameSessionCoins += earnedSC;
@@ -1411,21 +1843,19 @@ window.addEventListener('message', function(e) {
     if (syncReady) { syncToSheet(); } else { pendingSyncAfterInit = true; }
   }
 
-  // 2. ጨዋታው SC Balance ሲጠይቅ
   if (e.data.type === 'sc_balance_request') {
     document.getElementById('gmIframe')?.contentWindow?.postMessage(
       { type: 'sc_balance', amount: S.swapCoins || 0 }, '*'
     );
   }
 
-  // 3. ጨዋታው ውስጥ ማስታወቂያ ሲጠየቅ ከዋናው ገጽ ማስታወቂያ ያስነሳል (MONETAG FIX)
   if (e.data.type === 'trigger_game_ad') {
     const gameModalOpen = document.getElementById('gameModal')?.classList.contains('open');
     if (!gameModalOpen) return;
 
     if (typeof show_11460944 === 'function') {
       try {
-        show_11460944(); // Calls Monetag SDK cleanly without blocking locks or 'pop' string!
+        show_11460944();
       } catch (err) {
         console.warn('[Swap Money] Monetag Game Ad error:', err);
       }
@@ -1454,7 +1884,7 @@ function shareSocial(p){
   else copyRefLink();
 }
 
-/* ═══════════════ GOOGLE SHEETS SYNC (PROTECTED PULL SYNC) ═══════════════ */
+/* ═══════════════ GOOGLE SHEETS SYNC ═══════════════ */
 async function syncFromSheet(){
   if(!tgUser)return;
   
@@ -1540,7 +1970,7 @@ async function safeInit(){
   render();
 
   if(!tgUser){
-    console.warn('[Swap Money] No Telegram user detected — running in local-only/demo mode.');
+    console.warn('[Swap Money] No Telegram user detected — running demo mode.');
     syncReady = true;
     if(!S.hasWelcomed){
       S.hasWelcomed = true;
