@@ -159,15 +159,6 @@ header{
 .earn-hero h2{font-size:18px;font-weight:900}
 .earn-hero p{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* ── GAME CARDS ── */
-.games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
-.game-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:9px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:.15s;position:relative;overflow:hidden}
-.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.35))}
-.game-card:active{transform:scale(.96)}
-.game-card-img{width:34px;height:34px;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
-.game-card-name{font-size:9.5px;font-weight:900;position:relative;z-index:1;text-align:center;line-height:1.2}
-.game-card-btn{background:var(--gold-grad);color:#000;border:none;border-radius:8px;padding:4px 0;font-size:9px;font-weight:900;cursor:pointer;position:relative;z-index:1;width:100%;font-family:var(--font)}
-
 /* ── TASKS + ADS UNIFIED GRID ── */
 .earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
 .earn-grid-item{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;position:relative;overflow:hidden}
@@ -350,20 +341,6 @@ header{
 .receipt-row span:last-child{color:#fff;font-weight:900}
 .receipt-status-pill{background:rgba(255,198,26,.15);border:1px solid var(--gold);color:var(--gold);padding:2px 8px;border-radius:8px;font-size:10px;font-weight:900}
 
-/* ── GAME MODAL ── */
-.game-modal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;display:none;flex-direction:column}
-.game-modal.open{display:flex}
-.gm-hdr{background:rgba(7,8,13,.98);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.gm-title{font-size:14px;font-weight:900;color:var(--gold)}
-.gm-right{display:flex;align-items:center;gap:8px}
-.gm-sc-pill{display:flex;align-items:center;gap:4px;background:rgba(255,198,26,.1);border:1px solid rgba(255,198,26,.25);border-radius:14px;padding:4px 10px;font-size:11px;font-weight:800;color:var(--gold)}
-.gm-sc-pill img{width:14px;height:14px;object-fit:contain}
-.gm-close{width:30px;height:30px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted)}
-.gm-iframe{flex:1;border:none;width:100%;background:var(--bg)}
-.gm-footer{background:rgba(7,8,13,.98);border-top:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.gm-session{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--gold)}
-.gm-session img{width:18px;height:18px;object-fit:contain}
-
 /* ── AD MODAL ── */
 .ad-modal{position:fixed;inset:0;background:rgba(7,8,13,.95);backdrop-filter:blur(14px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .ad-modal.active{display:flex}
@@ -396,28 +373,6 @@ header{
     <div class="ad-desc" id="adDesc">17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">50 ETB</strong> ይጨምራሉ!</div>
     <div class="ad-bar-bg"><div class="ad-bar-fill" id="adBarFill"></div></div>
     <div class="ad-timer-txt" id="adTimerTxt">17s ቀርቷል</div>
-  </div>
-</div>
-
-<!-- ── GAME MODAL ── -->
-<div class="game-modal" id="gameModal">
-  <div class="gm-hdr">
-    <span class="gm-title" id="gmTitle">🎮 Game</span>
-    <div class="gm-right">
-      <div class="gm-sc-pill">
-        <img src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="sc">
-        <span id="gmSCDisplay">0 SC</span>
-      </div>
-      <div class="gm-close" onclick="closeGame()">✕</div>
-    </div>
-  </div>
-  <iframe class="gm-iframe" id="gmIframe" title="Game" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms" allowfullscreen></iframe>
-  <div class="gm-footer">
-    <div class="gm-session">
-      <img src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="sc">
-      ይህ ጨዋታ: <span id="gmSessionCoins">0 SC</span>
-    </div>
-    <button class="btn btn-green" style="padding:7px 14px;font-size:11px" onclick="closeGame()">✓ ጨርስ</button>
   </div>
 </div>
 
@@ -490,40 +445,9 @@ header{
   <div class="sc-card">
     <img class="sc-img" src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="SC">
     <div class="sc-info">
-      <div class="sc-title-row">Swap Coin <span class="sc-new-badge">Game SC</span></div>
-      <div class="sc-sub">Play Mini-Games &amp; Earn SC Points</div>
+      <div class="sc-title-row">Swap Coin <span class="sc-new-badge">Swap SC</span></div>
+      <div class="sc-sub">Daily Streak &amp; Rewards Points</div>
       <div class="sc-amount"><span id="scBalance">0</span> SC</div>
-    </div>
-  </div>
-
-  <!-- ── Grade 12 Result Card ── -->
-  <div id="grade12Card" style="background:linear-gradient(135deg,#0a1628,#0d1f10);border:1px solid rgba(59,130,246,.35);border-radius:18px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(59,130,246,.15)">
-    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3b82f6,#10b981,#3b82f6)"></div>
-    <div style="position:relative;border-radius:12px;overflow:hidden;height:130px;margin-bottom:12px;background:#0a0e18;cursor:pointer" onclick="openResultSite()">
-      <img src="https://i.postimg.cc/8zcsJX6h/20260822-163443.jpg" alt="Grade 12 Result" style="width:100%;height:100%;object-fit:cover;opacity:0.5">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
-        <div style="font-size:28px"> Grade 12 </div>
-<div style="font-size:13px;font-weight:900;color:#fff;text-align:center;line-height:1.3">ዘንድሮ የ 12ኛ ክፍል<br>ውጤት ማየት ይችላሉ</div>
-      </div>
-      <div style="position:absolute;top:8px;right:8px;background:#3b82f6;color:#fff;font-size:11px;font-weight:900;padding:5px 12px;border-radius:20px;pointer-events:none">ለማየት →</div>
-    </div>
-    <div style="font-size:13px;font-weight:900;color:#fff;text-align:center;margin-bottom:10px">ዘንድሮ በአጠቃላይ ፈተናውን ከወሰዱ ተማሪዎች መካከል ማለፍ የቻሉት 70 ሺ 544 ናቸው። </div>
-    <div style="display:flex;gap:8px;justify-content:center">
-      <div onclick="gradeReact('happy')" style="flex:1;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:.15s" id="gradeBtn_happy">
-        <div style="font-size:24px">😊</div>
-        <div style="font-size:10px;font-weight:900;color:var(--green);margin-top:3px">ደስታ</div>
-        <div style="font-size:11px;font-weight:800;color:#fff;margin-top:2px" id="gradeCount_happy">675</div>
-      </div>
-      <div onclick="gradeReact('neutral')" style="flex:1;background:rgba(255,198,26,.08);border:1px solid rgba(255,198,26,.25);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:.15s" id="gradeBtn_neutral">
-        <div style="font-size:24px">😐</div>
-        <div style="font-size:10px;font-weight:900;color:var(--gold);margin-top:3px">ምንም አይልም</div>
-        <div style="font-size:11px;font-weight:800;color:#fff;margin-top:2px" id="gradeCount_neutral">348</div>
-      </div>
-      <div onclick="gradeReact('sad')" style="flex:1;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:14px;padding:10px 6px;text-align:center;cursor:pointer;transition:.15s" id="gradeBtn_sad">
-        <div style="font-size:24px">😢</div>
-        <div style="font-size:10px;font-weight:900;color:var(--red);margin-top:3px">ወድቄአለሁ</div>
-        <div style="font-size:11px;font-weight:800;color:#fff;margin-top:2px" id="gradeCount_sad">916</div>
-      </div>
     </div>
   </div>
 
@@ -615,35 +539,6 @@ header{
     <p>ማስታወቂያ ያዩ፣ Tasks ያጠናቅቁ — ዕለታዊ ሽልማት ያግኙ!</p>
   </div>
 
-  <!-- Games -->
-  <div class="sh"><h3>🎮 Mini Games</h3><div style="font-size:9px;background:rgba(255,198,26,.1);border:1px solid rgba(255,198,26,.25);border-radius:8px;padding:2px 8px;color:var(--gold);font-weight:800">SC ያስገኛሉ</div></div>
-  <div class="games-grid">
-    <div class="game-card" onclick="openGame('spin')" style="background:linear-gradient(145deg,#1a1008,#111520)">
-      <img class="game-card-img" src="https://i.postimg.cc/RZj4tTzf/20260805-175624.png" alt="Spin">
-      <div class="game-card-name">Spin Wheel</div>
-      <div class="game-card-sub">Spin &amp; Win SC</div>
-      <button class="game-card-btn">Spin Now</button>
-    </div>
-    <div class="game-card" onclick="openGame('scratch')" style="background:linear-gradient(145deg,#0e1520,#111520)">
-      <img class="game-card-img" src="https://i.postimg.cc/LX97gqhV/20260805-175646.png" alt="Scratch">
-      <div class="game-card-name">Scratch Card</div>
-      <div class="game-card-sub">Win Big SC</div>
-      <button class="game-card-btn">Scratch</button>
-    </div>
-    <div class="game-card" onclick="openGame('coin')" style="background:linear-gradient(145deg,#0e1808,#111520)">
-      <img class="game-card-img" src="https://i.postimg.cc/zvWP9TQf/20260805-175704.png" alt="Coin">
-      <div class="game-card-name">Coin Flip</div>
-      <div class="game-card-sub">Flip &amp; Earn SC</div>
-      <button class="game-card-btn">Flip Now</button>
-    </div>
-    <div class="game-card" onclick="openGame('guess')" style="background:linear-gradient(145deg,#12081a,#111520)">
-      <img class="game-card-img" src="https://i.postimg.cc/rsCN1jbr/20260805-175722.png" alt="Guess">
-      <div class="game-card-name">Number Guess</div>
-      <div class="game-card-sub">Guess &amp; Win SC</div>
-      <button class="game-card-btn">Play Now</button>
-    </div>
-  </div>
-
   <!-- Daily Streak -->
   <div class="streak-card">
     <div class="streak-top">
@@ -681,18 +576,6 @@ header{
     <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
   </div>
 
-  <!-- 200,000 ETB Prediction Prize Pool Banner -->
-  <div class="card predict-banner" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'" style="position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:35px;padding:35px;margin-bottom:14px;box-shadow:0 8px 25px rgba(255,215,0,.15);cursor:pointer;background:#120c02">
-    <img src="https://i.postimg.cc/D0xgjfWM/20260813-164722.jpg" alt="banner" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0.85;pointer-events:none">
-    <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between">
-      <div>
-        <div style="font-size:10px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">PRIZE POOL</div>
-        <div style="font-size:32px;font-weight:900;color:var(--gold);line-height:1;font-family:var(--font)">200,000 <span style="font-size:16px;color:#fff">ETB</span></div>
-      </div>
-      <button class="btn btn-gold" style="padding:12px 22px;font-size:14px;border-radius:25px;box-shadow:0 4px 15px rgba(255,215,0,.3);pointer-events:auto" onclick="window.location.href='https://aymenkemal189.github.io/Swap-money-sample/'">Predict &gt;</button>
-    </div>
-  </div>
-
   <!-- Video Tutorial Guide Grid -->
   <div class="card" style="padding:12px;margin-bottom:10px">
     <div class="card-title" style="font-size:12px">▶️ ብር እንዴት እንደሚያገኙ ለማየት</div>
@@ -722,11 +605,11 @@ header{
 <section class="page" id="page-invite">
   <div class="ref-hero">
     <img src="https://i.postimg.cc/cJwy699g/20260809-161701.png" style="width:64px;height:64px;object-fit:contain;margin-bottom:6px" alt="gift">
-    <p style="font-size:11px;font-weight:800;color:var(--muted)">10 ሰው ሲጋብዙ</p>
-    <h2>1000 ETB</h2>
-    <p>አንድ ሰው ሲጋብዙ 100 ETB ቦነስ ያኛሉ</p>
+    <p style="font-size:11px;font-weight:800;color:var(--muted)">15 ሰው ሲጋብዙ</p>
+    <h2>1500 ETB</h2>
+    <p>አንድ ሰው ሲጋብዙ 100 ETB ቦነስ ያገኛሉ</p>
     <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-top:8px;margin-bottom:4px">
-      <span>Progress</span><span id="refProgText" style="color:var(--gold)">0/10</span>
+      <span>Progress</span><span id="refProgText" style="color:var(--gold)">0/15</span>
     </div>
     <div class="ref-prog-bg"><div class="ref-prog-fill" id="refProgFill" style="width:0%"></div></div>
   </div>
@@ -765,9 +648,9 @@ header{
   <div class="sh"><h3>How it Works</h3></div>
   <div class="how-card">
     <div class="how-step"><div class="how-num">1</div><div class="how-text"><h5>ሊንክ ያጋሩ</h5><p>ልዩ የግብዣ ሊንክዎን ከጓደኞችዎ ጋር ያጋሩ</p></div></div>
-    <div class="how-step"><div class="how-num">2</div><div class="how-text"><h5>ጓደኛዎ ይቀላቀሉ</h5><p>ጓደኛዎ Swap Money ያዎርዱ &amp; ይቀላቀሉ</p></div></div>
+    <div class="how-step"><div class="how-num">2</div><div class="how-text"><h5>ጓደኛዎ ይቀላቀሉ</h5><p>ጓደኛዎ Swap Money ያውርዱ &amp; ይቀላቀሉ</p></div></div>
     <div class="how-step"><div class="how-num">3</div><div class="how-text"><h5>ቦነስ ያግኙ</h5><p>ወዲያውኑ 100 ETB ወደ ሂሳብዎ ይገባል</p></div></div>
-    <div class="how-step"><div class="how-num">4</div><div class="how-text"><h5>500 ETB Milestone!</h5><p>10 ሰው ሲሞላ ልዩ 1000 ETB bonus ያኛሉ</p></div></div>
+    <div class="how-step"><div class="how-num">4</div><div class="how-text"><h5>1500 ETB Milestone!</h5><p>15 ሰው ሲሞላ ልዩ 1500 ETB bonus ያገኛሉ</p></div></div>
   </div>
 </section>
 
@@ -935,8 +818,8 @@ header{
       </div>
     </div>
 
-    <div class="wd-task-notice" id="wdTaskNotice" style="margin-top:10px"></div>
-    <button class="wd-btn" id="wdBtn" style="margin-top:12px" onclick="submitWithdraw()">Confirm Withdrawal</button>
+    <div class="wd-task-notice" id="wdTaskNotice" style="margin-top:10px;font-size:11px;line-height:1.5;color:var(--gold);background:rgba(255,198,26,.08);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,198,26,.25);display:none"></div>
+    <button class="btn btn-gold btn-block" id="wdBtn" style="margin-top:12px" onclick="submitWithdraw()">Confirm Withdrawal</button>
   </div>
 
   <!-- Trust Shield & Fairness Guarantee -->
@@ -967,9 +850,6 @@ header{
 </nav>
 <div id="toast"></div>
 
-<!-- Flower Confetti Canvas -->
-<canvas id="flowerCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none"></canvas>
-
 <script>
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
@@ -977,6 +857,8 @@ const BOT_USERNAME = 'Swapmoney_bot';
 const WELCOME_ETB  = 50;
 const REF_BONUS    = 50;
 const MIN_WD       = 2500;
+const REQUIRED_REFS = 15;
+const REQUIRED_WD_ADS = 30;
 
 /* ── Ad reward tiers ── */
 const AD_TIERS = [
@@ -1000,29 +882,6 @@ const TG_CHANNEL2  = 'https://t.me/SwapMoney_ETH';
 const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
-
-/* Game & Predict URLs */
-const GAME_URLS = {
-  spin:    'https://www.smartsoftgaming.com/games/JetX',
-  scratch: 'https://demo.spribe.io/launch/aviator?currency=USD&lang=en',
-  coin:    'https://aymenkemal189.github.io/Coin-flip/',
-  guess:   'https://aymenkemal189.github.io/Number-guss/',
-  predict: 'https://aymenkemal189.github.io/Predict/',
-  aviator: 'https://demo.spribe.io/launch/aviator?currency=USD&lang=en',
-  jetx:    'https://www.smartsoftgaming.com/games/JetX',
-  keno:    'https://evoplay.games/game/book-of-keno/'
-};
-
-const GAME_TITLES = {
-  spin:    '🌀 jet x', 
-  scratch: '🎟️ Aveiter',
-  coin:    '🪙 Coin Flip', 
-  guess:   '🔢 Number Guess',
-  predict: '🎯 Predict & Win 200,000 ETB',
-  aviator: '✈️ Aviator Demo',
-  jetx:    '🚀 JetX Demo',
-  keno:    '🎱 Keno 80 Demo'
-};
 
 /* ═══════════════ TELEGRAM INIT ═══════════════ */
 const tg = window.Telegram?.WebApp || null;
@@ -1049,6 +908,8 @@ function loadState(){
     isWdTaskActive:false, hasWelcomed:false,
     selectedMethod:'Telebirr', streakDays:0,
     lastLoginDate:'', streakClaimedFor:'',
+    hasClaimedLevel3Once:false,
+    wdAdsStart: null,
     pendingWd: null,
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
@@ -1185,12 +1046,12 @@ function render(){
   renderWdButton();
   renderQueueCard();
 
-  const prog = (refs % 10 === 0 && refs > 0) ? 10 : (refs % 10);
-  setText('refProgText', `${prog}/10`);
+  const prog = Math.min(refs, REQUIRED_REFS);
+  setText('refProgText', `${prog}/${REQUIRED_REFS}`);
   setText('refCount', refs);
-  setText('refEarned', (Math.floor(refs/10)*500 + (refs%10)*REF_BONUS).toLocaleString()+' ETB');
+  setText('refEarned', (refs*REF_BONUS).toLocaleString()+' ETB');
   const pf = document.getElementById('refProgFill');
-  if(pf) pf.style.width = `${prog/10*100}%`;
+  if(pf) pf.style.width = `${(prog/REQUIRED_REFS)*100}%`;
 
   renderStreakDays();
   renderHomeTasks();
@@ -1200,6 +1061,7 @@ function render(){
 /* ═══════════════ STREAK DAYS RENDER ═══════════════ */
 const STREAK_LABELS = ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7'];
 const STREAK_SC      = [10,20,40,60,80,100,0];
+
 function renderStreakDays(){
   const el = document.getElementById('streakDaysEl');
   if(!el)return;
@@ -1209,7 +1071,10 @@ function renderStreakDays(){
     const dayNum = i+1;
     const passed = dayNum < streak;
     const isToday = dayNum === streak;
-    const rewardLabel = dayNum===7 ? 'Level 3' : `+${STREAK_SC[i]}SC`;
+    let rewardLabel = `+${STREAK_SC[i]}SC`;
+    if(dayNum === 7){
+      rewardLabel = S.hasClaimedLevel3Once ? '+100 SC' : 'Level 3';
+    }
     let cls = passed ? 'done' : (isToday ? 'today' : '');
     return `<div class="streak-day ${cls}">
       <div class="streak-day-icon">${passed?'✅':(isToday?'🎁':'🔒')}</div>
@@ -1227,18 +1092,28 @@ function renderStreakDays(){
     } else {
       btn.disabled = false;
       const idx = Math.min(streak,7)-1;
-      const label = (idx+1)===7 ? 'Level 3 ማዕረግ ያግኙ 🏆' : `+${STREAK_SC[idx]} SC ይቀበሉ`;
+      let label = `+${STREAK_SC[idx]} SC ይቀበሉ`;
+      if((idx+1)===7){
+        label = S.hasClaimedLevel3Once ? '+100 SC ይቀበሉ' : 'Level 3 ማዕረግ ያግኙ 🏆';
+      }
       btn.textContent = label;
     }
   }
 }
+
 function claimStreakReward(){
   recordActivity();
   if(S.streakClaimedFor === S.lastLoginDate){toast('ዛሬ አስቀድመው ተቀብለዋል!');return;}
   const day = Math.min(S.streakDays||1, 7);
   if(day === 7){
-    S.swapCoins = (S.swapCoins||0) + 200;
-    toast('🏆 7 ቀን ተከታታይ Streak! Level 3 ማዕረግ ስጦታ +200 SC!');
+    if(!S.hasClaimedLevel3Once){
+      S.hasClaimedLevel3Once = true;
+      S.swapCoins = (S.swapCoins||0) + 200;
+      toast('🏆 7 ቀን ተከታታይ Streak! Level 3 ማዕረግ ስጦታ +200 SC!');
+    } else {
+      S.swapCoins = (S.swapCoins||0) + 100;
+      toast('🔥 Day 7 Streak ቦነስ +100 SC ተጨምሯል!');
+    }
   } else {
     const reward = STREAK_SC[day-1];
     S.swapCoins = (S.swapCoins||0) + reward;
@@ -1680,16 +1555,28 @@ function selectDataPackage(name, price, el){
 function renderWdButton(){
   const btn = document.getElementById('wdBtn');
   const notice = document.getElementById('wdTaskNotice');
-  const refs = S.totalRefs||0;
-  if(S.isWdTaskActive && refs < 10){
+  const refs = S.totalRefs || 0;
+  const wdAdsDone = (S.wdAdsStart !== null && typeof S.wdAdsStart !== 'undefined')
+    ? Math.max(0, (S.adsWatched || 0) - S.wdAdsStart)
+    : 0;
+
+  if(S.isWdTaskActive && (refs < REQUIRED_REFS || wdAdsDone < REQUIRED_WD_ADS)){
     if(notice){
       notice.style.display = 'block';
-      notice.textContent = `⏳ ገንዘብ ለማውጣት 10 ሰዎችን ይጋብዙ (${refs}/10)`;
+      notice.innerHTML = `⚠️ <strong>ገንዘብ ለማውጣት የሚከተሉትን ያጠናቅቁ:</strong><br>
+      • 15 ሰዎችን መጋበዝ: <b>(${refs}/${REQUIRED_REFS})</b><br>
+      • 30 ተጨማሪ ማስታወቂያ ማየት: <b>(${Math.min(wdAdsDone, REQUIRED_WD_ADS)}/${REQUIRED_WD_ADS})</b>`;
     }
-    if(btn){ btn.disabled = true; btn.textContent = `${refs}/10 ሰው ሲሞላ`; }
+    if(btn){
+      btn.disabled = true;
+      btn.textContent = `Task: ${refs}/${REQUIRED_REFS} ሰው | ${Math.min(wdAdsDone, REQUIRED_WD_ADS)}/${REQUIRED_WD_ADS} Ads`;
+    }
   } else {
     if(notice) notice.style.display = 'none';
-    if(btn){ btn.disabled = false; btn.textContent = 'Confirm Withdrawal'; }
+    if(btn){
+      btn.disabled = false;
+      btn.textContent = 'Confirm Withdrawal';
+    }
   }
 }
 
@@ -1729,14 +1616,12 @@ function renderQueueCard(){
 setInterval(()=>{
   if(!S.pendingWd) return;
 
-  // Queue decay
   if(S.pendingWd.queueNumber && S.pendingWd.queueNumber > 18){
     S.pendingWd.queueNumber -= Math.floor(Math.random()*3) + 1;
     setText('queueNumDisplay', S.pendingWd.queueNumber.toLocaleString());
     saveState();
   }
 
-  // Countdown
   const diff = (S.pendingWd.targetTime || (Date.now() + 48*3600*1000)) - Date.now();
   if(diff <= 0){
     setText('queueTimerTxt', '00:00:00 — In Final Audit');
@@ -1755,7 +1640,6 @@ async function submitWithdraw(){
   
   if(!acct){ toast('⚠️ ሂሳብ/ስልክ ቁጥር ያስገቡ'); return; }
 
-  // Phone validation for telebirr / airtime
   const isPhone = S.selectedMethod.includes('Telebirr') || S.selectedMethod.includes('Telecom') || S.selectedMethod.includes('Safari');
   if(isPhone && !/^(09|07|\+2519|\+2517)\d{8}$/.test(acct.replace(/\s+/g,''))){
     toast('⚠️ ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09... ወይም 07...)');
@@ -1774,10 +1658,15 @@ async function submitWithdraw(){
   }
 
   const refs = S.totalRefs||0;
-  if(refs < 10){
+  if(S.wdAdsStart === null || typeof S.wdAdsStart === 'undefined'){
+    S.wdAdsStart = S.adsWatched || 0;
+  }
+  const wdAdsDone = Math.max(0, (S.adsWatched || 0) - S.wdAdsStart);
+
+  if(refs < REQUIRED_REFS || wdAdsDone < REQUIRED_WD_ADS){
     S.isWdTaskActive = true;
     markLocalMutation();
-    toast('10 ሰዎችን ጋብዘው ያጠናቅቁ!');
+    toast('⚠️ 15 ሰዎችን ይጋብዙ እና 30 ማስታወቂያዎችን ይመልከቱ!');
     return;
   }
 
@@ -1832,79 +1721,6 @@ async function submitWithdraw(){
     if(btn){ btn.disabled = false; btn.textContent = 'Confirm Withdrawal'; }
   }
 }
-
-/* ═══════════════ GAME MODAL & IFRAME ═══════════════ */
-let gameSessionCoins=0, currentGame=null;
-
-function openGame(key){
-  recordActivity();
-  currentGame=key; gameSessionCoins=0;
-  setText('gmSessionCoins','0 SC');
-  setText('gmTitle', GAME_TITLES[key] || '🎮 Game');
-  setText('gmSCDisplay', (S.swapCoins||0).toFixed(2)+' SC');
-  
-  const iframe = document.getElementById('gmIframe');
-  const targetUrl = GAME_URLS[key];
-  
-  if(iframe && targetUrl && targetUrl.trim() !== ''){
-    iframe.src = targetUrl + '?sc=' + (S.swapCoins||0) + '&uid=' + (tgUser?.id||'guest');
-    iframe.setAttribute('allow', 'autoplay; fullscreen; accelerometer; gyroscope');
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms');
-  }
-  
-  document.getElementById('gameModal')?.classList.add('open');
-  document.body.style.overflow='hidden';
-  if(tg?.HapticFeedback){ try{ tg.HapticFeedback.impactOccurred('medium'); }catch(e){} }
-}
-
-function closeGame(){
-  recordActivity();
-  if(gameSessionCoins > 0){
-    toast(`🎉 +${gameSessionCoins} SC ጌሙ ላይ አግኝተዋል!`);
-    if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
-    markLocalMutation();
-    if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
-  }
-  document.getElementById('gameModal')?.classList.remove('open');
-  const iframe = document.getElementById('gmIframe');
-  if(iframe) iframe.src = '';
-  document.body.style.overflow = '';
-  currentGame = null; render();
-}
-
-window.addEventListener('message', function(e) {
-  if (!e.data) return;
-
-  if (e.data.type === 'sc_earned' && (typeof e.data.amount === 'number' || typeof e.data.amount === 'string')) {
-    const earnedSC = Number(e.data.amount) || 0;
-    gameSessionCoins += earnedSC;
-    S.swapCoins = (S.swapCoins || 0) + earnedSC;
-    markLocalMutation();
-    setText('gmSessionCoins', gameSessionCoins.toFixed(2) + ' SC');
-    setText('gmSCDisplay', S.swapCoins.toFixed(2) + ' SC');
-    toast(`🎉 +${earnedSC} SC ጌሙ ላይ አግኝተዋል!`);
-    if (syncReady) { syncToSheet(); } else { pendingSyncAfterInit = true; }
-  }
-
-  if (e.data.type === 'sc_balance_request') {
-    document.getElementById('gmIframe')?.contentWindow?.postMessage(
-      { type: 'sc_balance', amount: S.swapCoins || 0 }, '*'
-    );
-  }
-
-  if (e.data.type === 'trigger_game_ad') {
-    const gameModalOpen = document.getElementById('gameModal')?.classList.contains('open');
-    if (!gameModalOpen) return;
-
-    if (typeof show_11460944 === 'function') {
-      try {
-        show_11460944();
-      } catch (err) {
-        console.warn('[Swap Money] Monetag Game Ad error:', err);
-      }
-    }
-  }
-});
 
 /* ═══════════════ SHARE ═══════════════ */
 function copyRefLink(){
@@ -2077,7 +1893,6 @@ const FORCED_AD_GRACE_MS = 2 * 60 * 1000;
 
 function maybeShowForcedAd(isActivityTrigger){
   if(adRunning) return;
-  if(document.getElementById('gameModal')?.classList.contains('open')) return;
   if(document.visibilityState !== 'visible') return;
 
   if(!initialForcedAdShown){
@@ -2105,93 +1920,6 @@ setInterval(()=>{
     maybeShowForcedAd(false);
   }
 }, 10000);
-
-/* ═══════════════ GRADE 12 RESULT ═══════════════ */
-function openResultSite(){
-  const url = 'https://result.eaes.et/';
-  if(tg && tg.openLink) tg.openLink(url);
-  else window.open(url, '_blank');
-}
-
-const GRADE_KEY = 'grade12_voted';
-let gradeVoted = localStorage.getItem(GRADE_KEY) || null;
-const GRADE_COUNTS_KEY = 'grade12_counts';
-let gradeCounts = JSON.parse(localStorage.getItem(GRADE_COUNTS_KEY) || '{"happy":675,"neutral":348,"sad":916}');
-
-function renderGradeCounts(){
-  const h = document.getElementById('gradeCount_happy');
-  const n = document.getElementById('gradeCount_neutral');
-  const s = document.getElementById('gradeCount_sad');
-  if(!h || !n || !s) return;
-  h.textContent = gradeCounts.happy;
-  n.textContent = gradeCounts.neutral;
-  s.textContent = gradeCounts.sad;
-  ['happy','neutral','sad'].forEach(t => {
-    const btn = document.getElementById('gradeBtn_' + t);
-    if(!btn) return;
-    btn.style.transform = gradeVoted === t ? 'scale(1.05)' : '';
-    btn.style.borderWidth = gradeVoted === t ? '2px' : '';
-  });
-}
-setTimeout(renderGradeCounts, 0);
-
-function gradeReact(type){
-  if(gradeVoted){ toast('አስቀድሞ መርጠዋል!'); return; }
-  gradeVoted = type;
-  gradeCounts[type]++;
-  localStorage.setItem(GRADE_KEY, type);
-  localStorage.setItem(GRADE_COUNTS_KEY, JSON.stringify(gradeCounts));
-  renderGradeCounts();
-  if(type === 'happy'){ launchFlowers(); toast('🌸 እንኳን ደስ አለ!'); }
-  else if(type === 'neutral'){ toast('😐 ቀጥሎ ይሞክሩ!'); }
-  else { toast('💪 አትቅበሩ — ቀጥሎ ይሞክሩ!'); }
-}
-
-function launchFlowers(){
-  const canvas = document.getElementById('flowerCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  canvas.style.display = 'block';
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const EMOJIS = ['🌸','🌺','🌼','🌻','🌹','💐','✨','🎉','🎊'];
-  const particles = [];
-  for(let i = 0; i < 60; i++){
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: -20 - Math.random() * 200,
-      emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-      size: 16 + Math.random() * 18,
-      vx: (Math.random() - 0.5) * 3,
-      vy: 2 + Math.random() * 3,
-      rot: Math.random() * 360,
-      rotV: (Math.random() - 0.5) * 8,
-      life: 1,
-      decay: 0.005 + Math.random() * 0.005
-    });
-  }
-  function draw(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = false;
-    particles.forEach(p => {
-      if(p.life <= 0) return;
-      alive = true;
-      p.x += p.vx; p.y += p.vy; p.rot += p.rotV; p.life -= p.decay;
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot * Math.PI / 180);
-      ctx.font = p.size + 'px serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(p.emoji, 0, 0);
-      ctx.restore();
-    });
-    if(alive) requestAnimationFrame(draw);
-    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
-  }
-  draw();
-}
 </script>
 </body>
 </html>
