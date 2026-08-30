@@ -8,23 +8,24 @@
 <script src='https://libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 <style>
 :root{
-  --bg:#07080d;--surface:#0d0f1a;--card:#111520;--card2:#161d2a;
-  --border:rgba(255,198,26,.15);--border2:rgba(255,255,255,.06);
+  --bg:#05070e;--surface:#090d18;--card:#0e1322;--card2:#141b2d;
+  --border:rgba(255,215,0,.18);--border2:rgba(255,255,255,.07);
   --gold:#FFD700;--gold2:#FFA500;
-  --gold-grad:linear-gradient(135deg,#FFD700 0%,#FFA500 60%,#B8860B 100%);
-  --gold-glow:rgba(255,198,26,.2);
-  --green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;
-  --text:#ffffff;--muted:#8892aa;--muted2:#3d4a63;
-  --font:'Segoe UI',-apple-system,Roboto,sans-serif;
+  --gold-grad:linear-gradient(135deg,#FFD700 0%,#FF9E00 50%,#B8860B 100%);
+  --gold-glow:rgba(255,215,0,.25);
+  --green:#10b981;--green-grad:linear-gradient(135deg,#10b981,#059669);
+  --red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;
+  --text:#ffffff;--muted:#8e9ab2;--muted2:#475569;
+  --font:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow-x:hidden}
 body{
   background:var(--bg);
-  background-image:radial-gradient(rgba(255,198,26,.05) 1px,transparent 0);
-  background-size:24px 24px;
+  background-image:radial-gradient(rgba(255,215,0,.06) 1px,transparent 0),radial-gradient(rgba(16,185,129,.04) 1px,transparent 0);
+  background-size:24px 24px, 48px 48px;
   color:var(--text);font-family:var(--font);font-size:13px;
-  padding-bottom:72px;min-height:100vh;
+  padding-bottom:76px;min-height:100vh;
 }
 ::-webkit-scrollbar{width:2px;height:2px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
@@ -32,69 +33,88 @@ body{
 /* ── HEADER ── */
 header{
   position:sticky;top:0;z-index:80;
-  background:rgba(7,8,13,.97);backdrop-filter:blur(20px);
+  background:rgba(5,7,14,.96);backdrop-filter:blur(25px);
   border-bottom:1px solid var(--border);
-  padding:8px 14px;display:flex;align-items:center;gap:8px;
+  padding:9px 14px;display:flex;align-items:center;gap:9px;
+  box-shadow:0 4px 20px rgba(0,0,0,.6);
 }
-.hdr-av{width:36px;height:36px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#000;box-shadow:0 0 12px var(--gold-glow);flex-shrink:0}
+.hdr-av{
+  width:38px;height:38px;border-radius:50%;background:var(--gold-grad);
+  display:flex;align-items:center;justify-content:center;font-weight:900;
+  font-size:15px;color:#000;box-shadow:0 0 14px var(--gold-glow);flex-shrink:0;
+  overflow:hidden;border:1.5px solid var(--gold);
+}
+.hdr-av img{width:100%;height:100%;object-fit:cover}
 .hdr-info{flex:1;min-width:0}
 .hdr-info h4{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hdr-info p{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px}
 .hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.hdr-bal{background:rgba(255,198,26,.1);border:1px solid rgba(255,198,26,.28);border-radius:20px;padding:5px 11px;font-size:12px;font-weight:800;color:var(--gold);display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
+.hdr-bal{
+  background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,165,0,.08));
+  border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:5px 11px;
+  font-size:12px;font-weight:800;color:var(--gold);display:flex;align-items:center;
+  gap:5px;cursor:pointer;white-space:nowrap;box-shadow:0 0 10px rgba(255,215,0,.12);
+}
 .hdr-bal img{width:14px;height:14px;object-fit:contain}
 .hdr-btn{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .hdr-btn svg{width:16px;height:16px;fill:var(--muted)}
-.level-chip{background:rgba(255,198,26,.12);border:1px solid rgba(255,198,26,.3);border-radius:12px;padding:1px 7px;font-size:9px;font-weight:800;color:var(--gold)}
+.level-chip{background:rgba(255,215,0,.14);border:1px solid rgba(255,215,0,.35);border-radius:12px;padding:1px 7px;font-size:9px;font-weight:800;color:var(--gold)}
 .streak-chip{font-size:11px;font-weight:800;color:#FF6B35}
 
 /* ── PAGES ── */
-.page{display:none;padding:10px 14px;animation:fadeUp .2s ease}
+.page{display:none;padding:10px 14px;animation:fadeUp .25s cubic-bezier(0.16,1,0.3,1)}
 .page.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── BOTTOM NAV ── */
-.bnav{position:fixed;bottom:0;left:0;width:100%;background:rgba(7,8,13,.98);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:5px 0 calc(5px + env(safe-area-inset-bottom));z-index:90}
-.ni{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;background:none;border:none;color:var(--muted);font-size:9px;font-weight:800;padding:3px 8px;transition:color .2s;flex:1;font-family:var(--font)}
-.ni svg{width:20px;height:20px;fill:var(--muted);transition:fill .2s}
-.ni.active{color:var(--gold)}.ni.active svg{fill:var(--gold)}
+.bnav{
+  position:fixed;bottom:0;left:0;width:100%;
+  background:rgba(6,9,18,.98);backdrop-filter:blur(25px);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+  z-index:90;box-shadow:0 -4px 25px rgba(0,0,0,.7);
+}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;background:none;border:none;color:var(--muted);font-size:9.5px;font-weight:800;padding:3px 8px;transition:.2s;flex:1;font-family:var(--font)}
+.ni svg{width:20px;height:20px;fill:var(--muted);transition:.2s}
+.ni.active{color:var(--gold)}.ni.active svg{fill:var(--gold);filter:drop-shadow(0 0 8px var(--gold-glow))}
 
 /* ── CARD ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.6)}
 .card-title{font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px;margin-bottom:10px}
 
 /* ── SECTION HEADER ── */
-.sh{display:flex;align-items:center;justify-content:space-between;margin:12px 0 8px}
-.sh h3{font-size:13px;font-weight:900}
+.sh{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px}
+.sh h3{font-size:13px;font-weight:900;letter-spacing:.2px}
 .sh a{font-size:11px;color:var(--gold);font-weight:700;cursor:pointer}
 
 /* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:12px;font-weight:800;font-size:12px;cursor:pointer;transition:all .15s;padding:10px 16px;font-family:var(--font)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:12px;font-weight:800;font-size:12px;cursor:pointer;transition:all .18s;padding:10px 16px;font-family:var(--font)}
 .btn:active{transform:scale(.96)}
-.btn-gold{background:var(--gold-grad);color:#000;box-shadow:0 4px 14px var(--gold-glow)}
+.btn-gold{background:var(--gold-grad);color:#000;box-shadow:0 4px 15px var(--gold-glow)}
 .btn-gold:disabled{background:var(--card2);color:var(--muted);box-shadow:none;cursor:not-allowed}
 .btn-outline{background:transparent;border:1px solid var(--border);color:var(--gold)}
-.btn-green{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
+.btn-green{background:var(--green-grad);color:#fff}
 .btn-block{width:100%}
 
 /* ── HERO WALLET ── */
 .hero-wallet{
-  background:linear-gradient(145deg,#1a1508,#0e1018,#080a12);
-  border:1px solid rgba(255,215,0,.28);border-radius:20px;padding:16px;
+  background:linear-gradient(145deg,#1f1704 0%,#0f1422 55%,#070a14 100%);
+  border:1px solid rgba(255,215,0,.35);border-radius:22px;padding:16px;
   margin-bottom:10px;position:relative;overflow:hidden;
+  box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 25px rgba(255,215,0,.08);
 }
-.hero-wallet::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.1),transparent 70%)}
-.hw-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.hw-logo{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.5px}
-.hw-wallet-img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(255,198,26,.25))}
-.hw-label{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
-.hw-amount{font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;text-shadow:0 0 40px rgba(255,208,0,.4);display:flex;align-items:baseline;gap:6px}
-.hw-currency{font-size:18px;font-weight:700;color:var(--gold)}
-.hw-sub{font-size:10px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:5px}
-.hw-sub .up{color:var(--green)}
+.hero-wallet::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.18),transparent 70%)}
+.hw-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.hw-logo{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.8px;text-transform:uppercase}
+.hw-wallet-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(255,215,0,.3))}
+.hw-label{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;margin-bottom:2px}
+.hw-amount{font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;text-shadow:0 0 35px rgba(255,215,0,.45);display:flex;align-items:baseline;gap:6px}
+.hw-currency{font-size:18px;font-weight:800;color:var(--gold)}
+.hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
+.hw-sub .up{color:var(--green);font-weight:800}
 
 /* ── SC CARD ── */
-.sc-card{background:linear-gradient(145deg,#0f1520,#0a0e18);border:1px solid rgba(255,198,26,.2);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
+.sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
 .sc-title-row{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:900}
@@ -102,22 +122,41 @@ header{
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
 
+/* ── HIGH REWARD SMARTLINK CARD ── */
+.smartlink-card{
+  background:linear-gradient(135deg,#1f1304,#2b1a03,#111520);
+  border:1px solid var(--gold);border-radius:18px;padding:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;
+  box-shadow:0 6px 20px rgba(255,215,0,.15);cursor:pointer;position:relative;overflow:hidden;
+}
+.smartlink-card::before{
+  content:'';position:absolute;top:0;right:0;width:60px;height:60px;
+  background:radial-gradient(circle,rgba(255,215,0,.2),transparent 70%);border-radius:50%;
+}
+.sl-left{display:flex;align-items:center;gap:10px}
+.sl-icon{font-size:30px;filter:drop-shadow(0 2px 8px rgba(255,215,0,.4))}
+.sl-info h4{font-size:13px;font-weight:900;color:#fff}
+.sl-info p{font-size:10px;color:var(--gold);font-weight:700;margin-top:2px}
+
+/* ── DAILY LUCKY BOX ── */
+.lucky-card{
+  background:linear-gradient(135deg,#1c122a,#11182c);
+  border:1px solid rgba(168,85,247,.4);border-radius:16px;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;
+  box-shadow:0 4px 18px rgba(168,85,247,.15);
+}
+.lucky-left{display:flex;align-items:center;gap:10px}
+.lucky-icon{font-size:28px;filter:drop-shadow(0 2px 10px rgba(168,85,247,.5))}
+.lucky-text h4{font-size:12px;font-weight:900;color:#fff}
+.lucky-text p{font-size:9.5px;color:var(--muted);margin-top:2px}
+
 /* ── QA ROW ── */
 .qa-row{display:flex;justify-content:space-around;margin:10px 0 12px}
 .qa-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
-.qa-circle{width:46px;height:46px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px var(--gold-glow);transition:.15s}
+.qa-circle{width:46px;height:46px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px var(--gold-glow);transition:.18s}
 .qa-circle:active{transform:scale(.92)}
 .qa-circle svg{width:21px;height:21px;fill:#000}
-.qa-label{font-size:9px;font-weight:800;color:var(--muted)}
-
-/* ── STATS GRID ── */
-.stats-4{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
-.stat-box{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:11px;display:flex;align-items:center;gap:10px}
-.stat-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.stat-icon svg{width:18px;height:18px}
-.stat-info b{display:block;font-size:14px;font-weight:900;color:#fff}
-.stat-info span{font-size:9px;color:var(--muted);font-weight:700}
-.stat-change{font-size:9px;font-weight:700;color:var(--green);margin-top:1px}
+.qa-label{font-size:9.5px;font-weight:800;color:var(--muted)}
 
 /* ── BANNER ── */
 .banner-wrap{width:100%;border-radius:16px;overflow:hidden;position:relative;height:110px;margin-bottom:10px;border:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.5);cursor:grab}
@@ -127,44 +166,53 @@ header{
 .b-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
 .b-dot.active{background:var(--gold);width:12px;border-radius:6px}
 
-/* ── TASKS GRID ── */
-.tasks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
-.task-grid-item{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-align:center;transition:.15s}
-.task-grid-item:active{transform:scale(.96);background:rgba(255,198,26,.06)}
-.task-grid-item .tgi-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.task-grid-item .tgi-icon img{width:100%;height:100%;object-fit:contain}
-.task-grid-item h4{font-size:11px;font-weight:800}
-.task-grid-item .tgi-reward{font-size:10px;color:var(--gold);font-weight:700}
-.task-grid-item .tgi-btn{background:var(--gold-grad);color:#000;border:none;border-radius:8px;padding:5px 14px;font-size:10px;font-weight:900;cursor:pointer;font-family:var(--font);width:100%}
-.task-grid-item .tgi-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
+/* ── 4-COLUMN TASKS GRID ── */
+.tasks-grid-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.task-mini-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:13px;
+  padding:9px 4px;display:flex;flex-direction:column;align-items:center;
+  gap:4px;cursor:pointer;text-align:center;transition:.15s;position:relative;
+}
+.task-mini-card:active{transform:scale(.95);background:rgba(255,215,0,.06)}
+.task-mini-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.task-mini-icon img{width:100%;height:100%;object-fit:contain}
+.task-mini-title{font-size:9px;font-weight:800;line-height:1.15;height:22px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.task-mini-reward{font-size:9.5px;color:var(--gold);font-weight:900}
+.task-mini-btn{
+  background:var(--gold-grad);color:#000;border:none;border-radius:6px;
+  padding:4px 0;font-size:8.5px;font-weight:900;cursor:pointer;
+  font-family:var(--font);width:100%;margin-top:2px;
+}
+.task-mini-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
 
 /* ── INVITE BANNER ── */
-.invite-banner{background:linear-gradient(135deg,#1a1005,#0e1018);border:1px solid rgba(255,198,26,.25);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
+.invite-banner{background:linear-gradient(135deg,#1c1206,#0e121d);border:1px solid rgba(255,215,0,.28);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .invite-gift{width:56px;height:56px;object-fit:contain;flex-shrink:0}
 .invite-info h3{font-size:14px;font-weight:900;margin-bottom:3px}
 .invite-info p{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:7px}
-.invite-pct{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;background:var(--gold-grad);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;line-height:1.1}
+.invite-pct{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:var(--gold-grad);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;line-height:1}
 .invite-pct small{font-size:7px;font-weight:900}
 
-/* ── LIVE FEED ── */
+/* ── LIVE FEED (GREEN GLOWING AMOUNTS) ── */
 .feed-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .feed-av{width:34px;height:34px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#000;flex-shrink:0}
 .feed-info h5{font-size:12px;font-weight:800}
 .feed-info p{font-size:10px;color:var(--muted);margin-top:1px}
-.feed-amount{font-size:14px;font-weight:900;color:var(--gold)}
+.feed-amount{
+  font-size:14px;font-weight:900;color:var(--green) !important;
+  text-shadow:0 0 12px rgba(16,185,129,.45);
+}
 
 /* ── EARN TAB ── */
-.earn-hero{background:linear-gradient(135deg,#1a1008,#0d1018);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.earn-hero{background:linear-gradient(135deg,#1c1206,#0d111c);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .earn-hero img{width:56px;height:56px;object-fit:contain}
 .earn-hero h2{font-size:18px;font-weight:900}
 .earn-hero p{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* ── TASKS + ADS UNIFIED GRID ── */
+/* ── ADS UNIFIED GRID ── */
 .earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
 .earn-grid-item{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;position:relative;overflow:hidden}
 .earn-grid-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.earn-grid-item.tg-type::before{background:linear-gradient(90deg,#0088cc,#00b4d8)}
-.earn-grid-item.yt-type::before{background:linear-gradient(90deg,#ff0000,#ff4444)}
 .earn-grid-item.ad-type::before{background:linear-gradient(90deg,var(--gold),var(--gold2))}
 .egi-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .egi-icon img{width:100%;height:100%;object-fit:contain}
@@ -174,21 +222,9 @@ header{
 .egi-btn{width:100%;padding:5px 0;background:var(--gold-grad);border:none;border-radius:7px;font-size:9px;font-weight:900;color:#000;cursor:pointer;font-family:var(--font);transition:.15s;margin-top:1px}
 .egi-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
 .egi-btn:active{transform:scale(.95)}
-.egi-done-badge{position:absolute;top:6px;right:6px;font-size:10px}
-
-/* ── STREAK (EARN TAB) ── */
-.streak-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
-.streak-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.streak-top h4{font-size:13px;font-weight:900}
-.streak-top p{font-size:10px;color:var(--muted)}
-.streak-days{display:flex;gap:5px;justify-content:space-between}
-.streak-day{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:7px 3px;font-size:8px;font-weight:800;color:var(--muted)}
-.streak-day.done{background:rgba(255,198,26,.1);border-color:rgba(255,198,26,.35);color:var(--gold)}
-.streak-day.today{background:rgba(255,198,26,.14);border-color:var(--gold);color:var(--gold)}
-.streak-day-icon{font-size:14px}
 
 /* ── REFERRAL TAB ── */
-.ref-hero{background:linear-gradient(145deg,#1a1208,#0d1018);border:1px solid rgba(255,198,26,.3);border-radius:18px;padding:16px;text-align:center;margin-bottom:10px}
+.ref-hero{background:linear-gradient(145deg,#1c1206,#0d111c);border:1px solid rgba(255,215,0,.3);border-radius:18px;padding:16px;text-align:center;margin-bottom:10px}
 .ref-hero h2{font-size:24px;font-weight:900;margin:6px 0}
 .ref-hero p{font-size:11px;color:var(--muted);line-height:1.5}
 .ref-prog-bg{width:100%;height:7px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin-top:10px}
@@ -212,10 +248,31 @@ header{
 .how-text p{font-size:10px;color:var(--muted);line-height:1.5;margin-top:1px}
 
 /* ════════════════════════════════════════════════════
-   MODERN FINTECH WITHDRAWAL DASHBOARD STYLES
+   WITHDRAWAL DASHBOARD WITH TELEGRAM PROFILE CARD
 ════════════════════════════════════════════════════ */
+.tg-profile-card{
+  background:linear-gradient(135deg,#0c1527,#090d18);
+  border:1px solid rgba(59,130,246,.35);border-radius:16px;
+  padding:12px 14px;display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;box-shadow:0 4px 18px rgba(0,0,0,.5);
+}
+.tg-prof-left{display:flex;align-items:center;gap:10px}
+.tg-prof-av{
+  width:40px;height:40px;border-radius:50%;background:var(--gold-grad);
+  display:flex;align-items:center;justify-content:center;font-weight:900;
+  font-size:16px;color:#000;border:2px solid #3b82f6;overflow:hidden;
+}
+.tg-prof-av img{width:100%;height:100%;object-fit:cover}
+.tg-prof-meta h4{font-size:12.5px;font-weight:900;color:#fff}
+.tg-prof-meta p{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.tg-verified-pill{
+  font-size:8.5px;font-weight:900;color:var(--green);
+  background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);
+  padding:3px 8px;border-radius:10px;display:flex;align-items:center;gap:4px;
+}
+
 .wd-fintech-hero{
-  background:linear-gradient(135deg,#1f1604 0%,#131722 50%,#090d15 100%);
+  background:linear-gradient(135deg,#1f1503 0%,#111624 50%,#080b13 100%);
   border:1px solid rgba(255,215,0,.35);
   border-radius:20px;padding:16px;margin-bottom:12px;
   position:relative;overflow:hidden;
@@ -320,13 +377,18 @@ header{
   color:var(--gold);border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;margin-top:4px;
 }
 
-/* Security Note */
+/* Security Note & Policy Link */
 .trust-shield-card{
   background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;
-  padding:10px 12px;display:flex;align-items:flex-start;gap:9px;margin-top:12px;
+  padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-top:12px;
 }
+.trust-row{display:flex;align-items:flex-start;gap:9px}
 .trust-shield-card svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:1px}
 .trust-shield-card p{font-size:10px;color:var(--muted);line-height:1.5}
+.terms-link-btn{
+  align-self:flex-start;background:none;border:none;color:var(--gold);
+  font-size:10.5px;font-weight:800;text-decoration:underline;cursor:pointer;padding:2px 0;
+}
 
 /* Digital Receipt Modal */
 .receipt-card{
@@ -339,10 +401,21 @@ header{
 .receipt-row{display:flex;justify-content:space-between;margin-bottom:9px;font-size:11px}
 .receipt-row span:first-child{color:var(--muted);font-weight:700}
 .receipt-row span:last-child{color:#fff;font-weight:900}
-.receipt-status-pill{background:rgba(255,198,26,.15);border:1px solid var(--gold);color:var(--gold);padding:2px 8px;border-radius:8px;font-size:10px;font-weight:900}
+.receipt-status-pill{background:rgba(255,215,0,.15);border:1px solid var(--gold);color:var(--gold);padding:2px 8px;border-radius:8px;font-size:10px;font-weight:900}
+
+/* ── TERMS & POLICY MODAL ── */
+.terms-card{
+  background:var(--card);border:1px solid var(--gold);border-radius:20px;
+  padding:20px 18px;max-width:360px;width:100%;max-height:80vh;overflow-y:auto;
+  box-shadow:0 20px 50px rgba(0,0,0,.9);position:relative;
+}
+.terms-card h3{font-size:15px;font-weight:900;color:var(--gold);margin-bottom:10px;text-align:center}
+.terms-section{margin-bottom:12px}
+.terms-section h5{font-size:12px;font-weight:900;color:#fff;margin-bottom:4px}
+.terms-section p{font-size:10.5px;color:var(--muted);line-height:1.5}
 
 /* ── AD MODAL ── */
-.ad-modal{position:fixed;inset:0;background:rgba(7,8,13,.95);backdrop-filter:blur(14px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
+.ad-modal{position:fixed;inset:0;background:rgba(5,7,14,.96);backdrop-filter:blur(16px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .ad-modal.active{display:flex}
 .ad-modal-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 20px;text-align:center;max-width:340px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.9)}
 .ad-play-ring{width:60px;height:60px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 0 20px var(--gold-glow)}
@@ -353,12 +426,20 @@ header{
 .ad-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;width:0%;transition:width 1s linear}
 .ad-timer-txt{font-size:12px;font-weight:900;color:var(--gold)}
 
-/* ── MODAL ── */
+/* ── CAPTCHA MODAL ── */
+.captcha-card{
+  background:var(--card);border:1px solid var(--gold);border-radius:20px;
+  padding:20px;width:100%;max-width:320px;text-align:center;
+}
+.captcha-quest{font-size:24px;font-weight:900;color:var(--gold);margin:14px 0;letter-spacing:2px}
+.captcha-inp{width:100%;padding:10px;background:var(--card2);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:16px;font-weight:900;text-align:center;outline:none;margin-bottom:12px;font-family:var(--font)}
+
+/* ── MODAL OVERLAY ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
 
 /* ── TOAST ── */
-#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--gold);color:#fff;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.8);opacity:0;pointer-events:none;transition:.22s;z-index:600;width:86%;max-width:360px;text-align:center}
+#toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--gold);color:#fff;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.8);opacity:0;pointer-events:none;transition:.22s;z-index:600;width:86%;max-width:360px;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
@@ -391,6 +472,46 @@ header{
     <div class="receipt-row"><span>Estimated Review</span><span>48 - 72 Hours</span></div>
     <div class="receipt-row"><span>Submission Date</span><span id="rcptDate">Just now</span></div>
     <button class="btn btn-gold btn-block" style="margin-top:14px" onclick="closeReceiptModal()">ተቀብያለሁ / እሺ</button>
+  </div>
+</div>
+
+<!-- ── ANTI-BOT CAPTCHA MODAL ── -->
+<div class="modal-overlay" id="captchaModal">
+  <div class="captcha-card">
+    <div style="font-size:26px">🛡️</div>
+    <h4 style="font-size:14px;font-weight:900;margin-top:6px;color:#fff">የደህንነት ማረጋገጫ</h4>
+    <p style="font-size:10.5px;color:var(--muted);margin-top:2px">ቦት አለመሆንዎን ለማረጋገጥ መልሱን ያስገቡ</p>
+    <div class="captcha-quest" id="captchaQuest">5 + 7 = ?</div>
+    <input type="number" class="captcha-inp" id="captchaAns" placeholder="መልስ እዚህ...">
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline" style="flex:1" onclick="closeCaptcha()">ተመለስ</button>
+      <button class="btn btn-gold" style="flex:1" onclick="verifyAndExecuteWd()">አረጋግጥ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TERMS & PRIVACY POLICY MODAL ── -->
+<div class="modal-overlay" id="termsModal">
+  <div class="terms-card">
+    <button onclick="closeTermsModal()" style="position:absolute;top:14px;right:14px;background:var(--card2);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;color:var(--muted);font-size:14px;cursor:pointer">✕</button>
+    <h3>📜 ውሎች እና ደንቦች (Terms &amp; Policy)</h3>
+    <div class="terms-section">
+      <h5>1. የአካውንት ታማኝነት እና የቦት ክልከላ</h5>
+      <p>ማንኛውም ተጠቃሚ ቦት፣ አውቶ-ክሊከር (Auto-clicker) ወይም የውሸት ሪፈራል መጠቀም በጥብቅ የተከለከለ ነው። ይህን የፈጸመ አካውንት ያለ ማስጠንቀቂያ ይታገዳል፤ ቀሪ ሂሳቡም ይሰረዛል።</p>
+    </div>
+    <div class="terms-section">
+      <h5>2. የማስታወቂያ እይታ መስፈርት</h5>
+      <p>ክፍያ የሚታሰበው ማስታወቂያዎችን ሙሉ በሙሉ ለተመለከቱ ተጠቃሚዎች ብቻ ነው። ማስታወቂያዎችን ሳያጠናቅቁ መዝጋት ገቢ አያስገኝም።</p>
+    </div>
+    <div class="terms-section">
+      <h5>3. የገንዘብ ማውጣት (Payouts &amp; Audits)</h5>
+      <p>ገንዘብ ለማውጣት የተጠየቁትን 15 ንቁ ግብዣዎች እና 30 ማስታወቂያዎች ማጠናቀቅ ግዴታ ነው። ክፍያዎች ማጭበርበርን ለመከላከል የ 48 - 72 ሰዓታት የደህንነት ኦዲት ያልፋሉ።</p>
+    </div>
+    <div class="terms-section">
+      <h5>4. የግላዊነት ጥበቃ (Privacy)</h5>
+      <p>ከቴሌግራም የምንሰበስበው የተጠቃሚ መለያ (ID) እና ስም ብቻ ነው። ለክፍያ የምታስገቡት የስልክ ወይም የባንክ ሂሳብ ቁጥር ለክፍያ ሂደት ብቻ የሚያገለግልና ሚስጥራዊነቱ የተጠበቀ ነው።</p>
+    </div>
+    <button class="btn btn-gold btn-block" onclick="closeTermsModal()" style="margin-top:10px">ተረድቻለሁ / እሺ</button>
   </div>
 </div>
 
@@ -437,8 +558,20 @@ header{
     </div>
     <div class="hw-sub">
       <span class="up">↑ Syncing…</span>
-      <span id="balSub">ሂሳቡ ከ sheet ይመጣል</span>
+      <span id="balSub">Level 1 — Level 1</span>
     </div>
+  </div>
+
+  <!-- High Reward Direct SmartLink Card -->
+  <div class="smartlink-card" onclick="openSmartLinkBonus()">
+    <div class="sl-left">
+      <div class="sl-icon">💎</div>
+      <div class="sl-info">
+        <h4>ልዩ የ 100 ETB ጉርሻ (Super Bonus)</h4>
+        <p>ቀጥታ ስፖንሰር በመመልከት +100 ETB ይውሰዱ!</p>
+      </div>
+    </div>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
   </div>
 
   <!-- SC Card -->
@@ -449,6 +582,18 @@ header{
       <div class="sc-sub">Daily Streak &amp; Rewards Points</div>
       <div class="sc-amount"><span id="scBalance">0</span> SC</div>
     </div>
+  </div>
+
+  <!-- Daily Lucky Box Banner -->
+  <div class="lucky-card">
+    <div class="lucky-left">
+      <div class="lucky-icon">🎁</div>
+      <div class="lucky-text">
+        <h4>ዕለታዊ የዕድል ሳጥን (Mystery Box)</h4>
+        <p>በቀን 1 ጊዜ ከፍተው ነፃ SC እና ETB ስጦታ ይውሰዱ!</p>
+      </div>
+    </div>
+    <button class="btn btn-gold" id="luckyBoxBtn" style="padding:6px 12px;font-size:10px" onclick="openLuckyBox()">ክፈት 🔓</button>
   </div>
 
   <!-- Quick Actions -->
@@ -475,26 +620,6 @@ header{
     </div>
   </div>
 
-  <!-- Stats -->
-  <div class="stats-4">
-    <div class="stat-box">
-      <div class="stat-icon" style="background:rgba(16,185,129,.12)"><svg viewBox="0 0 24 24" style="fill:var(--green)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg></div>
-      <div class="stat-info"><b id="stEarn">0 ETB</b><span>Total Earnings</span><div class="stat-change" id="stEarnSub">↑ Today</div></div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon" style="background:rgba(239,68,68,.12)"><svg viewBox="0 0 24 24" style="fill:var(--red)"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></div>
-      <div class="stat-info"><b id="stAds">0</b><span>Ads Watched</span><div class="stat-change">↑ Total</div></div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon" style="background:rgba(139,92,246,.12)"><svg viewBox="0 0 24 24" style="fill:var(--purple)"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
-      <div class="stat-info"><b id="stRefs">0</b><span>Referrals</span><div class="stat-change">+<span id="stRefBonus">0</span> ETB</div></div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon" style="background:rgba(255,198,26,.1)"><svg viewBox="0 0 24 24" style="fill:var(--gold)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div>
-      <div class="stat-info"><b id="stSC">0 SC</b><span>Swap Coins</span><div class="stat-change">Points</div></div>
-    </div>
-  </div>
-
   <!-- Banner -->
   <div class="banner-wrap" id="bannerSlider">
     <img src="https://i.postimg.cc/RFnHkqVn/20260820-173821.jpg" class="active" alt="">
@@ -507,9 +632,9 @@ header{
     <div class="b-dots" id="bDots"></div>
   </div>
 
-  <!-- Tasks Grid (Home) -->
-  <div class="sh"><h3>📋 Tasks</h3><a onclick="showPage('earn')">ሁሉም →</a></div>
-  <div class="tasks-grid" id="homeTasksGrid"></div>
+  <!-- 4-Column Tasks Grid (Home) -->
+  <div class="sh"><h3>📋 Tasks &amp; Channels</h3><a onclick="showPage('earn')">ሁሉም →</a></div>
+  <div class="tasks-grid-4col" id="homeTasksGrid"></div>
 
   <!-- Invite Banner -->
   <div class="invite-banner">
@@ -519,10 +644,10 @@ header{
       <p>ጓደኛ ሲጋብዙ <span style="color:var(--gold);font-weight:800">50 ETB</span> ቦነስ!</p>
       <button class="btn btn-gold" style="padding:7px 16px;font-size:11px" onclick="showPage('invite')">Invite Now</button>
     </div>
-    <div class="invite-pct">10%<small>bonus</small></div>
+    <div class="invite-pct">50<small>ETB</small></div>
   </div>
 
-  <!-- Live Withdrawal -->
+  <!-- Live Withdrawal (Updated Names & Green Amounts) -->
   <div class="sh"><h3>💸 Live Withdrawals</h3><span style="font-size:9px;background:rgba(16,185,129,.15);color:var(--green);padding:2px 7px;border-radius:8px;font-weight:800">● LIVE</span></div>
   <div id="liveFeed"></div>
 
@@ -539,27 +664,16 @@ header{
     <p>ማስታወቂያ ያዩ፣ Tasks ያጠናቅቁ — ዕለታዊ ሽልማት ያግኙ!</p>
   </div>
 
-  <!-- Daily Streak -->
-  <div class="streak-card">
-    <div class="streak-top">
-      <span style="font-size:20px">🔥</span>
-      <div><h4>Daily Streak</h4><p>ዕለታዊ ቦነስ ያግኙ!</p></div>
-      <div style="margin-left:auto;font-size:11px;font-weight:800;color:var(--gold)" id="earnStreakCount">0🔥</div>
-    </div>
-    <div class="streak-days" id="streakDaysEl"></div>
-    <button class="btn btn-gold btn-block" id="streakClaimBtn" style="margin-top:8px" onclick="claimStreakReward()">ይቀበሉ</button>
+  <!-- 4-Column Tasks Grid (Earn Page) -->
+  <div class="sh"><h3>📋 All 7 Tasks</h3>
+    <span style="font-size:9px;background:rgba(16,185,129,.14);color:var(--green);padding:2px 8px;border-radius:8px;font-weight:800">Daily Tasks</span>
   </div>
-
-  <!-- Tasks Grid -->
-  <div class="sh"><h3>📋 Tasks</h3>
-    <span style="font-size:9px;background:rgba(16,185,129,.12);color:var(--green);padding:2px 8px;border-radius:8px;font-weight:800">Daily</span>
-  </div>
-  <div class="earn-grid" id="earnTaskGrid"></div>
+  <div class="tasks-grid-4col" id="earnTaskGrid"></div>
 
   <!-- Ads Grid -->
   <div class="sh">
     <h3>📺 Watch Ads &amp; Earn</h3>
-    <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
+    <span id="cooldownBadge" style="display:none;font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">⏳ COOLDOWN</span>
   </div>
   <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — 50 ETB ወደ ሂሳብዎ ይገባል</p>
   <div class="earn-grid" id="earnAdGrid"></div>
@@ -567,7 +681,7 @@ header{
 </section>
 
 <!-- ════════════════════════
-     WATCH ADS PAGE
+     WATCH ADS PAGE (100% PURE ADS GRID)
 ════════════════════════ -->
 <section class="page" id="page-ads">
   <div class="earn-hero" style="background:linear-gradient(135deg,#1f1205,#0d1018);border-color:var(--gold)">
@@ -576,26 +690,13 @@ header{
     <p style="color:var(--gold);font-weight:800;font-size:12px">"ሙሉ ማስታወቂያ በማየት ገንዘብዎን ይስሩ!"</p>
   </div>
 
-  <!-- Video Tutorial Guide Grid -->
-  <div class="card" style="padding:12px;margin-bottom:10px">
-    <div class="card-title" style="font-size:12px">▶️ ብር እንዴት እንደሚያገኙ ለማየት</div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <div style="flex:1;border-radius:10px;overflow:hidden;height:85px;background:#000;flex-shrink:0">
-        <iframe src="https://www.youtube.com/embed/WgRzYGYDDOs" style="width:100%;height:100%;border:none" title="Tutorial Video" allowfullscreen></iframe>
-      </div>
-      <div style="flex:1;font-size:10px;color:var(--muted);line-height:1.5">
-        <strong style="color:#fff;display:block;margin-bottom:3px;font-size:11px">አሰራሩን ይረዱ!</strong>
-        ቪዲዮውን በመመልከት እንዴት ማስታወቂያ አይተው ብር ማሰብሰብ እንደሚችሉ ይወቁ።
-      </div>
-    </div>
-  </div>
-
-  <!-- Unlimited Ads Grid -->
+  <!-- Pure Ads Stream -->
   <div class="sh">
-    <h3>📺 Unlimited Ads Grid</h3>
-    <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT</span>
+    <h3>📺 Unlimited Watch Ads Stream</h3>
+    <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HOT ADS</span>
   </div>
-  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል (ከ 91 በኋላ በ 10 ETB)</p>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል</p>
+  
   <div class="earn-grid" id="mainAdGrid"></div>
 </section>
 
@@ -606,8 +707,8 @@ header{
   <div class="ref-hero">
     <img src="https://i.postimg.cc/cJwy699g/20260809-161701.png" style="width:64px;height:64px;object-fit:contain;margin-bottom:6px" alt="gift">
     <p style="font-size:11px;font-weight:800;color:var(--muted)">15 ሰው ሲጋብዙ</p>
-    <h2>1500 ETB</h2>
-    <p>አንድ ሰው ሲጋብዙ 100 ETB ቦነስ ያገኛሉ</p>
+    <h2>750 ETB</h2>
+    <p>አንድ ሰው ሲጋብዙ 50 ETB ቦነስ ያገኛሉ</p>
     <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-top:8px;margin-bottom:4px">
       <span>Progress</span><span id="refProgText" style="color:var(--gold)">0/15</span>
     </div>
@@ -616,8 +717,15 @@ header{
   <div class="ref-stats">
     <div class="ref-stat"><b id="refCount">0</b><span>Referrals</span></div>
     <div class="ref-stat"><b id="refEarned">0</b><span>ETB Earned</span></div>
-    <div class="ref-stat"><b>100 ETB</b><span>Per Invite</span></div>
+    <div class="ref-stat"><b>50 ETB</b><span>Per Invite</span></div>
   </div>
+
+  <!-- Qualified Referral Rule Notice -->
+  <div class="card" style="background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3);padding:10px 12px;margin-bottom:10px">
+    <div style="font-size:11px;font-weight:900;color:var(--blue);margin-bottom:2px">ℹ️ የብቁ ግብዣ (Active Referral) ደንብ:</div>
+    <p style="font-size:10px;color:var(--muted);line-height:1.4">የጋበዟቸው ሰዎች ፌክ አካውንት እንዳይሆኑ ቻናሎችን መቀላቀል እና ቢያንስ 3 ማስታወቂያ ማየት አለባቸው።</p>
+  </div>
+
   <div class="ref-link-box">
     <label class="form-label">የግብዣ ሊንክ</label>
     <input class="ref-link-inp" id="refLinkInp" readonly>
@@ -639,7 +747,7 @@ header{
         <img src="https://static.vecteezy.com/system/resources/previews/021/495/995/non_2x/messenger-social-media-logo-icon-free-png.png" alt="Messenger">
         <span>Messenger</span>
       </div>
-      <div class="share-btn" onclick="copyRefLink()" style="grid-column:span 2;background:rgba(255,198,26,.07);border-color:rgba(255,198,26,.25)">
+      <div class="share-btn" onclick="copyRefLink()" style="grid-column:span 2;background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.3)">
         <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:var(--gold)"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
         <span style="color:var(--gold)">Copy Link</span>
       </div>
@@ -649,15 +757,27 @@ header{
   <div class="how-card">
     <div class="how-step"><div class="how-num">1</div><div class="how-text"><h5>ሊንክ ያጋሩ</h5><p>ልዩ የግብዣ ሊንክዎን ከጓደኞችዎ ጋር ያጋሩ</p></div></div>
     <div class="how-step"><div class="how-num">2</div><div class="how-text"><h5>ጓደኛዎ ይቀላቀሉ</h5><p>ጓደኛዎ Swap Money ያውርዱ &amp; ይቀላቀሉ</p></div></div>
-    <div class="how-step"><div class="how-num">3</div><div class="how-text"><h5>ቦነስ ያግኙ</h5><p>ወዲያውኑ 100 ETB ወደ ሂሳብዎ ይገባል</p></div></div>
-    <div class="how-step"><div class="how-num">4</div><div class="how-text"><h5>1500 ETB Milestone!</h5><p>15 ሰው ሲሞላ ልዩ 1500 ETB bonus ያገኛሉ</p></div></div>
+    <div class="how-step"><div class="how-num">3</div><div class="how-text"><h5>ቦነስ ያግኙ</h5><p>ወዲያውኑ 50 ETB ወደ ሂሳብዎ ይገባል</p></div></div>
+    <div class="how-step"><div class="how-num">4</div><div class="how-text"><h5>750 ETB Milestone!</h5><p>15 ሰው ሲሞላ ልዩ 750 ETB bonus ያገኛሉ</p></div></div>
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════
-     WITHDRAW PAGE (REDESIGNED PREMIUM FINTECH DASHBOARD)
+     WITHDRAW PAGE WITH TELEGRAM PROFILE CARD
 ════════════════════════════════════════════════════ -->
 <section class="page" id="page-withdraw">
+
+  <!-- Verified Telegram Profile Card -->
+  <div class="tg-profile-card">
+    <div class="tg-prof-left">
+      <div class="tg-prof-av" id="wdProfileAv">U</div>
+      <div class="tg-prof-meta">
+        <h4 id="wdProfileName">Telegram User</h4>
+        <p><span id="wdProfileUser">@username</span> • ID: <span id="wdProfileId">8921***</span></p>
+      </div>
+    </div>
+    <div class="tg-verified-pill">✓ VERIFIED</div>
+  </div>
 
   <!-- Verification Queue Banner (When User Has A Pending Audit) -->
   <div class="queue-card" id="pendingQueueCard">
@@ -818,14 +938,17 @@ header{
       </div>
     </div>
 
-    <div class="wd-task-notice" id="wdTaskNotice" style="margin-top:10px;font-size:11px;line-height:1.5;color:var(--gold);background:rgba(255,198,26,.08);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,198,26,.25);display:none"></div>
-    <button class="btn btn-gold btn-block" id="wdBtn" style="margin-top:12px" onclick="submitWithdraw()">Confirm Withdrawal</button>
+    <div class="wd-task-notice" id="wdTaskNotice" style="margin-top:10px;font-size:11px;line-height:1.5;color:var(--gold);background:rgba(255,215,0,.08);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,215,0,.25);display:none"></div>
+    <button class="btn btn-gold btn-block" id="wdBtn" style="margin-top:12px" onclick="initiateWithdrawFlow()">Confirm Withdrawal</button>
   </div>
 
-  <!-- Trust Shield & Fairness Guarantee -->
+  <!-- Trust Shield & Terms Link -->
   <div class="trust-shield-card">
-    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-    <p><strong>Safe &amp; Protected:</strong> ክፍያዎች ከመላካቸው በፊት ማጭበርበርን ለመከላከልና የማስታወቂያ ታማኝነትን ለማረጋገጥ በሲስተም ኦዲት ይደረጋሉ።</p>
+    <div class="trust-row">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+      <p><strong>Safe &amp; Protected:</strong> ክፍያዎች ከመላካቸው በፊት ማጭበርበርን ለመከላከልና የማስታወቂያ ታማኝነትን ለማረጋገጥ በሲስተም ኦዲት ይደረጋሉ።</p>
+    </div>
+    <button class="terms-link-btn" onclick="openTermsModal()">📜 የአሰራር ደንቦች እና ፖሊሲ (Terms &amp; Policy) ያንብቡ</button>
   </div>
 
 </section>
@@ -859,6 +982,7 @@ const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 const REQUIRED_REFS = 15;
 const REQUIRED_WD_ADS = 30;
+const AD_COOLDOWN_SEC = 5; // 5 Seconds interval between ads
 
 /* ── Ad reward tiers ── */
 const AD_TIERS = [
@@ -877,25 +1001,69 @@ function getAdReward(adsWatchedSoFar){
 function isUnlimitedAdSlot(adsWatchedSoFar){
   return (adsWatchedSoFar + 1) > 91;
 }
+
 const TG_CHANNEL1  = 'https://t.me/swapmoneybirr';
 const TG_CHANNEL2  = 'https://t.me/SwapMoney_ETH';
 const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
 
+/* ═══════════════ MONETAG IN-APP AUTO INTERSTITIAL ═══════════════ */
+if (typeof show_11460944 === 'function') {
+  try {
+    show_11460944({
+      type: 'inApp',
+      inAppSettings: {
+        frequency: 2,
+        capping: 0.1,
+        interval: 30,
+        timeout: 5,
+        everyPage: false
+      }
+    });
+  } catch (e) {
+    console.warn('[Monetag] InApp ad init issue:', e);
+  }
+}
+
 /* ═══════════════ TELEGRAM INIT ═══════════════ */
 const tg = window.Telegram?.WebApp || null;
 let tgUser = null, referrerId = 'None';
+
 if(tg){
   tg.ready(); tg.expand();
   tgUser = tg.initDataUnsafe?.user || null;
   const sp = tg.initDataUnsafe?.start_param || '';
   if(sp.startsWith('ref_')) referrerId = sp.replace('ref_','');
+  
   if(tgUser){
-    document.getElementById('hdrAv').textContent = (tgUser.first_name||'U')[0].toUpperCase();
-    document.getElementById('hdrWelcome').textContent = `Welcome Back, ${tgUser.first_name}  `;
-    document.getElementById('hdrUser').textContent = `@${tgUser.username||tgUser.first_name}`;
+    const firstLetter = (tgUser.first_name||'U')[0].toUpperCase();
+    const fullName = `${tgUser.first_name||''} ${tgUser.last_name||''}`.trim() || 'Telegram User';
+    const userTag = `@${tgUser.username || tgUser.first_name}`;
+
+    // Header Profile
+    const hdrAv = document.getElementById('hdrAv');
+    if(tgUser.photo_url){
+      hdrAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
+    } else {
+      hdrAv.textContent = firstLetter;
+    }
+    setText('hdrWelcome', `Welcome Back, ${tgUser.first_name} 👋`);
+    setText('hdrUser', userTag);
     document.getElementById('refLinkInp').value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${tgUser.id}`;
+
+    // Withdrawal Profile Card
+    const wdAv = document.getElementById('wdProfileAv');
+    if(wdAv){
+      if(tgUser.photo_url){
+        wdAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
+      } else {
+        wdAv.textContent = firstLetter;
+      }
+    }
+    setText('wdProfileName', fullName);
+    setText('wdProfileUser', userTag);
+    setText('wdProfileId', String(tgUser.id));
   }
 }
 
@@ -909,6 +1077,9 @@ function loadState(){
     selectedMethod:'Telebirr', streakDays:0,
     lastLoginDate:'', streakClaimedFor:'',
     hasClaimedLevel3Once:false,
+    lastLuckyBoxDate:'',
+    lastAdFinishedTime:0,
+    adFormatToggle:0,
     wdAdsStart: null,
     pendingWd: null,
   };
@@ -932,7 +1103,7 @@ function getLevel(bal){
   return{n:1,label:'Level 1'};
 }
 
-/* ═══════════════ STREAK ═══════════════ */
+/* ═══════════════ STREAK (RUNS CONTINUOUSLY IN BACKGROUND) ═══════════════ */
 function dateKey(d){
   const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
   return `${y}-${m}-${day}`;
@@ -974,20 +1145,21 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ ACTIVITY TRACKER ═══════════════ */
+/* ═══════════════ ACTIVITY TRACKER & FORCED ADS TIMING ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
-let lastLocalMutationTime = 0;
+const APP_OPEN_TIME = Date.now();
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 minutes (120 seconds)
 
 function markLocalMutation(){
-  lastLocalMutationTime = Date.now();
   saveState();
   render();
 }
 
 function recordActivity(){
   activityCount++;
-  if(initialForcedAdShown && activityCount >= 5){
+  // Starts after 2 minutes of app entry, then triggers every 4 actions
+  if(Date.now() - APP_OPEN_TIME >= FORCED_AD_GRACE_MS && activityCount >= 4){
     activityCount = 0;
     maybeShowForcedAd(true);
   }
@@ -1027,11 +1199,6 @@ function render(){
   setText('mainBalance', bal.toLocaleString());
   setText('balSub', `Level ${lv.n} — ${lv.label}`);
   setText('scBalance', sc.toFixed(2));
-  setText('stEarn', bal.toLocaleString()+' ETB');
-  setText('stAds', S.adsWatched||0);
-  setText('stRefs', refs);
-  setText('stRefBonus', (refs*REF_BONUS).toLocaleString());
-  setText('stSC', sc.toFixed(2)+' SC');
 
   setText('wdBalDisplay', bal.toLocaleString());
   const eligEl = document.getElementById('wdEligTag');
@@ -1053,152 +1220,128 @@ function render(){
   const pf = document.getElementById('refProgFill');
   if(pf) pf.style.width = `${(prog/REQUIRED_REFS)*100}%`;
 
-  renderStreakDays();
   renderHomeTasks();
   renderEarnTasks();
 }
 
-/* ═══════════════ STREAK DAYS RENDER ═══════════════ */
-const STREAK_LABELS = ['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7'];
-const STREAK_SC      = [10,20,40,60,80,100,0];
-
-function renderStreakDays(){
-  const el = document.getElementById('streakDaysEl');
-  if(!el)return;
-  const streak = S.streakDays||0;
-  const claimedToday = S.streakClaimedFor === S.lastLoginDate;
-  el.innerHTML = STREAK_LABELS.map((d,i)=>{
-    const dayNum = i+1;
-    const passed = dayNum < streak;
-    const isToday = dayNum === streak;
-    let rewardLabel = `+${STREAK_SC[i]}SC`;
-    if(dayNum === 7){
-      rewardLabel = S.hasClaimedLevel3Once ? '+100 SC' : 'Level 3';
-    }
-    let cls = passed ? 'done' : (isToday ? 'today' : '');
-    return `<div class="streak-day ${cls}">
-      <div class="streak-day-icon">${passed?'✅':(isToday?'🎁':'🔒')}</div>
-      <div style="font-size:7px">${d}</div>
-      <div style="font-size:7px;color:var(--gold)">${rewardLabel}</div>
-    </div>`;
-  }).join('');
-  setText('earnStreakCount', `${streak}🔥`);
-
-  const btn = document.getElementById('streakClaimBtn');
-  if(btn){
-    if(claimedToday){
-      btn.disabled = true;
-      btn.textContent = '✅ ዛሬ ተቀብለዋል';
-    } else {
-      btn.disabled = false;
-      const idx = Math.min(streak,7)-1;
-      let label = `+${STREAK_SC[idx]} SC ይቀበሉ`;
-      if((idx+1)===7){
-        label = S.hasClaimedLevel3Once ? '+100 SC ይቀበሉ' : 'Level 3 ማዕረግ ያግኙ 🏆';
-      }
-      btn.textContent = label;
-    }
+/* ═══════════════ SMARTLINK HIGH REWARD BONUS ═══════════════ */
+function openSmartLinkBonus(){
+  recordActivity();
+  // If you have a direct link, trigger via monetization SDK or openLink
+  if(typeof show_11460944 === 'function'){
+    show_11460944('pop').catch(()=>{});
   }
+  toast('💎 ስፖንሰር ከፍተዋል! 15 ሰከንድ ቆይተው ይመለሱ');
+  setTimeout(()=>{
+    S.balance += 100;
+    markLocalMutation();
+    toast('🎉 +100 ETB ስፖንሰር ጉርሻ ተጨምሯል!');
+    if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
+  }, 16000);
 }
 
-function claimStreakReward(){
+/* ═══════════════ TERMS & POLICY MODAL ═══════════════ */
+function openTermsModal(){
+  document.getElementById('termsModal')?.classList.add('active');
+}
+function closeTermsModal(){
+  document.getElementById('termsModal')?.classList.remove('active');
+}
+
+/* ═══════════════ LUCKY BOX LOGIC ═══════════════ */
+function openLuckyBox(){
   recordActivity();
-  if(S.streakClaimedFor === S.lastLoginDate){toast('ዛሬ አስቀድመው ተቀብለዋል!');return;}
-  const day = Math.min(S.streakDays||1, 7);
-  if(day === 7){
-    if(!S.hasClaimedLevel3Once){
-      S.hasClaimedLevel3Once = true;
-      S.swapCoins = (S.swapCoins||0) + 200;
-      toast('🏆 7 ቀን ተከታታይ Streak! Level 3 ማዕረግ ስጦታ +200 SC!');
-    } else {
-      S.swapCoins = (S.swapCoins||0) + 100;
-      toast('🔥 Day 7 Streak ቦነስ +100 SC ተጨምሯል!');
-    }
-  } else {
-    const reward = STREAK_SC[day-1];
-    S.swapCoins = (S.swapCoins||0) + reward;
-    toast(`🔥 Day ${day} ቦነስ +${reward} SC ተጨምሯል!`);
+  const todayKey = dateKey(new Date());
+  if(S.lastLuckyBoxDate === todayKey){
+    toast('✅ የዛሬውን የዕድል ሳጥን ከፍተዋል! ነገ ይጠብቁ');
+    return;
   }
-  S.streakClaimedFor = S.lastLoginDate;
+  const bonusTypes = [
+    {type:'etb', val:25, txt:'+25 ETB'},
+    {type:'sc',  val:50, txt:'+50 SC'},
+    {type:'etb', val:50, txt:'+50 ETB'},
+    {type:'sc',  val:100, txt:'+100 SC'}
+  ];
+  const pick = bonusTypes[Math.floor(Math.random() * bonusTypes.length)];
+  if(pick.type === 'etb') S.balance += pick.val;
+  else S.swapCoins = (S.swapCoins||0) + pick.val;
+  
+  S.lastLuckyBoxDate = todayKey;
   markLocalMutation();
+  toast(`🎉 እንኳን ደስ አለዎት! የዕድል ሳጥን ${pick.txt} አሸንፈዋል!`);
   if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
 }
 
-/* ═══════════════ TASKS LIST ═══════════════ */
+/* ═══════════════ ALL 7 TASKS (4-COLUMN GRID) ═══════════════ */
 const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
 const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
 
 const ALL_TASKS = [
-  {id:'tg1',    label:'Telegram Channel 1',     reward:100, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)', type:'tg-type'},
-  {id:'tg2',    label:'Telegram Channel 2',     reward:100, dur:30, link:TG_CHANNEL2, icon:TG_ICON, bg:'rgba(0,136,204,.15)', type:'tg-type'},
-  {id:'ytsub1', label:'YouTube Channel 1 Sub',  reward:100, dur:60, link:YT_SUB,      icon:TG_ICON, bg:'rgba(239,68,68,.15)', type:'yt-type'},
-  {id:'ytsub2', label:'YouTube Channel 2 Sub',  reward:100, dur:60, link:YT_SUB2,     icon:TG_ICON, bg:'rgba(239,68,68,.15)', type:'yt-type'},
-  {id:'ytvid1', label:'YouTube Video 1 ይመልከቱ',  reward:50,  dur:60, link:YT_VID1,     icon:YT_ICON, bg:'rgba(239,68,68,.15)', type:'yt-type'},
-  {id:'bunabot',label:'Buna Bot ይቀላቀሉ',        reward:50,  dur:30, link:BUNA_BOT,    icon:TG_ICON, bg:'rgba(0,136,204,.15)', type:'tg-type'},
+  {id:'tg1',    label:'TG Channel 1',        reward:100, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
+  {id:'tg2',    label:'TG Channel 2',        reward:100, dur:30, link:TG_CHANNEL2, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
+  {id:'nametag',label:'Name Tag | SWAP 💰',  reward:50,  dur:20, link:'https://t.me',       icon:TG_ICON, bg:'rgba(255,215,0,.15)'},
+  {id:'ytsub1', label:'YouTube Sub 1',       reward:100, dur:60, link:YT_SUB,      icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'ytsub2', label:'YouTube Sub 2',       reward:100, dur:60, link:YT_SUB2,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'ytvid1', label:'YouTube Video',       reward:50,  dur:60, link:YT_VID1,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'bunabot',label:'Buna Bot Join',       reward:50,  dur:30, link:BUNA_BOT,    icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
 ];
 
 const activeTaskTimers = new Set();
 
+function taskGrid4ColHTML(t, prefix){
+  const done = S.completedTasks.includes(t.id);
+  return `<div class="task-mini-card">
+    <div class="task-mini-icon" style="background:${t.bg}"><img src="${t.icon}" alt="${t.label}"></div>
+    <div class="task-mini-title">${t.label}</div>
+    <div class="task-mini-reward">+${t.reward} ETB</div>
+    <button class="task-mini-btn" id="${prefix}${t.id}" ${done?'disabled':''} onclick="startTask('${t.id}','${t.link}',${t.reward},${t.dur})">${done?'✓ Done':'Start'}</button>
+  </div>`;
+}
+
 function renderHomeTasks(){
   const el = document.getElementById('homeTasksGrid');
-  if(!el)return;
+  if(!el) return;
   if(activeTaskTimers.size === 0){
-    el.innerHTML = ALL_TASKS.map(t=>taskGridItemHTML(t,'htb_')).join('');
+    el.innerHTML = ALL_TASKS.map(t=>taskGrid4ColHTML(t,'htb_')).join('');
     return;
   }
   ALL_TASKS.forEach(t=>{
     if(activeTaskTimers.has(t.id)) return;
-    const wrap = document.getElementById('htb_'+t.id)?.closest('.task-grid-item');
-    if(wrap) wrap.outerHTML = taskGridItemHTML(t,'htb_');
+    const wrap = document.getElementById('htb_'+t.id)?.closest('.task-mini-card');
+    if(wrap) wrap.outerHTML = taskGrid4ColHTML(t,'htb_');
   });
-}
-function taskGridItemHTML(t, prefix){
-  const done = S.completedTasks.includes(t.id);
-  return `<div class="task-grid-item">
-    <div class="tgi-icon" style="background:${t.bg}"><img src="${t.icon}" alt="${t.label}"></div>
-    <h4>${t.label}</h4>
-    <div class="tgi-reward">+${t.reward} ETB</div>
-    <button class="tgi-btn" id="${prefix}${t.id}" ${done?'disabled':''} onclick="startTask('${t.id}','${t.link}',${t.reward},${t.dur})">${done?'✅ ተቀብለዋል':'Start'}</button>
-  </div>`;
-}
-
-function earnGridItemHTML(t){
-  const done = S.completedTasks.includes(t.id);
-  return `<div class="earn-grid-item ${t.type}">
-    ${done?'<div class="egi-done-badge">✅</div>':''}
-    <div class="egi-icon" style="background:${t.bg}"><img src="${t.icon}" alt="${t.label}"></div>
-    <div class="egi-title">${t.label}</div>
-    <div class="egi-reward">+${t.reward} ETB</div>
-    <div class="egi-meta">⏱️ ${t.dur}s</div>
-    <button class="egi-btn" id="etb_${t.id}" ${done?'disabled':''} onclick="startTask('${t.id}','${t.link}',${t.reward},${t.dur})">${done?'ተቀብለዋል':'Start'}</button>
-  </div>`;
 }
 
 function renderEarnTasks(){
   const tEl = document.getElementById('earnTaskGrid');
   if(tEl){
     if(activeTaskTimers.size === 0){
-      tEl.innerHTML = ALL_TASKS.map(earnGridItemHTML).join('');
+      tEl.innerHTML = ALL_TASKS.map(t=>taskGrid4ColHTML(t,'etb_')).join('');
     } else {
       ALL_TASKS.forEach(t=>{
         if(activeTaskTimers.has(t.id)) return;
-        const wrap = document.getElementById('etb_'+t.id)?.closest('.earn-grid-item');
-        if(wrap) wrap.outerHTML = earnGridItemHTML(t);
+        const wrap = document.getElementById('etb_'+t.id)?.closest('.task-mini-card');
+        if(wrap) wrap.outerHTML = taskGrid4ColHTML(t,'etb_');
       });
     }
   }
 
-  const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW'];
+  const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW','HOT','EASY','HOT','NEW','EASY','HOT'];
   const BGS = [
     'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
     'linear-gradient(135deg,#0a051a,#180a30)','linear-gradient(135deg,#051a0a,#0a3015)',
     'linear-gradient(135deg,#1a1005,#302005)','linear-gradient(135deg,#1a0510,#30081a)',
+    'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
+    'linear-gradient(135deg,#0a051a,#180a30)','linear-gradient(135deg,#051a0a,#0a3015)',
+    'linear-gradient(135deg,#1a1005,#302005)','linear-gradient(135deg,#1a0510,#30081a)'
   ];
   const BADGE_COLOR = {HOT:'var(--red)',NEW:'var(--blue)',EASY:'var(--green)'};
-  const ADS = Array.from({length:6},(_,i)=>({
+  
+  // 6 Ads on Earn page, 12 Pure Ads on Watch Ads Page
+  const earnAds = Array.from({length:6},(_,i)=>({
     num: S.adsWatched+i+1,
     reward: getAdReward(S.adsWatched+i),
     unlimited: isUnlimitedAdSlot(S.adsWatched+i),
@@ -1206,24 +1349,34 @@ function renderEarnTasks(){
     bg: BGS[i],
   }));
 
-  const adHtml = ADS.map(ad=>`
-    <div class="earn-grid-item ad-type">
-      <div class="egi-icon" style="background:${ad.bg}">
-        <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center">
-          <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:#000;margin-left:1px"><path d="M8 5v14l11-7z"/></svg>
+  const mainAds = Array.from({length:12},(_,i)=>({
+    num: S.adsWatched+i+1,
+    reward: getAdReward(S.adsWatched+i),
+    unlimited: isUnlimitedAdSlot(S.adsWatched+i),
+    badge: BADGES[i],
+    bg: BGS[i],
+  }));
+
+  function makeAdHtml(adList){
+    return adList.map(ad=>`
+      <div class="earn-grid-item ad-type">
+        <div class="egi-icon" style="background:${ad.bg}">
+          <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:#000;margin-left:1px"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
-      </div>
-      <div class="egi-title">${ad.unlimited ? 'Bonus Ad ∞' : 'Ad #'+ad.num}</div>
-      <div class="egi-reward">+${ad.reward} ETB</div>
-      <div class="egi-meta">⏱️17s · <span style="color:${BADGE_COLOR[ad.badge]};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
-      <button class="egi-btn" onclick="watchAd(this)">Watch</button>
-    </div>`).join('');
+        <div class="egi-title">${ad.unlimited ? 'Bonus Ad ∞' : 'Ad #'+ad.num}</div>
+        <div class="egi-reward">+${ad.reward} ETB</div>
+        <div class="egi-meta">⏱️17s · <span style="color:${BADGE_COLOR[ad.badge]};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
+        <button class="egi-btn" onclick="watchAd(this)">Watch</button>
+      </div>`).join('');
+  }
 
   const aEl = document.getElementById('earnAdGrid');
-  if(aEl) aEl.innerHTML = adHtml;
+  if(aEl) aEl.innerHTML = makeAdHtml(earnAds);
 
   const mEl = document.getElementById('mainAdGrid');
-  if(mEl) mEl.innerHTML = adHtml;
+  if(mEl) mEl.innerHTML = makeAdHtml(mainAds);
 }
 
 const taskTimers = {};
@@ -1289,13 +1442,21 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC (MONETAG REWARDED) ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
 function watchAd(btn){
   recordActivity();
-  if(adRunning)return;
+  if(adRunning) return;
+
+  // 5s Cooldown Guard
+  const timeSinceLastAd = (Date.now() - (S.lastAdFinishedTime || 0)) / 1000;
+  if(timeSinceLastAd < AD_COOLDOWN_SEC){
+    const waitSec = Math.ceil(AD_COOLDOWN_SEC - timeSinceLastAd);
+    toast(`⏳ እባክዎ ${waitSec} ሰከንድ ይጠብቁ...`);
+    return;
+  }
 
   btn.disabled=true;
   adClickCount++;
@@ -1306,10 +1467,14 @@ function watchAd(btn){
   const earnedReward = getAdReward(S.adsWatched);
   document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${earnedReward} ETB</strong> ይጨምራሉ!`;
 
+  // Toggle between Rewarded Interstitial and Rewarded Popup
   if(typeof show_11460944 === 'function'){
-    show_11460944().catch((err)=>{
-      console.warn('[Swap Money] Real ad SDK issue (non-fatal):', err);
-    });
+    if(S.adFormatToggle % 2 === 0){
+      show_11460944().catch(e=>console.warn('[Monetag] Interstitial error:', e));
+    } else {
+      show_11460944('pop').catch(e=>console.warn('[Monetag] Popup error:', e));
+    }
+    S.adFormatToggle++;
   }
 
   runFallbackCountdown(17000);
@@ -1348,6 +1513,7 @@ function creditAdReward(){
   const earnedReward = getAdReward(S.adsWatched);
   S.adsWatched++;
   S.balance += earnedReward;
+  S.lastAdFinishedTime = Date.now();
 
   markLocalMutation();
   toast(`🎉 +${earnedReward} ETB ተጨምሯል!`);
@@ -1376,7 +1542,7 @@ function closeAdAndShowAnother(){
   document.getElementById('adDesc').textContent='ይህ ተጨማሪ ማስታወቂያ ነው — ክፍያ የለውም';
 
   if(typeof show_11460944 === 'function'){
-    show_11460944().catch(()=>{});
+    show_11460944('pop').catch(()=>{});
   }
   runFallbackCountdown(17000);
 }
@@ -1412,38 +1578,23 @@ function finishBonusAd(){
   });
 })();
 
-/* ═══════════════ LIVE FEED (WITHOUT TIME) ═══════════════ */
+/* ═══════════════ LIVE FEED (UPDATED REALISTIC NAMES & GREEN AMOUNTS) ═══════════════ */
 const FEED_ITEMS = [
-  { name: 'Se***r', amount: 2900, method: 'Telebirr',      acct: '098*****77' },
-  { name: 'Da***t', amount: 3400, method: 'CBE Bank',       acct: '1000****4910' },
-  { name: 'Ab***l', amount: 2500, method: 'Telebirr',      acct: '091*****24' },
-  { name: 'Ey***m', amount: 4800, method: 'Awash Bank',    acct: '013*****881' },
-  { name: 'Ka***b', amount: 2600, method: 'Telebirr',      acct: '097*****12' },
-  { name: 'Me***t', amount: 5000, method: 'Abyssinia',     acct: '449*****01' },
-  { name: 'Be***k', amount: 2500, method: 'Ethio Telecom', acct: '092*****45' },
-  { name: 'Sa***a', amount: 3100, method: 'Telebirr',      acct: '093*****90' },
-  { name: 'Yo***s', amount: 3800, method: 'CBE Bank',       acct: '1000****7321' },
-  { name: 'Ha***n', amount: 2700, method: 'Telebirr',      acct: '094*****63' },
-  { name: 'Ts***e', amount: 4200, method: 'Awash Bank',    acct: '013*****209' },
-  { name: 'Na***l', amount: 3000, method: 'Safaricom',     acct: '071*****58' },
-  { name: 'Bi***m', amount: 3500, method: 'Telebirr',      acct: '096*****81' },
-  { name: 'He***k', amount: 2500, method: 'CBE Bank',       acct: '1000****9014' },
-  { name: 'Li***a', amount: 4600, method: 'Abyssinia',     acct: '449*****78' },
-  { name: 'Am***l', amount: 2800, method: 'Telebirr',      acct: '091*****99' },
-  { name: 'Fi***r', amount: 3200, method: 'Awash Bank',    acct: '013*****654' },
-  { name: 'Ge***u', amount: 5500, method: 'CBE Bank',       acct: '1000****1182' },
-  { name: 'Ra***l', amount: 2500, method: 'Telebirr',      acct: '098*****33' },
-  { name: 'Mi***s', amount: 3900, method: 'Telebirr',      acct: '095*****16' },
-  { name: 'Te***a', amount: 4100, method: 'Abyssinia',     acct: '449*****39' },
-  { name: 'El***s', amount: 2600, method: 'Safaricom',     acct: '079*****44' },
-  { name: 'So***a', amount: 3300, method: 'Telebirr',      acct: '092*****70' },
-  { name: 'Ke***d', amount: 4700, method: 'CBE Bank',       acct: '1000****5560' },
-  { name: 'Wo***e', amount: 2900, method: 'Awash Bank',    acct: '013*****412' },
-  { name: 'Ze***n', amount: 3600, method: 'Telebirr',      acct: '094*****02' },
-  { name: 'Al***u', amount: 5200, method: 'CBE Bank',       acct: '1000****6789' },
-  { name: 'Ma***a', amount: 2500, method: 'Ethio Telecom', acct: '096*****15' },
-  { name: 'As***t', amount: 3700, method: 'Telebirr',      acct: '091*****88' },
-  { name: 'Da***m', amount: 4400, method: 'Abyssinia',     acct: '449*****53' },
+  { name: 'Ab***e K.', amount: 2500, method: 'Telebirr',      acct: '091*****42' },
+  { name: 'Ti***t M.', amount: 3200, method: 'CBE Bank',       acct: '1000****8912' },
+  { name: 'Yo***s B.', amount: 2800, method: 'Telebirr',      acct: '097*****11' },
+  { name: 'Se***t T.', amount: 4500, method: 'Awash Bank',    acct: '013*****651' },
+  { name: 'He***k G.', amount: 2500, method: 'Telebirr',      acct: '094*****30' },
+  { name: 'Be***e A.', amount: 3800, method: 'Abyssinia',     acct: '449*****19' },
+  { name: 'Da***t F.', amount: 5000, method: 'CBE Bank',       acct: '1000****4210' },
+  { name: 'Me***n S.', amount: 2700, method: 'Telebirr',      acct: '092*****88' },
+  { name: 'Na***l D.', amount: 3500, method: 'Ethio Telecom', acct: '096*****74' },
+  { name: 'Ey***s Z.', amount: 4200, method: 'Awash Bank',    acct: '013*****902' },
+  { name: 'Ka***b H.', amount: 2500, method: 'Safaricom',     acct: '071*****33' },
+  { name: 'Ts***e W.', amount: 3100, method: 'Telebirr',      acct: '093*****56' },
+  { name: 'Al***u E.', amount: 4900, method: 'CBE Bank',       acct: '1000****7761' },
+  { name: 'Ra***l M.', amount: 2600, method: 'Telebirr',      acct: '098*****25' },
+  { name: 'Fi***r J.', amount: 3400, method: 'Abyssinia',     acct: '449*****83' }
 ];
 
 function rotateFeed(){
@@ -1462,7 +1613,7 @@ function rotateFeed(){
     <div class="feed-amount">${item.amount.toLocaleString()} ETB</div>
   </div>`;
 }
-setInterval(rotateFeed, 5000); rotateFeed();
+setInterval(rotateFeed, 4500); rotateFeed();
 
 /* ═══════════════ API POST HELPER ═══════════════ */
 async function apiPost(payload){
@@ -1633,7 +1784,10 @@ setInterval(()=>{
   }
 }, 1000);
 
-async function submitWithdraw(){
+/* ═══════════════ ANTI-BOT CAPTCHA & SUBMIT ═══════════════ */
+let expectedCaptchaAns = null;
+
+function initiateWithdrawFlow(){
   recordActivity();
   const acct = document.getElementById('wdAcct').value.trim();
   const amt = parseFloat(document.getElementById('wdAmt').value);
@@ -1669,6 +1823,33 @@ async function submitWithdraw(){
     toast('⚠️ 15 ሰዎችን ይጋብዙ እና 30 ማስታወቂያዎችን ይመልከቱ!');
     return;
   }
+
+  // Open Captcha verification
+  const n1 = Math.floor(Math.random() * 8) + 2;
+  const n2 = Math.floor(Math.random() * 8) + 2;
+  expectedCaptchaAns = n1 + n2;
+  document.getElementById('captchaQuest').textContent = `${n1} + ${n2} = ?`;
+  document.getElementById('captchaAns').value = '';
+  document.getElementById('captchaModal')?.classList.add('active');
+}
+
+function closeCaptcha(){
+  document.getElementById('captchaModal')?.classList.remove('active');
+}
+
+function verifyAndExecuteWd(){
+  const userAns = parseInt(document.getElementById('captchaAns').value);
+  if(isNaN(userAns) || userAns !== expectedCaptchaAns){
+    toast('❌ የተሳሳተ መልስ! እባክዎ በትክክል ይደምሩ');
+    return;
+  }
+  closeCaptcha();
+  executeWithdraw();
+}
+
+async function executeWithdraw(){
+  const acct = document.getElementById('wdAcct').value.trim();
+  const amt = parseFloat(document.getElementById('wdAmt').value);
 
   const btn = document.getElementById('wdBtn');
   if(btn){ btn.disabled = true; btn.textContent = 'Processing…'; }
@@ -1743,14 +1924,9 @@ function shareSocial(p){
   else copyRefLink();
 }
 
-/* ═══════════════ GOOGLE SHEETS SYNC ═══════════════ */
+/* ═══════════════ GOOGLE SHEETS SYNC (DIRECT) ═══════════════ */
 async function syncFromSheet(){
   if(!tgUser)return;
-  
-  if(Date.now() - lastLocalMutationTime < 15000) {
-    console.warn('[Swap Money] Pull sync blocked by local mutation timestamp guard');
-    return;
-  }
   
   try{
     const res=await fetch(`${SCRIPT_URL}?action=getUser&userId=${tgUser.id}`);
@@ -1885,16 +2061,14 @@ async function safeInit(){
 }
 
 safeInit();
-setInterval(syncFromSheet, 20000);
+setInterval(syncFromSheet, 25000);
 
-/* ═══════════════ FORCED ADS SCHEDULER ═══════════════ */
-const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 2 * 60 * 1000;
-
+/* ═══════════════ FORCED ADS SCHEDULER (2 MINS AFTER ENTRY, THEN EVERY 4 ACTIONS) ═══════════════ */
 function maybeShowForcedAd(isActivityTrigger){
   if(adRunning) return;
   if(document.visibilityState !== 'visible') return;
 
+  // Enforce 2 minutes grace period on start
   if(!initialForcedAdShown){
     const elapsed = Date.now() - APP_OPEN_TIME;
     if(elapsed < FORCED_AD_GRACE_MS) return;
@@ -1905,7 +2079,7 @@ function maybeShowForcedAd(isActivityTrigger){
   isBonusAd = true;
 
   if(typeof show_11460944 === 'function'){
-    show_11460944().then(()=>{
+    show_11460944('pop').then(()=>{
       finishBonusAd();
     }).catch(()=>{
       finishBonusAd();
