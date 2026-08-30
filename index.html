@@ -122,7 +122,7 @@ header{
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
 
-/* ── HIGH REWARD SMARTLINK CARD ── */
+/* ── HIGH REWARD SUPER BONUS CARD ── */
 .smartlink-card{
   background:linear-gradient(135deg,#1f1304,#2b1a03,#111520);
   border:1px solid var(--gold);border-radius:18px;padding:14px;
@@ -562,13 +562,13 @@ header{
     </div>
   </div>
 
-  <!-- High Reward Direct SmartLink Card -->
+  <!-- High Reward Direct Super Bonus Card (Once Per Day with Real Monetag Ad) -->
   <div class="smartlink-card" onclick="openSmartLinkBonus()">
     <div class="sl-left">
       <div class="sl-icon">💎</div>
       <div class="sl-info">
         <h4>ልዩ የ 100 ETB ጉርሻ (Super Bonus)</h4>
-        <p>ቀጥታ ስፖንሰር በመመልከት +100 ETB ይውሰዱ!</p>
+        <p>ቀጥታ ማስታወቂያ አይተው +100 ETB ይውሰዱ! (በቀን 1 ጊዜ)</p>
       </div>
     </div>
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
@@ -620,7 +620,7 @@ header{
     </div>
   </div>
 
-  <!-- Banner -->
+  <!-- Banner Slider -->
   <div class="banner-wrap" id="bannerSlider">
     <img src="https://i.postimg.cc/RFnHkqVn/20260820-173821.jpg" class="active" alt="">
     <img src="https://i.postimg.cc/nLZTY3VT/20260809-161044.jpg" alt="">
@@ -1008,24 +1008,6 @@ const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
 
-/* ═══════════════ MONETAG IN-APP AUTO INTERSTITIAL ═══════════════ */
-if (typeof show_11460944 === 'function') {
-  try {
-    show_11460944({
-      type: 'inApp',
-      inAppSettings: {
-        frequency: 2,
-        capping: 0.1,
-        interval: 30,
-        timeout: 5,
-        everyPage: false
-      }
-    });
-  } catch (e) {
-    console.warn('[Monetag] InApp ad init issue:', e);
-  }
-}
-
 /* ═══════════════ TELEGRAM INIT ═══════════════ */
 const tg = window.Telegram?.WebApp || null;
 let tgUser = null, referrerId = 'None';
@@ -1078,6 +1060,7 @@ function loadState(){
     lastLoginDate:'', streakClaimedFor:'',
     hasClaimedLevel3Once:false,
     lastLuckyBoxDate:'',
+    lastSuperBonusDate:'',
     lastAdFinishedTime:0,
     adFormatToggle:0,
     wdAdsStart: null,
@@ -1149,7 +1132,7 @@ function toast(msg){
 let activityCount = 0;
 let initialForcedAdShown = false;
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 minutes (120 seconds)
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // Strictly 2 minutes (120 seconds)
 
 function markLocalMutation(){
   saveState();
@@ -1158,7 +1141,7 @@ function markLocalMutation(){
 
 function recordActivity(){
   activityCount++;
-  // Starts after 2 minutes of app entry, then triggers every 4 actions
+  // Starts strictly after 2 minutes of app entry, then triggers every 4 actions
   if(Date.now() - APP_OPEN_TIME >= FORCED_AD_GRACE_MS && activityCount >= 4){
     activityCount = 0;
     maybeShowForcedAd(true);
@@ -1224,20 +1207,73 @@ function render(){
   renderEarnTasks();
 }
 
-/* ═══════════════ SMARTLINK HIGH REWARD BONUS ═══════════════ */
+/* ═══════════════ 100 ETB SUPER BONUS (ONCE PER DAY + REAL MONETAG AD) ═══════════════ */
 function openSmartLinkBonus(){
   recordActivity();
-  // If you have a direct link, trigger via monetization SDK or openLink
-  if(typeof show_11460944 === 'function'){
-    show_11460944('pop').catch(()=>{});
+  const todayKey = dateKey(new Date());
+  if(S.lastSuperBonusDate === todayKey){
+    toast('✅ የዛሬውን ልዩ 100 ETB ጉርሻ ወስደዋል! ነገ ይጠብቁ');
+    return;
   }
-  toast('💎 ስፖንሰር ከፍተዋል! 15 ሰከንድ ቆይተው ይመለሱ');
-  setTimeout(()=>{
-    S.balance += 100;
-    markLocalMutation();
-    toast('🎉 +100 ETB ስፖንሰር ጉርሻ ተጨምሯል!');
-    if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
-  }, 16000);
+
+  const timeSinceLastAd = (Date.now() - (S.lastAdFinishedTime || 0)) / 1000;
+  if(timeSinceLastAd < AD_COOLDOWN_SEC){
+    const waitSec = Math.ceil(AD_COOLDOWN_SEC - timeSinceLastAd);
+    toast(`⏳ እባክዎ ${waitSec} ሰከንድ ይጠብቁ...`);
+    return;
+  }
+
+  toast('💎 ልዩ 100 ETB ማስታወቂያ እየተከፈተ ነው...');
+  
+  if(typeof show_11460944 === 'function'){
+    show_11460944().then(()=>{
+      grantSuperBonus();
+    }).catch(e=>{
+      // Fallback to popup
+      show_11460944('pop').then(()=>{
+        grantSuperBonus();
+      }).catch(()=>{
+        runSuperBonusCountdown(17000);
+      });
+    });
+  } else {
+    runSuperBonusCountdown(17000);
+  }
+}
+
+function runSuperBonusCountdown(durationMs){
+  const durSec = Math.round(durationMs/1000);
+  const modal = document.getElementById('adModal');
+  const fill = document.getElementById('adBarFill');
+  const txt = document.getElementById('adTimerTxt');
+  document.getElementById('adTitle').textContent = 'ልዩ 100 ETB ማስታወቂያ';
+  document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">100 ETB</strong> ይጨምራሉ!`;
+  modal.classList.add('active');
+  fill.style.width = '0%';
+  txt.textContent = `${durSec}s ቀርቷል`;
+  const deadline = Date.now() + durationMs;
+  clearInterval(adTimerInterval);
+  adTimerInterval = setInterval(()=>{
+    const remaining = Math.max(0, Math.ceil((deadline - Date.now())/1000));
+    fill.style.width = `${(durSec - remaining)/durSec * 100}%`;
+    txt.textContent = `${remaining}s ቀርቷል`;
+    if(remaining <= 0){
+      clearInterval(adTimerInterval);
+      modal.classList.remove('active');
+      grantSuperBonus();
+    }
+  }, 500);
+}
+
+function grantSuperBonus(){
+  const todayKey = dateKey(new Date());
+  S.balance += 100;
+  S.lastSuperBonusDate = todayKey;
+  S.lastAdFinishedTime = Date.now();
+  markLocalMutation();
+  toast('🎉 እንኳን ደስ አለዎት! +100 ETB ልዩ ጉርሻ ተጨምሯል!');
+  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+  if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
 }
 
 /* ═══════════════ TERMS & POLICY MODAL ═══════════════ */
@@ -2063,18 +2099,16 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 25000);
 
-/* ═══════════════ FORCED ADS SCHEDULER (2 MINS AFTER ENTRY, THEN EVERY 4 ACTIONS) ═══════════════ */
+/* ═══════════════ FORCED ADS SCHEDULER (STRICTLY 2 MINS AFTER ENTRY, THEN EVERY 4 ACTIONS) ═══════════════ */
 function maybeShowForcedAd(isActivityTrigger){
   if(adRunning) return;
   if(document.visibilityState !== 'visible') return;
 
-  // Enforce 2 minutes grace period on start
-  if(!initialForcedAdShown){
-    const elapsed = Date.now() - APP_OPEN_TIME;
-    if(elapsed < FORCED_AD_GRACE_MS) return;
-    initialForcedAdShown = true;
-  }
+  // Enforce strictly 2 minutes grace period on start (No ads before 120 seconds)
+  const elapsed = Date.now() - APP_OPEN_TIME;
+  if(elapsed < FORCED_AD_GRACE_MS) return;
 
+  initialForcedAdShown = true;
   adRunning = true;
   isBonusAd = true;
 
@@ -2090,7 +2124,7 @@ function maybeShowForcedAd(isActivityTrigger){
 }
 
 setInterval(()=>{
-  if(!initialForcedAdShown){
+  if(!initialForcedAdShown && (Date.now() - APP_OPEN_TIME >= FORCED_AD_GRACE_MS)){
     maybeShowForcedAd(false);
   }
 }, 10000);
