@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="am">
 <head>
@@ -414,7 +415,7 @@ header{
 .terms-section h5{font-size:12px;font-weight:900;color:#fff;margin-bottom:4px}
 .terms-section p{font-size:10.5px;color:var(--muted);line-height:1.5}
 
-/* ── AD MODAL (IN-APP REWARDED ONLY) ── */
+/* ── IN-APP REWARDED AD MODAL (ZERO EXTERNAL REDIRECTS) ── */
 .ad-modal{position:fixed;inset:0;background:rgba(5,7,14,.96);backdrop-filter:blur(16px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .ad-modal.active{display:flex}
 .ad-modal-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 20px;text-align:center;max-width:340px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.9)}
@@ -579,7 +580,7 @@ header{
 </div>
 
 <!-- ════════════════════════════════════════════════════
-     CUSTOMER SUPPORT LIVE CHAT MODAL (TWO-WAY CHAT)
+     CUSTOMER SUPPORT LIVE CHAT MODAL (IN-APP CHAT)
 ════════════════════════════════════════════════════ -->
 <div class="support-chat-modal" id="supportModal">
   <div class="support-hdr">
@@ -595,7 +596,7 @@ header{
 
   <div class="chat-container" id="chatMsgContainer">
     <div class="chat-bubble bubble-admin">
-      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ጥያቄ፣ ችግር ወይም አስተያየት ካለዎት ጽሁፍ፣ ፎቶ (Screenshot) ወይም Voice ይላኩልን፤ ወዲያውኑ መልስ እንሰጣለን።
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ጥያቄ፣ ችግር ወይም አስተያየት ካለዎት ጽሁፍ፣ ፎቶ (Screenshot) ወይም Voice ይላኩልን፤ እዚህ በቻት ፈጣን መልስ ይሰጥዎታል።
       <div class="bubble-time">አሁን</div>
     </div>
   </div>
@@ -759,7 +760,7 @@ header{
     <div class="invite-pct">50<small>ETB</small></div>
   </div>
 
-  <!-- Live Withdrawal (Updated Names & Green Amounts) -->
+  <!-- Live Withdrawal -->
   <div class="sh"><h3>💸 Live Withdrawals</h3><span style="font-size:9px;background:rgba(16,185,129,.15);color:var(--green);padding:2px 7px;border-radius:8px;font-weight:800">● LIVE</span></div>
   <div id="liveFeed"></div>
 
@@ -900,7 +901,7 @@ header{
         <p style="font-size:10px;color:var(--green)">● ኦንላይን — ጽሁፍ፣ ፎቶና Voice ይላኩ</p>
       </div>
     </div>
-    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ክፈት ➔</button>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px">ክፈት ➔</button>
   </div>
 
   <!-- Verification Queue Banner (When User Has A Pending Audit) -->
@@ -1106,7 +1107,7 @@ const REF_BONUS    = 50;
 const MIN_WD       = 2500;
 const REQUIRED_REFS = 15;
 const REQUIRED_WD_ADS = 30;
-const AD_COOLDOWN_SEC = 2; // 2 Seconds cooldown
+const AD_COOLDOWN_SEC = 2; // 2 Seconds cooldown between ads
 
 /* ── Live Support Server URL ── */
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
@@ -1134,24 +1135,6 @@ const TG_CHANNEL2  = 'https://t.me/SwapMoney_ETH';
 const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
-
-/* ═══════════════ MONETAG IN-APP AUTO-INTERSTITIAL (IN-APP ONLY) ═══════════════ */
-if (typeof show_11460944 === 'function') {
-  try {
-    show_11460944({
-      type: 'inApp',
-      inAppSettings: {
-        frequency: 2,
-        capping: 0.1,
-        interval: 30,
-        timeout: 30,
-        everyPage: false
-      }
-    });
-  } catch (e) {
-    console.warn('[Monetag] inApp error:', e);
-  }
-}
 
 /* ═══════════════ TELEGRAM INIT ═══════════════ */
 const tg = window.Telegram?.WebApp || null;
@@ -1272,8 +1255,9 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ ACTIVITY TRACKER & AUTO-ADS (30S INITIAL DELAY, NO POPUPS) ═══════════════ */
+/* ═══════════════ ACTIVITY TRACKER & AUTO-ADS (30S ONCE, THEN EVERY 3 ACTIONS) ═══════════════ */
 let activityCount = 0;
+let initialForcedAdShown = false;
 const APP_OPEN_TIME = Date.now();
 const FORCED_AD_GRACE_MS = 30 * 1000; // 30 seconds
 
@@ -1284,9 +1268,10 @@ function markLocalMutation(){
 
 function recordActivity(){
   activityCount++;
-  if(Date.now() - APP_OPEN_TIME >= FORCED_AD_GRACE_MS && activityCount >= 4){
+  // Only trigger after the 30s grace period is complete and user has done 3 activities
+  if(initialForcedAdShown && activityCount >= 3){
     activityCount = 0;
-    maybeShowForcedAd(true);
+    triggerInAppAd();
   }
 }
 
@@ -1349,7 +1334,7 @@ function render(){
   renderEarnTasks();
 }
 
-/* ═══════════════ 100 ETB SUPER BONUS (IN-APP 15S REWARDED ONLY - ZERO REDIRECT) ═══════════════ */
+/* ═══════════════ 100 ETB SUPER BONUS (IN-APP 15S AD ONLY) ═══════════════ */
 function openSuperBonusAd(){
   recordActivity();
   const todayKey = dateKey(new Date());
@@ -1623,7 +1608,6 @@ function watchAd(btn){
   recordActivity();
   if(adRunning) return;
 
-  // 2s Cooldown Guard
   const timeSinceLastAd = (Date.now() - (S.lastAdFinishedTime || 0)) / 1000;
   if(timeSinceLastAd < AD_COOLDOWN_SEC){
     const waitSec = Math.ceil(AD_COOLDOWN_SEC - timeSinceLastAd);
@@ -1639,7 +1623,6 @@ function watchAd(btn){
   const earnedReward = getAdReward(S.adsWatched);
   document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${earnedReward} ETB</strong> ይጨምራሉ!`;
 
-  // Standard In-App Rewarded Interstitial (Zero external redirects)
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(e=>console.warn('[Monetag] Ad error:', e));
   }
@@ -2202,27 +2185,26 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 25000);
 
-/* ═══════════════ FORCED ADS SCHEDULER (STRICTLY IN-APP REWARDED) ═══════════════ */
-function maybeShowForcedAd(isActivityTrigger){
+/* ═══════════════ STRICT IN-APP FORCED AD (30S ONCE, THEN EVERY 3 ACTIONS) ═══════════════ */
+function triggerInAppAd(){
   if(adRunning) return;
   if(document.visibilityState !== 'visible') return;
-
-  const elapsed = Date.now() - APP_OPEN_TIME;
-  if(elapsed < FORCED_AD_GRACE_MS) return;
 
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(()=>{});
   }
 }
 
-setInterval(()=>{
-  if(Date.now() - APP_OPEN_TIME >= FORCED_AD_GRACE_MS){
-    maybeShowForcedAd(false);
+// Exactly 30 seconds after entering, trigger 1 in-app ad
+setTimeout(()=>{
+  if(!initialForcedAdShown){
+    initialForcedAdShown = true;
+    triggerInAppAd();
   }
-}, 10000);
+}, FORCED_AD_GRACE_MS);
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT SYSTEM (TWO-WAY LIVE CHAT MODULAR)
+   CUSTOMER SUPPORT LIVE CHAT SYSTEM (IN-APP WIDGET)
 ════════════════════════════════════════════════════ */
 function openSupportModal(){
   document.getElementById('supportModal')?.classList.add('active');
