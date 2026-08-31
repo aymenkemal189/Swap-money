@@ -122,7 +122,7 @@ header{
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
 
-/* ── HIGH REWARD SUPER BONUS CARD ── */
+/* ── HIGH REWARD 100 ETB CARD (IN-APP 15S AD) ── */
 .smartlink-card{
   background:linear-gradient(135deg,#1f1304,#2b1a03,#111520);
   border:1px solid var(--gold);border-radius:18px;padding:14px;
@@ -193,7 +193,7 @@ header{
 .invite-pct{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:var(--gold-grad);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;line-height:1}
 .invite-pct small{font-size:7px;font-weight:900}
 
-/* ── LIVE FEED (GREEN GLOWING AMOUNTS) ── */
+/* ── LIVE FEED ── */
 .feed-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .feed-av{width:34px;height:34px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#000;flex-shrink:0}
 .feed-info h5{font-size:12px;font-weight:800}
@@ -562,8 +562,8 @@ header{
     </div>
   </div>
 
-  <!-- High Reward Direct Super Bonus Card (Once Per Day with Real Monetag Ad) -->
-  <div class="smartlink-card" onclick="openSmartLinkBonus()">
+  <!-- High Reward Direct Super Bonus Card (Once Per Day - 100% In-App 15s Ad) -->
+  <div class="smartlink-card" onclick="openSuperBonusAd()">
     <div class="sl-left">
       <div class="sl-icon">💎</div>
       <div class="sl-info">
@@ -1207,8 +1207,8 @@ function render(){
   renderEarnTasks();
 }
 
-/* ═══════════════ 100 ETB SUPER BONUS (ONCE PER DAY + REAL MONETAG AD) ═══════════════ */
-function openSmartLinkBonus(){
+/* ═══════════════ 100 ETB SUPER BONUS (100% IN-APP 15S REWARDED AD) ═══════════════ */
+function openSuperBonusAd(){
   recordActivity();
   const todayKey = dateKey(new Date());
   if(S.lastSuperBonusDate === todayKey){
@@ -1227,11 +1227,11 @@ function openSmartLinkBonus(){
   
   if(typeof show_11460944 === 'function'){
     show_11460944().then(()=>{
-      grantSuperBonus();
+      grantSuperBonusReward();
     }).catch(e=>{
       // Fallback to popup
       show_11460944('pop').then(()=>{
-        grantSuperBonus();
+        grantSuperBonusReward();
       }).catch(()=>{
         runSuperBonusCountdown(17000);
       });
@@ -1260,12 +1260,12 @@ function runSuperBonusCountdown(durationMs){
     if(remaining <= 0){
       clearInterval(adTimerInterval);
       modal.classList.remove('active');
-      grantSuperBonus();
+      grantSuperBonusReward();
     }
   }, 500);
 }
 
-function grantSuperBonus(){
+function grantSuperBonusReward(){
   const todayKey = dateKey(new Date());
   S.balance += 100;
   S.lastSuperBonusDate = todayKey;
@@ -1478,7 +1478,7 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ AD WATCH LOGIC (MONETAG REWARDED) ═══════════════ */
+/* ═══════════════ AD WATCH LOGIC (IN-APP 15S REWARDED) ═══════════════ */
 let adRunning=false, adTimerInterval, adClickCount=0;
 let isBonusAd=false;
 
@@ -1503,7 +1503,7 @@ function watchAd(btn){
   const earnedReward = getAdReward(S.adsWatched);
   document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${earnedReward} ETB</strong> ይጨምራሉ!`;
 
-  // Toggle between Rewarded Interstitial and Rewarded Popup
+  // Alternate between Rewarded Interstitial and Rewarded Popup
   if(typeof show_11460944 === 'function'){
     if(S.adFormatToggle % 2 === 0){
       show_11460944().catch(e=>console.warn('[Monetag] Interstitial error:', e));
@@ -1614,7 +1614,7 @@ function finishBonusAd(){
   });
 })();
 
-/* ═══════════════ LIVE FEED (UPDATED REALISTIC NAMES & GREEN AMOUNTS) ═══════════════ */
+/* ═══════════════ LIVE FEED ═══════════════ */
 const FEED_ITEMS = [
   { name: 'Ab***e K.', amount: 2500, method: 'Telebirr',      acct: '091*****42' },
   { name: 'Ti***t M.', amount: 3200, method: 'CBE Bank',       acct: '1000****8912' },
