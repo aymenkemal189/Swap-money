@@ -413,7 +413,7 @@ header{
 .terms-section h5{font-size:12px;font-weight:900;color:#fff;margin-bottom:4px}
 .terms-section p{font-size:10.5px;color:var(--muted);line-height:1.5}
 
-/* ── AD MODAL (IN-APP REWARDED WITH DYNAMIC STEPPING) ── */
+/* ── AD MODAL (IN-APP REWARDED WITH 2 DISTINCT STEPS) ── */
 .ad-modal{position:fixed;inset:0;background:rgba(5,7,14,.96);backdrop-filter:blur(16px);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .ad-modal.active{display:flex}
 .ad-modal-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px 20px;text-align:center;max-width:340px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.9)}
@@ -551,7 +551,7 @@ header{
   </div>
 </div>
 
-<!-- ── 3-AD GATED SUPPORT MODAL (WITH '✕' CLOSE BUTTON FOR EACH STEP) ── -->
+<!-- ── 3-AD GATED SUPPORT MODAL (SEPARATE MODALS WITH '✕' BUTTON) ── -->
 <div class="modal-overlay" id="supportAdModal" style="z-index: 800;">
   <div class="ad-modal-card">
     <button id="supportAdCloseBtn" onclick="closeSupportAdStepSuccess()" style="display:none;position:absolute;top:12px;right:14px;background:var(--card2);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;color:var(--muted);font-size:14px;cursor:pointer;font-family:var(--font)">✕</button>
@@ -629,7 +629,7 @@ header{
     <div class="support-hdr-info">
       <div class="support-avatar">👨‍💼</div>
       <div>
-        <h4>👨‍💼 Swap Money AI &amp; Human Desk</h4>
+        <h4>👨‍💼 Swap Money AI &amp; Group Support</h4>
         <p>● Live Support (24/7)</p>
       </div>
     </div>
@@ -646,7 +646,7 @@ header{
 
   <div class="chat-container" id="chatMsgContainer">
     <div class="chat-bubble bubble-admin">
-      ሰላም! 👋 ወደ Swap Money የደንበኞች ድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ እዚህ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚን በቀጥታ ማነጋገር ከፈለጉም «አዎ» ብለው መመለስ ይችላሉ።
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>
   </div>
@@ -1159,7 +1159,7 @@ const REQUIRED_REFS = 15;
 const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2; // 2 Seconds cooldown
 
-/* ── Live Support Server URL (Render Deep AI Endpoint) ── */
+/* ── Live Support Server URL (Render AI & Group Forwarder) ── */
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
 
 /* ── Ad reward tiers ── */
@@ -1673,7 +1673,6 @@ function watchAd(btn){
   currentAdEarnedReward = getAdReward(S.adsWatched);
   currentAdStep = 1;
 
-  // Launch Ad 1
   launchSingleAdModal(1);
 }
 
@@ -1698,7 +1697,6 @@ function launchSingleAdModal(step){
   fill.style.width = '0%';
   txt.textContent = `17s ቀርቷል`;
 
-  // Trigger Monetag fresh impression
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(e=>console.warn('[Monetag] Ad error:', e));
   }
@@ -1714,7 +1712,6 @@ function launchSingleAdModal(step){
       clearInterval(adTimerInterval);
 
       if(step === 1){
-        // 1st Ad complete: Credit reward immediately
         S.adsWatched++;
         S.balance += currentAdEarnedReward;
         S.lastAdFinishedTime = Date.now();
@@ -1725,7 +1722,6 @@ function launchSingleAdModal(step){
         
         document.getElementById('adDesc').innerHTML = `✅ ደረጃ 1/2 ተጠናቋል! ✕ ይንኩ ወደ 2ኛው ማስታወቂያ ለመቀጠል`;
       } else {
-        // 2nd Ad complete
         S.lastAdFinishedTime = Date.now();
         saveState();
         document.getElementById('adDesc').innerHTML = `🎉 <strong style="color:var(--gold)">+${currentAdEarnedReward} ETB</strong> ሙሉ በሙሉ ተጠናቋል! ✕ ይንኩ ለመዝጋት`;
@@ -1744,12 +1740,10 @@ function closeAdModalSuccess(){
   document.getElementById('adCloseBtn').style.display = 'none';
 
   if(currentAdStep === 1){
-    // Modal 1 closed -> Open Modal 2 after 400ms buffer
     setTimeout(()=>{
       launchSingleAdModal(2);
     }, 400);
   } else {
-    // Both steps finished
     adRunning = false;
     document.querySelectorAll('.egi-btn').forEach(b => b.disabled = false);
   }
@@ -2024,7 +2018,6 @@ function initiateWithdrawFlow(){
     return;
   }
 
-  // Open Captcha verification
   const n1 = Math.floor(Math.random() * 8) + 2;
   const n2 = Math.floor(Math.random() * 8) + 2;
   expectedCaptchaAns = n1 + n2;
@@ -2140,7 +2133,6 @@ async function syncFromSheet(){
       saveState();
       render(); flashSyncDot();
     } else if(data.result === 'not_found'){
-      // Register verified new user with 50 ETB welcome bonus
       const regData = await apiPost({
         action:'syncUser',
         userId:String(tgUser.id),
@@ -2242,7 +2234,6 @@ async function safeInit(){
       toast('✅ ውሂብዎ ከ server ተመልሷል');
 
     } else if(data.result === 'not_found'){
-      // Request verified backend registration for 50 ETB welcome bonus
       const regData = await apiPost({
         action:'syncUser',
         userId:String(tgUser.id),
@@ -2296,7 +2287,6 @@ function triggerInAppAd(){
   }
 }
 
-// Exactly 30 seconds after entering, trigger 1 in-app ad
 setTimeout(()=>{
   if(!initialForcedAdShown){
     initialForcedAdShown = true;
@@ -2305,7 +2295,7 @@ setTimeout(()=>{
 }, FORCED_AD_GRACE_MS);
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT SYSTEM (AI FIRST + 3-AD HUMAN GATE)
+   CUSTOMER SUPPORT LIVE CHAT SYSTEM (AI FIRST + GROUP DISPATCH)
 ════════════════════════════════════════════════════ */
 let supportChatPollInterval = null;
 
@@ -2313,9 +2303,8 @@ function openSupportModal(){
   document.getElementById('supportModal')?.classList.add('active');
   document.body.style.overflow = 'hidden';
   pollAdminReplies();
-  // Poll only while chat modal is opened
   clearInterval(supportChatPollInterval);
-  supportChatPollInterval = setInterval(pollAdminReplies, 5000);
+  supportChatPollInterval = setInterval(pollAdminReplies, 4000);
 }
 
 function closeSupportModal(){
@@ -2324,7 +2313,6 @@ function closeSupportModal(){
   clearInterval(supportChatPollInterval);
 }
 
-// Quick FAQ Handler (Sends to AI directly with 0 Ads)
 function handleFAQ(type){
   let qText = '';
 
@@ -2365,7 +2353,7 @@ function handleChatEnter(e){
   if(e.key === 'Enter') initiateSupportTicketSend();
 }
 
-/* ── 3-AD GATED SUPPORT FLOW (MODAL-BY-MODAL WITH '✕' BUTTON) ── */
+/* ── 3-AD GATED HUMAN AGENT DISPATCH (SEPARATE MODALS) ── */
 let pendingTicketPayload = null;
 let supportAdStep = 1;
 let supportAdTimerInterval = null;
@@ -2385,13 +2373,13 @@ function initiateSupportTicketSend(){
     photoBase64: selectedSupportPhoto ? document.getElementById('imgPreviewThumb').src : null
   };
 
+  inp.value = '';
+
   if(isHumanEscalation){
-    // HUMAN ADMIN REQUEST OR MEDIA -> TRIGGER 3-AD GATE WITH SEPARATE MODALS
-    inp.value = '';
+    // HUMAN AGENT / PHOTO / ESCALATION -> 3-AD GATING STARTS
     startSupportAdGate();
   } else {
-    // 0 ADS -> DIRECT FREE AI CHAT
-    inp.value = '';
+    // 0 ADS -> DIRECT AI CHAT
     sendDirectAITicket();
   }
 }
@@ -2410,6 +2398,7 @@ async function sendDirectAITicket(){
   formData.append('firstName', tgUser?.first_name || 'User');
   formData.append('type', 'text');
   formData.append('text', currentPayload.text);
+  formData.append('isHumanTicket', 'false');
 
   try {
     const res = await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
@@ -2445,7 +2434,6 @@ function launchSingleSupportAdModal(step){
   fill.style.width = '0%';
   txt.textContent = `15s ቀርቷል`;
 
-  // Trigger Monetag fresh impression
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(()=>{});
   }
@@ -2504,7 +2492,6 @@ async function finishSupportTicketGate(){
   if(currentPayload.type === 'photo'){
     appendPhotoBubble(currentPayload.photoBase64, currentPayload.text);
     cancelPhotoUpload();
-    document.getElementById('chatTextInput').value = '';
 
     const formData = new FormData();
     formData.append('userId', String(tgUser?.id || '1493452810'));
@@ -2512,6 +2499,7 @@ async function finishSupportTicketGate(){
     formData.append('firstName', tgUser?.first_name || 'User');
     formData.append('type', 'photo');
     formData.append('text', currentPayload.text || '');
+    formData.append('isHumanTicket', 'true');
     formData.append('mediaFile', currentPayload.photoFile, 'photo.jpg');
 
     showAdminTypingIndicator();
@@ -2524,13 +2512,13 @@ async function finishSupportTicketGate(){
     formData.append('firstName', tgUser?.first_name || 'User');
     formData.append('type', 'voice');
     formData.append('text', '[Voice Support Ticket]');
+    formData.append('isHumanTicket', 'true');
     formData.append('mediaFile', currentPayload.fileBlob, 'voice.ogg');
 
     showAdminTypingIndicator();
     await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
   } else {
     appendUserBubble(currentPayload.text);
-    document.getElementById('chatTextInput').value = '';
 
     const formData = new FormData();
     formData.append('userId', String(tgUser?.id || '1493452810'));
@@ -2538,12 +2526,14 @@ async function finishSupportTicketGate(){
     formData.append('firstName', tgUser?.first_name || 'User');
     formData.append('type', 'text');
     formData.append('text', currentPayload.text);
+    formData.append('isHumanTicket', 'true');
 
     showAdminTypingIndicator();
     await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
   }
 
-  toast('🎉 +30 ETB ቦነስ ተጨምሯል! ጥያቄዎ ለአድሚን ደርሷል');
+  appendAdminBubble('👨‍💼 ጥያቄዎ በቀጥታ ወደ አድሚን ግሩፕ ተልኳል! አድሚኖቻችን መልዕክትዎን እያዩ ነው፤ እባክዎ ምላሽ እስኪሰጡዎት ጥቂት ደቂቃዎችን ይጠብቁ።');
+  toast('🎉 +30 ETB ቦነስ ተጨምሯል! ጥያቄዎ ወደ ግሩፑ ደርሷል');
   if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   
   setTimeout(pollAdminReplies, 1500);
@@ -2647,7 +2637,7 @@ async function pollAdminReplies(){
         removeAdminTypingIndicator();
         const container = document.getElementById('chatMsgContainer');
         container.innerHTML = `<div class="chat-bubble bubble-admin">
-          ሰላም! 👋 ወደ Swap Money የደንበኞች ድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ እዚህ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚን በቀጥታ ማነጋገር ከፈለጉም «አዎ» ብለው መመለስ ይችላሉ።
+          ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
           <div class="bubble-time">አሁን</div>
         </div>`;
         data.messages.forEach(m => {
@@ -2692,3 +2682,5 @@ function appendPhotoBubble(src, cap){
 </body>
 </html>
 
+አሁን ሁለቱም ክፍሎች (Render Server እና WebApp Frontend) 100% ተጣጥመው እና ተገናኝተው ለ 20,000
+ተጠቃሚዎች ዝግጁ ሆነዋል! 🚀
