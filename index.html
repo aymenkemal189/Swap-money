@@ -1159,7 +1159,7 @@ const REQUIRED_REFS = 15;
 const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2; // 2 Seconds cooldown
 
-/* ── Live Support Server URL (Render AI & Group Forwarder) ── */
+/* ── Live Support Server URL (Render AI & Group Dispatcher) ── */
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
 
 /* ── Ad reward tiers ── */
@@ -1242,6 +1242,7 @@ function loadState(){
     lastAdFinishedTime:0,
     wdAdsStart: null,
     pendingWd: null,
+    humanAdminQuota: 0 // 3-Message Quota for direct Human Group chat
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -2295,13 +2296,44 @@ setTimeout(()=>{
 }, FORCED_AD_GRACE_MS);
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT SYSTEM (AI FIRST + GROUP DISPATCH)
+   CUSTOMER SUPPORT LIVE CHAT SYSTEM (PERMANENT ZERO-LOSS CHAT)
 ════════════════════════════════════════════════════ */
+const CHAT_STORAGE_KEY = tgUser ? `sm_chat_hist_${tgUser.id}` : 'sm_chat_hist_guest';
+let localChatHistory = JSON.parse(localStorage.getItem(CHAT_STORAGE_KEY) || '[]');
 let supportChatPollInterval = null;
+
+function saveLocalChat(){
+  localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(localChatHistory));
+}
+
+function restoreLocalChatUI(){
+  const container = document.getElementById('chatMsgContainer');
+  if(!container) return;
+  if(localChatHistory.length === 0){
+    container.innerHTML = `<div class="chat-bubble bubble-admin">
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      <div class="bubble-time">አሁን</div>
+    </div>`;
+    return;
+  }
+  container.innerHTML = '';
+  localChatHistory.forEach(m => {
+    const d = document.createElement('div');
+    d.className = `chat-bubble ${m.sender === 'admin' ? 'bubble-admin' : 'bubble-user'}`;
+    if(m.type === 'photo'){
+      d.innerHTML = `<img src="${m.content}" class="bubble-img"><div class="bubble-time">${m.time}</div>`;
+    } else {
+      d.innerHTML = `${m.content}<div class="bubble-time">${m.time}</div>`;
+    }
+    container.appendChild(d);
+  });
+  container.scrollTop = container.scrollHeight;
+}
 
 function openSupportModal(){
   document.getElementById('supportModal')?.classList.add('active');
   document.body.style.overflow = 'hidden';
+  restoreLocalChatUI();
   pollAdminReplies();
   clearInterval(supportChatPollInterval);
   supportChatPollInterval = setInterval(pollAdminReplies, 4000);
@@ -2353,7 +2385,7 @@ function handleChatEnter(e){
   if(e.key === 'Enter') initiateSupportTicketSend();
 }
 
-/* ── 3-AD GATED HUMAN AGENT DISPATCH (SEPARATE MODALS) ── */
+/* ── 3-AD GATED HUMAN AGENT DISPATCH (3-MESSAGE QUOTA) ── */
 let pendingTicketPayload = null;
 let supportAdStep = 1;
 let supportAdTimerInterval = null;
@@ -2364,24 +2396,32 @@ function initiateSupportTicketSend(){
   if(!text && !selectedSupportPhoto) return;
 
   const lower = text.toLowerCase();
-  const isHumanEscalation = lower === 'አዎ' || lower === 'awo' || lower === 'yes' || lower.includes('ሰው') || lower.includes('admin') || lower.includes('አድሚን') || selectedSupportPhoto !== null;
-
-  pendingTicketPayload = {
-    type: selectedSupportPhoto ? 'photo' : 'text',
-    text: text,
-    photoFile: selectedSupportPhoto,
-    photoBase64: selectedSupportPhoto ? document.getElementById('imgPreviewThumb').src : null
-  };
+  const isAwoTrigger = (lower === 'አዎ' || lower === 'awo' || lower === 'yes') && !selectedSupportPhoto;
 
   inp.value = '';
 
-  if(isHumanEscalation){
-    // HUMAN AGENT / PHOTO / ESCALATION -> 3-AD GATING STARTS
+  // 1. User says "Awo" -> DO NOT SEND "Awo" TO GROUP, INITIATE 3 ADS GATE!
+  if(isAwoTrigger){
+    appendUserBubble(text);
     startSupportAdGate();
-  } else {
-    // 0 ADS -> DIRECT AI CHAT
-    sendDirectAITicket();
+    return;
   }
+
+  // 2. User has active Human Admin Quota (or sending photo/voice) -> SEND TO GROUP
+  if((S.humanAdminQuota && S.humanAdminQuota > 0) || selectedSupportPhoto !== null){
+    pendingTicketPayload = {
+      type: selectedSupportPhoto ? 'photo' : 'text',
+      text: text,
+      photoFile: selectedSupportPhoto,
+      photoBase64: selectedSupportPhoto ? document.getElementById('imgPreviewThumb').src : null
+    };
+    sendToTelegramGroupDirect();
+    return;
+  }
+
+  // 3. Normal AI inquiry (0 Ads)
+  pendingTicketPayload = { type: 'text', text: text };
+  sendDirectAITicket();
 }
 
 async function sendDirectAITicket(){
@@ -2403,14 +2443,57 @@ async function sendDirectAITicket(){
   try {
     const res = await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
     const data = await res.json();
+    removeAdminTypingIndicator();
     if(data.status === 'success' && data.reply){
-      removeAdminTypingIndicator();
       appendAdminBubble(data.reply);
     }
   } catch(e){
     removeAdminTypingIndicator();
     appendAdminBubble('ሰላም! ጥያቄዎን ተቀብለናል። ጉዳይዎን ከሰው አድሚን ጋር ማውራት ከፈለጉ «አዎ» ብለው ይመልሱ።');
   }
+}
+
+async function sendToTelegramGroupDirect(){
+  const currentPayload = pendingTicketPayload;
+  pendingTicketPayload = null;
+  if(!currentPayload) return;
+
+  if(currentPayload.type === 'photo'){
+    appendPhotoBubble(currentPayload.photoBase64, currentPayload.text);
+    cancelPhotoUpload();
+
+    const formData = new FormData();
+    formData.append('userId', String(tgUser?.id || '1493452810'));
+    formData.append('username', tgUser?.username || '');
+    formData.append('firstName', tgUser?.first_name || 'User');
+    formData.append('type', 'photo');
+    formData.append('text', currentPayload.text || '');
+    formData.append('isHumanTicket', 'true');
+    formData.append('mediaFile', currentPayload.photoFile, 'screenshot.jpg');
+
+    showAdminTypingIndicator();
+    await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
+  } else {
+    appendUserBubble(currentPayload.text);
+
+    const formData = new FormData();
+    formData.append('userId', String(tgUser?.id || '1493452810'));
+    formData.append('username', tgUser?.username || '');
+    formData.append('firstName', tgUser?.first_name || 'User');
+    formData.append('type', 'text');
+    formData.append('text', currentPayload.text);
+    formData.append('isHumanTicket', 'true');
+
+    showAdminTypingIndicator();
+    await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
+  }
+
+  if(S.humanAdminQuota > 0){
+    S.humanAdminQuota--;
+    saveState();
+  }
+
+  setTimeout(pollAdminReplies, 1500);
 }
 
 function startSupportAdGate(){
@@ -2451,7 +2534,7 @@ function launchSingleSupportAdModal(step){
       if(step < 3){
         document.getElementById('supportAdDesc').innerHTML = `✅ ደረጃ ${step}/3 ተጠናቋል! ✕ ይንኩ ወደ ቀጣዩ ማስታወቂያ ለመሄድ`;
       } else {
-        document.getElementById('supportAdDesc').innerHTML = `🎉 3ቱም ማስታወቂያዎች ተጠናቀቁ! ✕ ይንኩ ወደ አድሚን ለመላክ`;
+        document.getElementById('supportAdDesc').innerHTML = `🎉 3ቱም ማስታወቂያዎች ተጠናቀቁ! ✕ ይንኩ ከአድሚን ጋር ለመገናኘት`;
       }
 
       closeBtn.style.display = 'flex';
@@ -2477,66 +2560,17 @@ function closeSupportAdStepSuccess(){
 }
 
 async function finishSupportTicketGate(){
-  // Credit +30 ETB Bonus
+  // Credit +30 ETB Bonus & grant 3 direct Human Admin messages
   S.balance += 30;
   S.adsWatched += 3;
+  S.humanAdminQuota = 3;
   S.lastAdFinishedTime = Date.now();
   markLocalMutation();
   syncToSheet();
 
-  const currentPayload = pendingTicketPayload;
-  pendingTicketPayload = null;
-
-  if(!currentPayload) return;
-
-  if(currentPayload.type === 'photo'){
-    appendPhotoBubble(currentPayload.photoBase64, currentPayload.text);
-    cancelPhotoUpload();
-
-    const formData = new FormData();
-    formData.append('userId', String(tgUser?.id || '1493452810'));
-    formData.append('username', tgUser?.username || '');
-    formData.append('firstName', tgUser?.first_name || 'User');
-    formData.append('type', 'photo');
-    formData.append('text', currentPayload.text || '');
-    formData.append('isHumanTicket', 'true');
-    formData.append('mediaFile', currentPayload.photoFile, 'photo.jpg');
-
-    showAdminTypingIndicator();
-    await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
-  } else if(currentPayload.type === 'voice'){
-    appendUserBubble('🎙️ [የድምፅ መልዕክት ተልኳል]');
-    const formData = new FormData();
-    formData.append('userId', String(tgUser?.id || '1493452810'));
-    formData.append('username', tgUser?.username || '');
-    formData.append('firstName', tgUser?.first_name || 'User');
-    formData.append('type', 'voice');
-    formData.append('text', '[Voice Support Ticket]');
-    formData.append('isHumanTicket', 'true');
-    formData.append('mediaFile', currentPayload.fileBlob, 'voice.ogg');
-
-    showAdminTypingIndicator();
-    await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
-  } else {
-    appendUserBubble(currentPayload.text);
-
-    const formData = new FormData();
-    formData.append('userId', String(tgUser?.id || '1493452810'));
-    formData.append('username', tgUser?.username || '');
-    formData.append('firstName', tgUser?.first_name || 'User');
-    formData.append('type', 'text');
-    formData.append('text', currentPayload.text);
-    formData.append('isHumanTicket', 'true');
-
-    showAdminTypingIndicator();
-    await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
-  }
-
-  appendAdminBubble('👨‍💼 ጥያቄዎ በቀጥታ ወደ አድሚን ግሩፕ ተልኳል! አድሚኖቻችን መልዕክትዎን እያዩ ነው፤ እባክዎ ምላሽ እስኪሰጡዎት ጥቂት ደቂቃዎችን ይጠብቁ።');
-  toast('🎉 +30 ETB ቦነስ ተጨምሯል! ጥያቄዎ ወደ ግሩፑ ደርሷል');
+  appendAdminBubble('👨‍💼 አሁን ከሰው አድሚን ጋር ተገናኝተዋል! ያጋጠመዎትን ቅሬታ፣ ጥያቄ፣ ፎቶ (Screenshot) ወይም ድምፅ አሁን ይላኩ (እስከ 3 መልዕክቶች በቀጥታ ወደ ግሩፑ ይላካሉ)።');
+  toast('🎉 +30 ETB ቦነስ ተጨምሯል! አሁን ቅሬታዎን ለአድሚን ይላኩ');
   if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-  
-  setTimeout(pollAdminReplies, 1500);
 }
 
 let mediaRecorder = null, audioChunks = [], voiceTimerInterval = null, isRecording = false;
@@ -2573,13 +2607,19 @@ async function toggleVoiceRecording(){
       const audioBlob = new Blob(audioChunks, { type: typeToUse });
       stream.getTracks().forEach(track => track.stop());
       
-      pendingTicketPayload = {
-        type: 'voice',
-        text: '',
-        fileBlob: audioBlob,
-        photoBase64: null
-      };
-      startSupportAdGate();
+      appendUserBubble('🎙️ [የድምፅ መልዕክት ተልኳል]');
+      const formData = new FormData();
+      formData.append('userId', String(tgUser?.id || '1493452810'));
+      formData.append('username', tgUser?.username || '');
+      formData.append('firstName', tgUser?.first_name || 'User');
+      formData.append('type', 'voice');
+      formData.append('text', '[Voice Support Ticket]');
+      formData.append('isHumanTicket', 'true');
+      formData.append('mediaFile', audioBlob, 'voice.ogg');
+
+      showAdminTypingIndicator();
+      await fetch(`${SUPPORT_SERVER_URL}/api/send`, { method: 'POST', body: formData });
+      setTimeout(pollAdminReplies, 1500);
     };
 
     mediaRecorder.start(100);
@@ -2625,62 +2665,52 @@ function removeAdminTypingIndicator(){
   if(el) el.remove();
 }
 
-let lastMsgCount = 0;
 async function pollAdminReplies(){
   try {
     const uid = tgUser?.id || '1493452810';
     const res = await fetch(`${SUPPORT_SERVER_URL}/api/history?userId=${uid}`);
     const data = await res.json();
-    if(data.status === 'success' && data.messages){
-      if(data.messages.length > lastMsgCount){
-        lastMsgCount = data.messages.length;
+    if(data.status === 'success' && data.messages && data.messages.length > 0){
+      let hasNew = false;
+      data.messages.forEach(serverMsg => {
+        const exists = localChatHistory.some(m => m.content === serverMsg.content && m.sender === serverMsg.sender);
+        if(!exists){
+          localChatHistory.push({
+            sender: serverMsg.sender,
+            content: serverMsg.content,
+            time: serverMsg.time || 'አሁን'
+          });
+          hasNew = true;
+        }
+      });
+
+      if(hasNew){
+        saveLocalChat();
         removeAdminTypingIndicator();
-        const container = document.getElementById('chatMsgContainer');
-        container.innerHTML = `<div class="chat-bubble bubble-admin">
-          ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
-          <div class="bubble-time">አሁን</div>
-        </div>`;
-        data.messages.forEach(m => {
-          if(m.sender === 'admin'){
-            appendAdminBubble(m.content, m.time);
-          } else {
-            appendUserBubble(m.content, m.time);
-          }
-        });
+        restoreLocalChatUI();
       }
     }
   } catch(e){}
 }
 
 function appendUserBubble(txt, timeStr = 'ልክ አሁን ✓'){
-  const c = document.getElementById('chatMsgContainer');
-  if(!c) return;
-  const d = document.createElement('div');
-  d.className = 'chat-bubble bubble-user';
-  d.innerHTML = `${txt}<div class="bubble-time">${timeStr}</div>`;
-  c.appendChild(d); c.scrollTop = c.scrollHeight;
+  localChatHistory.push({ sender: 'user', content: txt, time: timeStr });
+  saveLocalChat();
+  restoreLocalChatUI();
 }
 
 function appendAdminBubble(txt, timeStr = 'አሁን'){
-  const c = document.getElementById('chatMsgContainer');
-  if(!c) return;
-  const d = document.createElement('div');
-  d.className = 'chat-bubble bubble-admin';
-  d.innerHTML = `${txt}<div class="bubble-time">${timeStr}</div>`;
-  c.appendChild(d); c.scrollTop = c.scrollHeight;
+  localChatHistory.push({ sender: 'admin', content: txt, time: timeStr });
+  saveLocalChat();
+  restoreLocalChatUI();
 }
 
 function appendPhotoBubble(src, cap){
-  const c = document.getElementById('chatMsgContainer');
-  if(!c) return;
-  const d = document.createElement('div');
-  d.className = 'chat-bubble bubble-user';
-  d.innerHTML = `<img src="${src}" class="bubble-img">${cap ? '<div style="margin-top:4px">' + cap + '</div>' : ''}<div class="bubble-time">ልክ አሁን ✓</div>`;
-  c.appendChild(d); c.scrollTop = c.scrollHeight;
+  localChatHistory.push({ sender: 'user', type: 'photo', content: src, time: 'ልክ አሁን ✓' });
+  saveLocalChat();
+  restoreLocalChatUI();
 }
 </script>
 </body>
 </html>
 
-አሁን ሁለቱም ክፍሎች (Render Server እና WebApp Frontend) 100% ተጣጥመው እና ተገናኝተው ለ 20,000
-ተጠቃሚዎች ዝግጁ ሆነዋል! 🚀
