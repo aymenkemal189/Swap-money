@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="am">
 <head>
@@ -771,17 +770,17 @@ header{
     </div>
   </div>
 
-  <!-- Banner Slider -->
-  <div class="banner-wrap" id="bannerSlider">
-    <img src="https://i.postimg.cc/RFnHkqVn/20260820-173821.jpg" class="active" alt="">
-    <img src="https://i.postimg.cc/nLZTY3VT/20260809-161044.jpg" alt="">
-    <img src="https://i.postimg.cc/KvbMWGXn/20260820-173854.jpg" alt="">
-    <img src="https://i.postimg.cc/T1ycYSQp/20260809-161154.jpg" alt="">
-    <img src="https://i.postimg.cc/44WgDPqH/20260820-173907.jpg" alt="">
-    <img src="https://i.postimg.cc/PfLcqFCP/20260809-161327.jpg" alt="">
-    <img src="https://i.postimg.cc/FsG7n0Vs/20260820-173927.jpg" alt="">
-    <div class="b-dots" id="bDots"></div>
-  </div>
+<!-- Banner Slider -->
+<div class="banner-wrap" id="bannerSlider">
+  <img src="https://kommodo.ai/i/ieaJGdITxByxEfdDftbn" class="active" alt="">
+  <img src="https://kommodo.ai/i/JxpcJDaAunCQnVmit8Xb" alt="">
+  <img src="https://kommodo.ai/i/kXW13HfbuRM2JhnKeQAC" alt="">
+  <img src="https://kommodo.ai/i/l0jyGVZSU7aIrxWNYJxu" alt="">
+  <img src="https://kommodo.ai/i/Xnk1YKldbgRH1TZ9mhDG" alt="">
+  <img src="https://kommodo.ai/i/JFkRl7rH40lDDOTLahIv" alt="">
+  <div class="b-dots" id="bDots"></div>
+</div>
+
 
   <!-- 4-Column Tasks Grid (Home) -->
   <div class="sh"><h3>📋 Tasks &amp; Channels</h3><a onclick="showPage('earn')">ሁሉም →</a></div>
@@ -1099,7 +1098,6 @@ header{
       </div>
     </div>
 
-    <!-- Airtime Quick Chips -->
     <div style="font-size:11px;font-weight:800;color:var(--muted);margin:8px 0 6px">Quick Airtime Presets:</div>
     <div class="preset-chips">
       <div class="p-chip" onclick="setPresetAmount(500, this)">500 ETB</div>
@@ -1107,7 +1105,6 @@ header{
       <div class="p-chip" onclick="setPresetAmount(1500, this)">1,500 ETB</div>
     </div>
 
-    <!-- Data Packages -->
     <div style="font-size:11px;font-weight:800;color:var(--muted);margin:10px 0 6px">Monthly Unlimited Data Packages:</div>
     <div class="pkg-card" onclick="selectDataPackage('Ethio Telecom Data', 2100, this)">
       <div class="pkg-info">
@@ -1282,7 +1279,7 @@ function loadState(){
     enkutatashLetters: { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false },
     huntAdsWatched: 0,
     lastPromoClaimTime: 0,
-    claimedPromoCodes: [] // Track claimed promo codes to enforce 1-claim rule
+    claimedPromoCodes: [] // Enforces Single-Claim per Promo Code
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -1466,7 +1463,7 @@ function render(){
 
   let animationFrameId;
   const adeyStartTime = Date.now();
-  const ADEY_LIFETIME_MS = 30 * 1000; // Runs for exactly 30 seconds
+  const ADEY_LIFETIME_MS = 30 * 1000; // 30 seconds limit
 
   function drawPetals(){
     if(Date.now() - adeyStartTime > ADEY_LIFETIME_MS){
@@ -1788,7 +1785,19 @@ function grantRandomLetterDrop(){
   renderWordHuntSlots();
 }
 
-/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE (SINGLE-CLAIM RULE) ═══════════════ */
+/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE (SINGLE-CLAIM & RANDOM REWARD) ═══════════════ */
+function calculatePromoReward(){
+  // 60% gets 1-50 ETB, 30% gets 50-100 ETB, 10% gets 100-200 ETB Jackpot
+  const rand = Math.random() * 100;
+  if(rand < 60){
+    return Math.floor(Math.random() * 50) + 1;
+  } else if(rand < 90){
+    return Math.floor(Math.random() * 51) + 50;
+  } else {
+    return Math.floor(Math.random() * 101) + 100;
+  }
+}
+
 function claimPromoCode(){
   recordActivity();
   const inp = document.getElementById('promoCodeInput');
@@ -1798,18 +1807,19 @@ function claimPromoCode(){
 
   if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
 
-  // SINGLE-CLAIM GUARD: Each code can be claimed ONLY ONCE
+  // SINGLE-CLAIM GUARD: Each code can be claimed ONLY ONCE per user
   if(S.claimedPromoCodes.includes(code)){
     toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል! (1 ጊዜ ብቻ)');
     return;
   }
 
   if(ACTIVE_PROMO_CODES.includes(code)){
-    S.balance += 200;
+    const wonReward = calculatePromoReward();
+    S.balance += wonReward;
     S.claimedPromoCodes.push(code);
     inp.value = '';
     markLocalMutation();
-    toast('🎉 +200 ETB የፕሮሞ ኮድ ቦነስ ገቢ ሆኗል!');
+    toast(`🎉 እንኳን ደስ አለዎት! የፕሮሞ ኮድ +${wonReward} ETB ቦነስ ገቢ ሆኗል!`);
     if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
     if(syncReady) syncToSheet();
   } else {
@@ -3202,4 +3212,3 @@ function appendPhotoBubble(src, cap){
 </script>
 </body>
 </html>
-
