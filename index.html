@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Swap Money V3 — የእንቁጣጣሽ በዓል 🌼💰</title>
+<title>Swap Money V3 💰</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src='https://libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 <style>
@@ -31,10 +31,10 @@ body{
 ::-webkit-scrollbar{width:2px;height:2px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
-/* ── ADEY ABEBA FALLING PETALS CANVAS ── */
+/* ── ADEY ABEBA CANVAS PARTICLES (30 SECONDS TIMED) ── */
 #adeyCanvas{
   position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:99;
+  pointer-events:none;z-index:99;transition:opacity 1.5s ease;
 }
 
 /* ── HEADER ── */
@@ -118,7 +118,7 @@ header{
 .hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
 .hw-sub .up{color:var(--green);font-weight:800}
 
-/* ── 10-ADS QUEST PROGRESS CARD ── */
+/* ── 10-ADS QUEST PROGRESS CARD (EARN PAGE) ── */
 .quest-card{
   background:linear-gradient(135deg,#1f1304,#2b1903,#111624);
   border:1px solid var(--gold);border-radius:16px;padding:12px 14px;
@@ -130,7 +130,7 @@ header{
 .quest-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin:6px 0}
 .quest-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;transition:width .4s ease;width:0%}
 
-/* ── TIMED PROMO CODE CARD (200 ETB / 3 HOURS) ── */
+/* ── TIMED PROMO CODE CARD (EARN PAGE) ── */
 .promo-card{
   background:linear-gradient(135deg,#131a2b,#0c101c);
   border:1px solid rgba(59,130,246,.4);border-radius:16px;padding:12px 14px;
@@ -143,7 +143,7 @@ header{
   border-radius:10px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;outline:none;font-family:var(--font);
 }
 
-/* ── 6-SEGMENT SPIN WHEEL CARD & MODAL ── */
+/* ── 6-SEGMENT SPIN WHEEL CARD (EARN PAGE) ── */
 .spin-hero-card{
   background:linear-gradient(135deg,#2c1d04,#1c1203,#111728);
   border:1.5px solid var(--gold);border-radius:18px;padding:14px;
@@ -164,11 +164,11 @@ header{
   font-size:16px;box-shadow:0 0 15px rgba(0,0,0,.8);z-index:15;cursor:pointer;
 }
 
-/* ── ENKUTATASH LETTER HUNT (500 ETB JACKPOT) ── */
+/* ── ENKUTATASH 500 ETB WORD HUNT (EARN PAGE) ── */
 .word-hunt-card{
   background:linear-gradient(135deg,#1f1403,#2e1d05,#0f1422);
   border:1px solid var(--gold);border-radius:18px;padding:14px;margin-bottom:10px;
-  box-shadow:0 6px 20px rgba(255,215,0,.15);
+  box-shadow:0 6px 20px rgba(255,215,0,.15);cursor:pointer;
 }
 .word-hunt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .letter-slots-row{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:10px}
@@ -385,7 +385,40 @@ header{
 .wd-input-wrap input{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:13px;font-weight:700;outline:none;font-family:var(--font)}
 .wd-input-badge{position:absolute;right:12px;font-size:10px;font-weight:800;color:var(--gold)}
 
-/* ── MODALS (AD, RECEIPT, CAPTCHA, NEW YEAR, WHEEL, WORD HUNT) ── */
+/* Verification Queue Banner */
+.queue-card{
+  background:linear-gradient(135deg,#1e1205 0%,#151928 100%);
+  border:1px solid rgba(255,215,0,.35);border-radius:16px;
+  padding:14px;margin-bottom:12px;display:none;position:relative;
+}
+.queue-card.active{display:block;animation:fadeUp .2s ease}
+.qc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.qc-badge{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red);font-size:9px;font-weight:900;padding:2px 8px;border-radius:10px;display:flex;align-items:center;gap:4px}
+.qc-number{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:-.5px}
+.qc-time{font-size:11px;color:var(--muted);font-weight:700;margin-top:3px}
+.qc-timer-box{
+  background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  padding:8px 10px;display:flex;align-items:center;justify-content:space-between;margin:8px 0;
+}
+.qc-countdown{font-family:monospace;font-size:14px;font-weight:900;color:#fff}
+.qc-support-btn{
+  width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--gold);border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;margin-top:4px;
+}
+
+.trust-shield-card{
+  background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;
+  padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-top:12px;
+}
+.trust-row{display:flex;align-items:flex-start;gap:9px}
+.trust-shield-card svg{width:20px;height:20px;fill:var(--gold);flex-shrink:0;margin-top:1px}
+.trust-shield-card p{font-size:10px;color:var(--muted);line-height:1.5}
+.terms-link-btn{
+  align-self:flex-start;background:none;border:none;color:var(--gold);
+  font-size:10.5px;font-weight:800;text-decoration:underline;cursor:pointer;padding:2px 0;
+}
+
+/* ── MODALS ── */
 .modal-overlay, .ad-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active, .ad-modal.active{display:flex}
 .ad-modal-card, .captcha-card, .receipt-card, .terms-card, .holiday-modal-card{
@@ -446,7 +479,7 @@ header{
 </head>
 <body>
 
-<!-- ── ADEY ABEBA CANVAS PARTICLES ── -->
+<!-- ── ADEY ABEBA CANVAS PARTICLES (TIMED 30 SECONDS) ── -->
 <canvas id="adeyCanvas"></canvas>
 
 <!-- ── IN-APP 17S 2-STAGE REWARDED AD MODAL ── -->
@@ -473,7 +506,7 @@ header{
   </div>
 </div>
 
-<!-- ── 🌼 NEW YEAR / ENKUTATASH HOLIDAY WELCOME MODAL ── -->
+<!-- ── 🌼 ENKUTATASH WELCOME MODAL ── -->
 <div class="modal-overlay" id="newYearModal" style="z-index: 850;">
   <div class="holiday-modal-card">
     <div style="font-size:42px;margin-bottom:6px">🌼</div>
@@ -528,7 +561,7 @@ header{
     </div>
 
     <div style="background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:8px;margin-bottom:12px;font-size:10px;color:var(--muted)">
-      💡 <strong>የአሰራር ህግ፦</strong> 2 ማስታወቂያ አይተው ሳጥን ሲከፍቱ የዘፈቀደ ፊደል ይወድቃል። 6ቱም ሲሞሉ 500 ETB ወዲያውኑ ገቢ ይሆናል!
+      💡 <strong>የአሰራር ህግ፦</strong> 2 ማስታወቂያ አይተው ሳጥን ሲከፍቱ ፊደል ይወድቃል። 6ቱም ሲሞሉ 500 ETB ወዲያውኑ ገቢ ይሆናል!
     </div>
 
     <button class="btn btn-gold btn-block" id="huntLetterBtn" onclick="openLetterCrate()">🎁 2 ማስታወቂያ አይተው ፊደል ይክፈቱ</button>
@@ -589,59 +622,6 @@ header{
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     CUSTOMER SUPPORT LIVE CHAT MODAL
-════════════════════════════════════════════════════ -->
-<div class="support-chat-modal" id="supportModal">
-  <div class="support-hdr">
-    <div class="support-hdr-info">
-      <div class="support-avatar">👨‍💼</div>
-      <div>
-        <h4>👨‍💼 Swap Money AI &amp; Group Support</h4>
-        <p id="supportStatusBadge">● Live Support (24/7)</p>
-      </div>
-    </div>
-    <button class="support-close-btn" onclick="closeSupportModal()">✕</button>
-  </div>
-
-  <div class="faq-chips-container">
-    <div class="faq-chip" onclick="handleFAQ('withdraw')">❓ ማውጣት መስፈርት</div>
-    <div class="faq-chip" onclick="handleFAQ('referral')">❓ ሪፈራል አቆጣጠር</div>
-    <div class="faq-chip" onclick="handleFAQ('review')">❓ የኦዲት ጊዜ</div>
-    <div class="faq-chip" onclick="handleFAQ('ads')">❓ የማስታወቂያ ቦነስ</div>
-  </div>
-
-  <div class="chat-container" id="chatMsgContainer">
-    <div class="chat-bubble bubble-admin">
-      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል።
-      <div class="bubble-time">አሁን</div>
-    </div>
-  </div>
-
-  <div class="media-preview-bar" id="mediaPreviewBar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <img src="" id="imgPreviewThumb" class="media-preview-thumb" alt="Preview">
-      <span style="font-size:11px;color:var(--gold)">ፎቶ ተመርጧል...</span>
-    </div>
-    <button onclick="cancelPhotoUpload()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button>
-  </div>
-
-  <div class="voice-record-bar" id="voiceRecordBar">
-    <span>🎙️ ድምፅ እየተቀረጸ ነው... (<span id="voiceTimerTxt">0:00</span>)</span>
-    <button onclick="stopAndSendVoice()" style="background:var(--red);color:#fff;border:none;padding:5px 12px;border-radius:10px;font-size:10px;font-weight:900;cursor:pointer">ላክ ➔</button>
-  </div>
-
-  <div class="chat-input-bar">
-    <label class="chat-btn" title="ፎቶ አያይዝ">
-      📷
-      <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)">
-    </label>
-    <button class="chat-btn" id="voiceRecordBtn" onclick="toggleVoiceRecording()" title="ድምፅ ቅረጽ">🎙️</button>
-    <input type="text" id="chatTextInput" class="chat-inp" placeholder="ጥያቄዎን እዚህ ይፃፉ..." onkeypress="handleChatEnter(event)">
-    <button class="chat-btn btn-send" onclick="initiateSupportTicketSend()">➤</button>
-  </div>
-</div>
-
 <!-- ════════════════════════
      HEADER
 ════════════════════════ -->
@@ -671,7 +651,7 @@ header{
 </header>
 
 <!-- ════════════════════════
-     HOME PAGE
+     HOME PAGE (CLEAN & BEAUTIFUL)
 ════════════════════════ -->
 <section class="page active" id="page-home">
 
@@ -689,68 +669,6 @@ header{
     <div class="hw-sub">
       <span class="up">↑ Syncing…</span>
       <span id="balSub">Level 1 — Level 1</span>
-    </div>
-  </div>
-
-  <!-- 🏆 DAILY 10-ADS STREAK QUEST CARD -->
-  <div class="quest-card">
-    <div class="quest-top">
-      <div class="quest-title">🏆 ዕለታዊ የ 10 ማስታወቂያ ቻሌንጅ</div>
-      <span class="quest-reward-pill">+150 ETB ቦነስ</span>
-    </div>
-    <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
-      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/10 ማስታወቂያ</strong></span>
-      <span id="questClaimBtnTxt" style="color:var(--green)">10 አጠናቅቀው ይውሰዱ</span>
-    </div>
-  </div>
-
-  <!-- 🎡 FORTUNE SPIN WHEEL LAUNCHER CARD -->
-  <div class="spin-hero-card" onclick="openSpinModal()">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="font-size:32px">🎡</div>
-      <div>
-        <h4 style="font-size:13px;font-weight:900;color:#fff">የእንቁጣጣሽ ዕድል ስፒን ዊል</h4>
-        <p style="font-size:10px;color:var(--gold);font-weight:700">እስከ 30 ብር እና 100 SC ያሽከርክሩ፣ ያሸንፉ!</p>
-      </div>
-    </div>
-    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">አሽከርክር ➔</button>
-  </div>
-
-  <!-- 🔤 500 ETB WORD HUNT LAUNCHER CARD -->
-  <div class="word-hunt-card" onclick="openWordHuntModal()">
-    <div class="word-hunt-top">
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:24px">🔤</span>
-        <div>
-          <h4 style="font-size:13px;font-weight:900;color:#fff">«እ-ን-ቁ-ጣ-ጣ-ሽ» 500 ETB አደን</h4>
-          <p style="font-size:10px;color:var(--gold);font-weight:700">ስድስቱንም ፊደሎች ሰብስበው 500 ብር ይውሰዱ!</p>
-        </div>
-      </div>
-      <button class="btn btn-gold" style="padding:6px 10px;font-size:10px;pointer-events:none">ክፈት ➔</button>
-    </div>
-    <div class="letter-slots-row" style="margin-bottom:0">
-      <div class="letter-slot" id="h_slot_e">እ</div>
-      <div class="letter-slot" id="h_slot_n">ን</div>
-      <div class="letter-slot" id="h_slot_qu">ቁ</div>
-      <div class="letter-slot" id="h_slot_ta1">ጣ</div>
-      <div class="letter-slot" id="h_slot_ta2">ጣ</div>
-      <div class="letter-slot" id="h_slot_sh">ሽ</div>
-    </div>
-  </div>
-
-  <!-- 🎟️ TIMED 200 ETB PROMO CODE CARD -->
-  <div class="promo-card">
-    <div class="promo-top">
-      <div>
-        <h4 style="font-size:12px;font-weight:900;color:#fff">🎁 የ 200 ETB የበዓል ፕሮሞ ኮድ</h4>
-        <p style="font-size:9.5px;color:var(--muted)">በየ 3 ሰዓቱ በቴሌግራም ቻናላችን ይለቀቃል!</p>
-      </div>
-      <button onclick="window.open(TG_CHANNEL1,'_blank')" class="btn btn-outline" style="padding:4px 8px;font-size:9.5px">👉 ኮድ ውሰድ</button>
-    </div>
-    <div class="promo-inputs">
-      <input type="text" id="promoCodeInput" class="promo-inp" placeholder="ኮድ እዚህ ያስገቡ...">
-      <button class="btn btn-gold" onclick="claimPromoCode()" style="padding:6px 14px;font-size:10px">ተቀበል</button>
     </div>
   </div>
 
@@ -846,17 +764,79 @@ header{
 </section>
 
 <!-- ════════════════════════
-     EARN PAGE
+     EARN PAGE (ENKUTATASH & HOLIDAY GAMIFICATION HUB)
 ════════════════════════ -->
 <section class="page" id="page-earn">
 
   <div class="earn-hero">
     <img src="https://i.postimg.cc/cJwy699g/20260809-161701.png" alt="earn">
-    <h2>Earn &amp; Get Rewards ✨🌼</h2>
-    <p>ማስታወቂያ ያዩ፣ Tasks ያጠናቅቁ — ዕለታዊ ሽልማት ያግኙ!</p>
+    <h2>Earn &amp; Holiday Rewards ✨🌼</h2>
+    <p>የበዓል ጌሞችን ይጫወቱ፣ ማስታወቂያ ያዩ፣ Tasks ያጠናቅቁ!</p>
   </div>
 
-  <!-- 4-Column Tasks Grid (Earn Page) -->
+  <!-- 🏆 DAILY 10-ADS STREAK QUEST CARD -->
+  <div class="quest-card">
+    <div class="quest-top">
+      <div class="quest-title">🏆 ዕለታዊ የ 10 ማስታወቂያ ቻሌንጅ</div>
+      <span class="quest-reward-pill">+150 ETB ቦነስ</span>
+    </div>
+    <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
+      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/10 ማስታወቂያ</strong></span>
+      <span id="questClaimBtnTxt" style="color:var(--green)">10 አጠናቅቀው ይውሰዱ</span>
+    </div>
+  </div>
+
+  <!-- 🎡 FORTUNE SPIN WHEEL LAUNCHER CARD -->
+  <div class="spin-hero-card" onclick="openSpinModal()">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:32px">🎡</div>
+      <div>
+        <h4 style="font-size:13px;font-weight:900;color:#fff">የእንቁጣጣሽ ዕድል ስፒን ዊል</h4>
+        <p style="font-size:10px;color:var(--gold);font-weight:700">እስከ 30 ብር እና 100 SC ያሽከርክሩ፣ ያሸንፉ!</p>
+      </div>
+    </div>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">አሽከርክር ➔</button>
+  </div>
+
+  <!-- 🔤 500 ETB WORD HUNT LAUNCHER CARD -->
+  <div class="word-hunt-card" onclick="openWordHuntModal()">
+    <div class="word-hunt-top">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:24px">🔤</span>
+        <div>
+          <h4 style="font-size:13px;font-weight:900;color:#fff">«እ-ን-ቁ-ጣ-ጣ-ሽ» 500 ETB አደን</h4>
+          <p style="font-size:10px;color:var(--gold);font-weight:700">ስድስቱንም ፊደሎች ሰብስበው 500 ብር ይውሰዱ!</p>
+        </div>
+      </div>
+      <button class="btn btn-gold" style="padding:6px 10px;font-size:10px;pointer-events:none">ክፈት ➔</button>
+    </div>
+    <div class="letter-slots-row" style="margin-bottom:0">
+      <div class="letter-slot" id="slot_e_earn">እ</div>
+      <div class="letter-slot" id="slot_n_earn">ን</div>
+      <div class="letter-slot" id="slot_qu_earn">ቁ</div>
+      <div class="letter-slot" id="slot_ta1_earn">ጣ</div>
+      <div class="letter-slot" id="slot_ta2_earn">ጣ</div>
+      <div class="letter-slot" id="slot_sh_earn">ሽ</div>
+    </div>
+  </div>
+
+  <!-- 🎟️ TIMED 200 ETB PROMO CODE CARD -->
+  <div class="promo-card">
+    <div class="promo-top">
+      <div>
+        <h4 style="font-size:12px;font-weight:900;color:#fff">🎁 የ 200 ETB የበዓል ፕሮሞ ኮድ</h4>
+        <p style="font-size:9.5px;color:var(--muted)">በየ 3 ሰዓቱ በቴሌግራም ቻናላችን ይለቀቃል!</p>
+      </div>
+      <button onclick="window.open(TG_CHANNEL1,'_blank')" class="btn btn-outline" style="padding:4px 8px;font-size:9.5px">👉 ኮድ ውሰድ</button>
+    </div>
+    <div class="promo-inputs">
+      <input type="text" id="promoCodeInput" class="promo-inp" placeholder="ኮድ እዚህ ያስገቡ...">
+      <button class="btn btn-gold" onclick="claimPromoCode()" style="padding:6px 14px;font-size:10px">ተቀበል</button>
+    </div>
+  </div>
+
+  <!-- 4-Column Tasks Grid -->
   <div class="sh"><h3>📋 All 7 Tasks</h3>
     <span style="font-size:9px;background:rgba(16,185,129,.14);color:var(--green);padding:2px 8px;border-radius:8px;font-weight:800">Daily Tasks</span>
   </div>
@@ -953,7 +933,7 @@ header{
 </section>
 
 <!-- ════════════════════════
-     WITHDRAW PAGE
+     WITHDRAW PAGE (WITH VERIFIED AUDIT QUEUE & STATUS)
 ════════════════════════ -->
 <section class="page" id="page-withdraw">
 
@@ -986,7 +966,7 @@ header{
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px">ክፈት ➔</button>
   </div>
 
-  <!-- Verification Queue Banner -->
+  <!-- Verification Queue Banner (Pending Audit Card) -->
   <div class="queue-card" id="pendingQueueCard">
     <div class="qc-head">
       <div style="font-size:11px;font-weight:900;color:#fff">⚠️ AUDIT IN PROGRESS</div>
@@ -1191,6 +1171,12 @@ const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2;
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
 
+/* ── 🎟️ EASY FRONTEND PROMO CODES CONFIG (በየ 3 ሰዓቱ እዚህ እየገባህ አድስ) ── */
+const ACTIVE_PROMO_CODES = [
+  'ENKUTATASH', 'PAGUME1', 'PAGUME2', 'PAGUME3', 'PAGUME4', 'PAGUME5',
+  'ADEY2019', 'SWAP2019', 'BONUS200', 'HOLIDAY2019'
+];
+
 const TG_CHANNEL1  = 'https://t.me/swapmoneybirr';
 const TG_CHANNEL2  = 'https://t.me/SwapMoney_ETH';
 const TG_BOT       = 'https://t.me/Swapmoney_bot';
@@ -1350,11 +1336,11 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ ACTIVITY TRACKER & AUTO-ADS ═══════════════ */
+/* ═══════════════ STRICT AD ACTIVITY TRACKER (30S GRACE + EVERY 4 ACTIONS) ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 30 * 1000;
+const FORCED_AD_GRACE_MS = 30 * 1000; // Strict 30 Seconds Grace Period
 
 function markLocalMutation(){
   saveState();
@@ -1363,7 +1349,8 @@ function markLocalMutation(){
 
 function recordActivity(){
   activityCount++;
-  if(initialForcedAdShown && activityCount >= 3){
+  // STRICT RULE: No forced ads in first 30s. Thereafter, trigger strictly every 4 actions
+  if(initialForcedAdShown && activityCount >= 4){
     activityCount = 0;
     triggerInAppAd();
   }
@@ -1429,7 +1416,7 @@ function render(){
   renderHolidayGamification();
 }
 
-/* ═══════════════ 🌼 ADEY ABEBA CANVAS PARTICLE ENGINE ═══════════════ */
+/* ═══════════════ 🌼 ADEY ABEBA CANVAS PARTICLES (30 SECONDS TIMED ENGINE) ═══════════════ */
 (function initAdeyCanvas(){
   const canvas = document.getElementById('adeyCanvas');
   if(!canvas) return;
@@ -1458,7 +1445,20 @@ function render(){
     });
   }
 
+  let animationFrameId;
+  const adeyStartTime = Date.now();
+  const ADEY_LIFETIME_MS = 30 * 1000; // Runs for exactly 30 seconds
+
   function drawPetals(){
+    if(Date.now() - adeyStartTime > ADEY_LIFETIME_MS){
+      canvas.style.opacity = '0';
+      setTimeout(()=> {
+        cancelAnimationFrame(animationFrameId);
+        canvas.style.display = 'none';
+      }, 1500);
+      return;
+    }
+
     ctx.clearRect(0, 0, W, H);
     for(let i=0; i<TOTAL_PETALS; i++){
       const p = petals[i];
@@ -1470,7 +1470,7 @@ function render(){
       ctx.stroke();
     }
     updatePetals();
-    requestAnimationFrame(drawPetals);
+    animationFrameId = requestAnimationFrame(drawPetals);
   }
 
   function updatePetals(){
@@ -1598,13 +1598,11 @@ function triggerSpinAction(){
     return;
   }
 
-  // If 2 ads watched -> Spin the Wheel!
   if((S.spinAdsWatched || 0) >= 2){
     executeWheelSpin();
     return;
   }
 
-  // Otherwise, Watch 1 ad towards the 2-ad requirement
   watchAdForSpinUnlock();
 }
 
@@ -1632,18 +1630,16 @@ function executeWheelSpin(){
   const numSegs = WHEEL_SEGMENTS.length;
   const arcSize = (2 * Math.PI) / numSegs;
   
-  // Pick a random winning index
   const winIdx = Math.floor(Math.random() * numSegs);
   const targetSegAngle = (3 * Math.PI / 2) - (winIdx * arcSize + arcSize / 2);
-  const totalRotation = (Math.PI * 2 * 6) + targetSegAngle; // 6 full spins
+  const totalRotation = (Math.PI * 2 * 6) + targetSegAngle;
 
   const startTime = Date.now();
-  const duration = 4500; // 4.5s spin
+  const duration = 4500;
 
   const spinInterval = setInterval(()=>{
     const elapsed = Date.now() - startTime;
     const progress = Math.min(1, elapsed / duration);
-    // Ease-out cubic
     const easeOut = 1 - Math.pow(1 - progress, 3);
 
     wheelCurrentAngle = easeOut * totalRotation;
@@ -1657,7 +1653,7 @@ function executeWheelSpin(){
       clearInterval(spinInterval);
       isWheelSpinning = false;
       S.spinsRemaining--;
-      S.spinAdsWatched = 0; // Reset for next spin
+      S.spinAdsWatched = 0;
       saveState();
 
       const prize = WHEEL_SEGMENTS[winIdx];
@@ -1698,12 +1694,12 @@ function closeWordHuntModal(){ document.getElementById('wordHuntModal')?.classLi
 function renderWordHuntSlots(){
   const L = S.enkutatashLetters || {};
   const slots = [
-    { id: 'e',   filled: L.e,   elIds: ['slot_e', 'h_slot_e'] },
-    { id: 'n',   filled: L.n,   elIds: ['slot_n', 'h_slot_n'] },
-    { id: 'qu',  filled: L.qu,  elIds: ['slot_qu', 'h_slot_qu'] },
-    { id: 'ta1', filled: L.ta1, elIds: ['slot_ta1', 'h_slot_ta1'] },
-    { id: 'ta2', filled: L.ta2, elIds: ['slot_ta2', 'h_slot_ta2'] },
-    { id: 'sh',  filled: L.sh,  elIds: ['slot_sh', 'h_slot_sh'] }
+    { id: 'e',   filled: L.e,   elIds: ['slot_e', 'slot_e_earn'] },
+    { id: 'n',   filled: L.n,   elIds: ['slot_n', 'slot_n_earn'] },
+    { id: 'qu',  filled: L.qu,  elIds: ['slot_qu', 'slot_qu_earn'] },
+    { id: 'ta1', filled: L.ta1, elIds: ['slot_ta1', 'slot_ta1_earn'] },
+    { id: 'ta2', filled: L.ta2, elIds: ['slot_ta2', 'slot_ta2_earn'] },
+    { id: 'sh',  filled: L.sh,  elIds: ['slot_sh', 'slot_sh_earn'] }
   ];
 
   slots.forEach(s=>{
@@ -1738,8 +1734,7 @@ function openLetterCrate(){
 }
 
 function grantRandomLetterDrop(){
-  // Weighted RNG Drop Rates
-  // እ (30%), ን (25%), ጣ1 (20%), ቁ (15%), ጣ2 (7%), ሽ (3% Ultra Rare Key)
+  // Weighted RNG Drop Rates (እ 30%, ን 25%, ጣ1 20%, ቁ 15%, ጣ2 7%, ሽ 3% Ultra Rare)
   const rand = Math.random() * 100;
   let droppedLetter = '';
   let dropKey = '';
@@ -1762,11 +1757,9 @@ function grantRandomLetterDrop(){
     if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   }
 
-  // Check 500 ETB Jackpot Victory!
   const L = S.enkutatashLetters;
   if(L.e && L.n && L.qu && L.ta1 && L.ta2 && L.sh){
     S.balance += 500;
-    // Reset for next game round
     S.enkutatashLetters = { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false };
     markLocalMutation();
     alert('🏆🎉 እንኳን ደስ አለዎት! ሙሉውን «እ-ን-ቁ-ጣ-ጣ-ሽ» ቃል ሞልተው የ 500 ETB ጃክፖት ቦነስ አሸንፈዋል!');
@@ -1777,8 +1770,6 @@ function grantRandomLetterDrop(){
 }
 
 /* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE ═══════════════ */
-const VALID_PROMO_CODES = ['ENKUTATASH', 'PAGUME1', 'PAGUME2', 'PAGUME3', 'PAGUME4', 'PAGUME5', 'ADEY2019', 'SWAP2019'];
-
 function claimPromoCode(){
   recordActivity();
   const inp = document.getElementById('promoCodeInput');
@@ -1794,7 +1785,7 @@ function claimPromoCode(){
     return;
   }
 
-  if(VALID_PROMO_CODES.includes(code)){
+  if(ACTIVE_PROMO_CODES.includes(code)){
     S.balance += 200;
     S.lastPromoClaimTime = now;
     inp.value = '';
@@ -2087,7 +2078,7 @@ function launchSingleAdModal(step){
         S.balance += currentAdEarnedReward;
         S.lastAdFinishedTime = Date.now();
 
-        // 10-Ads Daily Quest Tracker
+        // 10-Ads Quest Tracker
         S.daily10AdCount = (S.daily10AdCount || 0) + 1;
         if(S.daily10AdCount === 10){
           S.balance += 150;
@@ -2128,7 +2119,100 @@ function closeAdModalSuccess(){
   }
 }
 
-/* ═══════════════ BANNER ═══════════════ */
+/* ═══════════════ 100 ETB SUPER BONUS ═══════════════ */
+function openSuperBonusAd(){
+  recordActivity();
+  const todayKey = dateKey(new Date());
+  if(S.lastSuperBonusDate === todayKey){
+    toast('✅ የዛሬውን ልዩ 100 ETB ጉርሻ ወስደዋል! ነገ ይጠብቁ');
+    return;
+  }
+
+  const timeSinceLastAd = (Date.now() - (S.lastAdFinishedTime || 0)) / 1000;
+  if(timeSinceLastAd < AD_COOLDOWN_SEC){
+    const waitSec = Math.ceil(AD_COOLDOWN_SEC - timeSinceLastAd);
+    toast(`⏳ እባክዎ ${waitSec} ሰከንድ ይጠብቁ...`);
+    return;
+  }
+
+  toast('💎 ልዩ 100 ETB ማስታወቂያ እየተከፈተ ነው...');
+  
+  if(typeof show_11460944 === 'function'){
+    show_11460944().then(()=>{
+      grantSuperBonusReward();
+    }).catch(e=>{
+      runSuperBonusCountdown(17000);
+    });
+  } else {
+    runSuperBonusCountdown(17000);
+  }
+}
+
+function runSuperBonusCountdown(durationMs){
+  const durSec = Math.round(durationMs/1000);
+  const modal = document.getElementById('adModal');
+  const fill = document.getElementById('adBarFill');
+  const txt = document.getElementById('adTimerTxt');
+  document.getElementById('adTitle').textContent = 'ልዩ 100 ETB ማስታወቂያ';
+  document.getElementById('adDesc').innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">100 ETB</strong> ይጨምራሉ!`;
+  modal.classList.add('active');
+  fill.style.width = '0%';
+  txt.textContent = `${durSec}s ቀርቷል`;
+  const deadline = Date.now() + durationMs;
+  clearInterval(adTimerInterval);
+  adTimerInterval = setInterval(()=>{
+    const remaining = Math.max(0, Math.ceil((deadline - Date.now())/1000));
+    fill.style.width = `${(durSec - remaining)/durSec * 100}%`;
+    txt.textContent = `${remaining}s ቀርቷል`;
+    if(remaining <= 0){
+      clearInterval(adTimerInterval);
+      modal.classList.remove('active');
+      grantSuperBonusReward();
+    }
+  }, 500);
+}
+
+function grantSuperBonusReward(){
+  const todayKey = dateKey(new Date());
+  S.balance += 100;
+  S.lastSuperBonusDate = todayKey;
+  S.lastAdFinishedTime = Date.now();
+  markLocalMutation();
+  toast('🎉 እንኳን ደስ አለዎት! +100 ETB ልዩ ጉርሻ ተጨምሯል!');
+  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+  if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
+}
+
+function openTermsModal(){ document.getElementById('termsModal')?.classList.add('active'); }
+function closeTermsModal(){ document.getElementById('termsModal')?.classList.remove('active'); }
+
+/* ═══════════════ LUCKY BOX LOGIC ═══════════════ */
+function openLuckyBox(){
+  recordActivity();
+  const todayKey = dateKey(new Date());
+  if(S.lastLuckyBoxDate === todayKey){
+    toast('✅ የዛሬውን የዕድል ሳጥን ከፍተዋል! ነገ ይጠብቁ');
+    return;
+  }
+
+  const bonusTypes = [
+    {type:'etb', val:25, txt:'+25 ETB'},
+    {type:'sc',  val:50, txt:'+50 SC'},
+    {type:'etb', val:50, txt:'+50 ETB'},
+    {type:'sc',  val:100, txt:'+100 SC'}
+  ];
+  const pick = bonusTypes[Math.floor(Math.random() * bonusTypes.length)];
+  if(pick.type === 'etb') S.balance += pick.val;
+  else S.swapCoins = (S.swapCoins||0) + pick.val;
+  
+  S.lastLuckyBoxDate = todayKey;
+  markLocalMutation();
+  toast(`🎉 እንኳን ደስ አለዎት! የዕድል ሳጥን ${pick.txt} አሸንፈዋል!`);
+  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+  if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
+}
+
+/* ═══════════════ BANNER SLIDER ═══════════════ */
 (()=>{
   const box=document.getElementById('bannerSlider');
   if(!box)return;
@@ -2652,7 +2736,7 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 25000);
 
-/* ═══════════════ STRICT IN-APP FORCED AD ═══════════════ */
+/* ═══════════════ STRICT IN-APP FORCED AD (30S ONCE, THEN EVERY 4 ACTIONS) ═══════════════ */
 function triggerInAppAd(){
   if(adRunning) return;
   if(document.visibilityState !== 'visible') return;
@@ -2662,6 +2746,7 @@ function triggerInAppAd(){
   }
 }
 
+// Exactly 30 seconds after opening, trigger 1 forced ad once
 setTimeout(()=>{
   if(!initialForcedAdShown){
     initialForcedAdShown = true;
@@ -2834,7 +2919,7 @@ async function sendDirectAITicket(){
     }
   } catch(e){
     removeAdminTypingIndicator();
-    appendAdminBubble('ሰላም! ጥያቄዎን ተቀብለናል። ጉዳይዎን ከሰው አድሚን ጋር ማውራት ከፈለጉ «አዎ» ብለው ይመልሱ።');
+    appendAdminBubble('ሰላም! ጥያቄዎን ተቀብለናል።');
   }
 }
 
