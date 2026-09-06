@@ -1,19 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="am">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Swap Money V3 💰</title>
+<title>Swap Money V3 — የእንቁጣጣሽ በዓል 🌼💰</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src='https://libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 <style>
 :root{
   --bg:#05070e;--surface:#090d18;--card:#0e1322;--card2:#141b2d;
-  --border:rgba(255,215,0,.22);--border2:rgba(255,255,255,.07);
+  --border:rgba(255,215,0,.25);--border2:rgba(255,255,255,.07);
   --gold:#FFD700;--gold2:#FFA500;
   --gold-grad:linear-gradient(135deg,#FFD700 0%,#FF9E00 50%,#B8860B 100%);
-  --gold-glow:rgba(255,215,0,.35);
-  --adey:#FFDE00;--adey-glow:rgba(255,222,0,.45);
+  --gold-glow:rgba(255,215,0,.38);
+  --adey:#FFDE00;--adey-glow:rgba(255,222,0,.5);
   --green:#10b981;--green-grad:linear-gradient(135deg,#10b981,#059669);
   --red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;
   --text:#ffffff;--muted:#8e9ab2;--muted2:#475569;
@@ -23,7 +24,7 @@
 html,body{height:100%;overflow-x:hidden}
 body{
   background:var(--bg);
-  background-image:radial-gradient(rgba(255,215,0,.08) 1px,transparent 0),radial-gradient(rgba(16,185,129,.04) 1px,transparent 0);
+  background-image:radial-gradient(rgba(255,215,0,.09) 1px,transparent 0),radial-gradient(rgba(16,185,129,.04) 1px,transparent 0);
   background-size:24px 24px, 48px 48px;
   color:var(--text);font-family:var(--font);font-size:13px;
   padding-bottom:76px;min-height:100vh;position:relative;
@@ -31,7 +32,7 @@ body{
 ::-webkit-scrollbar{width:2px;height:2px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
-/* ── ADEY ABEBA CANVAS PARTICLES (30 SECONDS TIMED) ── */
+/* ── ADEY ABEBA CANVAS PARTICLES (TIMED 30 SECONDS) ── */
 #adeyCanvas{
   position:fixed;top:0;left:0;width:100%;height:100%;
   pointer-events:none;z-index:99;transition:opacity 1.5s ease;
@@ -57,10 +58,10 @@ header{
 .hdr-info p{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px}
 .hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .hdr-bal{
-  background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,165,0,.1));
-  border:1px solid rgba(255,215,0,.45);border-radius:20px;padding:5px 11px;
+  background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,165,0,.12));
+  border:1px solid rgba(255,215,0,.5);border-radius:20px;padding:5px 11px;
   font-size:12px;font-weight:800;color:var(--gold);display:flex;align-items:center;
-  gap:5px;cursor:pointer;white-space:nowrap;box-shadow:0 0 12px rgba(255,215,0,.18);
+  gap:5px;cursor:pointer;white-space:nowrap;box-shadow:0 0 14px rgba(255,215,0,.2);
 }
 .hdr-bal img{width:14px;height:14px;object-fit:contain}
 .hdr-btn{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
@@ -104,11 +105,11 @@ header{
 /* ── HERO WALLET ── */
 .hero-wallet{
   background:linear-gradient(145deg,#231b05 0%,#121827 55%,#080c18 100%);
-  border:1px solid rgba(255,215,0,.4);border-radius:22px;padding:16px;
+  border:1px solid rgba(255,215,0,.45);border-radius:22px;padding:16px;
   margin-bottom:10px;position:relative;overflow:hidden;
-  box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 30px rgba(255,215,0,.12);
+  box-shadow:0 12px 35px rgba(0,0,0,.7),0 0 30px rgba(255,215,0,.15);
 }
-.hero-wallet::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.22),transparent 70%)}
+.hero-wallet::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.25),transparent 70%)}
 .hw-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .hw-logo{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
 .hw-wallet-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(255,215,0,.3))}
@@ -118,37 +119,24 @@ header{
 .hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
 .hw-sub .up{color:var(--green);font-weight:800}
 
-/* ── 10-ADS QUEST PROGRESS CARD (EARN PAGE) ── */
+/* ── 10-ADS QUEST PROGRESS CARD ── */
 .quest-card{
-  background:linear-gradient(135deg,#1f1304,#2b1903,#111624);
-  border:1px solid var(--gold);border-radius:16px;padding:12px 14px;
-  margin-bottom:10px;box-shadow:0 6px 20px rgba(255,215,0,.15);
+  background:linear-gradient(135deg,#241503,#331d02,#111624);
+  border:1.5px solid var(--gold);border-radius:18px;padding:13px 14px;
+  margin-bottom:10px;box-shadow:0 6px 22px rgba(255,215,0,.2);
 }
 .quest-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.quest-title{font-size:12px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px}
-.quest-reward-pill{background:var(--gold-grad);color:#000;font-size:9px;font-weight:900;padding:2px 7px;border-radius:8px}
+.quest-title{font-size:12.5px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px}
+.quest-reward-pill{background:var(--gold-grad);color:#000;font-size:9px;font-weight:900;padding:2px 8px;border-radius:8px}
 .quest-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin:6px 0}
 .quest-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;transition:width .4s ease;width:0%}
 
-/* ── TIMED PROMO CODE CARD (EARN PAGE) ── */
-.promo-card{
-  background:linear-gradient(135deg,#131a2b,#0c101c);
-  border:1px solid rgba(59,130,246,.4);border-radius:16px;padding:12px 14px;
-  margin-bottom:10px;box-shadow:0 4px 18px rgba(0,0,0,.5);
-}
-.promo-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.promo-inputs{display:flex;gap:6px}
-.promo-inp{
-  flex:1;background:var(--bg);border:1px solid var(--border);
-  border-radius:10px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;outline:none;font-family:var(--font);
-}
-
-/* ── 6-SEGMENT SPIN WHEEL CARD (EARN PAGE) ── */
+/* ── 6-SEGMENT SPIN WHEEL CARD ── */
 .spin-hero-card{
-  background:linear-gradient(135deg,#2c1d04,#1c1203,#111728);
+  background:linear-gradient(135deg,#2e1e04,#1f1303,#111728);
   border:1.5px solid var(--gold);border-radius:18px;padding:14px;
   display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin-bottom:10px;box-shadow:0 8px 24px rgba(255,215,0,.2);cursor:pointer;
+  margin-bottom:10px;box-shadow:0 8px 24px rgba(255,215,0,.22);cursor:pointer;
 }
 .wheel-wrap{position:relative;width:260px;height:260px;margin:10px auto}
 #wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 25px var(--gold-glow);border:4px solid var(--gold)}
@@ -164,11 +152,11 @@ header{
   font-size:16px;box-shadow:0 0 15px rgba(0,0,0,.8);z-index:15;cursor:pointer;
 }
 
-/* ── ENKUTATASH 500 ETB WORD HUNT (EARN PAGE) ── */
+/* ── ENKUTATASH 500 ETB WORD HUNT ── */
 .word-hunt-card{
-  background:linear-gradient(135deg,#1f1403,#2e1d05,#0f1422);
-  border:1px solid var(--gold);border-radius:18px;padding:14px;margin-bottom:10px;
-  box-shadow:0 6px 20px rgba(255,215,0,.15);cursor:pointer;
+  background:linear-gradient(135deg,#221503,#311e04,#0f1422);
+  border:1.5px solid var(--gold);border-radius:18px;padding:14px;margin-bottom:10px;
+  box-shadow:0 6px 20px rgba(255,215,0,.18);cursor:pointer;
 }
 .word-hunt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .letter-slots-row{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:10px}
@@ -183,8 +171,21 @@ header{
 }
 @keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 
+/* ── TIMED PROMO CODE CARD ── */
+.promo-card{
+  background:linear-gradient(135deg,#131a2b,#0c101c);
+  border:1px solid rgba(59,130,246,.45);border-radius:16px;padding:12px 14px;
+  margin-bottom:10px;box-shadow:0 4px 18px rgba(0,0,0,.5);
+}
+.promo-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.promo-inputs{display:flex;gap:6px}
+.promo-inp{
+  flex:1;background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;outline:none;font-family:var(--font);
+}
+
 /* ── SC CARD ── */
-.sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
+.sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.25);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
 .sc-title-row{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:900}
@@ -424,7 +425,7 @@ header{
 .ad-modal-card, .captcha-card, .receipt-card, .terms-card, .holiday-modal-card{
   position:relative;background:var(--card);border:1.5px solid var(--gold);
   border-radius:24px;padding:22px;text-align:center;max-width:345px;width:100%;
-  box-shadow:0 20px 50px rgba(0,0,0,.9),0 0 30px rgba(255,215,0,.2);
+  box-shadow:0 20px 50px rgba(0,0,0,.9),0 0 30px rgba(255,215,0,.25);
 }
 .ad-bar-bg{width:100%;height:7px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin:10px 0 8px}
 .ad-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;width:0%;transition:width 1s linear}
@@ -506,15 +507,27 @@ header{
   </div>
 </div>
 
-<!-- ── 🌼 ENKUTATASH WELCOME MODAL ── -->
+<!-- ── 🌼 ENKUTATASH 2019 GRAND HOLIDAY WELCOME MODAL ── -->
 <div class="modal-overlay" id="newYearModal" style="z-index: 850;">
-  <div class="holiday-modal-card">
-    <div style="font-size:42px;margin-bottom:6px">🌼</div>
-    <h3 style="font-size:17px;font-weight:900;color:var(--gold);margin-bottom:6px">መልካም የ 2019 አዲስ ዓመት! 🌼</h3>
-    <p style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:14px">
-      እንኳን ለ 13ኛው የጳጉሜ ወር እና ለእንቁጣጣሽ በዓል በሰላም አደረሳችሁ! ልዩ የበዓል +50 ETB ስጦታዎን አሁኑኑ ይቀበሉ!
+  <div class="holiday-modal-card" style="max-width:360px">
+    <div style="font-size:46px;margin-bottom:4px;filter:drop-shadow(0 0 15px var(--gold-glow))">🌼</div>
+    <h3 style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:6px">መልካም የ 2019 አዲስ ዓመት! 🌼</h3>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px">
+      እንኳን ለ 13ኛው የጳጉሜ ወር እና ለእንቁጣጣሽ በዓል በሰላም አደረሳችሁ! በ Swap Money 7 አዳዲስ የበዓል ፌስቲቫል ዝመናዎች ተዘጋጅተውላችኋል፦
     </p>
-    <button class="btn btn-gold btn-block" onclick="claimNewYearHolidayGift()">🎁 የበዓል ስጦታዬን ተቀበል (+50 ETB)</button>
+
+    <!-- 7 Holiday Features List -->
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:10px 12px;margin-bottom:14px;text-align:left;font-size:10.5px;line-height:1.6;color:#fff">
+      <div>🎡 <b>1. የእንቁጣጣሽ ስፒን ዊል</b> — እስከ 30 ብር እና 100 SC ያሸንፉ</div>
+      <div>🔤 <b>2. «እ-ን-ቁ-ጣ-ጣ-ሽ» አደን</b> — 6ቱን ፊደላት ሰብስበው 500 ETB ይውሰዱ</div>
+      <div>🎟️ <b>3. የ 200 ETB ፕሮሞ ኮድ</b> — በየ 3 ሰዓቱ በቻናላችን ይለቀቃል</div>
+      <div>🏆 <b>4. የ 10 ማስታወቂያ ቻሌንጅ</b> — 10 አጠናቀው +150 ETB ቦነስ</div>
+      <div>💎 <b>5. የ 100 ETB ሱፐር ቦነስ</b> — በቀን 1 ጊዜ በቀጥታ ይውሰዱ</div>
+      <div>🎁 <b>6. ዕለታዊ የዕድል ሳጥን</b> — ነፃ የ SC እና ETB ስጦታዎች</div>
+      <div>👥 <b>7. የ 750 ETB ሪፈራል ማይልስቶን</b> — 15 ሰው ጋብዘው ይውሰዱ</div>
+    </div>
+
+    <button class="btn btn-gold btn-block" style="padding:12px 18px;font-size:13px" onclick="claimNewYearHolidayGift()">🎁 የበዓል ስጦታዬን ተቀበል (+50 ETB)</button>
   </div>
 </div>
 
@@ -650,9 +663,9 @@ header{
   </div>
 </header>
 
-<!-- ════════════════════════
-     HOME PAGE (CLEAN & BEAUTIFUL)
-════════════════════════ -->
+<!-- ════════════════════════════════════════════════════
+     HOME PAGE (FESTIVE ENKUTATASH HERO & QUICK ACCESS)
+════════════════════════════════════════════════════ -->
 <section class="page active" id="page-home">
 
   <!-- Hero Wallet -->
@@ -672,38 +685,66 @@ header{
     </div>
   </div>
 
-  <!-- High Reward Direct Super Bonus Card -->
-  <div class="smartlink-card" onclick="openSuperBonusAd()">
-    <div class="sl-left">
-      <div class="sl-icon">💎</div>
-      <div class="sl-info">
-        <h4>ልዩ የ 100 ETB ጉርሻ (Super Bonus)</h4>
-        <p>ቀጥታ ማስታወቂያ አይተው +100 ETB ይውሰዱ! (በቀን 1 ጊዜ)</p>
-      </div>
+  <!-- 🏆 DAILY 10-ADS STREAK QUEST CARD -->
+  <div class="quest-card">
+    <div class="quest-top">
+      <div class="quest-title">🏆 ዕለታዊ የ 10 ማስታወቂያ ቻሌንጅ</div>
+      <span class="quest-reward-pill">+150 ETB ቦነስ</span>
     </div>
-    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
-  </div>
-
-  <!-- SC Card -->
-  <div class="sc-card">
-    <img class="sc-img" src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="SC">
-    <div class="sc-info">
-      <div class="sc-title-row">Swap Coin <span class="sc-new-badge">Swap SC</span></div>
-      <div class="sc-sub">Daily Streak &amp; Rewards Points</div>
-      <div class="sc-amount"><span id="scBalance">0</span> SC</div>
+    <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
+      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/10 ማስታወቂያ</strong></span>
+      <span id="questClaimBtnTxt" style="color:var(--green)">10 አጠናቅቀው ይውሰዱ</span>
     </div>
   </div>
 
-  <!-- Daily Lucky Box Banner -->
-  <div class="lucky-card">
-    <div class="lucky-left">
-      <div class="lucky-icon">🎁</div>
-      <div class="lucky-text">
-        <h4>ዕለታዊ የዕድል ሳጥን (Mystery Box)</h4>
-        <p>በቀን 1 ጊዜ ከፍተው ነፃ SC እና ETB ስጦታ ይውሰዱ!</p>
+  <!-- 🎡 FORTUNE SPIN WHEEL LAUNCHER CARD -->
+  <div class="spin-hero-card" onclick="openSpinModal()">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:32px">🎡</div>
+      <div>
+        <h4 style="font-size:13px;font-weight:900;color:#fff">የእንቁጣጣሽ ዕድል ስፒን ዊል</h4>
+        <p style="font-size:10px;color:var(--gold);font-weight:700">እስከ 30 ብር እና 100 SC ያሽከርክሩ፣ ያሸንፉ!</p>
       </div>
     </div>
-    <button class="btn btn-gold" id="luckyBoxBtn" style="padding:6px 12px;font-size:10px" onclick="openLuckyBox()">ክፈት 🔓</button>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">አሽከርክር ➔</button>
+  </div>
+
+  <!-- 🔤 500 ETB WORD HUNT LAUNCHER CARD -->
+  <div class="word-hunt-card" onclick="openWordHuntModal()">
+    <div class="word-hunt-top">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:24px">🔤</span>
+        <div>
+          <h4 style="font-size:13px;font-weight:900;color:#fff">«እ-ን-ቁ-ጣ-ጣ-ሽ» 500 ETB አደን</h4>
+          <p style="font-size:10px;color:var(--gold);font-weight:700">ስድስቱንም ፊደሎች ሰብስበው 500 ብር ይውሰዱ!</p>
+        </div>
+      </div>
+      <button class="btn btn-gold" style="padding:6px 10px;font-size:10px;pointer-events:none">ክፈት ➔</button>
+    </div>
+    <div class="letter-slots-row" style="margin-bottom:0">
+      <div class="letter-slot" id="h_slot_e">እ</div>
+      <div class="letter-slot" id="h_slot_n">ን</div>
+      <div class="letter-slot" id="h_slot_qu">ቁ</div>
+      <div class="letter-slot" id="h_slot_ta1">ጣ</div>
+      <div class="letter-slot" id="h_slot_ta2">ጣ</div>
+      <div class="letter-slot" id="h_slot_sh">ሽ</div>
+    </div>
+  </div>
+
+  <!-- 🎟️ TIMED 200 ETB PROMO CODE CARD -->
+  <div class="promo-card">
+    <div class="promo-top">
+      <div>
+        <h4 style="font-size:12px;font-weight:900;color:#fff">🎁 የ 200 ETB የበዓል ፕሮሞ ኮድ</h4>
+        <p style="font-size:9.5px;color:var(--muted)">በየ 3 ሰዓቱ በቴሌግራም ቻናላችን ይለቀቃል!</p>
+      </div>
+      <button onclick="window.open(TG_CHANNEL1,'_blank')" class="btn btn-outline" style="padding:4px 8px;font-size:9.5px">👉 ኮድ ውሰድ</button>
+    </div>
+    <div class="promo-inputs">
+      <input type="text" id="promoCodeInput" class="promo-inp" placeholder="ኮድ እዚህ ያስገቡ...">
+      <button class="btn btn-gold" onclick="claimPromoCode()" style="padding:6px 14px;font-size:10px">ተቀበል</button>
+    </div>
   </div>
 
   <!-- Quick Actions -->
@@ -763,76 +804,53 @@ header{
 
 </section>
 
-<!-- ════════════════════════
-     EARN PAGE (ENKUTATASH & HOLIDAY GAMIFICATION HUB)
-════════════════════════ -->
+<!-- ════════════════════════════════════════════════════
+     EARN PAGE (WITH SUPER BONUS, SC CARD & LUCKY BOX GRID)
+════════════════════════════════════════════════════ -->
 <section class="page" id="page-earn">
 
   <div class="earn-hero">
     <img src="https://i.postimg.cc/cJwy699g/20260809-161701.png" alt="earn">
-    <h2>Earn &amp; Holiday Rewards ✨🌼</h2>
-    <p>የበዓል ጌሞችን ይጫወቱ፣ ማስታወቂያ ያዩ፣ Tasks ያጠናቅቁ!</p>
+    <h2>Earn &amp; Bonus Hub ✨🌼</h2>
+    <p>ማስታወቂያ ያዩ፣ ሱፐር ቦነስ ይውሰዱ፣ Tasks ያጠናቅቁ!</p>
   </div>
 
-  <!-- 🏆 DAILY 10-ADS STREAK QUEST CARD -->
-  <div class="quest-card">
-    <div class="quest-top">
-      <div class="quest-title">🏆 ዕለታዊ የ 10 ማስታወቂያ ቻሌንጅ</div>
-      <span class="quest-reward-pill">+150 ETB ቦነስ</span>
-    </div>
-    <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
-      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/10 ማስታወቂያ</strong></span>
-      <span id="questClaimBtnTxt" style="color:var(--green)">10 አጠናቅቀው ይውሰዱ</span>
-    </div>
-  </div>
-
-  <!-- 🎡 FORTUNE SPIN WHEEL LAUNCHER CARD -->
-  <div class="spin-hero-card" onclick="openSpinModal()">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="font-size:32px">🎡</div>
-      <div>
-        <h4 style="font-size:13px;font-weight:900;color:#fff">የእንቁጣጣሽ ዕድል ስፒን ዊል</h4>
-        <p style="font-size:10px;color:var(--gold);font-weight:700">እስከ 30 ብር እና 100 SC ያሽከርክሩ፣ ያሸንፉ!</p>
+  <!-- 💎 1. HIGH REWARD DIRECT SUPER BONUS CARD -->
+  <div class="smartlink-card" onclick="openSuperBonusAd()">
+    <div class="sl-left">
+      <div class="sl-icon">💎</div>
+      <div class="sl-info">
+        <h4>ልዩ የ 100 ETB ጉርሻ (Super Bonus)</h4>
+        <p>ቀጥታ ማስታወቂያ አይተው +100 ETB ይውሰዱ! (በቀን 1 ጊዜ)</p>
       </div>
     </div>
-    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">አሽከርክር ➔</button>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
   </div>
 
-  <!-- 🔤 500 ETB WORD HUNT LAUNCHER CARD -->
-  <div class="word-hunt-card" onclick="openWordHuntModal()">
-    <div class="word-hunt-top">
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:24px">🔤</span>
+  <!-- 🪙 2. SC CARD & 🎁 3. LUCKY BOX (ARRANGED IN BEAUTIFUL GRID) -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+    <!-- SC Mini Card -->
+    <div class="sc-card" style="margin-bottom:0;padding:10px 12px;flex-direction:column;align-items:flex-start;gap:6px">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <img class="sc-img" style="width:34px;height:34px" src="https://i.postimg.cc/DwzKHM7q/20260805-173329.png" alt="SC">
         <div>
-          <h4 style="font-size:13px;font-weight:900;color:#fff">«እ-ን-ቁ-ጣ-ጣ-ሽ» 500 ETB አደን</h4>
-          <p style="font-size:10px;color:var(--gold);font-weight:700">ስድስቱንም ፊደሎች ሰብስበው 500 ብር ይውሰዱ!</p>
+          <div style="font-size:11px;font-weight:900">Swap Coin</div>
+          <div style="font-size:8.5px;color:var(--muted)">Streak Points</div>
         </div>
       </div>
-      <button class="btn btn-gold" style="padding:6px 10px;font-size:10px;pointer-events:none">ክፈት ➔</button>
+      <div class="sc-amount" style="font-size:17px;margin-top:2px"><span id="scBalance">0</span> SC</div>
     </div>
-    <div class="letter-slots-row" style="margin-bottom:0">
-      <div class="letter-slot" id="slot_e_earn">እ</div>
-      <div class="letter-slot" id="slot_n_earn">ን</div>
-      <div class="letter-slot" id="slot_qu_earn">ቁ</div>
-      <div class="letter-slot" id="slot_ta1_earn">ጣ</div>
-      <div class="letter-slot" id="slot_ta2_earn">ጣ</div>
-      <div class="letter-slot" id="slot_sh_earn">ሽ</div>
-    </div>
-  </div>
 
-  <!-- 🎟️ TIMED 200 ETB PROMO CODE CARD -->
-  <div class="promo-card">
-    <div class="promo-top">
-      <div>
-        <h4 style="font-size:12px;font-weight:900;color:#fff">🎁 የ 200 ETB የበዓል ፕሮሞ ኮድ</h4>
-        <p style="font-size:9.5px;color:var(--muted)">በየ 3 ሰዓቱ በቴሌግራም ቻናላችን ይለቀቃል!</p>
+    <!-- Lucky Box Mini Card -->
+    <div class="lucky-card" style="margin-bottom:0;padding:10px 12px;flex-direction:column;align-items:flex-start;gap:6px">
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <span style="font-size:26px">🎁</span>
+        <div>
+          <div style="font-size:11px;font-weight:900;color:#fff">ዕለታዊ ሳጥን</div>
+          <div style="font-size:8.5px;color:var(--muted)">Mystery Gift</div>
+        </div>
       </div>
-      <button onclick="window.open(TG_CHANNEL1,'_blank')" class="btn btn-outline" style="padding:4px 8px;font-size:9.5px">👉 ኮድ ውሰድ</button>
-    </div>
-    <div class="promo-inputs">
-      <input type="text" id="promoCodeInput" class="promo-inp" placeholder="ኮድ እዚህ ያስገቡ...">
-      <button class="btn btn-gold" onclick="claimPromoCode()" style="padding:6px 14px;font-size:10px">ተቀበል</button>
+      <button class="btn btn-gold" id="luckyBoxBtn" style="padding:4px 0;font-size:9.5px;width:100%;margin-top:2px" onclick="openLuckyBox()">ክፈት 🔓</button>
     </div>
   </div>
 
@@ -933,7 +951,7 @@ header{
 </section>
 
 <!-- ════════════════════════
-     WITHDRAW PAGE (WITH VERIFIED AUDIT QUEUE & STATUS)
+     WITHDRAW PAGE (WITH VERIFIED AUDIT QUEUE)
 ════════════════════════ -->
 <section class="page" id="page-withdraw">
 
@@ -949,8 +967,8 @@ header{
   </div>
 
   <!-- Festive Express Payout Card -->
-  <div class="card" style="background:linear-gradient(135deg,#1f1403,#0f1422);border-color:var(--gold);padding:12px;margin-bottom:10px">
-    <div style="font-size:12px;font-weight:900;color:var(--gold);margin-bottom:2px">⚡ የበዓል ፈጣን የክፍያ ኦዲት (Holiday Express Payout)</div>
+  <div class="card" style="background:linear-gradient(135deg,#241603,#111728);border-color:var(--gold);padding:12px;margin-bottom:10px">
+    <div style="font-size:12.5px;font-weight:900;color:var(--gold);margin-bottom:2px">⚡ የበዓል ፈጣን የክፍያ ኦዲት (Holiday Express Payout)</div>
     <p style="font-size:10px;color:var(--muted);line-height:1.4">ለአዲስ ዓመት በዓል ወጪዎ የቴሌብር እና የባንክ ክፍያዎች በቅድሚያ እንዲደርሱዎት ኦዲቱን አጠናቀን እየላክን ነው!</p>
   </div>
 
@@ -966,7 +984,7 @@ header{
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px">ክፈት ➔</button>
   </div>
 
-  <!-- Verification Queue Banner (Pending Audit Card) -->
+  <!-- Verification Queue Banner -->
   <div class="queue-card" id="pendingQueueCard">
     <div class="qc-head">
       <div style="font-size:11px;font-weight:900;color:#fff">⚠️ AUDIT IN PROGRESS</div>
@@ -1263,7 +1281,8 @@ function loadState(){
     lastSpinDate: '',
     enkutatashLetters: { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false },
     huntAdsWatched: 0,
-    lastPromoClaimTime: 0
+    lastPromoClaimTime: 0,
+    claimedPromoCodes: [] // Track claimed promo codes to enforce 1-claim rule
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -1336,11 +1355,11 @@ function toast(msg){
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2700);
 }
 
-/* ═══════════════ STRICT AD ACTIVITY TRACKER (30S GRACE + EVERY 4 ACTIONS) ═══════════════ */
+/* ═══════════════ STRICT AD ACTIVITY TRACKER (2 MINS GRACE + EVERY 10 ACTIONS) ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 30 * 1000; // Strict 30 Seconds Grace Period
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 Minutes Grace Period
 
 function markLocalMutation(){
   saveState();
@@ -1349,8 +1368,8 @@ function markLocalMutation(){
 
 function recordActivity(){
   activityCount++;
-  // STRICT RULE: No forced ads in first 30s. Thereafter, trigger strictly every 4 actions
-  if(initialForcedAdShown && activityCount >= 4){
+  // STRICT RULE: No forced ads in first 2 mins. Thereafter, trigger strictly every 10 actions
+  if(initialForcedAdShown && activityCount >= 10){
     activityCount = 0;
     triggerInAppAd();
   }
@@ -1499,7 +1518,7 @@ function render(){
   drawPetals();
 })();
 
-/* ═══════════════ 🌼 NEW YEAR OPENING WELCOME MODAL ═══════════════ */
+/* ═══════════════ 🌼 ENKUTATASH 2019 WELCOME MODAL ═══════════════ */
 function checkNewYearModalOnLaunch(){
   if(!S.seenNewYearGift2019){
     setTimeout(()=>{
@@ -1694,12 +1713,12 @@ function closeWordHuntModal(){ document.getElementById('wordHuntModal')?.classLi
 function renderWordHuntSlots(){
   const L = S.enkutatashLetters || {};
   const slots = [
-    { id: 'e',   filled: L.e,   elIds: ['slot_e', 'slot_e_earn'] },
-    { id: 'n',   filled: L.n,   elIds: ['slot_n', 'slot_n_earn'] },
-    { id: 'qu',  filled: L.qu,  elIds: ['slot_qu', 'slot_qu_earn'] },
-    { id: 'ta1', filled: L.ta1, elIds: ['slot_ta1', 'slot_ta1_earn'] },
-    { id: 'ta2', filled: L.ta2, elIds: ['slot_ta2', 'slot_ta2_earn'] },
-    { id: 'sh',  filled: L.sh,  elIds: ['slot_sh', 'slot_sh_earn'] }
+    { id: 'e',   filled: L.e,   elIds: ['slot_e', 'h_slot_e'] },
+    { id: 'n',   filled: L.n,   elIds: ['slot_n', 'h_slot_n'] },
+    { id: 'qu',  filled: L.qu,  elIds: ['slot_qu', 'h_slot_qu'] },
+    { id: 'ta1', filled: L.ta1, elIds: ['slot_ta1', 'h_slot_ta1'] },
+    { id: 'ta2', filled: L.ta2, elIds: ['slot_ta2', 'h_slot_ta2'] },
+    { id: 'sh',  filled: L.sh,  elIds: ['slot_sh', 'h_slot_sh'] }
   ];
 
   slots.forEach(s=>{
@@ -1769,7 +1788,7 @@ function grantRandomLetterDrop(){
   renderWordHuntSlots();
 }
 
-/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE ═══════════════ */
+/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE (SINGLE-CLAIM RULE) ═══════════════ */
 function claimPromoCode(){
   recordActivity();
   const inp = document.getElementById('promoCodeInput');
@@ -1777,24 +1796,24 @@ function claimPromoCode(){
 
   if(!code){ toast('⚠️ እባክዎ ፕሮሞ ኮዱን ያስገቡ'); return; }
 
-  const now = Date.now();
-  const threeHoursMs = 3 * 60 * 60 * 1000;
-  if(now - (S.lastPromoClaimTime || 0) < threeHoursMs){
-    const leftMins = Math.ceil((threeHoursMs - (now - S.lastPromoClaimTime)) / (60 * 1000));
-    toast(`⏳ ቀጣዩን ፕሮሞ ኮድ ለመውሰድ ${leftMins} ደቂቃ ይጠብቁ`);
+  if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
+
+  // SINGLE-CLAIM GUARD: Each code can be claimed ONLY ONCE
+  if(S.claimedPromoCodes.includes(code)){
+    toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል! (1 ጊዜ ብቻ)');
     return;
   }
 
   if(ACTIVE_PROMO_CODES.includes(code)){
     S.balance += 200;
-    S.lastPromoClaimTime = now;
+    S.claimedPromoCodes.push(code);
     inp.value = '';
     markLocalMutation();
     toast('🎉 +200 ETB የፕሮሞ ኮድ ቦነስ ገቢ ሆኗል!');
     if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
     if(syncReady) syncToSheet();
   } else {
-    toast('❌ የተሳሳተ ወይም ያለቀበት ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
+    toast('❌ የተሳሳተ ወይም ያልተለቀቀ ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
   }
 }
 
@@ -2078,7 +2097,7 @@ function launchSingleAdModal(step){
         S.balance += currentAdEarnedReward;
         S.lastAdFinishedTime = Date.now();
 
-        // 10-Ads Quest Tracker
+        // 10-Ads Daily Quest Tracker
         S.daily10AdCount = (S.daily10AdCount || 0) + 1;
         if(S.daily10AdCount === 10){
           S.balance += 150;
@@ -2736,7 +2755,7 @@ async function safeInit(){
 safeInit();
 setInterval(syncFromSheet, 25000);
 
-/* ═══════════════ STRICT IN-APP FORCED AD (30S ONCE, THEN EVERY 4 ACTIONS) ═══════════════ */
+/* ═══════════════ STRICT IN-APP FORCED AD (2 MINS GRACE + EVERY 10 ACTIONS) ═══════════════ */
 function triggerInAppAd(){
   if(adRunning) return;
   if(document.visibilityState !== 'visible') return;
@@ -2746,7 +2765,7 @@ function triggerInAppAd(){
   }
 }
 
-// Exactly 30 seconds after opening, trigger 1 forced ad once
+// Exactly 2 minutes after opening, trigger 1 forced ad once
 setTimeout(()=>{
   if(!initialForcedAdShown){
     initialForcedAdShown = true;
@@ -3183,3 +3202,4 @@ function appendPhotoBubble(src, cap){
 </script>
 </body>
 </html>
+
