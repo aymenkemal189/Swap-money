@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="am">
 <head>
@@ -429,7 +430,9 @@ header{
 .ad-bar-bg{width:100%;height:7px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin:10px 0 8px}
 .ad-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;width:0%;transition:width 1s linear}
 
-/* ── SUPPORT LIVE CHAT ── */
+/* ════════════════════════════════════════════════════
+   CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS (RESTORED FULLY)
+════════════════════════════════════════════════════ */
 .support-chat-modal {
   position: fixed; inset: 0; background: rgba(5,7,14,0.96); backdrop-filter: blur(16px);
   z-index: 700; display: none; flex-direction: column; width: 100%; height: 100%;
@@ -446,15 +449,36 @@ header{
   display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900;
   box-shadow: 0 0 12px var(--gold-glow);
 }
+.support-hdr h4 { font-size: 13.5px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 5px; }
+.support-hdr p { font-size: 10px; color: var(--green); display: flex; align-items: center; gap: 4px; font-weight: 700; }
+.support-close-btn {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--card2);
+  border: 1px solid var(--border); color: #fff; font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* FAQ Quick Chips */
+.faq-chips-container {
+  display: flex; gap: 6px; overflow-x: auto; padding: 10px 14px 4px;
+  background: var(--card); border-bottom: 1px solid var(--border2); flex-shrink: 0;
+}
+.faq-chip {
+  background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
+  padding: 6px 11px; font-size: 10.5px; font-weight: 800; color: var(--gold);
+  white-space: nowrap; cursor: pointer; transition: .15s; flex-shrink: 0;
+}
+.faq-chip:active { transform: scale(0.94); background: rgba(255,215,0,0.15); }
+
 .chat-container { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .chat-bubble { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 12.5px; line-height: 1.4; word-break: break-word; }
-.bubble-admin { align-self: flex-start; background: var(--card2); border: 1px solid var(--border); color: #fff; }
-.bubble-user { align-self: flex-end; background: linear-gradient(135deg, #1f1704, #2a1f05); border: 1px solid var(--gold); color: #fff; }
+.bubble-admin { align-self: flex-start; background: var(--card2); border: 1px solid var(--border); border-bottom-left-radius: 4px; color: #fff; }
+.bubble-user { align-self: flex-end; background: linear-gradient(135deg, #1f1704, #2a1f05); border: 1px solid var(--gold); border-bottom-right-radius: 4px; color: #fff; }
 .bubble-img { max-width: 100%; border-radius: 10px; margin-top: 6px; display: block; }
 .bubble-time { font-size: 8.5px; opacity: 0.65; text-align: right; margin-top: 4px; }
 .bubble-typing {
   align-self: flex-start; background: var(--card2); border: 1px solid var(--border);
-  color: #fff; display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 16px;
+  border-bottom-left-radius: 4px; color: #fff; display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; animation: fadeUp .2s ease;
 }
 .typing-dots { display: inline-flex; gap: 3px; }
 .typing-dots span {
@@ -465,12 +489,26 @@ header{
 .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
 @keyframes typingBlink { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
 
+.media-preview-bar {
+  display: none; background: var(--card2); padding: 8px 14px;
+  border-top: 1px solid var(--border); align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.media-preview-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid var(--gold); }
+.voice-record-bar {
+  display: none; background: rgba(239, 68, 68, 0.15); border-top: 1px solid var(--red);
+  padding: 10px 14px; align-items: center; justify-content: space-between; color: var(--red); font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
 .chat-input-bar {
   background: var(--card); border-top: 1px solid var(--border);
-  padding: 8px 10px; display: flex; align-items: center; gap: 6px;
+  padding: 8px 10px; display: flex; align-items: center; gap: 6px; flex-shrink: 0;
 }
 .chat-inp { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 10px 14px; color: #fff; font-size: 13px; outline: none; }
-.chat-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--card2); border: 1px solid var(--border); color: var(--gold); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.chat-btn {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--card2);
+  border: 1px solid var(--border); color: var(--gold); display: flex; align-items: center;
+  justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 16px; transition: .15s;
+}
+.chat-btn:active { transform: scale(0.92); }
 .btn-send { background: linear-gradient(135deg, var(--gold), #FFA500); color: #000; border: none; font-weight: 900; }
 
 #toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1.5px solid var(--gold);color:#fff;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:800;box-shadow:0 10px 28px rgba(0,0,0,.8);opacity:0;pointer-events:none;transition:.22s;z-index:900;width:86%;max-width:360px;text-align:center}
@@ -577,6 +615,60 @@ header{
     </div>
 
     <button class="btn btn-gold btn-block" id="huntLetterBtn" onclick="openLetterCrate()">🎁 2 ማስታወቂያ አይተው ፊደል ይክፈቱ</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     CUSTOMER SUPPORT LIVE CHAT MODAL (RESTORED PERFECTLY)
+════════════════════════════════════════════════════ -->
+<div class="support-chat-modal" id="supportModal">
+  <div class="support-hdr">
+    <div class="support-hdr-info">
+      <div class="support-avatar">👨‍💼</div>
+      <div>
+        <h4>👨‍💼 Swap Money AI &amp; Group Support</h4>
+        <p id="supportStatusBadge">● Live Support (24/7)</p>
+      </div>
+    </div>
+    <button class="support-close-btn" onclick="closeSupportModal()">✕</button>
+  </div>
+
+  <!-- Quick FAQ Chips Bar -->
+  <div class="faq-chips-container">
+    <div class="faq-chip" onclick="handleFAQ('withdraw')">❓ ማውጣት መስፈርት</div>
+    <div class="faq-chip" onclick="handleFAQ('referral')">❓ ሪፈራል አቆጣጠር</div>
+    <div class="faq-chip" onclick="handleFAQ('review')">❓ የኦዲት ጊዜ</div>
+    <div class="faq-chip" onclick="handleFAQ('ads')">❓ የማስታወቂያ ቦነስ</div>
+  </div>
+
+  <div class="chat-container" id="chatMsgContainer">
+    <div class="chat-bubble bubble-admin">
+      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      <div class="bubble-time">አሁን</div>
+    </div>
+  </div>
+
+  <div class="media-preview-bar" id="mediaPreviewBar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="" id="imgPreviewThumb" class="media-preview-thumb" alt="Preview">
+      <span style="font-size:11px;color:var(--gold)">ፎቶ ተመርጧል...</span>
+    </div>
+    <button onclick="cancelPhotoUpload()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button>
+  </div>
+
+  <div class="voice-record-bar" id="voiceRecordBar">
+    <span>🎙️ ድምፅ እየተቀረጸ ነው... (<span id="voiceTimerTxt">0:00</span>)</span>
+    <button onclick="stopAndSendVoice()" style="background:var(--red);color:#fff;border:none;padding:5px 12px;border-radius:10px;font-size:10px;font-weight:900;cursor:pointer">ላክ ➔</button>
+  </div>
+
+  <div class="chat-input-bar">
+    <label class="chat-btn" title="ፎቶ አያይዝ">
+      📷
+      <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)">
+    </label>
+    <button class="chat-btn" id="voiceRecordBtn" onclick="toggleVoiceRecording()" title="ድምፅ ቅረጽ">🎙️</button>
+    <input type="text" id="chatTextInput" class="chat-inp" placeholder="ጥያቄዎን እዚህ ይፃፉ..." onkeypress="handleChatEnter(event)">
+    <button class="chat-btn btn-send" onclick="initiateSupportTicketSend()">➤</button>
   </div>
 </div>
 
@@ -770,18 +862,17 @@ header{
     </div>
   </div>
 
-<!-- Banner Slider -->
-<div class="banner-wrap" id="bannerSlider">
-  <img src="https://i.postimg.cc/W132LPB9/IMG-20260906-171015-407.jpg" class="active" alt="">
-  <img src="https://i.postimg.cc/m2dsS5PG/IMG-20260906-171121-734.jpg" alt="">
-  <img src="https://i.postimg.cc/HWVFb4q7/IMG-20260906-171938-155.jpg" alt="">
-  <img src="https://i.postimg.cc/W1j9YMyV/IMG-20260906-172158-585.jpg" alt="">
-  <img src="https://i.postimg.cc/FKzVwGgS/IMG-20260906-172309-866.jpg" alt="">
-  <img src="https://i.postimg.cc/ZYpxkW3j/IMG-20260906-172355-864.jpg" alt="">
-  <img src="https://i.postimg.cc/W1j9YMyV/IMG-20260906-172158-585.jpg" alt="">
-  <div class="b-dots" id="bDots"></div>
-</div>
-
+  <!-- Banner Slider -->
+  <div class="banner-wrap" id="bannerSlider">
+    <img src="https://i.postimg.cc/W132LPB9/IMG-20260906-171015-407.jpg" class="active" alt="">
+    <img src="https://i.postimg.cc/m2dsS5PG/IMG-20260906-171121-734.jpg" alt="">
+    <img src="https://i.postimg.cc/HWVFb4q7/IMG-20260906-171938-155.jpg" alt="">
+    <img src="https://i.postimg.cc/W1j9YMyV/IMG-20260906-172158-585.jpg" alt="">
+    <img src="https://i.postimg.cc/FKzVwGgS/IMG-20260906-172309-866.jpg" alt="">
+    <img src="https://i.postimg.cc/ZYpxkW3j/IMG-20260906-172355-864.jpg" alt="">
+    <img src="https://i.postimg.cc/W1j9YMyV/IMG-20260906-172158-585.jpg" alt="">
+    <div class="b-dots" id="bDots"></div>
+  </div>
 
   <!-- 4-Column Tasks Grid (Home) -->
   <div class="sh"><h3>📋 Tasks &amp; Channels</h3><a onclick="showPage('earn')">ሁሉም →</a></div>
@@ -951,7 +1042,7 @@ header{
 </section>
 
 <!-- ════════════════════════
-     WITHDRAW PAGE (WITH VERIFIED AUDIT QUEUE)
+     WITHDRAW PAGE (WITH VERIFIED AUDIT QUEUE & SUPPORT)
 ════════════════════════ -->
 <section class="page" id="page-withdraw">
 
@@ -966,12 +1057,23 @@ header{
     <div class="tg-verified-pill">✓ VERIFIED</div>
   </div>
 
+  <!-- Customer Support Card on Withdrawal Page -->
+  <div class="card" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#161c28,#0e1320);border-color:var(--gold);cursor:pointer;margin-bottom:10px" onclick="openSupportModal()">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:24px">👨‍💼</div>
+      <div>
+        <h4 style="font-size:13px;color:#fff;font-weight:800">የደንበኞች ድጋፍ ማዕከል (Live Help)</h4>
+        <p style="font-size:10px;color:var(--green)">● AI &amp; የሰው አድሚን ኦንላይን — ጽሁፍ፣ ፎቶና Voice</p>
+      </div>
+    </div>
+    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px">ክፈት ➔</button>
+  </div>
+
   <!-- Festive Express Payout Card -->
   <div class="card" style="background:linear-gradient(135deg,#241603,#111728);border-color:var(--gold);padding:12px;margin-bottom:10px">
     <div style="font-size:12.5px;font-weight:900;color:var(--gold);margin-bottom:2px">⚡ የበዓል ፈጣን የክፍያ ኦዲት (Holiday Express Payout)</div>
     <p style="font-size:10px;color:var(--muted);line-height:1.4">ዛሬ እሁድ ሰለሆነ ሰራተኞች ወጥተዋል ነገ ሁላችሁም እኛን ማናገር ትችላላችሁ ከጠዋት ጀምሮ!</p>
   </div>
-
 
   <!-- Verification Queue Banner -->
   <div class="queue-card" id="pendingQueueCard">
@@ -994,6 +1096,7 @@ header{
       <span class="qc-countdown" id="queueTimerTxt">47:59:58</span>
     </div>
     <p style="font-size:10px;color:var(--muted);line-height:1.4">ማስታወቂያዎችን በትክክል ማየትዎንና የግብዣ ጥራትን በደህንነት ሲስተም የማረጋገጥ ሂደት ላይ ነው።</p>
+    <button class="qc-support-btn" onclick="openSupportModal()">👨‍💼 Contact Support Desk</button>
   </div>
 
   <!-- Wallet Overview Hero -->
@@ -1175,7 +1278,7 @@ const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2;
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
 
-/* ── 🎟️ EASY FRONTEND PROMO CODES CONFIG (በየ 3 ሰዓቱ እዚህ እየገባህ አድስ) ── */
+/* ── 🎟️ FRONTEND PROMO CODES CONFIG ── */
 const ACTIVE_PROMO_CODES = [
   'ENKUTATASH', 'PAGUME1', 'PAGUME2', 'PAGUME3', 'PAGUME4', 'PAGUME5',
   'ADEY2019', 'SWAP2019', 'BONUS200', 'HOLIDAY2019'
@@ -1268,7 +1371,7 @@ function loadState(){
     enkutatashLetters: { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false },
     huntAdsWatched: 0,
     lastPromoClaimTime: 0,
-    claimedPromoCodes: [] // Enforces Single-Claim per Promo Code
+    claimedPromoCodes: []
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
   catch(e){ return d; }
@@ -1345,7 +1448,7 @@ function toast(msg){
 let activityCount = 0;
 let initialForcedAdShown = false;
 const APP_OPEN_TIME = Date.now();
-const FORCED_AD_GRACE_MS = 2 * 60 * 1000; // 2 Minutes Grace Period
+const FORCED_AD_GRACE_MS = 2 * 60 * 1000;
 
 function markLocalMutation(){
   saveState();
@@ -1354,7 +1457,6 @@ function markLocalMutation(){
 
 function recordActivity(){
   activityCount++;
-  // STRICT RULE: No forced ads in first 2 mins. Thereafter, trigger strictly every 10 actions
   if(initialForcedAdShown && activityCount >= 10){
     activityCount = 0;
     triggerInAppAd();
@@ -1452,7 +1554,7 @@ function render(){
 
   let animationFrameId;
   const adeyStartTime = Date.now();
-  const ADEY_LIFETIME_MS = 30 * 1000; // 30 seconds limit
+  const ADEY_LIFETIME_MS = 30 * 1000;
 
   function drawPetals(){
     if(Date.now() - adeyStartTime > ADEY_LIFETIME_MS){
@@ -1739,7 +1841,6 @@ function openLetterCrate(){
 }
 
 function grantRandomLetterDrop(){
-  // Weighted RNG Drop Rates (እ 30%, ን 25%, ጣ1 20%, ቁ 15%, ጣ2 7%, ሽ 3% Ultra Rare)
   const rand = Math.random() * 100;
   let droppedLetter = '';
   let dropKey = '';
@@ -1774,9 +1875,8 @@ function grantRandomLetterDrop(){
   renderWordHuntSlots();
 }
 
-/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE (SINGLE-CLAIM & RANDOM REWARD) ═══════════════ */
+/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE (SINGLE-CLAIM) ═══════════════ */
 function calculatePromoReward(){
-  // 60% gets 1-50 ETB, 30% gets 50-100 ETB, 10% gets 100-200 ETB Jackpot
   const rand = Math.random() * 100;
   if(rand < 60){
     return Math.floor(Math.random() * 50) + 1;
@@ -1796,7 +1896,6 @@ function claimPromoCode(){
 
   if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
 
-  // SINGLE-CLAIM GUARD: Each code can be claimed ONLY ONCE per user
   if(S.claimedPromoCodes.includes(code)){
     toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል! (1 ጊዜ ብቻ)');
     return;
@@ -2764,7 +2863,6 @@ function triggerInAppAd(){
   }
 }
 
-// Exactly 2 minutes after opening, trigger 1 forced ad once
 setTimeout(()=>{
   if(!initialForcedAdShown){
     initialForcedAdShown = true;
@@ -2773,7 +2871,7 @@ setTimeout(()=>{
 }, FORCED_AD_GRACE_MS);
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT SYSTEM
+   CUSTOMER SUPPORT LIVE CHAT SYSTEM (FULLY FUNCTIONAL)
 ════════════════════════════════════════════════════ */
 const CHAT_STORAGE_KEY = tgUser ? `sm_chat_hist_${tgUser.id}` : 'sm_chat_hist_guest';
 let localChatHistory = JSON.parse(localStorage.getItem(CHAT_STORAGE_KEY) || '[]');
@@ -2803,7 +2901,7 @@ function restoreLocalChatUI(){
 
   if(localChatHistory.length === 0){
     container.innerHTML = `<div class="chat-bubble bubble-admin">
-      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል።
+      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>`;
     return;
@@ -2937,7 +3035,7 @@ async function sendDirectAITicket(){
     }
   } catch(e){
     removeAdminTypingIndicator();
-    appendAdminBubble('ሰላም! ጥያቄዎን ተቀብለናል።');
+    appendAdminBubble('ሰላም! ጥያቄዎን ተቀብለናል። ጉዳይዎን ከሰው አድሚን ጋር ማውራት ከፈለጉ «አዎ» ብለው ይመልሱ።');
   }
 }
 
