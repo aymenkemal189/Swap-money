@@ -2640,58 +2640,48 @@ function getPrize(r){
   return '1,000 ብር';
 }
 
-// 🛡️ Name Masking with Double-Masking Protection
 function maskLbName(name){
   if(!name) return 'User';
-  if(name.indexOf('**') > -1) return name; // Already masked by backend!
+  if(name.indexOf('**') > -1) return name;
   const c = name.replace(/^@/, '');
   if(c.length <= 3) return c[0] + '**';
   if(c.length <= 4) return c.slice(0, 1) + '**' + c.slice(3);
   return c.slice(0, 2) + '**' + c.slice(4);
 }
 
-function generateLbFallback(){
-  const sampleNames = ['Aymen_kemal','Selam_22','Habesha_Gaming','Lij_bini','Natty_king','Kebron_tech','Sami_12','Mekdes','Tigist_21','Fiker_777','Abebe_H','Dawit_B','Eyerusalem_T','Fikadu_A','Girma_S','Hana_K','Iskinder_W','Jemila_F','Kidus_E','Liya_G'];
-  return sampleNames.map((n, i) => ({
-    rank: i + 1,
-    username: n,
-    referrals: Math.max(10, 1248 - i * 88 - Math.floor(Math.random() * 8)),
-    prize: getPrize(i + 1)
-  }));
-}
-
 function renderLeaderboardUI(){
   const list = document.getElementById('compLbList');
   if(!list || !allLbData.length) return;
-  const myUser = tgUser?.username || '';
+  const myUser = (tgUser?.username || '').toLowerCase();
+  const myId   = String(tgUser?.id || '');
 
-  // 🏆 1. TOP 3 PODIUM STAND DYNAMICALLY POPULATED FROM DATABASE
+  // 🏆 1. ከፍተኛ ሪፈራል ያላቸው TOP 3 ሰዎች ከ SHEET ተወስደው ፖዲየም ላይ ይቀመጣሉ
   if(allLbData.length >= 3){
     const u1 = allLbData[0], u2 = allLbData[1], u3 = allLbData[2];
 
-    const isMe1 = myUser && (u1.username.toLowerCase() === myUser.toLowerCase() || u1.username.toLowerCase() === maskLbName(myUser).toLowerCase());
-    setText('podiumName1', isMe1 ? myUser : maskLbName(u1.username));
+    const isMe1 = (myId && String(u1.userId) === myId) || (myUser && u1.username.toLowerCase() === myUser);
+    setText('podiumName1', isMe1 ? (tgUser?.first_name || u1.username) : maskLbName(u1.username));
     setText('podiumRefs1', Number(u1.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar1', (u1.username.replace(/^@/,'')[0]||'U').toUpperCase());
 
-    const isMe2 = myUser && (u2.username.toLowerCase() === myUser.toLowerCase() || u2.username.toLowerCase() === maskLbName(myUser).toLowerCase());
-    setText('podiumName2', isMe2 ? myUser : maskLbName(u2.username));
+    const isMe2 = (myId && String(u2.userId) === myId) || (myUser && u2.username.toLowerCase() === myUser);
+    setText('podiumName2', isMe2 ? (tgUser?.first_name || u2.username) : maskLbName(u2.username));
     setText('podiumRefs2', Number(u2.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar2', (u2.username.replace(/^@/,'')[0]||'U').toUpperCase());
 
-    const isMe3 = myUser && (u3.username.toLowerCase() === myUser.toLowerCase() || u3.username.toLowerCase() === maskLbName(myUser).toLowerCase());
-    setText('podiumName3', isMe3 ? myUser : maskLbName(u3.username));
+    const isMe3 = (myId && String(u3.userId) === myId) || (myUser && u3.username.toLowerCase() === myUser);
+    setText('podiumName3', isMe3 ? (tgUser?.first_name || u3.username) : maskLbName(u3.username));
     setText('podiumRefs3', Number(u3.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar3', (u3.username.replace(/^@/,'')[0]||'U').toUpperCase());
   }
 
-  // 📋 2. RANKS 4 AND ONWARDS BELOW PODIUM
+  // 📋 2. ከደረጃ 4 ጀምሮ ያሉትን ዝርዝር ማሳያ
   const startIdx = 3;
   const showCount = isExpanded100 ? allLbData.length : Math.min(10, allLbData.length);
 
   list.innerHTML = allLbData.slice(startIdx, showCount).map(u => {
-    const isMe = myUser && (u.username.toLowerCase() === myUser.toLowerCase() || u.username.toLowerCase() === maskLbName(myUser).toLowerCase());
-    const displayName = isMe ? myUser : maskLbName(u.username);
+    const isMe = (myId && String(u.userId) === myId) || (myUser && u.username.toLowerCase() === myUser);
+    const displayName = isMe ? (tgUser?.first_name || u.username) : maskLbName(u.username);
     const initialChar = (u.username.replace(/^@/,'')[0] || 'U').toUpperCase();
     const avatarBg = AVATAR_COLORS[(u.rank - 1) % AVATAR_COLORS.length];
 
@@ -2709,13 +2699,14 @@ function renderLeaderboardUI(){
 }
 
 function updateMyRankTab(){
-  const myUser = tgUser?.username || '';
+  const myUser = (tgUser?.username || '').toLowerCase();
+  const myId   = String(tgUser?.id || '');
   const myRankNumEl = document.getElementById('myRankNumber');
   const myRefsValEl = document.getElementById('myRefsVal');
   const myEstPrizeEl = document.getElementById('myEstPrize');
   if(!myRankNumEl) return;
 
-  const me = allLbData.find(u => myUser && (u.username.toLowerCase() === myUser.toLowerCase() || u.username.toLowerCase() === maskLbName(myUser).toLowerCase()));
+  const me = allLbData.find(u => (myId && String(u.userId) === myId) || (myUser && u.username.toLowerCase() === myUser));
   if(me){
     myRankNumEl.textContent = '#' + me.rank;
     myRefsValEl.textContent = Number(me.referrals).toLocaleString() + ' ሰው';
@@ -2731,18 +2722,16 @@ async function fetchLiveLeaderboard(){
   try{
     const res = await fetch(`${SCRIPT_URL}?action=leaderboard&t=` + Date.now());
     const json = await res.json();
-    if(json && json.data && json.data.length > 0){
+    if(json && json.result === 'success' && json.data && json.data.length > 0){
       allLbData = json.data.map((u, i) => ({ ...u, rank: i+1, prize: getPrize(i+1) }));
-    } else {
-      allLbData = generateLbFallback();
+      renderLeaderboardUI();
+      updateMyRankTab();
     }
   }catch(e){
-    allLbData = generateLbFallback();
+    console.error('Leaderboard error:', e);
   }
-  renderLeaderboardUI();
-  updateMyRankTab();
 }
-
+  
 function switchCompTab(id, btn){
   document.querySelectorAll('.c-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.c-tab').forEach(t => t.classList.remove('active'));
