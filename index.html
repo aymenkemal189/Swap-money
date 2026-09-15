@@ -119,7 +119,7 @@ header{
 .hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
 .hw-sub .up{color:var(--green);font-weight:800}
 
-/* ── 10-ADS QUEST PROGRESS CARD ── */
+/* ── 20-ADS QUEST PROGRESS CARD ── */
 .quest-card{
   background:linear-gradient(135deg,#241503,#331d02,#111624);
   border:1.5px solid var(--gold);border-radius:18px;padding:13px 14px;
@@ -184,7 +184,7 @@ header{
   border-radius:10px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;outline:none;font-family:var(--font);
 }
 
-/* ── SC CARD (100% ORIGINAL BEAUTIFUL DESIGN) ── */
+/* ── SC CARD ── */
 .sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.25);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
@@ -193,7 +193,7 @@ header{
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
 
-/* ── HIGH REWARD 100 ETB CARD (100% ORIGINAL BEAUTIFUL DESIGN) ── */
+/* ── HIGH REWARD 100 ETB CARD ── */
 .smartlink-card{
   background:linear-gradient(135deg,#1f1304,#2b1a03,#111520);
   border:1px solid var(--gold);border-radius:18px;padding:14px;
@@ -209,7 +209,7 @@ header{
 .sl-info h4{font-size:13px;font-weight:900;color:#fff}
 .sl-info p{font-size:10px;color:var(--gold);font-weight:700;margin-top:2px}
 
-/* ── DAILY LUCKY BOX (100% ORIGINAL BEAUTIFUL DESIGN) ── */
+/* ── DAILY LUCKY BOX ── */
 .lucky-card{
   background:linear-gradient(135deg,#1c122a,#11182c);
   border:1px solid rgba(168,85,247,.4);border-radius:16px;padding:12px 14px;
@@ -280,7 +280,7 @@ header{
 .earn-hero h2{font-size:18px;font-weight:900}
 .earn-hero p{font-size:11px;color:var(--muted);line-height:1.5}
 
-/* ── ADS UNIFIED GRID (100% ORIGINAL DESIGN) ── */
+/* ── ADS UNIFIED GRID ── */
 .earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
 .earn-grid-item{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;position:relative;overflow:hidden}
 .earn-grid-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -295,7 +295,7 @@ header{
 .egi-btn:active{transform:scale(.95)}
 
 /* ════════════════════════════════════════════════════
-   1,000,000 ብር REFERRAL COMPETITION STYLES (PODIUM STAND)
+   1,000,000 ብር REFERRAL COMPETITION STYLES
 ════════════════════════════════════════════════════ */
 .comp-top-banner-wrap{
   width:100%;height:185px;position:relative;overflow:hidden;
@@ -481,26 +481,42 @@ header{
 .wd-input-wrap input{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:13px;font-weight:700;outline:none;font-family:var(--font)}
 .wd-input-badge{position:absolute;right:12px;font-size:10px;font-weight:800;color:var(--gold)}
 
-/* Verification Queue Banner */
+/* ── NEW VERIFICATION & PAYOUT APPROVED CARD STYLES ── */
 .queue-card{
-  background:linear-gradient(135deg,#1e1205 0%,#151928 100%);
-  border:1px solid rgba(255,215,0,.35);border-radius:16px;
-  padding:14px;margin-bottom:12px;display:none;position:relative;
+  background:linear-gradient(135deg,#1f1604 0%,#10192e 100%);
+  border:1.5px solid var(--gold);border-radius:18px;
+  padding:16px;margin-bottom:12px;display:none;position:relative;
+  box-shadow:0 8px 30px rgba(0,0,0,.7),0 0 20px rgba(255,215,0,.2);
 }
-.queue-card.active{display:block;animation:fadeUp .2s ease}
-.qc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.qc-badge{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:var(--red);font-size:9px;font-weight:900;padding:2px 8px;border-radius:10px;display:flex;align-items:center;gap:4px}
-.qc-number{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:-.5px}
-.qc-time{font-size:11px;color:var(--muted);font-weight:700;margin-top:3px}
+.queue-card.active{display:block;animation:fadeUp .25s ease}
+.qc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qc-processing-tag{
+  display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;color:var(--green);
+  background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);padding:4px 10px;border-radius:12px;
+}
+.qc-typing-text{
+  font-size:11.5px;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px;margin:8px 0 4px;
+}
+.qc-dots span{
+  width:4px;height:4px;background:var(--gold);border-radius:50%;display:inline-block;
+  animation:typingBlink 1.4s infinite ease-in-out both;
+}
+.qc-dots span:nth-child(1){animation-delay:-0.32s}
+.qc-dots span:nth-child(2){animation-delay:-0.16s}
 .qc-timer-box{
   background:var(--card2);border:1px solid var(--border);border-radius:10px;
   padding:8px 10px;display:flex;align-items:center;justify-content:space-between;margin:8px 0;
 }
-.qc-countdown{font-family:monospace;font-size:14px;font-weight:900;color:#fff}
-.qc-support-btn{
-  width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid var(--border);
-  color:var(--gold);border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;margin-top:4px;
+.qc-countdown{font-family:monospace;font-size:13.5px;font-weight:900;color:#fff}
+.qc-active-callout{
+  background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:12px;
+  padding:10px 12px;margin-top:10px;font-size:10.5px;color:var(--muted);line-height:1.5;
 }
+.qc-support-btn{
+  width:100%;padding:9px;background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--gold);border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;margin-top:8px;transition:.18s;
+}
+.qc-support-btn:active{transform:scale(.97)}
 
 .trust-shield-card{
   background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;
@@ -626,7 +642,7 @@ header{
       <div>🎡 <b>1. የእንቁጣጣሽ ስፒን ዊል</b> — እስከ 30 ብር እና 100 SC ያሸንፉ</div>
       <div>🔤 <b>2. «እ-ን-ቁ-ጣ-ጣ-ሽ» አደን</b> — 6ቱን ፊደላት ሰብስበው 500 ETB ይውሰዱ</div>
       <div>🎟️ <b>3. የ 200 ETB ፕሮሞ ኮድ</b> — በየ 3 ሰዓቱ በቻናላችን ይለቀቃል</div>
-      <div>🏆 <b>4. የ 10 ማስታወቂያ ቻሌንጅ</b> — 10 አጠናቀው +150 ETB ቦነስ</div>
+      <div>🏆 <b>4. የ 20 ማስታወቂያ ቻሌንጅ</b> — 20 አጠናቀው +200 ETB ቦነስ</div>
       <div>💎 <b>5. የ 100 ETB ሱፐር ቦነስ</b> — በቀን 1 ጊዜ በቀጥታ ይውሰዱ</div>
       <div>🎁 <b>6. ዕለታዊ የዕድል ሳጥን</b> — ነፃ የ SC እና ETB ስጦታዎች</div>
       <div>👑 <b>7. የ 1,000,000 ብር ውድድር</b> — እስከ 100,000 ብር ጃክፖት</div>
@@ -841,15 +857,16 @@ header{
     </div>
   </div>
 
+  <!-- 🏆 DAILY 20-ADS STREAK QUEST CARD -->
   <div class="quest-card">
     <div class="quest-top">
-      <div class="quest-title">🏆 ዕለታዊ የ 10 ማስታወቂያ ቻሌንጅ</div>
-      <span class="quest-reward-pill">+150 ETB ቦነስ</span>
+      <div class="quest-title">🏆 ዕለታዊ የ 20 ማስታወቂያ ቻሌንጅ</div>
+      <span class="quest-reward-pill">+200 ETB ቦነስ</span>
     </div>
     <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
     <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
-      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/10 ማስታወቂያ</strong></span>
-      <span id="questClaimBtnTxt" style="color:var(--green)">10 አጠናቅቀው ይውሰዱ</span>
+      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/20 ማስታወቂያ</strong></span>
+      <span id="questClaimBtnTxt" style="color:var(--green)">20 አጠናቅቀው ይውሰዱ</span>
     </div>
   </div>
 
@@ -1191,27 +1208,48 @@ header{
     <p style="font-size:10px;color:var(--muted);line-height:1.4">ዛሬ እሁድ ሰለሆነ ሰራተኞች ወጥተዋል ነገ ሁላችሁም እኛን ማናገር ትችላላችሁ ከጠዋት ጀምሮ!</p>
   </div>
 
+  <!-- ── NEW: VERIFIED & IN-PROCESS PAYOUT CARD ── -->
   <div class="queue-card" id="pendingQueueCard">
     <div class="qc-head">
-      <div style="font-size:11px;font-weight:900;color:#fff">⚠️ AUDIT IN PROGRESS</div>
-      <div class="qc-badge">● PENDING</div>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:flex-end">
-      <div>
-        <div style="font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase">Users Ahead in Verification</div>
-        <div class="qc-number" id="queueNumDisplay">4,128</div>
+      <div style="font-size:12px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px">
+        <span>🎉</span> እንኳን ደስ አለዎት! መረጃዎ ተረጋግጧል
       </div>
-      <div style="text-align:right">
-        <div style="font-size:9px;color:var(--muted);font-weight:800">TX ID</div>
-        <div style="font-family:monospace;font-size:11px;font-weight:900;color:var(--gold)" id="qTxDisplay">#SWAP-89421</div>
+      <div class="qc-processing-tag">
+        <span style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green)"></span>
+        APPROVED
       </div>
     </div>
-    <div class="qc-timer-box">
-      <span style="font-size:10.5px;color:var(--muted);font-weight:800">Estimated Review Time:</span>
-      <span class="qc-countdown" id="queueTimerTxt">47:59:58</span>
+
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin:8px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:10.5px;color:var(--muted);font-weight:800">የተጠየቀው የገንዘብ መጠን፦</span>
+        <strong style="font-size:16px;font-weight:900;color:var(--gold)" id="qAmtDisplay">2,500 ETB</strong>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:10px;color:var(--muted)">የክፍያ መዳረሻ (Account)፦</span>
+        <span style="font-family:monospace;font-size:11px;font-weight:800;color:#fff" id="qAcctDisplay">098*****77</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+        <span style="font-size:10px;color:var(--muted)">Transaction ID፦</span>
+        <span style="font-family:monospace;font-size:10.5px;font-weight:800;color:var(--gold)" id="qTxDisplay">#SWAP-89421</span>
+      </div>
     </div>
-    <p style="font-size:10px;color:var(--muted);line-height:1.4">ማስታወቂያዎችን በትክክል ማየትዎንና የግብዣ ጥራትን በደህንነት ሲስተም የማረጋገጥ ሂደት ላይ ነው።</p>
-    <button class="qc-support-btn" onclick="openSupportModal()">👨‍💼 Contact Support Desk</button>
+
+    <div class="qc-typing-text">
+      <span>⏳ ክፍያዎ በቀጥታ ወደ አካውንትዎ በመተላለፍ ሂደት ላይ ነው</span>
+      <div class="qc-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="qc-timer-box" style="margin:6px 0">
+      <span style="font-size:10.5px;color:var(--muted);font-weight:800">የሚገባበት ግምታዊ ጊዜ፦</span>
+      <span class="qc-countdown" id="queueTimerTxt" style="color:var(--green)">በ 3 ቀናት ውስጥ</span>
+    </div>
+
+    <div class="qc-active-callout">
+      💡 <strong>አስፈላጊ ማሳሰቢያ፦</strong> ብሩ በቀጥታ ወደ አካውንትዎ እስኪገባ ድረስ ሌሎች ዕለታዊ ስራዎችን፣ ማስታወቂያዎችን እና ግብዣዎችን በመስራት አባልነትዎንና አካውንትዎን አክቲቭ ያድርጉ!
+    </div>
+
+    <button class="qc-support-btn" onclick="openSupportModal()">👨‍💼 የደንበኞች ድጋፍ ማዕከልን አነጋግር</button>
   </div>
 
   <div class="wd-fintech-hero">
@@ -1374,6 +1412,7 @@ header{
   </button>
 </nav>
 <div id="toast"></div>
+
 <script>
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
@@ -1430,7 +1469,7 @@ setTimeout(() => {
 
 // 2. ከ 2 ደቂቃው በኋላ በየ 4 activities ማስታወቂያ እንዲመጣ ቆጣሪ
 function recordActivity(){
-  if (!initialForcedAdShown) return; // 2 ደቂቃ ሳይሞላ አያስታውቅም
+  if (!initialForcedAdShown) return;
   activityCount++;
   if (activityCount >= 4) {
     activityCount = 0;
@@ -1486,7 +1525,7 @@ if(tg){
   }
 }
 
-/* ═══════════════ STATE WITH HOLIDAY GAMIFICATION ═══════════════ */
+/* ═══════════════ STATE MANAGEMENT (20 ADS QUEST ENABLED) ═══════════════ */
 const KEY = tgUser ? `sm_v3_${tgUser.id}` : 'sm_v3_guest';
 function loadState(){
   const d = {
@@ -1503,8 +1542,8 @@ function loadState(){
     pendingWd: null,
     humanAdminQuota: 0,
     seenNewYearGift2019: false,
-    daily10AdCount: 0,
-    last10AdQuestDate: '',
+    daily20AdCount: 0,
+    last20AdQuestDate: '',
     spinsRemaining: 3,
     spinAdsWatched: 0,
     lastSpinDate: '',
@@ -1533,7 +1572,7 @@ function getLevel(bal){
   return{n:1,label:'Level 1'};
 }
 
-/* ═══════════════ STREAK ═══════════════ */
+/* ═══════════════ STREAK & RESET CHECK ═══════════════ */
 function dateKey(d){
   const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
   return `${y}-${m}-${day}`;
@@ -1546,9 +1585,9 @@ function checkAndUpdateStreak(){
     S.spinAdsWatched = 0;
     S.lastSpinDate = todayKey;
   }
-  if(S.last10AdQuestDate !== todayKey){
-    S.daily10AdCount = 0;
-    S.last10AdQuestDate = todayKey;
+  if(S.last20AdQuestDate !== todayKey){
+    S.daily20AdCount = 0;
+    S.last20AdQuestDate = todayKey;
   }
 
   if(!S.lastLoginDate){
@@ -2041,12 +2080,12 @@ function claimPromoCode(){
   }
 }
 
-/* ═══════════════ 🏆 10-ADS QUEST RENDERER ═══════════════ */
+/* ═══════════════ 🏆 20-ADS QUEST RENDERER (+200 ETB) ═══════════════ */
 function renderHolidayGamification(){
-  const count = Math.min(10, S.daily10AdCount || 0);
+  const count = Math.min(20, S.daily20AdCount || 0);
   const fill = document.getElementById('questBarFill');
-  if(fill) fill.style.width = `${(count / 10) * 100}%`;
-  setText('questStatusTxt', `${count}/10 ማስታወቂያ`);
+  if(fill) fill.style.width = `${(count / 20) * 100}%`;
+  setText('questStatusTxt', `${count}/20 ማስታወቂያ`);
   renderWordHuntSlots();
 }
 
@@ -2261,10 +2300,11 @@ function finalizeRewardedAd(reward){
   S.balance += reward;
   S.lastAdFinishedTime = Date.now();
 
-  S.daily10AdCount = (S.daily10AdCount || 0) + 1;
-  if(S.daily10AdCount === 10){
-    S.balance += 150;
-    toast('🏆 እንኳን ደስ አለዎት! 10 ማስታወቂያ ጨርሰው +150 ETB ቦነስ አግኝተዋል!');
+  // 🏆 20-Ads Daily Quest Tracker (+200 ETB)
+  S.daily20AdCount = (S.daily20AdCount || 0) + 1;
+  if(S.daily20AdCount === 20){
+    S.balance += 200;
+    toast('🏆 እንኳን ደስ አለዎት! 20 ማስታወቂያ ጨርሰው +200 ETB ቦነስ አግኝተዋል!');
   }
 
   markLocalMutation();
@@ -2736,6 +2776,7 @@ function renderWdButton(){
 }
 
 function maskAcct(acc){
+  if(!acc) return '';
   if(acc.length >= 8){
     return acc.slice(0,3) + '*****' + acc.slice(-2);
   }
@@ -2755,6 +2796,7 @@ function closeReceiptModal(){
   document.getElementById('receiptModal')?.classList.remove('active');
 }
 
+/* ── DYNAMIC VERIFIED CARD RENDERER ── */
 function renderQueueCard(){
   const card = document.getElementById('pendingQueueCard');
   if(!card) return;
@@ -2763,27 +2805,22 @@ function renderQueueCard(){
     return;
   }
   card.classList.add('active');
-  setText('queueNumDisplay', S.pendingWd.queueNumber ? S.pendingWd.queueNumber.toLocaleString() : '4,128');
+  setText('qAmtDisplay', (S.pendingWd.amount ? Number(S.pendingWd.amount).toLocaleString() : '2,500') + ' ETB');
+  setText('qAcctDisplay', maskAcct(S.pendingWd.account || '098*****77'));
   setText('qTxDisplay', S.pendingWd.txId || '#SWAP-89421');
 }
 
 setInterval(()=>{
   if(!S.pendingWd) return;
 
-  if(S.pendingWd.queueNumber && S.pendingWd.queueNumber > 18){
-    S.pendingWd.queueNumber -= Math.floor(Math.random()*3) + 1;
-    setText('queueNumDisplay', S.pendingWd.queueNumber.toLocaleString());
-    saveState();
-  }
-
-  const diff = (S.pendingWd.targetTime || (Date.now() + 48*3600*1000)) - Date.now();
+  const diff = (S.pendingWd.targetTime || (Date.now() + 72*3600*1000)) - Date.now();
   if(diff <= 0){
-    setText('queueTimerTxt', '00:00:00 — In Final Audit');
+    setText('queueTimerTxt', 'በማስተላለፍ ሂደት ላይ ነው...');
   } else {
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const secs = Math.floor((diff % (1000 * 60)) / 1000);
-    setText('queueTimerTxt', `${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`);
+    setText('queueTimerTxt', `${String(hours).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')} (በ 3 ቀናት ውስጥ)`);
   }
 }, 1000);
 
@@ -2875,15 +2912,13 @@ async function executeWithdraw(){
       }
 
       const generatedTxId = '#SWAP-' + Math.floor(10000 + Math.random() * 90000);
-      const startingQueue = Math.floor(3875 + Math.random() * 625);
 
       S.pendingWd = {
         txId: generatedTxId,
         method: S.selectedMethod,
         account: acct,
         amount: amt,
-        queueNumber: startingQueue,
-        targetTime: Date.now() + 48 * 3600 * 1000
+        targetTime: Date.now() + 72 * 3600 * 1000
       };
 
       markLocalMutation();
