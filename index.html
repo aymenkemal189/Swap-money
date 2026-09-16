@@ -139,11 +139,11 @@ header{
 .mp-inputs{display:flex;gap:4px}
 .mp-inp{
   flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);
-  border-radius:8px;padding:5px 8px;color:#fff;font-size:10px;font-weight:800;outline:none;font-family:var(--font);
+  border-radius:8px;padding:6px 8px;color:#fff;font-size:10px;font-weight:800;outline:none;font-family:var(--font);
 }
 .mp-btn{
   background:var(--gold-grad);color:#000;border:none;border-radius:8px;
-  padding:5px 10px;font-size:9.5px;font-weight:900;cursor:pointer;
+  padding:6px 10px;font-size:9.5px;font-weight:900;cursor:pointer;
 }
 
 /* ── SC CARD & LUCKY BOX ── */
@@ -501,7 +501,64 @@ header{
   font-size:10.5px;font-weight:800;text-decoration:underline;cursor:pointer;padding:2px 0;
 }
 
-/* ── MODALS ── */
+/* ════════════════════════════════════════════════════
+   ✨ UNIQUE LUXURY GLOWING AD MODAL DESIGN ✨
+════════════════════════════════════════════════════ */
+.ad-modal{
+  position:fixed;inset:0;background:rgba(3,6,14,.93);backdrop-filter:blur(20px);
+  z-index:999;display:none;align-items:center;justify-content:center;padding:16px;
+}
+.ad-modal.active{display:flex;animation:fadeUp .25s cubic-bezier(0.16,1,0.3,1)}
+.ad-modal-card{
+  position:relative;background:linear-gradient(145deg,#121929,#090d18);
+  border:1.5px solid var(--gold);border-radius:26px;padding:26px 20px;
+  text-align:center;max-width:335px;width:100%;
+  box-shadow:0 25px 60px rgba(0,0,0,.9),0 0 35px rgba(255,215,0,.28);
+  overflow:hidden;
+}
+.ad-modal-card::before{
+  content:'';position:absolute;top:-50px;left:50%;transform:translateX(-50%);
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,215,0,.22),transparent 70%);
+  pointer-events:none;
+}
+.ad-glowing-ring{
+  width:68px;height:68px;border-radius:50%;margin:0 auto 12px;
+  background:linear-gradient(135deg,#FFD700 0%,#FF9E00 100%);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 0 28px rgba(255,215,0,.65),inset 0 0 10px rgba(255,255,255,.6);
+  animation:ringPulse 2s infinite ease-in-out;
+}
+@keyframes ringPulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 28px rgba(255,215,0,.65)}
+  50%{transform:scale(1.06);box-shadow:0 0 42px rgba(255,215,0,.9)}
+}
+.ad-step-pill{
+  display:inline-block;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.4);
+  color:var(--gold);font-size:10px;font-weight:900;padding:3px 12px;border-radius:12px;margin-bottom:8px;
+}
+.ad-title{font-size:15.5px;font-weight:900;color:#fff;margin-bottom:6px}
+.ad-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.ad-bar-bg{
+  width:100%;height:9px;background:rgba(255,255,255,.08);border-radius:10px;
+  overflow:hidden;margin-bottom:10px;border:1px solid rgba(255,255,255,.05);
+}
+.ad-bar-fill{
+  height:100%;background:linear-gradient(90deg,#FFD700,#FF9E00,#10b981);
+  border-radius:10px;width:0%;transition:width .4s linear;
+  box-shadow:0 0 14px rgba(255,215,0,.7);
+}
+.ad-timer-txt{font-size:13px;font-weight:900;color:var(--gold);font-family:monospace;letter-spacing:1px}
+.ad-close-btn{
+  position:absolute;top:14px;right:14px;background:var(--card2);
+  border:1px solid var(--border);border-radius:50%;width:32px;height:32px;
+  color:#fff;font-size:15px;font-weight:900;cursor:pointer;
+  display:none;align-items:center;justify-content:center;transition:.18s;
+  box-shadow:0 0 12px rgba(255,215,0,.35);
+}
+.ad-close-btn:active{transform:scale(.92)}
+
+/* ── MODALS OVERLAYS ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
 .captcha-card, .receipt-card, .terms-card{
@@ -510,9 +567,7 @@ header{
   box-shadow:0 20px 50px rgba(0,0,0,.9),0 0 30px rgba(255,215,0,.25);
 }
 
-/* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS
-════════════════════════════════════════════════════ */
+/* ── CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS ── */
 .support-chat-modal {
   position: fixed; inset: 0; background: rgba(5,7,14,0.96); backdrop-filter: blur(16px);
   z-index: 700; display: none; flex-direction: column; width: 100%; height: 100%;
@@ -599,56 +654,28 @@ header{
 <!-- Fireworks Canvas -->
 <canvas id="fwCanvas"></canvas>
 
-<!-- ════════════════════════════════════════════════════
-     CUSTOMER SUPPORT LIVE CHAT MODAL
-════════════════════════════════════════════════════ -->
-<div class="support-chat-modal" id="supportModal">
-  <div class="support-hdr">
-    <div class="support-hdr-info">
-      <div class="support-avatar">👨‍💼</div>
-      <div>
-        <h4>👨‍💼 Swap Money AI &amp; Group Support</h4>
-        <p id="supportStatusBadge">● Live Support (24/7)</p>
-      </div>
-    </div>
-    <button class="support-close-btn" onclick="closeSupportModal()">✕</button>
+<!-- ── ✨ LUXURY AD MODAL (FOR 2-STAGE WATCH ADS & 3-STAGE PROMO CODES) ✨ ── -->
+<div class="ad-modal" id="adModal">
+  <div class="ad-modal-card">
+    <button id="adCloseBtn" class="ad-close-btn" onclick="handleAdModalClose()">✕</button>
+    <div class="ad-glowing-ring" id="adModalRing">📺</div>
+    <div class="ad-step-pill" id="adStepPill">ማስታወቂያ [1/2]</div>
+    <div class="ad-title" id="adTitle">ማስታወቂያ በመመልከት ላይ...</div>
+    <div class="ad-desc" id="adDesc">17 ሰከንድ ያዩ — ካጠናቀቁ ቦነስዎን ይወስዳሉ!</div>
+    <div class="ad-bar-bg"><div class="ad-bar-fill" id="adBarFill"></div></div>
+    <div class="ad-timer-txt" id="adTimerTxt">17s ቀርቷል</div>
   </div>
+</div>
 
-  <div class="faq-chips-container">
-    <div class="faq-chip" onclick="handleFAQ('invite_how')">👥 ሰው መጋበዝ እንዴት ነው?</div>
-    <div class="faq-chip" onclick="handleFAQ('withdraw')">❓ ማውጣት መስፈርት</div>
-    <div class="faq-chip" onclick="handleFAQ('referral')">❓ 1M ውድድር ደንብ</div>
-    <div class="faq-chip" onclick="handleFAQ('ads')">❓ የማስታወቂያ ቦነስ</div>
-  </div>
-
-  <div class="chat-container" id="chatMsgContainer">
-    <div class="chat-bubble bubble-admin">
-      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
-      <div class="bubble-time">አሁን</div>
-    </div>
-  </div>
-
-  <div class="media-preview-bar" id="mediaPreviewBar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <img src="" id="imgPreviewThumb" class="media-preview-thumb" alt="Preview">
-      <span style="font-size:11px;color:var(--gold)">ፎቶ ተመርጧል...</span>
-    </div>
-    <button onclick="cancelPhotoUpload()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button>
-  </div>
-
-  <div class="voice-record-bar" id="voiceRecordBar">
-    <span>🎙️ ድምፅ እየተቀረጸ ነው... (<span id="voiceTimerTxt">0:00</span>)</span>
-    <button onclick="stopAndSendVoice()" style="background:var(--red);color:#fff;border:none;padding:5px 12px;border-radius:10px;font-size:10px;font-weight:900;cursor:pointer">ላክ ➔</button>
-  </div>
-
-  <div class="chat-input-bar">
-    <label class="chat-btn" title="ፎቶ አያይዝ">
-      📷
-      <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)">
-    </label>
-    <button class="chat-btn" id="voiceRecordBtn" onclick="toggleVoiceRecording()" title="ድምፅ ቅረጽ">🎙️</button>
-    <input type="text" id="chatTextInput" class="chat-inp" placeholder="ጥያቄዎን እዚህ ይፃፉ..." onkeypress="handleChatEnter(event)">
-    <button class="chat-btn btn-send" onclick="initiateSupportTicketSend()">➤</button>
+<!-- ── 3-AD GATED SUPPORT MODAL ── -->
+<div class="modal-overlay" id="supportAdModal" style="z-index: 800;">
+  <div class="ad-modal-card">
+    <button id="supportAdCloseBtn" class="ad-close-btn" onclick="closeSupportAdStepSuccess()">✕</button>
+    <div class="ad-glowing-ring" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">👨‍💼</div>
+    <div class="ad-step-pill" id="supportAdTitle">የሰው አድሚን ትኬት [1/3]</div>
+    <div class="ad-desc" id="supportAdDesc">ደረጃ 1/3 (15 ሰከንድ) — 3ቱንም ሲያጠናቅቁ ጥያቄዎ ለአድሚን ይላካል፤ <strong style="color:var(--gold)">+30 ETB</strong> ቦነስም ያገኛሉ!</div>
+    <div class="ad-bar-bg"><div class="ad-bar-fill" id="supportAdBarFill"></div></div>
+    <div class="ad-timer-txt" id="supportAdTimerTxt">15s ቀርቷል</div>
   </div>
 </div>
 
@@ -756,7 +783,6 @@ header{
 
   <!-- 🔲 COMPACT 2-COLUMN MINI GRID (PROMO CODE & 30-ADS QUEST) -->
   <div class="home-mini-grid">
-    <!-- Left: Daily 30-Ads Quest Card -->
     <div class="mini-quest-card">
       <div class="mq-top">
         <div class="mq-title">🏆 30 Ads Quest</div>
@@ -769,7 +795,6 @@ header{
       </div>
     </div>
 
-    <!-- Right: Promo Code Card -->
     <div class="mini-promo-card">
       <div class="mp-top">
         <div class="mp-title">🎟️ Promo Code</div>
@@ -777,7 +802,7 @@ header{
       </div>
       <div class="mp-inputs">
         <input type="text" id="promoCodeInput" class="mp-inp" placeholder="ኮድ ያስገቡ...">
-        <button class="mp-btn" onclick="claimPromoCode()">ተቀበል</button>
+        <button class="mp-btn" onclick="startPromoClaimFlow()">ተቀበል</button>
       </div>
     </div>
   </div>
@@ -892,7 +917,7 @@ header{
     <h3>📺 Watch Ads &amp; Earn</h3>
     <span id="cooldownBadge" style="display:none;font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">⏳ COOLDOWN</span>
   </div>
-  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">ማስታወቂያውን አይተው ሲጨርሱ ክፍያው ወዲያውኑ ገቢ ይደረጋል</p>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ x 2 ያዩ — ክፍያው ወዲያውኑ ገቢ ይደረጋል</p>
   <div class="earn-grid" id="earnAdGrid"></div>
 </section>
 
@@ -910,7 +935,7 @@ header{
     <h3>📺 Unlimited Watch Ads Stream (24 Hot Ads)</h3>
     <span style="font-size:9px;background:rgba(239,68,68,.15);color:var(--red);padding:2px 6px;border-radius:8px;font-weight:800">HIGH CPM</span>
   </div>
-  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">ማስታወቂያውን አይተው ሲጨርሱ ክፍያው ወዲያውኑ ገቢ ይደረጋል</p>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">17 ሰከንድ x 2 ያዩ — ገንዘብ ወደ ሂሳብዎ ይገባል</p>
   
   <div class="earn-grid" id="mainAdGrid"></div>
 </section>
@@ -1286,6 +1311,7 @@ header{
   </button>
 </nav>
 <div id="toast"></div>
+
 <script>
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
@@ -1550,38 +1576,6 @@ function render(){
   updateMyRankTab();
 }
 
-/* ═══════════════ 🎟️ PROMO CODE ENGINE (20 - 50 ETB) ═══════════════ */
-function calculatePromoReward(){
-  return Math.floor(Math.random() * 31) + 20; // 20 እስከ 50 ETB
-}
-
-function claimPromoCode(){
-  recordActivity();
-  const inp = document.getElementById('promoCodeInput');
-  const code = (inp?.value || '').trim().toUpperCase();
-
-  if(!code){ toast('⚠️ እባክዎ ፕሮሞ ኮዱን ያስገቡ'); return; }
-  if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
-
-  if(S.claimedPromoCodes.includes(code)){
-    toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል!');
-    return;
-  }
-
-  if(ACTIVE_PROMO_CODES.includes(code)){
-    const wonReward = calculatePromoReward();
-    S.balance += wonReward;
-    S.claimedPromoCodes.push(code);
-    inp.value = '';
-    markLocalMutation();
-    toast(`🎉 እንኳን ደስ አለዎት! +${wonReward} ETB ቦነስ ተጨምሯል!`);
-    if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-    if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
-  } else {
-    toast('❌ የተሳሳተ ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
-  }
-}
-
 /* ═══════════════ 🏆 30-ADS QUEST RENDERER (+100 ETB) ═══════════════ */
 function renderHolidayGamification(){
   const count = Math.min(30, S.daily30AdCount || 0);
@@ -1590,12 +1584,12 @@ function renderHolidayGamification(){
   setText('questStatusTxt', `${count}/30`);
 }
 
-/* ═══════════════ ALL 7 TASKS (PROMO BOT INCLUDED & REVISED PRICES) ═══════════════ */
+/* ═══════════════ ALL 7 TASKS (PROMOTIONAL BOT INCLUDED) ═══════════════ */
 const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
 const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
-const PROMO_BOT = 'https://t.me/Swapmoney_bot'; // Promotional bot link
+const PROMO_BOT = 'https://t.me/tikvahetcryptobot/tikvaheth'; // ✨ Promotional bot link
 
 const ALL_TASKS = [
   {id:'tg1',      label:'TG Channel 1',        reward:35, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
@@ -1681,7 +1675,7 @@ function renderEarnTasks(){
         </div>
         <div class="egi-title">${ad.unlimited ? 'Bonus Ad ∞' : 'Ad #'+ad.num}</div>
         <div class="egi-reward">+${ad.reward} ETB</div>
-        <div class="egi-meta">Rewarded · <span style="color:${BADGE_COLOR[ad.badge]||'var(--gold)'};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
+        <div class="egi-meta">⏱️ 17s x2 · <span style="color:${BADGE_COLOR[ad.badge]||'var(--gold)'};font-weight:800">${ad.unlimited?'∞':ad.badge}</span></div>
         <button class="egi-btn" onclick="watchAd(this)">Watch</button>
       </div>`).join('');
   }
@@ -1757,9 +1751,104 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ MONETAG REWARDED ADS (SAFE SYNC) ═══════════════ */
+/* ════════════════════════════════════════════════════
+   ✨ UNIQUE 2-STAGE WATCH AD & 3-STAGE PROMO AD ENGINE ✨
+════════════════════════════════════════════════════ */
 let adRunning = false;
+let adTimerInterval = null;
+let currentAdSession = null; // { type: 'watch', step: 1, maxSteps: 2, reward: 20, btn: null } OR { type: 'promo', step: 1, maxSteps: 3, reward: 35, code: 'SWAP' }
 
+function launchAdModalStep(session){
+  currentAdSession = session;
+  const modal = document.getElementById('adModal');
+  const fill = document.getElementById('adBarFill');
+  const txt = document.getElementById('adTimerTxt');
+  const closeBtn = document.getElementById('adCloseBtn');
+  const pill = document.getElementById('adStepPill');
+  const ring = document.getElementById('adModalRing');
+  const title = document.getElementById('adTitle');
+  const desc = document.getElementById('adDesc');
+
+  closeBtn.style.display = 'none';
+
+  if(session.type === 'watch'){
+    ring.textContent = '📺';
+    pill.textContent = `ማስታወቂያ [${session.step}/${session.maxSteps}]`;
+    if(session.step === 1){
+      title.textContent = `ማስታወቂያ #${S.adsWatched+1} — ደረጃ 1/2`;
+      desc.innerHTML = `17 ሰከንድ ያዩ — ካጠናቀቁ <strong style="color:var(--gold)">${session.reward} ETB</strong> ይጨምራሉ!`;
+    } else {
+      title.textContent = `የማረጋገጫ ማስታወቂያ — ደረጃ 2/2`;
+      desc.innerHTML = `17 ሰከንድ ያዩ — ማስታወቂያው ሲያልቅ ገንዘቡ ሙሉ በሙሉ ገቢ ይሆናል!`;
+    }
+  } else if(session.type === 'promo'){
+    ring.textContent = '🎟️';
+    pill.textContent = `ፕሮሞ ኮድ ማረጋገጫ [${session.step}/${session.maxSteps}]`;
+    title.textContent = `ደረጃ ${session.step}/${session.maxSteps} (17 ሰከንድ)`;
+    desc.innerHTML = `3ቱን ማስታወቂያዎች ሲያጠናቅቁ <strong style="color:var(--gold)">+${session.reward} ETB</strong> ቦነስ ወዲያውኑ ገቢ ይሆናል!`;
+  }
+
+  modal.classList.add('active');
+  fill.style.width = '0%';
+  txt.textContent = `17s ቀርቷል`;
+
+  // Monetag Ad call
+  if(typeof show_11460944 === 'function'){
+    show_11460944().catch(()=>{});
+  }
+
+  let left = 17;
+  clearInterval(adTimerInterval);
+  adTimerInterval = setInterval(()=>{
+    left--;
+    fill.style.width = `${((17 - left) / 17) * 100}%`;
+    txt.textContent = `${left}s ቀርቷል`;
+
+    if(left <= 0){
+      clearInterval(adTimerInterval);
+
+      if(session.step < session.maxSteps){
+        desc.innerHTML = `✅ ደረጃ ${session.step}/${session.maxSteps} ተጠናቋል! ✕ ይንኩ ወደ ቀጣዩ ለመሄድ`;
+      } else {
+        desc.innerHTML = `🎉 ተጠናቀቀ! ✕ ይንኩ ሽልማትዎን ለመቀበል`;
+      }
+
+      closeBtn.style.display = 'flex';
+    }
+  }, 1000);
+}
+
+function handleAdModalClose(){
+  const modal = document.getElementById('adModal');
+  modal.classList.remove('active');
+  document.getElementById('adCloseBtn').style.display = 'none';
+
+  if(!currentAdSession) return;
+
+  if(currentAdSession.step < currentAdAdSession_maxSteps()){
+    currentAdSession.step++;
+    toast(`✅ ቀጣዩ ደረጃ [${currentAdSession.step}/${currentAdSession.maxSteps}] እያለፈ ነው...`);
+    setTimeout(()=>{
+      launchAdModalStep(currentAdSession);
+    }, 400);
+  } else {
+    // Finalize reward!
+    if(currentAdSession.type === 'watch'){
+      finalizeWatchAdSession(currentAdSession.reward);
+      if(currentAdSession.btn) currentAdSession.btn.disabled = false;
+    } else if(currentAdSession.type === 'promo'){
+      finalizePromoSession(currentAdSession.code, currentAdSession.reward);
+    }
+    adRunning = false;
+    currentAdSession = null;
+  }
+}
+
+function currentAdAdSession_maxSteps(){
+  return currentAdSession ? currentAdSession.maxSteps : 1;
+}
+
+/* ── 2-STAGE WATCH AD LAUNCHER ── */
 function watchAd(btn){
   recordActivity();
   if(adRunning) return;
@@ -1773,28 +1862,18 @@ function watchAd(btn){
 
   adRunning = true;
   if(btn) btn.disabled = true;
-  const reward = getAdReward(S.adsWatched);
 
-  if(typeof show_11460944 === 'function'){
-    show_11460944().then(() => {
-      finalizeRewardedAd(reward);
-      adRunning = false;
-      if(btn) btn.disabled = false;
-    }).catch(e => {
-      adRunning = false;
-      if(btn) btn.disabled = false;
-      toast('⚠️ ማስታወቂያው አልተጠናቀቀም ወይም አልተጫነም');
-    });
-  } else {
-    setTimeout(()=>{
-      finalizeRewardedAd(reward);
-      adRunning = false;
-      if(btn) btn.disabled = false;
-    }, 2500);
-  }
+  const reward = getAdReward(S.adsWatched);
+  launchAdModalStep({
+    type: 'watch',
+    step: 1,
+    maxSteps: 2,
+    reward: reward,
+    btn: btn
+  });
 }
 
-function finalizeRewardedAd(reward){
+function finalizeWatchAdSession(reward){
   S.adsWatched++;
   S.balance += reward;
   S.lastAdFinishedTime = Date.now();
@@ -1808,8 +1887,52 @@ function finalizeRewardedAd(reward){
 
   markLocalMutation();
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
-  toast(`🎉 +${reward} ETB ተጨምሯል!`);
+  toast(`🎉 +${reward} ETB ሙሉ በሙሉ ተጨምሯል!`);
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
+}
+
+/* ── 3-STAGE PROMO CODE CLAIM LAUNCHER ── */
+function startPromoClaimFlow(){
+  recordActivity();
+  if(adRunning) return;
+
+  const inp = document.getElementById('promoCodeInput');
+  const code = (inp?.value || '').trim().toUpperCase();
+
+  if(!code){ toast('⚠️ እባክዎ ፕሮሞ ኮዱን ያስገቡ'); return; }
+  if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
+
+  if(S.claimedPromoCodes.includes(code)){
+    toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል!');
+    return;
+  }
+
+  if(ACTIVE_PROMO_CODES.includes(code)){
+    const wonReward = Math.floor(Math.random() * 31) + 20; // 20 እስከ 50 ETB
+    adRunning = true;
+    launchAdModalStep({
+      type: 'promo',
+      step: 1,
+      maxSteps: 3,
+      reward: wonReward,
+      code: code
+    });
+  } else {
+    toast('❌ የተሳሳተ ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
+  }
+}
+
+function finalizePromoSession(code, wonReward){
+  const inp = document.getElementById('promoCodeInput');
+  if(inp) inp.value = '';
+  S.balance += wonReward;
+  S.claimedPromoCodes.push(code);
+  S.lastAdFinishedTime = Date.now();
+
+  markLocalMutation();
+  if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
+  toast(`🎉 እንኳን ደስ አለዎት! +${wonReward} ETB የፕሮሞ ኮድ ቦነስ ተጨምሯል!`);
+  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 }
 
 /* ═══════════════ 50 ETB SUPER BONUS ═══════════════ */
@@ -2705,7 +2828,7 @@ function initiateSupportTicketSend(){
   inp.value = '';
 
   // 🤖 1. SMART REFERRAL AI TRIGGER
-  const isInviteQuery = lower.includes('መጋበዝ') || lower.includes('ጋብዝ') || lower.includes('እንዴት') && lower.includes('ሰው') || lower.includes('invite') || lower.includes('referral') || lower.includes('ሊንክ');
+  const isInviteQuery = lower.includes('መጋበዝ') || lower.includes('ጋብዝ') || (lower.includes('እንዴት') && lower.includes('ሰው')) || lower.includes('invite') || lower.includes('referral') || lower.includes('ሊንክ');
   if(isInviteQuery && !selectedSupportPhoto){
     appendUserBubble(text);
     showAdminTypingIndicator();
@@ -2713,7 +2836,7 @@ function initiateSupportTicketSend(){
       removeAdminTypingIndicator();
       const uid = tgUser?.id || '';
       const myLink = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${uid}`;
-      const reply = `ሰዎችን ለመጋበዝ የእርስዎን መጋበዣ ሊንክ ለጓደኞችዎ ሼር ያድርጉ! ለአንድ ሰው 50 ETB ያገኛሉ።\n\n👇 የእርስዎ ልዩ መጋበዣ ሊንክ፦\n${myLink}\n\n👉 ሰዎችን በቀጥታ ለመጋበዝ ወደ Referral ገጽ በመሄድ ወይም «Invite Friends» የሚለውን በመጫን ሼር ማድረግ ይችላሉ! 🚀`;
+      const reply = `ሰዎችን ለመጋበዝ የእርስዎን መጋበዣ ሊንክ ለጓደኞችዎ ሼር ያድርጉ! ለአንድ ሰው 50 ETB ያገኛሉ።\n\n👇 የእርስዎ ልዩ መጋበዣ ሊንክ፦\n${myLink}\n\n👉 ሰዎችን በቀጥታ ለመጋበዝ ወደ Referral ገጽ በመሄድ ወይም «ሰው ለመጋበዝ ይሄን ይጫኑ» የሚለውን አዝራር በመጫን ሼር ማድረግ ይችላሉ! 🚀`;
       appendAdminBubble(reply);
     }, 600);
     return;
