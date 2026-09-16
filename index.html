@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Swap Money V3 — የእንቁጣጣሽ በዓል 🌼💰</title>
+<title>Swap Money V3 💰</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src='https://libtl.com/sdk.js' data-zone='11460944' data-sdk='show_11460944'></script>
 <style>
 :root{
   --bg:#05070e;--surface:#090d18;--card:#0e1322;--card2:#141b2d;
-  --border:rgba(255,215,0,.25);--border2:rgba(255,255,255,.07);
+  --border:rgba(255,215,0,.22);--border2:rgba(255,255,255,.07);
   --gold:#FFD700;--gold2:#FFA500;
   --gold-grad:linear-gradient(135deg,#FFD700 0%,#FF9E00 50%,#B8860B 100%);
-  --gold-glow:rgba(255,215,0,.38);
-  --adey:#FFDE00;--adey-glow:rgba(255,222,0,.5);
+  --gold-glow:rgba(255,215,0,.35);
   --green:#10b981;--green-grad:linear-gradient(135deg,#10b981,#059669);
   --red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;
   --text:#ffffff;--muted:#8e9ab2;--muted2:#475569;
@@ -23,7 +22,7 @@
 html,body{height:100%;overflow-x:hidden}
 body{
   background:var(--bg);
-  background-image:radial-gradient(rgba(255,215,0,.09) 1px,transparent 0),radial-gradient(rgba(16,185,129,.04) 1px,transparent 0);
+  background-image:radial-gradient(rgba(255,215,0,.08) 1px,transparent 0),radial-gradient(rgba(16,185,129,.04) 1px,transparent 0);
   background-size:24px 24px, 48px 48px;
   color:var(--text);font-family:var(--font);font-size:13px;
   padding-bottom:76px;min-height:100vh;position:relative;
@@ -31,11 +30,7 @@ body{
 ::-webkit-scrollbar{width:2px;height:2px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 
-/* ── ADEY ABEBA CANVAS PARTICLES & FIREWORKS ── */
-#adeyCanvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:99;transition:opacity 1.5s ease;
-}
+/* Fireworks Canvas */
 #fwCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none}
 
 /* ── HEADER ── */
@@ -50,11 +45,11 @@ header{
   width:38px;height:38px;border-radius:50%;background:var(--gold-grad);
   display:flex;align-items:center;justify-content:center;font-weight:900;
   font-size:15px;color:#000;box-shadow:0 0 14px var(--gold-glow);flex-shrink:0;
-  overflow:hidden;border:1.5px solid var(--gold);position:relative;
+  overflow:hidden;border:1.5px solid var(--gold);
 }
 .hdr-av img{width:100%;height:100%;object-fit:cover}
 .hdr-info{flex:1;min-width:0}
-.hdr-info h4{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:4px}
+.hdr-info h4{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hdr-info p{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px}
 .hdr-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .hdr-bal{
@@ -64,7 +59,7 @@ header{
   gap:5px;cursor:pointer;white-space:nowrap;box-shadow:0 0 14px rgba(255,215,0,.2);
 }
 .hdr-bal img{width:14px;height:14px;object-fit:contain}
-.hdr-btn{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.hdr-btn{width:32px;height:32px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .hdr-btn svg{width:16px;height:16px;fill:var(--muted)}
 .level-chip{background:rgba(255,215,0,.14);border:1px solid rgba(255,215,0,.35);border-radius:12px;padding:1px 7px;font-size:9px;font-weight:800;color:var(--gold)}
 .streak-chip{font-size:11px;font-weight:800;color:#FF6B35}
@@ -111,7 +106,7 @@ header{
 }
 .hero-wallet::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,215,0,.25),transparent 70%)}
 .hw-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.hw-logo{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
+.hw-logo{font-size:11px;font-weight:900;color:var(--gold);letter-spacing:.8px;text-transform:uppercase}
 .hw-wallet-img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(255,215,0,.3))}
 .hw-label{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;margin-bottom:2px}
 .hw-amount{font-size:42px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;text-shadow:0 0 35px rgba(255,215,0,.45);display:flex;align-items:baseline;gap:6px}
@@ -119,72 +114,39 @@ header{
 .hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
 .hw-sub .up{color:var(--green);font-weight:800}
 
-/* ── 20-ADS QUEST PROGRESS CARD ── */
-.quest-card{
-  background:linear-gradient(135deg,#241503,#331d02,#111624);
-  border:1.5px solid var(--gold);border-radius:18px;padding:13px 14px;
-  margin-bottom:10px;box-shadow:0 6px 22px rgba(255,215,0,.2);
+/* ── 🔲 COMPACT 2-COLUMN MINI GRID (PROMO CODE & 30-ADS QUEST) ── */
+.home-mini-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;
 }
-.quest-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.quest-title{font-size:12.5px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px}
-.quest-reward-pill{background:var(--gold-grad);color:#000;font-size:9px;font-weight:900;padding:2px 8px;border-radius:8px}
-.quest-bar-bg{width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin:6px 0}
-.quest-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;transition:width .4s ease;width:0%}
+.mini-quest-card{
+  background:linear-gradient(135deg,#241503,#181005,#0e1322);
+  border:1.2px solid var(--gold);border-radius:15px;padding:10px 11px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.mq-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.mq-title{font-size:11px;font-weight:900;color:#fff;display:flex;align-items:center;gap:4px}
+.mq-pill{background:var(--gold-grad);color:#000;font-size:8px;font-weight:900;padding:2px 6px;border-radius:6px}
+.mq-bar-bg{width:100%;height:6px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin:5px 0}
+.mq-bar-fill{height:100%;background:var(--gold-grad);border-radius:10px;width:0%;transition:width .3s}
 
-/* ── 6-SEGMENT SPIN WHEEL CARD ── */
-.spin-hero-card{
-  background:linear-gradient(135deg,#2e1e04,#1f1303,#111728);
-  border:1.5px solid var(--gold);border-radius:18px;padding:14px;
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  margin-bottom:10px;box-shadow:0 8px 24px rgba(255,215,0,.22);cursor:pointer;
-}
-.wheel-wrap{position:relative;width:260px;height:260px;margin:10px auto}
-#wheelCanvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 25px var(--gold-glow);border:4px solid var(--gold)}
-.wheel-pin{
-  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-  width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;
-  border-top:24px solid var(--gold);z-index:20;filter:drop-shadow(0 2px 6px rgba(0,0,0,.8));
-}
-.wheel-center-hub{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:44px;height:44px;border-radius:50%;background:var(--gold-grad);
-  border:3px solid #fff;display:flex;align-items:center;justify-content:center;
-  font-size:16px;box-shadow:0 0 15px rgba(0,0,0,.8);z-index:15;cursor:pointer;
-}
-
-/* ── ENKUTATASH 500 ETB WORD HUNT ── */
-.word-hunt-card{
-  background:linear-gradient(135deg,#221503,#311e04,#0f1422);
-  border:1.5px solid var(--gold);border-radius:18px;padding:14px;margin-bottom:10px;
-  box-shadow:0 6px 20px rgba(255,215,0,.18);cursor:pointer;
-}
-.word-hunt-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.letter-slots-row{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:10px}
-.letter-slot{
-  background:var(--card2);border:1.5px dashed var(--border);border-radius:10px;
-  height:44px;display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:900;color:var(--muted);transition:.25s;
-}
-.letter-slot.filled{
-  background:var(--gold-grad);border:1.5px solid #fff;color:#000;
-  box-shadow:0 0 14px var(--gold-glow);animation:popIn .3s ease;
-}
-@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
-
-/* ── TIMED PROMO CODE CARD ── */
-.promo-card{
+.mini-promo-card{
   background:linear-gradient(135deg,#131a2b,#0c101c);
-  border:1px solid rgba(59,130,246,.45);border-radius:16px;padding:12px 14px;
-  margin-bottom:10px;box-shadow:0 4px 18px rgba(0,0,0,.5);
+  border:1.2px solid rgba(59,130,246,.5);border-radius:15px;padding:10px 11px;
+  display:flex;flex-direction:column;justify-content:space-between;
 }
-.promo-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.promo-inputs{display:flex;gap:6px}
-.promo-inp{
-  flex:1;background:var(--bg);border:1px solid var(--border);
-  border-radius:10px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;outline:none;font-family:var(--font);
+.mp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.mp-title{font-size:11px;font-weight:900;color:#fff;display:flex;align-items:center;gap:4px}
+.mp-inputs{display:flex;gap:4px}
+.mp-inp{
+  flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:5px 8px;color:#fff;font-size:10px;font-weight:800;outline:none;font-family:var(--font);
+}
+.mp-btn{
+  background:var(--gold-grad);color:#000;border:none;border-radius:8px;
+  padding:5px 10px;font-size:9.5px;font-weight:900;cursor:pointer;
 }
 
-/* ── SC CARD ── */
+/* ── SC CARD & LUCKY BOX ── */
 .sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.25);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
@@ -193,7 +155,6 @@ header{
 .sc-sub{font-size:10px;color:var(--muted);margin-top:1px}
 .sc-amount{font-size:20px;font-weight:900;color:var(--gold);margin-top:3px}
 
-/* ── HIGH REWARD 100 ETB CARD ── */
 .smartlink-card{
   background:linear-gradient(135deg,#1f1304,#2b1a03,#111520);
   border:1px solid var(--gold);border-radius:18px;padding:14px;
@@ -209,7 +170,6 @@ header{
 .sl-info h4{font-size:13px;font-weight:900;color:#fff}
 .sl-info p{font-size:10px;color:var(--gold);font-weight:700;margin-top:2px}
 
-/* ── DAILY LUCKY BOX ── */
 .lucky-card{
   background:linear-gradient(135deg,#1c122a,#11182c);
   border:1px solid rgba(168,85,247,.4);border-radius:16px;padding:12px 14px;
@@ -256,7 +216,7 @@ header{
 }
 .task-mini-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
 
-/* ── INVITE BANNER (HOME) ── */
+/* ── INVITE BANNER ── */
 .invite-banner{background:linear-gradient(135deg,#1c1206,#0e121d);border:1px solid rgba(255,215,0,.28);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .invite-gift{width:56px;height:56px;object-fit:contain;flex-shrink:0}
 .invite-info h3{font-size:14px;font-weight:900;margin-bottom:3px}
@@ -295,7 +255,7 @@ header{
 .egi-btn:active{transform:scale(.95)}
 
 /* ════════════════════════════════════════════════════
-   1,000,000 ብር REFERRAL COMPETITION STYLES
+   1,000,000 ብር REFERRAL COMPETITION & PROMINENT INVITE BUTTON
 ════════════════════════════════════════════════════ */
 .comp-top-banner-wrap{
   width:100%;height:185px;position:relative;overflow:hidden;
@@ -303,6 +263,17 @@ header{
 }
 .comp-top-banner-img{width:100%;height:100%;object-fit:cover;display:block}
 .comp-top-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 45%,var(--bg) 100%)}
+
+/* 📢 PROMINENT BIG INVITE CALL-TO-ACTION BUTTON */
+.super-invite-btn{
+  background:linear-gradient(135deg,#FFD700 0%,#FF9E00 50%,#B8860B 100%);
+  border:2px solid #fff;border-radius:18px;padding:14px 16px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:14.5px;font-weight:900;color:#000;cursor:pointer;
+  box-shadow:0 8px 25px rgba(255,215,0,.45);margin-bottom:12px;
+  transition:.18s;width:100%;text-transform:uppercase;
+}
+.super-invite-btn:active{transform:scale(.97)}
 
 .story-comp-card{
   background:linear-gradient(135deg,#0c1322,#10192e);
@@ -481,7 +452,7 @@ header{
 .wd-input-wrap input{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:13px;font-weight:700;outline:none;font-family:var(--font)}
 .wd-input-badge{position:absolute;right:12px;font-size:10px;font-weight:800;color:var(--gold)}
 
-/* ── NEW VERIFICATION & PAYOUT APPROVED CARD STYLES ── */
+/* Verification Queue Banner */
 .queue-card{
   background:linear-gradient(135deg,#1f1604 0%,#10192e 100%);
   border:1.5px solid var(--gold);border-radius:18px;
@@ -533,7 +504,7 @@ header{
 /* ── MODALS ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
-.captcha-card, .receipt-card, .terms-card, .holiday-modal-card{
+.captcha-card, .receipt-card, .terms-card{
   position:relative;background:var(--card);border:1.5px solid var(--gold);
   border-radius:24px;padding:22px;text-align:center;max-width:345px;width:100%;
   box-shadow:0 20px 50px rgba(0,0,0,.9),0 0 30px rgba(255,215,0,.25);
@@ -625,82 +596,8 @@ header{
 </head>
 <body>
 
-<!-- ── ADEY ABEBA CANVAS PARTICLES & FIREWORKS ── -->
-<canvas id="adeyCanvas"></canvas>
+<!-- Fireworks Canvas -->
 <canvas id="fwCanvas"></canvas>
-
-<!-- ── 🌼 ENKUTATASH 2019 GRAND HOLIDAY WELCOME MODAL ── -->
-<div class="modal-overlay" id="newYearModal" style="z-index: 850;">
-  <div class="holiday-modal-card" style="max-width:360px">
-    <div style="font-size:46px;margin-bottom:4px;filter:drop-shadow(0 0 15px var(--gold-glow))">🌼</div>
-    <h3 style="font-size:18px;font-weight:900;color:var(--gold);margin-bottom:6px">መልካም የ 2019 አዲስ ዓመት! 🌼</h3>
-    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px">
-      እንኳን ለ 13ኛው የጳጉሜ ወር እና ለእንቁጣጣሽ በዓል በሰላም አደረሳችሁ! በ Swap Money 7 አዳዲስ የበዓል ፌስቲቫል ዝመናዎች ተዘጋጅተውላችኋል፦
-    </p>
-
-    <div style="background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:10px 12px;margin-bottom:14px;text-align:left;font-size:10.5px;line-height:1.6;color:#fff">
-      <div>🎡 <b>1. የእንቁጣጣሽ ስፒን ዊል</b> — እስከ 30 ብር እና 100 SC ያሸንፉ</div>
-      <div>🔤 <b>2. «እ-ን-ቁ-ጣ-ጣ-ሽ» አደን</b> — 6ቱን ፊደላት ሰብስበው 500 ETB ይውሰዱ</div>
-      <div>🎟️ <b>3. የ 200 ETB ፕሮሞ ኮድ</b> — በየ 3 ሰዓቱ በቻናላችን ይለቀቃል</div>
-      <div>🏆 <b>4. የ 20 ማስታወቂያ ቻሌንጅ</b> — 20 አጠናቀው +200 ETB ቦነስ</div>
-      <div>💎 <b>5. የ 100 ETB ሱፐር ቦነስ</b> — በቀን 1 ጊዜ በቀጥታ ይውሰዱ</div>
-      <div>🎁 <b>6. ዕለታዊ የዕድል ሳጥን</b> — ነፃ የ SC እና ETB ስጦታዎች</div>
-      <div>👑 <b>7. የ 1,000,000 ብር ውድድር</b> — እስከ 100,000 ብር ጃክፖት</div>
-    </div>
-
-    <button class="btn btn-gold btn-block" style="padding:12px 18px;font-size:13px" onclick="claimNewYearHolidayGift()">🎁 የበዓል ስጦታዬን ተቀበል (+50 ETB)</button>
-  </div>
-</div>
-
-<!-- ── 🎡 6-SEGMENT SPIN WHEEL MODAL ── -->
-<div class="modal-overlay" id="spinWheelModal" style="z-index: 750;">
-  <div class="holiday-modal-card" style="max-width:350px">
-    <button onclick="closeSpinModal()" style="position:absolute;top:12px;right:14px;background:var(--card2);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;color:#fff;cursor:pointer">✕</button>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:4px">
-      <span style="font-size:20px">🎡</span>
-      <h3 style="font-size:15px;font-weight:900;color:var(--gold)">የእንቁጣጣሽ ዕድል ስፒን ዊል</h3>
-    </div>
-    <p style="font-size:10.5px;color:var(--muted)">1 ስፒን = 2 አጫጭር ማስታወቂያዎች (በቀን 3 ስፒን)</p>
-    
-    <div class="wheel-wrap">
-      <div class="wheel-pin"></div>
-      <canvas id="wheelCanvas" width="520" height="520"></canvas>
-      <div class="wheel-center-hub" onclick="triggerSpinAction()">🎡</div>
-    </div>
-
-    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:8px">
-      <span>የቀሩ ስፒኖች፦ <strong id="spinsLeftDisplay" style="color:var(--gold)">3/3</strong></span>
-      <span>የማስታወቂያ ደረጃ፦ <strong id="spinAdStepDisplay" style="color:var(--green)">0/2</strong></span>
-    </div>
-
-    <button class="btn btn-gold btn-block" id="spinActionBtn" onclick="triggerSpinAction()">🎡 2 ማስታወቂያ አይተው ያሽከርክሩ</button>
-  </div>
-</div>
-
-<!-- ── 🔤 ENKUTATASH 500 ETB WORD HUNT MODAL ── -->
-<div class="modal-overlay" id="wordHuntModal" style="z-index: 750;">
-  <div class="holiday-modal-card" style="max-width:350px">
-    <button onclick="closeWordHuntModal()" style="position:absolute;top:12px;right:14px;background:var(--card2);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;color:#fff;cursor:pointer">✕</button>
-    <div style="font-size:32px;margin-bottom:4px">🔤</div>
-    <h3 style="font-size:15px;font-weight:900;color:var(--gold)">የ 500 ETB «እ-ን-ቁ-ጣ-ጣ-ሽ» አደን</h3>
-    <p style="font-size:10.5px;color:var(--muted);margin-bottom:12px">ስድስቱንም ፊደሎች ሰብስበው የ 500 ብር ጃክፖት ይውሰዱ!</p>
-
-    <div class="letter-slots-row">
-      <div class="letter-slot" id="slot_e">እ</div>
-      <div class="letter-slot" id="slot_n">ን</div>
-      <div class="letter-slot" id="slot_qu">ቁ</div>
-      <div class="letter-slot" id="slot_ta1">ጣ</div>
-      <div class="letter-slot" id="slot_ta2">ጣ</div>
-      <div class="letter-slot" id="slot_sh">ሽ</div>
-    </div>
-
-    <div style="background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:8px;margin-bottom:12px;font-size:10px;color:var(--muted)">
-      💡 <strong>የአሰራር ህግ፦</strong> 2 ማስታወቂያ አይተው ሳጥን ሲከፍቱ ፊደል ይወድቃል። 6ቱም ሲሞሉ 500 ETB ወዲያውኑ ገቢ ይሆናል!
-    </div>
-
-    <button class="btn btn-gold btn-block" id="huntLetterBtn" onclick="openLetterCrate()">🎁 2 ማስታወቂያ አይተው ፊደል ይክፈቱ</button>
-  </div>
-</div>
 
 <!-- ════════════════════════════════════════════════════
      CUSTOMER SUPPORT LIVE CHAT MODAL
@@ -718,15 +615,15 @@ header{
   </div>
 
   <div class="faq-chips-container">
+    <div class="faq-chip" onclick="handleFAQ('invite_how')">👥 ሰው መጋበዝ እንዴት ነው?</div>
     <div class="faq-chip" onclick="handleFAQ('withdraw')">❓ ማውጣት መስፈርት</div>
     <div class="faq-chip" onclick="handleFAQ('referral')">❓ 1M ውድድር ደንብ</div>
-    <div class="faq-chip" onclick="handleFAQ('review')">❓ የኦዲት ጊዜ</div>
     <div class="faq-chip" onclick="handleFAQ('ads')">❓ የማስታወቂያ ቦነስ</div>
   </div>
 
   <div class="chat-container" id="chatMsgContainer">
     <div class="chat-bubble bubble-admin">
-      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>
   </div>
@@ -813,9 +710,9 @@ header{
      HEADER
 ════════════════════════ -->
 <header>
-  <div class="hdr-av" id="hdrAv">🌼</div>
+  <div class="hdr-av" id="hdrAv">💰</div>
   <div class="hdr-info">
-    <h4 id="hdrWelcome">መልካም አዲስ ዓመት 👋🌼</h4>
+    <h4 id="hdrWelcome">Welcome Back 👋</h4>
     <p>
       <span id="hdrUser">@user</span>
       <span class="level-chip" id="levelChip">⭐ Level 1</span>
@@ -843,7 +740,7 @@ header{
 <section class="page active" id="page-home">
   <div class="hero-wallet">
     <div class="hw-top">
-      <div class="hw-logo">🌼 SWAP Money 2019 💰</div>
+      <div class="hw-logo">SWAP Money 💰</div>
       <img class="hw-wallet-img" src="https://i.postimg.cc/wTmHZtC9/20260816-182506.png" alt="wallet">
     </div>
     <div class="hw-label">Wallet Balance <span style="opacity:.5;cursor:pointer">👁</span></div>
@@ -857,73 +754,39 @@ header{
     </div>
   </div>
 
-  <!-- 🏆 DAILY 20-ADS STREAK QUEST CARD -->
-  <div class="quest-card">
-    <div class="quest-top">
-      <div class="quest-title">🏆 ዕለታዊ የ 20 ማስታወቂያ ቻሌንጅ</div>
-      <span class="quest-reward-pill">+200 ETB ቦነስ</span>
-    </div>
-    <div class="quest-bar-bg"><div class="quest-bar-fill" id="questBarFill"></div></div>
-    <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:800;color:var(--muted)">
-      <span>ሂደት፦ <strong id="questStatusTxt" style="color:var(--gold)">0/20 ማስታወቂያ</strong></span>
-      <span id="questClaimBtnTxt" style="color:var(--green)">20 አጠናቅቀው ይውሰዱ</span>
-    </div>
-  </div>
-
-  <div class="spin-hero-card" onclick="openSpinModal()">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="font-size:32px">🎡</div>
-      <div>
-        <h4 style="font-size:13px;font-weight:900;color:#fff">የእንቁጣጣሽ ዕድል ስፒን ዊል</h4>
-        <p style="font-size:10px;color:var(--gold);font-weight:700">እስከ 30 ብር እና 100 SC ያሽከርክሩ፣ ያሸንፉ!</p>
+  <!-- 🔲 COMPACT 2-COLUMN MINI GRID (PROMO CODE & 30-ADS QUEST) -->
+  <div class="home-mini-grid">
+    <!-- Left: Daily 30-Ads Quest Card -->
+    <div class="mini-quest-card">
+      <div class="mq-top">
+        <div class="mq-title">🏆 30 Ads Quest</div>
+        <span class="mq-pill">+100 ETB</span>
+      </div>
+      <div class="mq-bar-bg"><div class="mq-bar-fill" id="questBarFill"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:800;color:var(--muted)">
+        <span id="questStatusTxt">0/30</span>
+        <span style="color:var(--green)">100 ብር ቦነስ</span>
       </div>
     </div>
-    <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">አሽከርክር ➔</button>
-  </div>
 
-  <div class="word-hunt-card" onclick="openWordHuntModal()">
-    <div class="word-hunt-top">
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:24px">🔤</span>
-        <div>
-          <h4 style="font-size:13px;font-weight:900;color:#fff">«እ-ን-ቁ-ጣ-ጣ-ሽ» 500 ETB አደን</h4>
-          <p style="font-size:10px;color:var(--gold);font-weight:700">ስድስቱንም ፊደሎች ሰብስበው 500 ብር ይውሰዱ!</p>
-        </div>
+    <!-- Right: Promo Code Card -->
+    <div class="mini-promo-card">
+      <div class="mp-top">
+        <div class="mp-title">🎟️ Promo Code</div>
+        <button onclick="window.open(TG_CHANNEL1,'_blank')" style="background:none;border:none;color:var(--gold);font-size:9px;font-weight:800;cursor:pointer">👉 ኮድ ውሰድ</button>
       </div>
-      <button class="btn btn-gold" style="padding:6px 10px;font-size:10px;pointer-events:none">ክፈት ➔</button>
-    </div>
-    <div class="letter-slots-row" style="margin-bottom:0">
-      <div class="letter-slot" id="h_slot_e">እ</div>
-      <div class="letter-slot" id="h_slot_n">ን</div>
-      <div class="letter-slot" id="h_slot_qu">ቁ</div>
-      <div class="letter-slot" id="h_slot_ta1">ጣ</div>
-      <div class="letter-slot" id="h_slot_ta2">ጣ</div>
-      <div class="letter-slot" id="h_slot_sh">ሽ</div>
-    </div>
-  </div>
-
-  <div class="promo-card">
-    <div class="promo-top">
-      <div>
-        <h4 style="font-size:12px;font-weight:900;color:#fff">🎁 የ 200 ETB የበዓል ፕሮሞ ኮድ</h4>
-        <p style="font-size:9.5px;color:var(--muted)">በየ 3 ሰዓቱ በቴሌግራም ቻናላችን ይለቀቃል!</p>
+      <div class="mp-inputs">
+        <input type="text" id="promoCodeInput" class="mp-inp" placeholder="ኮድ ያስገቡ...">
+        <button class="mp-btn" onclick="claimPromoCode()">ተቀበል</button>
       </div>
-      <button onclick="window.open(TG_CHANNEL1,'_blank')" class="btn btn-outline" style="padding:4px 8px;font-size:9.5px">👉 ኮድ ውሰድ</button>
-    </div>
-    <div class="promo-inputs">
-      <input type="text" id="promoCodeInput" class="promo-inp" placeholder="ኮድ እዚህ ያስገቡ...">
-      <button class="btn btn-gold" onclick="claimPromoCode()" style="padding:6px 14px;font-size:10px">ተቀበል</button>
     </div>
   </div>
 
+  <!-- Quick Actions -->
   <div class="qa-row">
-    <div class="qa-item" onclick="openSpinModal()">
-      <div class="qa-circle"><span style="font-size:20px">🎡</span></div>
-      <span class="qa-label">Spin Wheel</span>
-    </div>
-    <div class="qa-item" onclick="openWordHuntModal()">
-      <div class="qa-circle"><span style="font-size:20px">🔤</span></div>
-      <span class="qa-label">500 ETB Hunt</span>
+    <div class="qa-item" onclick="showPage('earn')">
+      <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
+      <span class="qa-label">Earn Hub</span>
     </div>
     <div class="qa-item" onclick="showPage('ads')">
       <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zM8 8l8 4-8 4V8z"/></svg></div>
@@ -937,8 +800,13 @@ header{
       <div class="qa-circle"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
       <span class="qa-label">Invite</span>
     </div>
+    <div class="qa-item" onclick="openSupportModal()">
+      <div class="qa-circle"><span style="font-size:20px">👨‍💼</span></div>
+      <span class="qa-label">Support</span>
+    </div>
   </div>
 
+  <!-- Banner Slider -->
   <div class="banner-wrap" id="bannerSlider">
     <img src="https://i.postimg.cc/W132LPB9/IMG-20260906-171015-407.jpg" class="active" alt="">
     <img src="https://i.postimg.cc/m2dsS5PG/IMG-20260906-171121-734.jpg" alt="">
@@ -949,19 +817,22 @@ header{
     <div class="b-dots" id="bDots"></div>
   </div>
 
+  <!-- 4-Column Tasks Grid (Home) -->
   <div class="sh"><h3>📋 Tasks &amp; Channels</h3><a onclick="showPage('earn')">ሁሉም →</a></div>
   <div class="tasks-grid-4col" id="homeTasksGrid"></div>
 
+  <!-- Invite Banner -->
   <div class="invite-banner">
     <img class="invite-gift" src="https://i.postimg.cc/cJwy699g/20260809-161701.png" alt="gift">
     <div class="invite-info">
-      <h3>🌼 የእንቁጣጣሽ ሪፈራል ፌስቲቫል!</h3>
-      <p>15 ሰው ሲጋብዙ <span style="color:var(--gold);font-weight:800">750 ETB</span> ልዩ የበዓል ቦነስ!</p>
+      <h3>የሪፈራል ልዩ ጉርሻ!</h3>
+      <p>15 ሰው ሲጋብዙ <span style="color:var(--gold);font-weight:800">750 ETB</span> ተጨማሪ ቦነስ!</p>
       <button class="btn btn-gold" style="padding:7px 16px;font-size:11px" onclick="showPage('invite')">Invite Now</button>
     </div>
     <div class="invite-pct">50<small>ETB</small></div>
   </div>
 
+  <!-- Live Withdrawal -->
   <div class="sh"><h3>💸 Live Withdrawals</h3><span style="font-size:9px;background:rgba(16,185,129,.15);color:var(--green);padding:2px 7px;border-radius:8px;font-weight:800">● LIVE</span></div>
   <div id="liveFeed"></div>
 </section>
@@ -972,16 +843,17 @@ header{
 <section class="page" id="page-earn">
   <div class="earn-hero">
     <img src="https://i.postimg.cc/cJwy699g/20260809-161701.png" alt="earn">
-    <h2>Earn &amp; Bonus Hub ✨🌼</h2>
+    <h2>Earn &amp; Bonus Hub ✨</h2>
     <p>ማስታወቂያ ያዩ፣ ሱፐር ቦነስ ይውሰዱ፣ Tasks ያጠናቅቁ!</p>
   </div>
 
+  <!-- High Reward Direct Super Bonus Card -->
   <div class="smartlink-card" onclick="openSuperBonusAd()">
     <div class="sl-left">
       <div class="sl-icon">💎</div>
       <div class="sl-info">
-        <h4>ልዩ የ 100 ETB ጉርሻ (Super Bonus)</h4>
-        <p>ቀጥታ ማስታወቂያ አይተው +100 ETB ይውሰዱ! (በቀን 1 ጊዜ)</p>
+        <h4>ልዩ የ 50 ETB ጉርሻ (Super Bonus)</h4>
+        <p>ቀጥታ ማስታወቂያ አይተው +50 ETB ይውሰዱ! (በቀን 1 ጊዜ)</p>
       </div>
     </div>
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
@@ -1044,7 +916,7 @@ header{
 </section>
 
 <!-- ════════════════════════════════════════════════════
-     REFERRAL PAGE
+     REFERRAL PAGE (WITH PROMINENT INVITE BUTTON)
 ════════════════════════════════════════════════════ -->
 <section class="page" id="page-invite" style="padding:0;position:relative">
   <div class="comp-top-banner-wrap">
@@ -1053,6 +925,13 @@ header{
   </div>
 
   <div style="padding:0 12px;margin-bottom:12px">
+    
+    <!-- 📢 PROMINENT BIG INVITE CALL-TO-ACTION BUTTON -->
+    <button class="super-invite-btn" onclick="shareInvite()">
+      <span>📢</span> ሰው ለመጋበዝ ይሄን ይጫኑ (Invite Friends Now) ➔
+    </button>
+
+    <!-- Telegram Story Task -->
     <div class="story-comp-card" onclick="shareStory(event)">
       <div class="st-left">
         <div class="st-tg-icon">
@@ -1203,20 +1082,15 @@ header{
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px">ክፈት ➔</button>
   </div>
 
-  <div class="card" style="background:linear-gradient(135deg,#241603,#111728);border-color:var(--gold);padding:12px;margin-bottom:10px">
-    <div style="font-size:12.5px;font-weight:900;color:var(--gold);margin-bottom:2px">🦁 50 ማስታወቂያ ፈጣን ማውጣት(50 Ad Fast Withdrawal )</div>
-    <p style="font-size:10px;color:var(--muted);line-height:1.4">ከጠዋት 2 ሰአት እስከ ለሊት 6 ሰአት እኛን ማናገር ትችላላችሁ!</p>
-  </div>
-
-  <!-- ── NEW: VERIFIED & IN-PROCESS PAYOUT CARD ── -->
+  <!-- ── VERIFIED & IN-PROCESS PAYOUT CARD ── -->
   <div class="queue-card" id="pendingQueueCard">
     <div class="qc-head">
       <div style="font-size:12px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px">
-        <span>🎉</span> እንኳን ደስ አለዎት!አሁን መረጃዎትን እያረጋገጥን ነው!
+        <span>🎉</span> እንኳን ደስ አለዎት! መረጃዎ ተረጋግጧል
       </div>
       <div class="qc-processing-tag">
         <span style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green)"></span>
-        Pending for Approved 
+        APPROVED
       </div>
     </div>
 
@@ -1236,7 +1110,7 @@ header{
     </div>
 
     <div class="qc-typing-text">
-      <span>⏳ ክፍያዎን አረጋግጠን በቀጥታ ወደ አካውንትዎ በመተላለፍ ሂደት ላይ ነው</span>
+      <span>⏳ ክፍያዎ በቀጥታ ወደ አካውንትዎ በመተላለፍ ሂደት ላይ ነው</span>
       <div class="qc-dots"><span></span><span></span><span></span></div>
     </div>
 
@@ -1412,7 +1286,6 @@ header{
   </button>
 </nav>
 <div id="toast"></div>
-
 <script>
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
@@ -1425,10 +1298,10 @@ const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2;
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
 
-/* ── 🎟️ FRONTEND PROMO CODES CONFIG ── */
+/* ── 🎟️ አዳዲስ ንቁ PROMO CODES ── */
 const ACTIVE_PROMO_CODES = [
-  'MESKEREM3', 'SWAP2X', 'PAGUME2', 'PAGUME3', 'PAGUME4', 'PAGUME5',
-  'ADEY2019', 'SWAP2019', 'BONUS200', 'MESKEREM', 'HOLIDAY2019'
+  'SWAP2026', 'FASTBIRR', 'ACTIVE50', 'WINNER20', 'BONUS30',
+  'SWAP2X', 'TELEBIRR26', 'PAYDAY50', 'AIRDROP30'
 ];
 
 const TG_CHANNEL1  = 'https://t.me/swapmoneybirr';
@@ -1437,29 +1310,29 @@ const TG_BOT       = 'https://t.me/Swapmoney_bot';
 const YT_SUB       = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2      = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
 
+/* ── አዲሶቹ ሚዛናዊ የማስታወቂያ ዋጋዎች ── */
 const AD_TIERS = [
-  {upTo:6,  reward:50},
-  {upTo:26, reward:30},
-  {upTo:41, reward:20},
-  {upTo:91, reward:10},
+  {upTo:10, reward:20},
+  {upTo:30, reward:12},
+  {upTo:999999, reward:6}
 ];
 function getAdReward(adsWatchedSoFar){
   const adNumber = adsWatchedSoFar + 1;
   for(const tier of AD_TIERS){
     if(adNumber <= tier.upTo) return tier.reward;
   }
-  return 10;
+  return 6;
 }
 function isUnlimitedAdSlot(adsWatchedSoFar){
-  return (adsWatchedSoFar + 1) > 91;
+  return (adsWatchedSoFar + 1) > 30;
 }
 
-/* ═══════════════ 2-MINUTE DELAY & 4-ACTIVITIES AUTO AD CONTROLLER ═══════════════ */
+/* ═══════════════ 2-MINUTE DELAY & 4-ACTIVITIES AUTO AD ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
 const FORCED_AD_DELAY_MS = 2 * 60 * 1000; // በትክክል 2 ደቂቃ (120 ሰከንድ)
 
-// 1. ሰውዬው ከገባ ከ 2 ደቂቃ በኋላ 1 ጊዜ በራሱ ማስታወቂያ ይነሳል
+// 1. ሰውዬው ከገባ ከ 2 ደቂቃ በኋላ 1 ጊዜ በራሱ ይነሳል
 setTimeout(() => {
   if (!initialForcedAdShown) {
     initialForcedAdShown = true;
@@ -1504,9 +1377,9 @@ if(tg){
     if(tgUser.photo_url){
       hdrAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
     } else {
-      hdrAv.textContent = '🌼';
+      hdrAv.textContent = '💰';
     }
-    setText('hdrWelcome', `መልካም አዲስ ዓመት, ${tgUser.first_name} 👋🌼`);
+    setText('hdrWelcome', `Welcome, ${tgUser.first_name} 👋`);
     setText('hdrUser', userTag);
     const refInp = document.getElementById('refLinkInp');
     if(refInp) refInp.value = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${tgUser.id}`;
@@ -1525,7 +1398,7 @@ if(tg){
   }
 }
 
-/* ═══════════════ STATE MANAGEMENT (20 ADS QUEST ENABLED) ═══════════════ */
+/* ═══════════════ STATE (30 ADS QUEST ENABLED) ═══════════════ */
 const KEY = tgUser ? `sm_v3_${tgUser.id}` : 'sm_v3_guest';
 function loadState(){
   const d = {
@@ -1541,15 +1414,8 @@ function loadState(){
     wdAdsStart: null,
     pendingWd: null,
     humanAdminQuota: 0,
-    seenNewYearGift2019: false,
-    daily20AdCount: 0,
-    last20AdQuestDate: '',
-    spinsRemaining: 3,
-    spinAdsWatched: 0,
-    lastSpinDate: '',
-    enkutatashLetters: { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false },
-    huntAdsWatched: 0,
-    lastPromoClaimTime: 0,
+    daily30AdCount: 0,
+    last30AdQuestDate: '',
     claimedPromoCodes: []
   };
   try{ return Object.assign(d, JSON.parse(localStorage.getItem(KEY)||'{}')); }
@@ -1572,7 +1438,7 @@ function getLevel(bal){
   return{n:1,label:'Level 1'};
 }
 
-/* ═══════════════ STREAK & RESET CHECK ═══════════════ */
+/* ═══════════════ STREAK & DAILY QUEST RESET ═══════════════ */
 function dateKey(d){
   const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
   return `${y}-${m}-${day}`;
@@ -1580,14 +1446,9 @@ function dateKey(d){
 function checkAndUpdateStreak(){
   const todayKey = dateKey(new Date());
 
-  if(S.lastSpinDate !== todayKey){
-    S.spinsRemaining = 3;
-    S.spinAdsWatched = 0;
-    S.lastSpinDate = todayKey;
-  }
-  if(S.last20AdQuestDate !== todayKey){
-    S.daily20AdCount = 0;
-    S.last20AdQuestDate = todayKey;
+  if(S.last30AdQuestDate !== todayKey){
+    S.daily30AdCount = 0;
+    S.last30AdQuestDate = todayKey;
   }
 
   if(!S.lastLoginDate){
@@ -1689,368 +1550,9 @@ function render(){
   updateMyRankTab();
 }
 
-/* ═══════════════ 🌼 ADEY ABEBA PARTICLES ═══════════════ */
-(function initAdeyCanvas(){
-  const canvas = document.getElementById('adeyCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W = canvas.width = window.innerWidth;
-  let H = canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', ()=>{
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  });
-
-  const petals = [];
-  const TOTAL_PETALS = 28;
-
-  for(let i=0; i<TOTAL_PETALS; i++){
-    petals.push({
-      x: Math.random() * W,
-      y: Math.random() * H - H,
-      r: Math.random() * 5 + 4,
-      d: Math.random() * TOTAL_PETALS,
-      color: Math.random() > 0.3 ? '#FFDE00' : '#FFA500',
-      tilt: Math.random() * 10 - 10,
-      tiltAngleIncremental: (Math.random() * 0.07) + 0.03,
-      tiltAngle: 0
-    });
-  }
-
-  let animationFrameId;
-  const adeyStartTime = Date.now();
-  const ADEY_LIFETIME_MS = 30 * 1000;
-
-  function drawPetals(){
-    if(Date.now() - adeyStartTime > ADEY_LIFETIME_MS){
-      canvas.style.opacity = '0';
-      setTimeout(()=> {
-        cancelAnimationFrame(animationFrameId);
-        canvas.style.display = 'none';
-      }, 1500);
-      return;
-    }
-
-    ctx.clearRect(0, 0, W, H);
-    for(let i=0; i<TOTAL_PETALS; i++){
-      const p = petals[i];
-      ctx.beginPath();
-      ctx.lineWidth = p.r;
-      ctx.strokeStyle = p.color;
-      ctx.moveTo(p.x + p.tilt + (p.r / 2), p.y);
-      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
-      ctx.stroke();
-    }
-    updatePetals();
-    animationFrameId = requestAnimationFrame(drawPetals);
-  }
-
-  function updatePetals(){
-    for(let i=0; i<TOTAL_PETALS; i++){
-      const p = petals[i];
-      p.tiltAngle += p.tiltAngleIncremental;
-      p.y += (Math.cos(p.d) + 1.2 + p.r / 5) * 0.65;
-      p.x += Math.sin(p.d) * 0.8;
-      p.tilt = Math.sin(p.tiltAngle - (i / 3)) * 8;
-
-      if(p.y > H){
-        petals[i] = {
-          x: Math.random() * W,
-          y: -15,
-          r: p.r,
-          d: p.d,
-          color: p.color,
-          tilt: p.tilt,
-          tiltAngleIncremental: p.tiltAngleIncremental,
-          tiltAngle: p.tiltAngle
-        };
-      }
-    }
-  }
-
-  drawPetals();
-})();
-
-/* ═══════════════ 🌼 ENKUTATASH 2019 WELCOME MODAL ═══════════════ */
-function checkNewYearModalOnLaunch(){
-  if(!S.seenNewYearGift2019){
-    setTimeout(()=>{
-      document.getElementById('newYearModal')?.classList.add('active');
-    }, 1200);
-  }
-}
-
-function claimNewYearHolidayGift(){
-  document.getElementById('newYearModal')?.classList.remove('active');
-  S.seenNewYearGift2019 = true;
-  S.balance += 50;
-  markLocalMutation();
-  toast('🌼 እንኳን ደስ አለዎት! +50 ETB የእንቁጣጣሽ ስጦታ ገቢ ሆኗል!');
-  if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-  if(syncReady) syncToSheet();
-}
-
-/* ═══════════════ 🎡 6-SEGMENT SPIN WHEEL ENGINE ═══════════════ */
-const WHEEL_SEGMENTS = [
-  { label: '30 ETB', type: 'etb', val: 30, color: '#FFD700', textCol: '#000' },
-  { label: '100 SC', type: 'sc',  val: 100, color: '#161c2b', textCol: '#FFD700' },
-  { label: '📺 3 Ads', type: 'ad_penalty', val: 3, color: '#ef4444', textCol: '#fff' },
-  { label: '20 ETB', type: 'etb', val: 20, color: '#FFA500', textCol: '#000' },
-  { label: '📺 2 Ads', type: 'ad_penalty', val: 2, color: '#8b5cf6', textCol: '#fff' },
-  { label: '🙏 እናመሰግናለን', type: 'try_again', val: 0, color: '#0d121f', textCol: '#8e9ab2' }
-];
-
-let isWheelSpinning = false;
-let wheelCurrentAngle = 0;
-
-function drawWheelCanvas(){
-  const canvas = document.getElementById('wheelCanvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const numSegs = WHEEL_SEGMENTS.length;
-  const arcSize = (2 * Math.PI) / numSegs;
-  const radius = canvas.width / 2;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  for(let i=0; i<numSegs; i++){
-    const angle = wheelCurrentAngle + i * arcSize;
-    ctx.beginPath();
-    ctx.fillStyle = WHEEL_SEGMENTS[i].color;
-    ctx.moveTo(radius, radius);
-    ctx.arc(radius, radius, radius - 8, angle, angle + arcSize);
-    ctx.lineTo(radius, radius);
-    ctx.fill();
-    ctx.strokeStyle = '#FFD700';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    ctx.save();
-    ctx.translate(radius, radius);
-    ctx.rotate(angle + arcSize / 2);
-    ctx.textAlign = 'right';
-    ctx.fillStyle = WHEEL_SEGMENTS[i].textCol;
-    ctx.font = 'bold 22px ' + getComputedStyle(document.body).fontFamily;
-    ctx.fillText(WHEEL_SEGMENTS[i].label, radius - 28, 8);
-    ctx.restore();
-  }
-}
-
-function openSpinModal(){
-  recordActivity();
-  document.getElementById('spinWheelModal')?.classList.add('active');
-  updateSpinModalUI();
-  setTimeout(drawWheelCanvas, 100);
-}
-function closeSpinModal(){ document.getElementById('spinWheelModal')?.classList.remove('active'); }
-
-function updateSpinModalUI(){
-  setText('spinsLeftDisplay', `${S.spinsRemaining||0}/3`);
-  setText('spinAdStepDisplay', `${S.spinAdsWatched||0}/2`);
-  const btn = document.getElementById('spinActionBtn');
-  if(!btn) return;
-
-  if((S.spinsRemaining || 0) <= 0){
-    btn.disabled = true;
-    btn.textContent = 'የዛሬው 3 ስፒን አልቋል (ነገ ይጠብቁ)';
-  } else if((S.spinAdsWatched || 0) >= 2){
-    btn.disabled = false;
-    btn.textContent = '🎡 አሁኑኑ ያሽከርክሩ (Spin Ready!)';
-  } else {
-    btn.disabled = false;
-    btn.textContent = `📺 ማስታወቂያ ያዩ (${S.spinAdsWatched || 0}/2) — ስፒን ለመክፈት`;
-  }
-}
-
-function triggerSpinAction(){
-  if(isWheelSpinning) return;
-
-  if((S.spinsRemaining || 0) <= 0){
-    toast('⚠️ የዛሬው 3 ስፒን አልቋል! ነገ ይጠብቁ');
-    return;
-  }
-
-  if((S.spinAdsWatched || 0) >= 2){
-    executeWheelSpin();
-    return;
-  }
-
-  watchAdForSpinUnlock();
-}
-
-function watchAdForSpinUnlock(){
-  if(adRunning) return;
-  closeSpinModal();
-  watchAdCustom('🎡 ስፒን ለመክፈት ማስታወቂያ', ()=>{
-    S.spinAdsWatched = (S.spinAdsWatched || 0) + 1;
-    saveState();
-    if(S.spinAdsWatched >= 2){
-      toast('🎉 2 ማስታወቂያ አጠናቀዋል! አሁን ስፒኑን ያሽከርክሩ!');
-    } else {
-      toast('✅ 1/2 ማስታወቂያ አለቀ! 1 ተጨማሪ ማስታወቂያ ይመልከቱ');
-    }
-    openSpinModal();
-  });
-}
-
-function executeWheelSpin(){
-  if(isWheelSpinning) return;
-  isWheelSpinning = true;
-  const spinBtn = document.getElementById('spinActionBtn');
-  if(spinBtn) spinBtn.disabled = true;
-
-  const numSegs = WHEEL_SEGMENTS.length;
-  const arcSize = (2 * Math.PI) / numSegs;
-  
-  const winIdx = Math.floor(Math.random() * numSegs);
-  const targetSegAngle = (3 * Math.PI / 2) - (winIdx * arcSize + arcSize / 2);
-  const totalRotation = (Math.PI * 2 * 6) + targetSegAngle;
-
-  const startTime = Date.now();
-  const duration = 4500;
-
-  const spinInterval = setInterval(()=>{
-    const elapsed = Date.now() - startTime;
-    const progress = Math.min(1, elapsed / duration);
-    const easeOut = 1 - Math.pow(1 - progress, 3);
-
-    wheelCurrentAngle = easeOut * totalRotation;
-    drawWheelCanvas();
-
-    if(tg?.HapticFeedback && Math.random() > 0.6){
-      try{ tg.HapticFeedback.impactOccurred('light'); }catch(e){}
-    }
-
-    if(progress >= 1){
-      clearInterval(spinInterval);
-      isWheelSpinning = false;
-      S.spinsRemaining--;
-      S.spinAdsWatched = 0;
-      saveState();
-
-      const prize = WHEEL_SEGMENTS[winIdx];
-      handleSpinPrize(prize);
-      updateSpinModalUI();
-    }
-  }, 20);
-}
-
-function handleSpinPrize(prize){
-  if(prize.type === 'etb'){
-    S.balance += prize.val;
-    markLocalMutation();
-    toast(`🎉 እንኳን ደስ አለዎት! +${prize.val} ETB አሸንፈዋል!`);
-    if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-    if(syncReady) syncToSheet();
-  } else if(prize.type === 'sc'){
-    S.swapCoins = (S.swapCoins || 0) + prize.val;
-    markLocalMutation();
-    toast(`🎉 እንኳን ደስ አለዎት! +${prize.val} SC አሸንፈዋል!`);
-    if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-    if(syncReady) syncToSheet();
-  } else if(prize.type === 'ad_penalty'){
-    toast(`⚠️ ${prize.label} ደርሶዎታል! ማስታወቂያዎችን በማየት ተጨማሪ ገቢ ያግኙ!`);
-  } else {
-    toast('🙏 ዕድልዎ ለጊዜው አልሰመረም! ደግመው ይሞክሩ');
-  }
-}
-
-/* ═══════════════ 🔤 ENKUTATASH 500 ETB WORD HUNT ENGINE ═══════════════ */
-function openWordHuntModal(){
-  recordActivity();
-  document.getElementById('wordHuntModal')?.classList.add('active');
-  renderWordHuntSlots();
-}
-function closeWordHuntModal(){ document.getElementById('wordHuntModal')?.classList.remove('active'); }
-
-function renderWordHuntSlots(){
-  const L = S.enkutatashLetters || {};
-  const slots = [
-    { id: 'e',   filled: L.e,   elIds: ['slot_e', 'h_slot_e'] },
-    { id: 'n',   filled: L.n,   elIds: ['slot_n', 'h_slot_n'] },
-    { id: 'qu',  filled: L.qu,  elIds: ['slot_qu', 'h_slot_qu'] },
-    { id: 'ta1', filled: L.ta1, elIds: ['slot_ta1', 'h_slot_ta1'] },
-    { id: 'ta2', filled: L.ta2, elIds: ['slot_ta2', 'h_slot_ta2'] },
-    { id: 'sh',  filled: L.sh,  elIds: ['slot_sh', 'h_slot_sh'] }
-  ];
-
-  slots.forEach(s=>{
-    s.elIds.forEach(id=>{
-      const el = document.getElementById(id);
-      if(el) el.classList.toggle('filled', !!s.filled);
-    });
-  });
-
-  const btn = document.getElementById('huntLetterBtn');
-  if(btn){
-    btn.textContent = `🎁 ማስታወቂያ ያዩ (${S.huntAdsWatched || 0}/2) — ፊደል ለመክፈት`;
-  }
-}
-
-function openLetterCrate(){
-  if(adRunning) return;
-  closeWordHuntModal();
-
-  watchAdCustom('🔤 ፊደል ለመክፈት ማስታወቂያ', ()=>{
-    S.huntAdsWatched = (S.huntAdsWatched || 0) + 1;
-    saveState();
-
-    if(S.huntAdsWatched >= 2){
-      S.huntAdsWatched = 0;
-      grantRandomLetterDrop();
-    } else {
-      toast('✅ 1/2 ማስታወቂያ አለቀ! 1 ተጨማሪ ማስታወቂያ ይመልከቱ');
-    }
-    openWordHuntModal();
-  });
-}
-
-function grantRandomLetterDrop(){
-  const rand = Math.random() * 100;
-  let droppedLetter = '';
-  let dropKey = '';
-
-  if(rand < 30){ droppedLetter = 'እ'; dropKey = 'e'; }
-  else if(rand < 55){ droppedLetter = 'ን'; dropKey = 'n'; }
-  else if(rand < 75){ droppedLetter = 'ጣ'; dropKey = 'ta1'; }
-  else if(rand < 90){ droppedLetter = 'ቁ'; dropKey = 'qu'; }
-  else if(rand < 97){ droppedLetter = 'ጣ (2ኛ)'; dropKey = 'ta2'; }
-  else { droppedLetter = 'ሽ'; dropKey = 'sh'; }
-
-  if(!S.enkutatashLetters) S.enkutatashLetters = {};
-
-  if(S.enkutatashLetters[dropKey]){
-    toast(`🎲 ደጋሚ «${droppedLetter}» ፊደል አግኝተዋል! ደግመው ይሞክሩ`);
-  } else {
-    S.enkutatashLetters[dropKey] = true;
-    saveState();
-    toast(`🎉 እንኳን ደስ አለዎት! አዲስ «${droppedLetter}» ፊደል አግኝተዋል!`);
-    if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-  }
-
-  const L = S.enkutatashLetters;
-  if(L.e && L.n && L.qu && L.ta1 && L.ta2 && L.sh){
-    S.balance += 500;
-    S.enkutatashLetters = { e: false, n: false, qu: false, ta1: false, ta2: false, sh: false };
-    markLocalMutation();
-    alert('🏆🎉 እንኳን ደስ አለዎት! ሙሉውን «እ-ን-ቁ-ጣ-ጣ-ሽ» ቃል ሞልተው የ 500 ETB ጃክፖት ቦነስ አሸንፈዋል!');
-    if(syncReady) syncToSheet();
-  }
-
-  renderWordHuntSlots();
-}
-
-/* ═══════════════ 🎟️ TIMED 200 ETB PROMO CODE ENGINE ═══════════════ */
+/* ═══════════════ 🎟️ PROMO CODE ENGINE (20 - 50 ETB) ═══════════════ */
 function calculatePromoReward(){
-  const rand = Math.random() * 100;
-  if(rand < 60){
-    return Math.floor(Math.random() * 50) + 1;
-  } else if(rand < 90){
-    return Math.floor(Math.random() * 51) + 50;
-  } else {
-    return Math.floor(Math.random() * 101) + 100;
-  }
+  return Math.floor(Math.random() * 31) + 20; // 20 እስከ 50 ETB
 }
 
 function claimPromoCode(){
@@ -2062,7 +1564,7 @@ function claimPromoCode(){
   if(!S.claimedPromoCodes) S.claimedPromoCodes = [];
 
   if(S.claimedPromoCodes.includes(code)){
-    toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል! (1 ጊዜ ብቻ)');
+    toast('⚠️ ይህንን ፕሮሞ ኮድ አስቀድመው ወስደዋል!');
     return;
   }
 
@@ -2072,37 +1574,37 @@ function claimPromoCode(){
     S.claimedPromoCodes.push(code);
     inp.value = '';
     markLocalMutation();
-    toast(`🎉 እንኳን ደስ አለዎት! የፕሮሞ ኮድ +${wonReward} ETB ቦነስ ገቢ ሆኗል!`);
+    toast(`🎉 እንኳን ደስ አለዎት! +${wonReward} ETB ቦነስ ተጨምሯል!`);
     if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-    if(syncReady) syncToSheet();
+    if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
   } else {
-    toast('❌ የተሳሳተ ወይም ያልተለቀቀ ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
+    toast('❌ የተሳሳተ ፕሮሞ ኮድ! ቻናላችንን ይመልከቱ');
   }
 }
 
-/* ═══════════════ 🏆 20-ADS QUEST RENDERER (+200 ETB) ═══════════════ */
+/* ═══════════════ 🏆 30-ADS QUEST RENDERER (+100 ETB) ═══════════════ */
 function renderHolidayGamification(){
-  const count = Math.min(20, S.daily20AdCount || 0);
+  const count = Math.min(30, S.daily30AdCount || 0);
   const fill = document.getElementById('questBarFill');
-  if(fill) fill.style.width = `${(count / 20) * 100}%`;
-  setText('questStatusTxt', `${count}/20 ማስታወቂያ`);
-  renderWordHuntSlots();
+  if(fill) fill.style.width = `${(count / 30) * 100}%`;
+  setText('questStatusTxt', `${count}/30`);
 }
 
-/* ═══════════════ ALL 7 TASKS ═══════════════ */
+/* ═══════════════ ALL 7 TASKS (PROMO BOT INCLUDED & REVISED PRICES) ═══════════════ */
 const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
 const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
+const PROMO_BOT = 'https://t.me/Swapmoney_bot'; // Promotional bot link
 
 const ALL_TASKS = [
-  {id:'tg1',    label:'TG Channel 1',        reward:100, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
-  {id:'tg2',    label:'TG Channel 2',        reward:100, dur:30, link:TG_CHANNEL2, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
-  {id:'nametag',label:'Name Tag | SWAP 💰',  reward:50,  dur:20, link:'https://t.me',       icon:TG_ICON, bg:'rgba(255,215,0,.15)'},
-  {id:'ytsub1', label:'YouTube Sub 1',       reward:100, dur:60, link:YT_SUB,      icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
-  {id:'ytsub2', label:'YouTube Sub 2',       reward:100, dur:60, link:YT_SUB2,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
-  {id:'ytvid1', label:'YouTube Video',       reward:50,  dur:60, link:YT_VID1,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
-  {id:'bunabot',label:'Buna Bot Join',       reward:50,  dur:30, link:BUNA_BOT,    icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
+  {id:'tg1',      label:'TG Channel 1',        reward:35, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
+  {id:'tg2',      label:'TG Channel 2',        reward:35, dur:30, link:TG_CHANNEL2, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
+  {id:'promobot', label:'Promotional Bot Join',reward:30, dur:20, link:PROMO_BOT,   icon:TG_ICON, bg:'rgba(255,215,0,.15)'},
+  {id:'ytsub1',   label:'YouTube Sub 1',       reward:35, dur:60, link:YT_SUB,      icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'ytsub2',   label:'YouTube Sub 2',       reward:35, dur:60, link:YT_SUB2,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'ytvid1',   label:'YouTube Video',       reward:25, dur:60, link:YT_VID1,     icon:YT_ICON, bg:'rgba(239,68,68,.15)'},
+  {id:'bunabot',  label:'Buna Bot Join',       reward:25, dur:30, link:BUNA_BOT,    icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
 ];
 
 const activeTaskTimers = new Set();
@@ -2145,23 +1647,20 @@ function renderEarnTasks(){
     }
   }
 
-  const BADGES = ['HOT','NEW','NEW','HOT','EASY','NEW','HOT','EASY','HOT','NEW','EASY','HOT'];
+  const BADGES = ['HOT','NEW','HOT','EASY','HOT','NEW','HOT','EASY','HOT','NEW','EASY','HOT'];
   const BGS = [
-    'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
-    'linear-gradient(135deg,#0a051a,#180a30)','linear-gradient(135deg,#051a0a,#0a3015)',
-    'linear-gradient(135deg,#1a1005,#302005)','linear-gradient(135deg,#1a0510,#30081a)',
     'linear-gradient(135deg,#1a0a05,#2a1205)','linear-gradient(135deg,#050a1a,#0a1530)',
     'linear-gradient(135deg,#0a051a,#180a30)','linear-gradient(135deg,#051a0a,#0a3015)',
     'linear-gradient(135deg,#1a1005,#302005)','linear-gradient(135deg,#1a0510,#30081a)'
   ];
-  const BADGE_COLOR = {HOT:'var(--red)',NEW:'var(--blue)',EASY:'var(--green)',VIP:'var(--gold)',BONUS:'var(--purple)'};
+  const BADGE_COLOR = {HOT:'var(--red)',NEW:'var(--blue)',EASY:'var(--green)'};
   
   const earnAds = Array.from({length:6},(_,i)=>({
     num: S.adsWatched+i+1,
     reward: getAdReward(S.adsWatched+i),
     unlimited: isUnlimitedAdSlot(S.adsWatched+i),
-    badge: BADGES[i],
-    bg: BGS[i],
+    badge: BADGES[i % BADGES.length],
+    bg: BGS[i % BGS.length],
   }));
 
   const mainAds = Array.from({length:24},(_,i)=>({
@@ -2258,7 +1757,7 @@ function claimTask(id,reward){
   if(syncReady){ syncToSheet(); } else { pendingSyncAfterInit = true; }
 }
 
-/* ═══════════════ MONETAG REWARDED INTERSTITIAL ENGINE ═══════════════ */
+/* ═══════════════ MONETAG REWARDED ADS (SAFE SYNC) ═══════════════ */
 let adRunning = false;
 
 function watchAd(btn){
@@ -2284,7 +1783,7 @@ function watchAd(btn){
     }).catch(e => {
       adRunning = false;
       if(btn) btn.disabled = false;
-      toast('⚠️ ማስታወቂያው አልተጠናቀቀም ወይም አልተጫነም፤ ደግመው ይሞክሩ');
+      toast('⚠️ ማስታወቂያው አልተጠናቀቀም ወይም አልተጫነም');
     });
   } else {
     setTimeout(()=>{
@@ -2300,11 +1799,11 @@ function finalizeRewardedAd(reward){
   S.balance += reward;
   S.lastAdFinishedTime = Date.now();
 
-  // 🏆 20-Ads Daily Quest Tracker (+200 ETB)
-  S.daily20AdCount = (S.daily20AdCount || 0) + 1;
-  if(S.daily20AdCount === 20){
-    S.balance += 200;
-    toast('🏆 እንኳን ደስ አለዎት! 20 ማስታወቂያ ጨርሰው +200 ETB ቦነስ አግኝተዋል!');
+  // 🏆 30-Ads Daily Quest Tracker (+100 ETB)
+  S.daily30AdCount = (S.daily30AdCount || 0) + 1;
+  if(S.daily30AdCount === 30){
+    S.balance += 100;
+    toast('🏆 እንኳን ደስ አለዎት! 30 ማስታወቂያ ጨርሰው +100 ETB ቦነስ አግኝተዋል!');
   }
 
   markLocalMutation();
@@ -2313,35 +1812,12 @@ function finalizeRewardedAd(reward){
   if(tg?.HapticFeedback){ try{ tg.HapticFeedback.notificationOccurred('success'); }catch(e){} }
 }
 
-function watchAdCustom(titleText, onFinishCallback){
-  if(adRunning) return;
-  adRunning = true;
-  toast(`${titleText} እየተከፈተ ነው...`);
-
-  if(typeof show_11460944 === 'function'){
-    show_11460944().then(() => {
-      adRunning = false;
-      S.lastAdFinishedTime = Date.now();
-      if(onFinishCallback) onFinishCallback();
-    }).catch(e => {
-      adRunning = false;
-      toast('⚠️ ማስታወቂያው አልተጠናቀቀም');
-    });
-  } else {
-    setTimeout(()=>{
-      adRunning = false;
-      S.lastAdFinishedTime = Date.now();
-      if(onFinishCallback) onFinishCallback();
-    }, 2500);
-  }
-}
-
-/* ═══════════════ 100 ETB SUPER BONUS ═══════════════ */
+/* ═══════════════ 50 ETB SUPER BONUS ═══════════════ */
 function openSuperBonusAd(){
   recordActivity();
   const todayKey = dateKey(new Date());
   if(S.lastSuperBonusDate === todayKey){
-    toast('✅ የዛሬውን ልዩ 100 ETB ጉርሻ ወስደዋል! ነገ ይጠብቁ');
+    toast('✅ የዛሬውን ልዩ 50 ETB ጉርሻ ወስደዋል! ነገ ይጠብቁ');
     return;
   }
 
@@ -2352,7 +1828,7 @@ function openSuperBonusAd(){
     return;
   }
 
-  toast('💎 ልዩ 100 ETB ማስታወቂያ እየተከፈተ ነው...');
+  toast('💎 ልዩ 50 ETB ማስታወቂያ እየተከፈተ ነው...');
   
   if(typeof show_11460944 === 'function'){
     show_11460944().then(() => {
@@ -2367,11 +1843,11 @@ function openSuperBonusAd(){
 
 function grantSuperBonusReward(){
   const todayKey = dateKey(new Date());
-  S.balance += 100;
+  S.balance += 50;
   S.lastSuperBonusDate = todayKey;
   S.lastAdFinishedTime = Date.now();
   markLocalMutation();
-  toast('🎉 እንኳን ደስ አለዎት! +100 ETB ልዩ ጉርሻ ተጨምሯል!');
+  toast('🎉 እንኳን ደስ አለዎት! +50 ETB ልዩ ጉርሻ ተጨምሯል!');
   if(tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
   if(syncReady) syncToSheet(); else pendingSyncAfterInit = true;
 }
@@ -2389,10 +1865,10 @@ function openLuckyBox(){
   }
 
   const bonusTypes = [
+    {type:'etb', val:15, txt:'+15 ETB'},
+    {type:'sc',  val:30, txt:'+30 SC'},
     {type:'etb', val:25, txt:'+25 ETB'},
-    {type:'sc',  val:50, txt:'+50 SC'},
-    {type:'etb', val:50, txt:'+50 ETB'},
-    {type:'sc',  val:100, txt:'+100 SC'}
+    {type:'sc',  val:50, txt:'+50 SC'}
   ];
   const pick = bonusTypes[Math.floor(Math.random() * bonusTypes.length)];
   if(pick.type === 'etb') S.balance += pick.val;
@@ -2476,7 +1952,7 @@ async function apiPost(payload){
 }
 
 /* ════════════════════════════════════════════════════
-   1,000,000 ብር LEADERBOARD (DYNAMIC DATABASE SYNC)
+   1,000,000 ብር LEADERBOARD (FAST REAL-TIME SYNC)
 ════════════════════════════════════════════════════ */
 let allLbData = [];
 let isExpanded100 = false;
@@ -2523,9 +1999,6 @@ function renderLeaderboardUI(){
     setText('podiumName1', isMe1 ? (tgUser?.first_name || u1.username) : maskLbName(u1.username));
     setText('podiumRefs1', Number(u1.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar1', (u1.username.replace(/^@/,'')[0]||'U').toUpperCase());
-  } else {
-    setText('podiumName1', "Waiting...");
-    setText('podiumRefs1', "0 refs");
   }
 
   if(u2) {
@@ -2533,9 +2006,6 @@ function renderLeaderboardUI(){
     setText('podiumName2', isMe2 ? (tgUser?.first_name || u2.username) : maskLbName(u2.username));
     setText('podiumRefs2', Number(u2.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar2', (u2.username.replace(/^@/,'')[0]||'U').toUpperCase());
-  } else {
-    setText('podiumName2', "Waiting...");
-    setText('podiumRefs2', "0 refs");
   }
 
   if(u3) {
@@ -2543,9 +2013,6 @@ function renderLeaderboardUI(){
     setText('podiumName3', isMe3 ? (tgUser?.first_name || u3.username) : maskLbName(u3.username));
     setText('podiumRefs3', Number(u3.referrals).toLocaleString() + ' refs');
     setText('podiumAvatar3', (u3.username.replace(/^@/,'')[0]||'U').toUpperCase());
-  } else {
-    setText('podiumName3', "Waiting...");
-    setText('podiumRefs3', "0 refs");
   }
 
   if (allLbData.length <= 3) {
@@ -2593,6 +2060,7 @@ function updateMyRankTab(){
   }
 }
 
+/* ⚡ FAST LEADERBOARD SYNC WITH ANTI-CACHE */
 async function fetchLiveLeaderboard(){
   try{
     const RENDER_API_URL = "https://leaderbord-server.onrender.com/api/leaderboard";
@@ -2605,7 +2073,7 @@ async function fetchLiveLeaderboard(){
       updateMyRankTab();
     }
   }catch(e){
-    console.error('Leaderboard error:', e);
+    console.error('Fast Leaderboard error:', e);
   }
 }
 
@@ -2638,7 +2106,6 @@ function shareStory(e){
   const mediaUrl = 'https://i.postimg.cc/63SnYnJG/20260910-082453.jpg';
 
   triggerFireworks();
-
   const storyCaption = `🔥 በ Swap Money የ 1,000,000 ብር ውድድር ተቀላቀሉ! 💰\n\n👇 የኔ መጋበዣ ሊንክ:\n${refLink}`;
 
   if(tg && tg.shareToStory){
@@ -2653,6 +2120,7 @@ function shareStory(e){
     navigator.clipboard?.writeText(refLink);
     toast('📋 የሪፈራል ሊንክዎ ኮፒ ሆኗል! Story ላይ ያጋሩት');
   }
+  setTimeout(fetchLiveLeaderboard, 1500);
 }
 
 function shareInvite(){
@@ -2667,6 +2135,7 @@ function shareInvite(){
     navigator.clipboard?.writeText(refLink);
     toast('📋 ሊንክ ኮፒ ሆኗል!');
   }
+  setTimeout(fetchLiveLeaderboard, 1500);
 }
 
 /* ════════════════════════════════════════════════════
@@ -2948,19 +2417,32 @@ function copyRefLink(){
   toast('📋 ሊንክ ኮፒ ሆኗል!');
 }
 
-/* ═══════════════ GOOGLE SHEETS SYNC ═══════════════ */
+/* ═══════════════ GOOGLE SHEETS FULL SYNCING (100% BULLETPROOF) ═══════════════ */
 async function syncFromSheet(){
   if(!tgUser)return;
+
+  // ተጠቃሚው ማስታወቂያ ካየ ገና 12 ሰከንድ ካላለፈው ሰርቨሩ የአዲሱን ገቢ እንዳያጠፋው ይጠብቃል
+  const timeSinceLastAd = (Date.now() - (S.lastAdFinishedTime || 0)) / 1000;
+  if(timeSinceLastAd < 12) return;
   
   try{
     const res=await fetch(`${SCRIPT_URL}?action=getUser&userId=${tgUser.id}`);
     const data=await res.json();
     if(data.result==='success'&&data.user){
       const u=data.user;
-      if(typeof u.balance!=='undefined')     S.balance = Number(u.balance) || 0;
-      if(typeof u.totalAds!=='undefined')    S.adsWatched = Number(u.totalAds) || 0;
-      if(typeof u.swapCoins!=='undefined')   S.swapCoins = Number(u.swapCoins) || 0;
+      const serverBal = Number(u.balance) || 0;
+
+      // ሰውዬው Withdraw እስካላደረገ ድረስ ስልኩ ላይ ያለው አዲስ ብር በሰርቨሩ የድሮ ብር አይቀነስም
+      if(!S.pendingWd){
+        S.balance = Math.max(S.balance, serverBal);
+      } else {
+        S.balance = serverBal;
+      }
+
+      if(typeof u.totalAds!=='undefined') S.adsWatched = Math.max(S.adsWatched, Number(u.totalAds) || 0);
+      if(typeof u.swapCoins!=='undefined') S.swapCoins = Math.max(S.swapCoins, Number(u.swapCoins) || 0);
       if(typeof u.totalReferrals!=='undefined') S.totalRefs = Number(u.totalReferrals) || 0;
+      
       saveState();
       render(); flashSyncDot();
     } else if(data.result === 'not_found'){
@@ -2988,7 +2470,7 @@ async function syncFromSheet(){
 async function syncToSheet(){
   if(!tgUser)return;
   if(!syncReady){
-    console.warn('[Swap Money] syncToSheet blocked: not ready yet');
+    pendingSyncAfterInit = true;
     return;
   }
   try{
@@ -3002,18 +2484,7 @@ async function syncToSheet(){
       referredBy:String(referrerId||'None')
     });
     if(data && data.result === 'success'){
-      if(data.user){
-        if(typeof data.user.balance !== 'undefined') S.balance = Number(data.user.balance) || 0;
-        if(typeof data.user.swapCoins !== 'undefined') S.swapCoins = Number(data.user.swapCoins) || 0;
-        if(typeof data.user.totalReferrals !== 'undefined') S.totalRefs = Number(data.user.totalReferrals) || 0;
-        if(typeof data.user.totalAds !== 'undefined') S.adsWatched = Number(data.user.totalAds) || 0;
-      } else {
-        if(typeof data.balance !== 'undefined') S.balance = Number(data.balance) || 0;
-        if(typeof data.swapCoins !== 'undefined') S.swapCoins = Number(data.swapCoins) || 0;
-        if(typeof data.totalReferrals !== 'undefined') S.totalRefs = Number(data.totalReferrals) || 0;
-      }
       saveState();
-      render();
       flashSyncDot();
     }
   }catch(e){
@@ -3045,7 +2516,6 @@ async function safeInit(){
       if(S.balance === 0) S.balance = WELCOME_ETB;
       markLocalMutation();
     }
-    checkNewYearModalOnLaunch();
     fetchLiveLeaderboard();
     return;
   }
@@ -3056,13 +2526,13 @@ async function safeInit(){
 
     if(data.result === 'success' && data.user){
       const u = data.user;
-      S.balance    = Number(u.balance)        || 0;
-      S.adsWatched = Number(u.totalAds)       || 0;
-      S.swapCoins  = Number(u.swapCoins)      || 0;
+      const serverBal = Number(u.balance) || 0;
+      S.balance    = Math.max(S.balance, serverBal);
+      S.adsWatched = Math.max(S.adsWatched, Number(u.totalAds) || 0);
+      S.swapCoins  = Math.max(S.swapCoins, Number(u.swapCoins) || 0);
       S.totalRefs  = Number(u.totalReferrals) || 0;
       S.hasWelcomed = true;
       saveState();
-      toast('✅ ውሂብዎ ከ server ተመልሷል');
 
     } else if(data.result === 'not_found'){
       const regData = await apiPost({
@@ -3097,7 +2567,6 @@ async function safeInit(){
 
   syncReady = true;
   render();
-  checkNewYearModalOnLaunch();
   fetchLiveLeaderboard();
 
   if(pendingSyncAfterInit){
@@ -3108,10 +2577,10 @@ async function safeInit(){
 
 safeInit();
 setInterval(syncFromSheet, 25000);
-setInterval(fetchLiveLeaderboard, 60000);
+setInterval(fetchLiveLeaderboard, 15000); // ⚡ ፈጣን የደረጃዎች ማመሳሰል በየ 15 ሰከንዱ
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT
+   CUSTOMER SUPPORT LIVE CHAT & SMART AI REFERRAL HELPER
 ════════════════════════════════════════════════════ */
 function formatChatText(text){
   if(!text) return '';
@@ -3151,7 +2620,7 @@ function restoreLocalChatUI(){
 
   if(localChatHistory.length === 0){
     container.innerHTML = `<div class="chat-bubble bubble-admin">
-      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>`;
     return;
@@ -3187,12 +2656,13 @@ function closeSupportModal(){
   clearInterval(supportChatPollInterval);
 }
 
+/* 🤖 SMART AI FAQ HANDLER (AUTOMATIC REFERRAL LINK INCLUDED) */
 function handleFAQ(type){
   recordActivity();
   let qText = '';
-  if(type === 'withdraw') qText = 'ገንዘብ ለማውጣት ምን መስፈርቶች ያስፈልጋሉ?';
+  if(type === 'invite_how') qText = 'ሰዎችን እንዴት መጋበዝ እችላለሁ?';
+  else if(type === 'withdraw') qText = 'ገንዘብ ለማውጣት ምን መስፈርቶች ያስፈልጋሉ?';
   else if(type === 'referral') qText = 'የ 1,000,000 ብር የውድድር ደንብ እንዴት ነው?';
-  else if(type === 'review') qText = 'የክፍያ ኦዲት እና የገንዘብ ማስተላለፊያ ጊዜ ስንት ነው?';
   else if(type === 'ads') qText = 'የማስታወቂያ ቦነስ እና የ Super Bonus አሰራር እንዴት ነው?';
 
   document.getElementById('chatTextInput').value = qText;
@@ -3234,12 +2704,29 @@ function initiateSupportTicketSend(){
 
   inp.value = '';
 
+  // 🤖 1. SMART REFERRAL AI TRIGGER
+  const isInviteQuery = lower.includes('መጋበዝ') || lower.includes('ጋብዝ') || lower.includes('እንዴት') && lower.includes('ሰው') || lower.includes('invite') || lower.includes('referral') || lower.includes('ሊንክ');
+  if(isInviteQuery && !selectedSupportPhoto){
+    appendUserBubble(text);
+    showAdminTypingIndicator();
+    setTimeout(()=>{
+      removeAdminTypingIndicator();
+      const uid = tgUser?.id || '';
+      const myLink = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${uid}`;
+      const reply = `ሰዎችን ለመጋበዝ የእርስዎን መጋበዣ ሊንክ ለጓደኞችዎ ሼር ያድርጉ! ለአንድ ሰው 50 ETB ያገኛሉ።\n\n👇 የእርስዎ ልዩ መጋበዣ ሊንክ፦\n${myLink}\n\n👉 ሰዎችን በቀጥታ ለመጋበዝ ወደ Referral ገጽ በመሄድ ወይም «Invite Friends» የሚለውን በመጫን ሼር ማድረግ ይችላሉ! 🚀`;
+      appendAdminBubble(reply);
+    }, 600);
+    return;
+  }
+
+  // 2. AWO TRIGGER (Human Agent Gate)
   if(isAwoTrigger){
     appendUserBubble(text);
     startSupportAdGate();
     return;
   }
 
+  // 3. HUMAN ADMIN OR MEDIA TICKET
   if((S.humanAdminQuota && S.humanAdminQuota > 0) || selectedSupportPhoto !== null){
     pendingTicketPayload = {
       type: selectedSupportPhoto ? 'photo' : 'text',
@@ -3251,6 +2738,7 @@ function initiateSupportTicketSend(){
     return;
   }
 
+  // 4. GENERAL AI TICKET
   pendingTicketPayload = { type: 'text', text: text };
   sendDirectAITicket();
 }
