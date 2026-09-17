@@ -567,12 +567,14 @@ header{
   box-shadow:0 20px 50px rgba(0,0,0,.9),0 0 30px rgba(255,215,0,.25);
 }
 
-/* ── CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS ── */
+/* ════════════════════════════════════════════════════
+   CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS (FIXED & HIGH Z-INDEX)
+════════════════════════════════════════════════════ */
 .support-chat-modal {
   position: fixed; inset: 0; background: rgba(5,7,14,0.96); backdrop-filter: blur(16px);
-  z-index: 700; display: none; flex-direction: column; width: 100%; height: 100%;
+  z-index: 1000; display: none; flex-direction: column; width: 100%; height: 100%;
 }
-.support-chat-modal.active { display: flex; animation: fadeUp .22s ease-out; }
+.support-chat-modal.active { display: flex !important; animation: fadeUp .22s ease-out; }
 .support-hdr {
   background: var(--card); border-bottom: 1px solid var(--border);
   padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
@@ -667,7 +669,7 @@ header{
   </div>
 </div>
 
-<!-- ── 3-AD GATED SUPPORT MODAL ── -->
+<!-- ── 3-AD GATED SUPPORT MODAL (100% RESTORED WITH '✕' BUTTON) ── -->
 <div class="modal-overlay" id="supportAdModal" style="z-index: 800;">
   <div class="ad-modal-card">
     <button id="supportAdCloseBtn" class="ad-close-btn" onclick="closeSupportAdStepSuccess()">✕</button>
@@ -730,6 +732,59 @@ header{
       <p>ገንዘብ ለማውጣት የተጠየቁትን 15 ንቁ ግብዣዎች እና 30 ማስታወቂያዎች ማጠናቀቅ ግዴታ ነው። ክፍያዎች የ 48 - 72 ሰዓታት የደህንነት ኦዲት ያልፋሉ።</p>
     </div>
     <button class="btn btn-gold btn-block" onclick="closeTermsModal()" style="margin-top:10px">ተረድቻለሁ / እሺ</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     CUSTOMER SUPPORT LIVE CHAT MODAL (100% INCLUDED)
+════════════════════════════════════════════════════ -->
+<div class="support-chat-modal" id="supportModal">
+  <div class="support-hdr">
+    <div class="support-hdr-info">
+      <div class="support-avatar">👨‍💼</div>
+      <div>
+        <h4>👨‍💼 Swap Money AI &amp; Group Support</h4>
+        <p id="supportStatusBadge">● Live Support (24/7)</p>
+      </div>
+    </div>
+    <button class="support-close-btn" onclick="closeSupportModal()">✕</button>
+  </div>
+
+  <div class="faq-chips-container">
+    <div class="faq-chip" onclick="handleFAQ('invite_how')">👥 ሰው መጋበዝ እንዴት ነው?</div>
+    <div class="faq-chip" onclick="handleFAQ('withdraw')">❓ ማውጣት መስፈርት</div>
+    <div class="faq-chip" onclick="handleFAQ('referral')">❓ 1M ውድድር ደንብ</div>
+    <div class="faq-chip" onclick="handleFAQ('ads')">❓ የማስታወቂያ ቦነስ</div>
+  </div>
+
+  <div class="chat-container" id="chatMsgContainer">
+    <div class="chat-bubble bubble-admin">
+      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      <div class="bubble-time">አሁን</div>
+    </div>
+  </div>
+
+  <div class="media-preview-bar" id="mediaPreviewBar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="" id="imgPreviewThumb" class="media-preview-thumb" alt="Preview">
+      <span style="font-size:11px;color:var(--gold)">ፎቶ ተመርጧል...</span>
+    </div>
+    <button onclick="cancelPhotoUpload()" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer">✕</button>
+  </div>
+
+  <div class="voice-record-bar" id="voiceRecordBar">
+    <span>🎙️ ድምፅ እየተቀረጸ ነው... (<span id="voiceTimerTxt">0:00</span>)</span>
+    <button onclick="stopAndSendVoice()" style="background:var(--red);color:#fff;border:none;padding:5px 12px;border-radius:10px;font-size:10px;font-weight:900;cursor:pointer">ላክ ➔</button>
+  </div>
+
+  <div class="chat-input-bar">
+    <label class="chat-btn" title="ፎቶ አያይዝ">
+      📷
+      <input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="handlePhotoSelect(event)">
+    </label>
+    <button class="chat-btn" id="voiceRecordBtn" onclick="toggleVoiceRecording()" title="ድምፅ ቅረጽ">🎙️</button>
+    <input type="text" id="chatTextInput" class="chat-inp" placeholder="ጥያቄዎን እዚህ ይፃፉ..." onkeypress="handleChatEnter(event)">
+    <button class="chat-btn btn-send" onclick="initiateSupportTicketSend()">➤</button>
   </div>
 </div>
 
@@ -1256,7 +1311,7 @@ header{
     <div class="pkg-card" onclick="selectDataPackage('Safaricom Data', 2700, this)">
       <div class="pkg-info">
         <h5>Safaricom — Monthly Unlimited</h5>
-        <p>30 Days Non-Stop 4G/5G Access</p>
+        <p>30 Days Full Speed 4G/5G Access</p>
       </div>
       <div class="pkg-price">2,700 ETB</div>
     </div>
@@ -1311,7 +1366,6 @@ header{
   </button>
 </nav>
 <div id="toast"></div>
-
 <script>
 /* ═══════════════ CONFIG ═══════════════ */
 const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec';
@@ -1356,9 +1410,8 @@ function isUnlimitedAdSlot(adsWatchedSoFar){
 /* ═══════════════ 2-MINUTE DELAY & 4-ACTIVITIES AUTO AD ═══════════════ */
 let activityCount = 0;
 let initialForcedAdShown = false;
-const FORCED_AD_DELAY_MS = 2 * 60 * 1000; // በትክክል 2 ደቂቃ (120 ሰከንድ)
+const FORCED_AD_DELAY_MS = 2 * 60 * 1000; // በትክክል 2 ደቂቃ
 
-// 1. ሰውዬው ከገባ ከ 2 ደቂቃ በኋላ 1 ጊዜ በራሱ ይነሳል
 setTimeout(() => {
   if (!initialForcedAdShown) {
     initialForcedAdShown = true;
@@ -1366,7 +1419,6 @@ setTimeout(() => {
   }
 }, FORCED_AD_DELAY_MS);
 
-// 2. ከ 2 ደቂቃው በኋላ በየ 4 activities ማስታወቂያ እንዲመጣ ቆጣሪ
 function recordActivity(){
   if (!initialForcedAdShown) return;
   activityCount++;
@@ -1589,7 +1641,7 @@ const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/5
 const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
 const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
 const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
-const PROMO_BOT = 'https://t.me/tikvahetcryptobot/tikvaheth'; // ✨ Promotional bot link
+const PROMO_BOT = 'https://t.me/tikvahetcryptobot/tikvaheth'; // ✨ የተስተካከለው Promotional Bot ሊንክ
 
 const ALL_TASKS = [
   {id:'tg1',      label:'TG Channel 1',        reward:35, dur:30, link:TG_CHANNEL1, icon:TG_ICON, bg:'rgba(0,136,204,.15)'},
@@ -1752,11 +1804,11 @@ function claimTask(id,reward){
 }
 
 /* ════════════════════════════════════════════════════
-   ✨ UNIQUE 2-STAGE WATCH AD & 3-STAGE PROMO AD ENGINE ✨
+   ✨ 2-STAGE WATCH AD & 3-STAGE PROMO AD ENGINE ✨
 ════════════════════════════════════════════════════ */
 let adRunning = false;
 let adTimerInterval = null;
-let currentAdSession = null; // { type: 'watch', step: 1, maxSteps: 2, reward: 20, btn: null } OR { type: 'promo', step: 1, maxSteps: 3, reward: 35, code: 'SWAP' }
+let currentAdSession = null; // { type: 'watch'|'promo', step: 1, maxSteps: 2|3, reward: 20, btn: null, code: '' }
 
 function launchAdModalStep(session){
   currentAdSession = session;
@@ -1792,7 +1844,6 @@ function launchAdModalStep(session){
   fill.style.width = '0%';
   txt.textContent = `17s ቀርቷል`;
 
-  // Monetag Ad call
   if(typeof show_11460944 === 'function'){
     show_11460944().catch(()=>{});
   }
@@ -1825,14 +1876,13 @@ function handleAdModalClose(){
 
   if(!currentAdSession) return;
 
-  if(currentAdSession.step < currentAdAdSession_maxSteps()){
+  if(currentAdSession.step < currentAdSession.maxSteps){
     currentAdSession.step++;
     toast(`✅ ቀጣዩ ደረጃ [${currentAdSession.step}/${currentAdSession.maxSteps}] እያለፈ ነው...`);
     setTimeout(()=>{
       launchAdModalStep(currentAdSession);
-    }, 400);
+    }, 350);
   } else {
-    // Finalize reward!
     if(currentAdSession.type === 'watch'){
       finalizeWatchAdSession(currentAdSession.reward);
       if(currentAdSession.btn) currentAdSession.btn.disabled = false;
@@ -1842,10 +1892,6 @@ function handleAdModalClose(){
     adRunning = false;
     currentAdSession = null;
   }
-}
-
-function currentAdAdSession_maxSteps(){
-  return currentAdSession ? currentAdSession.maxSteps : 1;
 }
 
 /* ── 2-STAGE WATCH AD LAUNCHER ── */
@@ -2743,7 +2789,7 @@ function restoreLocalChatUI(){
 
   if(localChatHistory.length === 0){
     container.innerHTML = `<div class="chat-bubble bubble-admin">
-      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>`;
     return;
@@ -2764,8 +2810,9 @@ function restoreLocalChatUI(){
 }
 
 function openSupportModal(){
-  recordActivity();
-  document.getElementById('supportModal')?.classList.add('active');
+  const modal = document.getElementById('supportModal');
+  if(!modal) return;
+  modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   restoreLocalChatUI();
   pollAdminReplies();
@@ -2774,22 +2821,41 @@ function openSupportModal(){
 }
 
 function closeSupportModal(){
-  document.getElementById('supportModal')?.classList.remove('active');
-  document.body.style.overflow = '';
+  const modal = document.getElementById('supportModal');
+  if(modal) modal.classList.remove('active');
+  document.body.style.overflow = ''; // ስክሮሉን ወዲያውኑ ይከፍታል
   clearInterval(supportChatPollInterval);
 }
 
-/* 🤖 SMART AI FAQ HANDLER (AUTOMATIC REFERRAL LINK INCLUDED) */
+/* 🤖 SMART AI FAQ HANDLER (INSTANT LOCAL REPLIES + REFERRAL HELPER) */
 function handleFAQ(type){
   recordActivity();
   let qText = '';
-  if(type === 'invite_how') qText = 'ሰዎችን እንዴት መጋበዝ እችላለሁ?';
-  else if(type === 'withdraw') qText = 'ገንዘብ ለማውጣት ምን መስፈርቶች ያስፈልጋሉ?';
-  else if(type === 'referral') qText = 'የ 1,000,000 ብር የውድድር ደንብ እንዴት ነው?';
-  else if(type === 'ads') qText = 'የማስታወቂያ ቦነስ እና የ Super Bonus አሰራር እንዴት ነው?';
+  let instantAnswer = '';
 
-  document.getElementById('chatTextInput').value = qText;
-  initiateSupportTicketSend();
+  const uid = tgUser?.id || '';
+  const myLink = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${uid}`;
+
+  if(type === 'invite_how'){
+    qText = 'ሰዎችን እንዴት መጋበዝ እችላለሁ?';
+    instantAnswer = `ሰዎችን ለመጋበዝ የእርስዎን መጋበዣ ሊንክ ለጓደኞችዎ ሼር ያድርጉ! ለአንድ ሰው 50 ETB ያገኛሉ።\n\n👇 የእርስዎ ልዩ መጋበዣ ሊንክ፦\n${myLink}\n\n👉 ሰዎችን በቀጥታ ለመጋበዝ ወደ Referral ገጽ በመሄድ ወይም «ሰው ለመጋበዝ ይሄን ይጫኑ» የሚለውን አዝራር በመጫን ሼር ማድረግ ይችላሉ! 🚀`;
+  } else if(type === 'withdraw'){
+    qText = 'ገንዘብ ለማውጣት ምን መስፈርቶች ያስፈልጋሉ?';
+    instantAnswer = `ገንዘብ ለማውጣት የሚከተሉትን ማሟላት ያስፈልጋል፦\n1. ቢያንስ 2,500 ETB በሂሳብዎ መኖር\n2. 15 ሰዎችን መጋበዝ (Active Referrals)\n3. 30 ማስታወቂያዎችን ማጠናቀቅ\n\nእነዚህን ሲያሟሉ Telebirr ወይም CBE Bank በቀጥታ ማውጣት ይችላሉ!`;
+  } else if(type === 'referral'){
+    qText = 'የ 1,000,000 ብር የውድድር ደንብ እንዴት ነው?';
+    instantAnswer = `የ 1,000,000 ብር ውድድር እስከ መስከረም 20 (Sep 30) ድረስ የሚቆይ ሲሆን፣ ብዙ ሰዎችን በመጋበዝ ከ 1ኛ እስከ 100ኛ ደረጃ የሚወጡ አሸናፊዎች እስከ 100,000 ብር ሽልማት ያገኛሉ!`;
+  } else if(type === 'ads'){
+    qText = 'የማስታወቂያ ቦነስ እና የ Super Bonus አሰራር እንዴት ነው?';
+    instantAnswer = `ማስታወቂያዎችን 17 ሰከንድ x2 አይተው ሲጨርሱ ክፍያው ወዲያውኑ ገቢ ይሆናል። እንዲሁም በየቀኑ 1 ጊዜ የ 50 ETB Super Bonus እና 30 ማስታወቂያ ሲሞሉ ተጨማሪ 100 ETB ጉርሻ ያገኛሉ!`;
+  }
+
+  appendUserBubble(qText);
+  showAdminTypingIndicator();
+  setTimeout(()=>{
+    removeAdminTypingIndicator();
+    appendAdminBubble(instantAnswer);
+  }, 400);
 }
 
 let selectedSupportPhoto = null;
@@ -2816,6 +2882,8 @@ function handleChatEnter(e){
 }
 
 let pendingTicketPayload = null;
+let supportAdStep = 1;
+let supportAdTimerInterval = null;
 
 function initiateSupportTicketSend(){
   const inp = document.getElementById('chatTextInput');
@@ -2838,11 +2906,11 @@ function initiateSupportTicketSend(){
       const myLink = `https://t.me/${BOT_USERNAME}/swapmoney?startapp=ref_${uid}`;
       const reply = `ሰዎችን ለመጋበዝ የእርስዎን መጋበዣ ሊንክ ለጓደኞችዎ ሼር ያድርጉ! ለአንድ ሰው 50 ETB ያገኛሉ።\n\n👇 የእርስዎ ልዩ መጋበዣ ሊንክ፦\n${myLink}\n\n👉 ሰዎችን በቀጥታ ለመጋበዝ ወደ Referral ገጽ በመሄድ ወይም «ሰው ለመጋበዝ ይሄን ይጫኑ» የሚለውን አዝራር በመጫን ሼር ማድረግ ይችላሉ! 🚀`;
       appendAdminBubble(reply);
-    }, 600);
+    }, 400);
     return;
   }
 
-  // 2. AWO TRIGGER (Human Agent Gate)
+  // 2. AWO TRIGGER (Human Agent Gate Modal)
   if(isAwoTrigger){
     appendUserBubble(text);
     startSupportAdGate();
@@ -2888,6 +2956,8 @@ async function sendDirectAITicket(){
     removeAdminTypingIndicator();
     if(data.status === 'success' && data.reply){
       appendAdminBubble(data.reply);
+    } else {
+      appendAdminBubble('ጥያቄዎን ተቀብለናል። ጉዳይዎን ከሰው አድሚን ጋር ማውራት ከፈለጉ «አዎ» ብለው ይመልሱ።');
     }
   } catch(e){
     removeAdminTypingIndicator();
@@ -2939,26 +3009,65 @@ async function sendToTelegramGroupDirect(){
   setTimeout(pollAdminReplies, 1500);
 }
 
+/* ── 3-AD GATED SUPPORT MODAL (100% RESTORED WITH '✕' BUTTON) ── */
 function startSupportAdGate(){
-  executeSupportAdStep(1);
+  supportAdStep = 1;
+  launchSingleSupportAdModal(1);
 }
 
-function executeSupportAdStep(step){
-  toast(`👨‍💼 የሰው አድሚን ትኬት ማስታወቂያ [${step}/3] እየተከፈተ ነው...`);
+function launchSingleSupportAdModal(step){
+  supportAdStep = step;
+  const modal = document.getElementById('supportAdModal');
+  const fill = document.getElementById('supportAdBarFill');
+  const txt = document.getElementById('supportAdTimerTxt');
+  const closeBtn = document.getElementById('supportAdCloseBtn');
+
+  closeBtn.style.display = 'none';
+
+  document.getElementById('supportAdTitle').textContent = `የሰው አድሚን ትኬት [${step}/3]`;
+  document.getElementById('supportAdDesc').innerHTML = `ደረጃ ${step}/3 (15 ሰከንድ) — 3ቱንም ሲያጠናቅቁ ጥያቄዎ ለአድሚን ይላካል፤ <strong style="color:var(--gold)">+30 ETB</strong> ቦነስም ያገኛሉ!`;
+
+  modal.classList.add('active');
+  fill.style.width = '0%';
+  txt.textContent = `15s ቀርቷል`;
+
   if(typeof show_11460944 === 'function'){
-    show_11460944().then(() => {
+    show_11460944().catch(()=>{});
+  }
+
+  let left = 15;
+  clearInterval(supportAdTimerInterval);
+  supportAdTimerInterval = setInterval(()=>{
+    left--;
+    fill.style.width = `${((15 - left) / 15) * 100}%`;
+    txt.textContent = `${left}s ቀርቷል`;
+
+    if(left <= 0){
+      clearInterval(supportAdTimerInterval);
+
       if(step < 3){
-        toast(`✅ ደረጃ ${step}/3 ተጠናቋል! ቀጣዩን ይመልከቱ...`);
-        setTimeout(() => executeSupportAdStep(step + 1), 600);
+        document.getElementById('supportAdDesc').innerHTML = `✅ ደረጃ ${step}/3 ተጠናቋል! ✕ ይንኩ ወደ ቀጣዩ ማስታወቂያ ለመሄድ`;
       } else {
-        finishSupportTicketGate();
+        document.getElementById('supportAdDesc').innerHTML = `🎉 3ቱም ማስታወቂያዎች ተጠናቀቁ! ✕ ይንኩ ከአድሚን ጋር ለመገናኘት`;
       }
-    }).catch(e => {
-      toast('⚠️ ማስታወቂያው አልተጠናቀቀም፤ እባክዎ ደግመው ይሞክሩ');
-    });
+
+      closeBtn.style.display = 'flex';
+    }
+  }, 1000);
+}
+
+function closeSupportAdStepSuccess(){
+  const modal = document.getElementById('supportAdModal');
+  modal.classList.remove('active');
+  document.getElementById('supportAdCloseBtn').style.display = 'none';
+
+  if(supportAdStep < 3){
+    toast(`✅ ደረጃ ${supportAdStep}/3 አለቀ! ቀጣዩ ማስታወቂያ እያለፈ ነው...`);
+    setTimeout(()=>{
+      launchSingleSupportAdModal(supportAdStep + 1);
+    }, 400);
   } else {
-    if(step < 3) executeSupportAdStep(step + 1);
-    else finishSupportTicketGate();
+    finishSupportTicketGate();
   }
 }
 
@@ -3115,3 +3224,4 @@ function appendPhotoBubble(src, cap){
 </script>
 </body>
 </html>
+
