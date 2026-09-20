@@ -2232,7 +2232,7 @@ function updateMyRankTab(){
 /* ⚡ FAST LEADERBOARD SYNC WITH ANTI-CACHE */
 async function fetchLiveLeaderboard(){
   try{
-    const RENDER_API_URL = "https://leaderbord-server.onrender.com/api/leaderboard";
+    const RENDER_API_URL = "https://leaderbord-server.vercel.app";
     const res = await fetch(`${RENDER_API_URL}?t=` + Date.now());
     const json = await res.json();
     
