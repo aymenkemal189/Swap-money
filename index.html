@@ -29,8 +29,6 @@ body{
 }
 ::-webkit-scrollbar{width:2px;height:2px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-
-/* Fireworks Canvas */
 #fwCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none}
 
 /* ── HEADER ── */
@@ -64,12 +62,10 @@ header{
 .level-chip{background:rgba(255,215,0,.14);border:1px solid rgba(255,215,0,.35);border-radius:12px;padding:1px 7px;font-size:9px;font-weight:800;color:var(--gold)}
 .streak-chip{font-size:11px;font-weight:800;color:#FF6B35}
 
-/* ── PAGES ── */
+/* ── PAGES & BOTTOM NAV ── */
 .page{display:none;padding:10px 14px;animation:fadeUp .25s cubic-bezier(0.16,1,0.3,1)}
 .page.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── BOTTOM NAV ── */
 .bnav{
   position:fixed;bottom:0;left:0;width:100%;
   background:rgba(6,9,18,.98);backdrop-filter:blur(25px);
@@ -81,14 +77,12 @@ header{
 .ni svg{width:20px;height:20px;fill:var(--muted);transition:.2s}
 .ni.active{color:var(--gold)}.ni.active svg{fill:var(--gold);filter:drop-shadow(0 0 8px var(--gold-glow))}
 
-/* ── CARD & SECTIONS ── */
+/* ── CARDS & BUTTONS ── */
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.6)}
 .card-title{font-size:13px;font-weight:900;display:flex;align-items:center;gap:6px;margin-bottom:10px}
 .sh{display:flex;align-items:center;justify-content:space-between;margin:14px 0 8px}
-.sh h3{font-size:13px;font-weight:900;letter-spacing:.2px;display:flex;align-items:center;gap:4px}
+.sh h3{font-size:13px;font-weight:900;letter-spacing:.2px}
 .sh a{font-size:11px;color:var(--gold);font-weight:700;cursor:pointer}
-
-/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:12px;font-weight:800;font-size:12px;cursor:pointer;transition:all .18s;padding:10px 16px;font-family:var(--font)}
 .btn:active{transform:scale(.96)}
 .btn-gold{background:var(--gold-grad);color:#000;box-shadow:0 4px 15px var(--gold-glow)}
@@ -114,10 +108,8 @@ header{
 .hw-sub{font-size:10px;color:var(--muted);margin-top:5px;display:flex;align-items:center;gap:5px}
 .hw-sub .up{color:var(--green);font-weight:800}
 
-/* ── 🔲 COMPACT 2-COLUMN MINI GRID (PROMO CODE & 30-ADS QUEST) ── */
-.home-mini-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;
-}
+/* ── 🔲 2-COLUMN MINI GRID (PROMO CODE & 30-ADS QUEST) ── */
+.home-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .mini-quest-card{
   background:linear-gradient(135deg,#241503,#181005,#0e1322);
   border:1.2px solid var(--gold);border-radius:15px;padding:10px 11px;
@@ -141,12 +133,9 @@ header{
   flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);
   border-radius:8px;padding:6px 8px;color:#fff;font-size:10px;font-weight:800;outline:none;font-family:var(--font);
 }
-.mp-btn{
-  background:var(--gold-grad);color:#000;border:none;border-radius:8px;
-  padding:6px 10px;font-size:9.5px;font-weight:900;cursor:pointer;
-}
+.mp-btn{background:var(--gold-grad);color:#000;border:none;border-radius:8px;padding:6px 10px;font-size:9.5px;font-weight:900;cursor:pointer}
 
-/* ── SC CARD & LUCKY BOX ── */
+/* ── SC CARD & SPECIAL REWARDS ── */
 .sc-card{background:linear-gradient(145deg,#0c111e,#070a13);border:1px solid rgba(255,215,0,.25);border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .sc-img{width:44px;height:44px;flex-shrink:0;object-fit:contain}
 .sc-info{flex:1}
@@ -181,15 +170,13 @@ header{
 .lucky-text h4{font-size:12px;font-weight:900;color:#fff}
 .lucky-text p{font-size:9.5px;color:var(--muted);margin-top:2px}
 
-/* ── QA ROW ── */
+/* ── QA ROW & BANNER ── */
 .qa-row{display:flex;justify-content:space-around;margin:10px 0 12px}
 .qa-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
 .qa-circle{width:46px;height:46px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px var(--gold-glow);transition:.18s}
 .qa-circle:active{transform:scale(.92)}
 .qa-circle svg{width:21px;height:21px;fill:#000}
 .qa-label{font-size:9.5px;font-weight:800;color:var(--muted)}
-
-/* ── BANNER ── */
 .banner-wrap{width:100%;border-radius:16px;overflow:hidden;position:relative;height:110px;margin-bottom:10px;border:1px solid var(--border);box-shadow:0 6px 20px rgba(0,0,0,.5);cursor:grab}
 .banner-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;opacity:0;transition:opacity .5s;pointer-events:none}
 .banner-wrap img.active{opacity:1}
@@ -197,7 +184,7 @@ header{
 .b-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
 .b-dot.active{background:var(--gold);width:12px;border-radius:6px}
 
-/* ── 4-COLUMN TASKS GRID ── */
+/* ── TASKS GRID ── */
 .tasks-grid-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
 .task-mini-card{
   background:var(--card);border:1px solid var(--border2);border-radius:13px;
@@ -216,31 +203,24 @@ header{
 }
 .task-mini-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
 
-/* ── INVITE BANNER ── */
+/* ── INVITE BANNER & LIVE FEED ── */
 .invite-banner{background:linear-gradient(135deg,#1c1206,#0e121d);border:1px solid rgba(255,215,0,.28);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px;position:relative;overflow:hidden}
 .invite-gift{width:56px;height:56px;object-fit:contain;flex-shrink:0}
 .invite-info h3{font-size:14px;font-weight:900;margin-bottom:3px}
 .invite-info p{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:7px}
 .invite-pct{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:var(--gold-grad);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#000;line-height:1}
 .invite-pct small{font-size:7px;font-weight:900}
-
-/* ── LIVE FEED ── */
 .feed-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .feed-av{width:34px;height:34px;border-radius:50%;background:var(--gold-grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#000;flex-shrink:0}
 .feed-info h5{font-size:12px;font-weight:800}
 .feed-info p{font-size:10px;color:var(--muted);margin-top:1px}
-.feed-amount{
-  font-size:14px;font-weight:900;color:var(--green) !important;
-  text-shadow:0 0 12px rgba(16,185,129,.45);
-}
+.feed-amount{font-size:14px;font-weight:900;color:var(--green) !important;text-shadow:0 0 12px rgba(16,185,129,.45)}
 
-/* ── EARN TAB ── */
+/* ── EARN & ADS GRID ── */
 .earn-hero{background:linear-gradient(135deg,#1c1206,#0d111c);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .earn-hero img{width:56px;height:56px;object-fit:contain}
 .earn-hero h2{font-size:18px;font-weight:900}
 .earn-hero p{font-size:11px;color:var(--muted);line-height:1.5}
-
-/* ── ADS UNIFIED GRID ── */
 .earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
 .earn-grid-item{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;position:relative;overflow:hidden}
 .earn-grid-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
@@ -254,17 +234,10 @@ header{
 .egi-btn:disabled{background:var(--card2);color:var(--muted);cursor:not-allowed}
 .egi-btn:active{transform:scale(.95)}
 
-/* ════════════════════════════════════════════════════
-   1,000,000 ብር REFERRAL COMPETITION & PROMINENT INVITE BUTTON
-════════════════════════════════════════════════════ */
-.comp-top-banner-wrap{
-  width:100%;height:185px;position:relative;overflow:hidden;
-  border-bottom:1px solid rgba(255,215,0,.3);margin-bottom:12px;
-}
+/* ── 1,000,000 ብር REFERRAL COMPETITION ── */
+.comp-top-banner-wrap{width:100%;height:185px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,215,0,.3);margin-bottom:12px}
 .comp-top-banner-img{width:100%;height:100%;object-fit:cover;display:block}
 .comp-top-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 45%,var(--bg) 100%)}
-
-/* 📢 PROMINENT BIG INVITE CALL-TO-ACTION BUTTON */
 .super-invite-btn{
   background:linear-gradient(135deg,#FFD700 0%,#FF9E00 50%,#B8860B 100%);
   border:2px solid #fff;border-radius:18px;padding:14px 16px;
@@ -274,7 +247,6 @@ header{
   transition:.18s;width:100%;text-transform:uppercase;
 }
 .super-invite-btn:active{transform:scale(.97)}
-
 .story-comp-card{
   background:linear-gradient(135deg,#0c1322,#10192e);
   border:1px solid rgba(34,158,217,.4);border-radius:18px;
@@ -283,80 +255,37 @@ header{
 }
 .story-comp-card:active{transform:scale(.97)}
 .st-left{display:flex;align-items:center;gap:12px}
-.st-tg-icon{
-  width:42px;height:42px;border-radius:50%;background:#229ED9;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 0 16px rgba(34,158,217,.5);
-}
+.st-tg-icon{width:42px;height:42px;border-radius:50%;background:#229ED9;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 16px rgba(34,158,217,.5)}
 .st-tg-icon svg{width:24px;height:24px;fill:#fff}
 .st-title{font-size:13px;font-weight:900;color:#fff}
 .st-sub{font-size:10px;color:var(--muted);margin:1px 0 3px}
 .st-reward{font-size:12px;font-weight:900;color:var(--gold);display:flex;align-items:center;gap:4px}
 .st-right{display:flex;align-items:center;gap:8px}
-.st-deadline-badge{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  border-radius:10px;padding:5px 8px;display:flex;align-items:center;gap:6px;
-  font-size:9.5px;color:var(--muted);text-align:right;
-}
+.st-deadline-badge{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:5px 8px;display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--muted);text-align:right}
 .st-deadline-badge strong{color:#fff;display:block;font-size:10.5px}
 .st-arrow{color:var(--muted);font-size:18px;font-weight:800}
-
 .comp-lb-wrapper{padding:0 12px;margin-bottom:70px}
 .lb-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .lb-header-title{font-size:14.5px;font-weight:900;color:#fff;display:flex;align-items:center;gap:6px}
 .lb-live-indicator{display:flex;align-items:center;gap:5px;color:var(--green);font-size:11px;font-weight:800}
 .lb-live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 1.4s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
-
-.comp-tabs-nav{
-  display:flex;background:#0e1424;border:1px solid rgba(255,255,255,.07);
-  border-radius:24px;padding:3px;margin-bottom:12px;gap:4px;
-}
-.c-tab{
-  flex:1;background:transparent;border:none;color:var(--muted);
-  padding:8px 0;font-size:11.5px;font-weight:800;border-radius:20px;
-  cursor:pointer;transition:.18s;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:4px;
-}
+.comp-tabs-nav{display:flex;background:#0e1424;border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:3px;margin-bottom:12px;gap:4px}
+.c-tab{flex:1;background:transparent;border:none;color:var(--muted);padding:8px 0;font-size:11.5px;font-weight:800;border-radius:20px;cursor:pointer;transition:.18s;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:4px}
 .c-tab.active{background:var(--gold-grad);color:#000;box-shadow:0 2px 10px rgba(255,215,0,.3)}
-
-/* Podium Stand */
-.podium-container{
-  display:flex;align-items:flex-end;justify-content:center;gap:8px;
-  margin:14px 0 16px;padding:0 2px;
-}
-.podium-col{
-  flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
-  border-radius:18px;padding:12px 6px 10px;position:relative;transition:.2s;
-}
-.podium-col.rank-1-col{
-  background:linear-gradient(180deg,rgba(255,215,0,.22) 0%,rgba(14,20,36,.96) 100%);
-  border:1.5px solid var(--gold);box-shadow:0 0 28px rgba(255,215,0,.32);
-  transform:translateY(-14px);
-  z-index:2;order:2;
-}
-.podium-col.rank-2-col{
-  background:linear-gradient(180deg,rgba(203,213,225,.14) 0%,rgba(11,16,28,.95) 100%);
-  border:1px solid #cbd5e1;order:1;transform:translateY(0);
-}
-.podium-col.rank-3-col{
-  background:linear-gradient(180deg,rgba(217,119,6,.14) 0%,rgba(11,16,28,.95) 100%);
-  border:1px solid #d97706;order:3;transform:translateY(0);
-}
-
+.podium-container{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin:14px 0 16px;padding:0 2px}
+.podium-col{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;border-radius:18px;padding:12px 6px 10px;position:relative;transition:.2s}
+.podium-col.rank-1-col{background:linear-gradient(180deg,rgba(255,215,0,.22) 0%,rgba(14,20,36,.96) 100%);border:1.5px solid var(--gold);box-shadow:0 0 28px rgba(255,215,0,.32);transform:translateY(-14px);z-index:2;order:2}
+.podium-col.rank-2-col{background:linear-gradient(180deg,rgba(203,213,225,.14) 0%,rgba(11,16,28,.95) 100%);border:1px solid #cbd5e1;order:1;transform:translateY(0)}
+.podium-col.rank-3-col{background:linear-gradient(180deg,rgba(217,119,6,.14) 0%,rgba(11,16,28,.95) 100%);border:1px solid #d97706;order:3;transform:translateY(0)}
 .podium-crown{font-size:22px;margin-bottom:-4px;filter:drop-shadow(0 2px 6px rgba(255,215,0,.6))}
-.podium-avatar{
-  width:46px;height:46px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;font-weight:900;font-size:18px;color:#fff;margin-bottom:6px;
-  border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.6);
-}
+.podium-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff;margin-bottom:6px;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.6)}
 .podium-col.rank-1-col .podium-avatar{width:54px;height:54px;font-size:20px;border-color:var(--gold)}
 .podium-rank-tag{font-size:10px;font-weight:900;padding:2px 8px;border-radius:10px;margin-bottom:4px;display:inline-block}
 .podium-name{font-size:11.5px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:92px;margin-bottom:2px}
 .podium-refs{font-size:9.5px;color:var(--muted);font-weight:800;margin-bottom:6px}
 .podium-prize{background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:10px;font-weight:900;padding:3px 7px;border-radius:12px;white-space:nowrap}
 .podium-col.rank-1-col .podium-prize{background:var(--gold-grad);color:#000;box-shadow:0 2px 8px rgba(255,215,0,.3)}
-
-/* Leaderboard List */
 .comp-lb-list{display:flex;flex-direction:column;gap:6px}
 .comp-lb-row{background:#0c1220;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:8px 12px;display:flex;align-items:center;gap:10px;position:relative;transition:.15s}
 .comp-lb-row.is-me{border-color:var(--blue);background:rgba(34,158,217,.12)}
@@ -367,8 +296,6 @@ header{
 .c-refs{font-size:9.5px;color:var(--muted);margin-top:1px;font-variant-numeric:tabular-nums}
 .c-prize-pill{background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,165,0,.08));border:1px solid rgba(255,215,0,.35);border-radius:18px;padding:4px 10px;font-size:10.5px;font-weight:900;color:var(--gold);display:flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0}
 .c-chev{color:var(--muted);font-size:13px;font-weight:800}
-
-/* Floating Bar */
 .comp-floating-bar{
   position:fixed;bottom:58px;left:10px;right:10px;z-index:85;
   background:linear-gradient(135deg,#1f1402,#121829);border:1.5px solid var(--gold);
@@ -384,7 +311,7 @@ header{
 .c-panel{display:none}.c-panel.active{display:block}
 .view-more-btn{width:100%;margin-top:10px;padding:9px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--gold);font-size:11px;font-weight:800;cursor:pointer}
 
-/* ── WITHDRAWAL DASHBOARD ── */
+/* ── WITHDRAWAL & FINTECH ── */
 .tg-profile-card{
   background:linear-gradient(135deg,#0c1527,#090d18);
   border:1px solid rgba(59,130,246,.35);border-radius:16px;
@@ -405,25 +332,19 @@ header{
   background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);
   padding:3px 8px;border-radius:10px;display:flex;align-items:center;gap:4px;
 }
-
 .wd-fintech-hero{
   background:linear-gradient(135deg,#1f1503 0%,#111624 50%,#080b13 100%);
-  border:1px solid rgba(255,215,0,.35);
-  border-radius:20px;padding:16px;margin-bottom:12px;
-  position:relative;overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,.6);
+  border:1px solid rgba(255,215,0,.35);border-radius:20px;padding:16px;margin-bottom:12px;
+  position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
 .wd-amount-val{
   font-size:38px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;
-  text-shadow:0 0 35px rgba(255,215,0,.35);
-  display:flex;align-items:baseline;gap:6px;margin-bottom:6px;
+  text-shadow:0 0 35px rgba(255,215,0,.35);display:flex;align-items:baseline;gap:6px;margin-bottom:6px;
 }
 .wd-amount-val span{font-size:18px;font-weight:800;color:var(--gold)}
-
 .wd-tab-nav{display:flex;background:var(--card2);border:1px solid var(--border2);border-radius:14px;padding:3px;margin-bottom:12px;gap:4px}
 .wd-tbtn{flex:1;background:transparent;border:none;color:var(--muted);padding:8px 0;font-size:11px;font-weight:900;border-radius:11px;cursor:pointer;transition:.18s;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:5px}
 .wd-tbtn.active{background:var(--gold-grad);color:#000;box-shadow:0 2px 10px rgba(255,215,0,.25)}
-
 .fintech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
 .ft-card{
   background:var(--card);border:1px solid var(--border2);border-radius:14px;
@@ -436,17 +357,14 @@ header{
 .ft-title{font-size:12px;font-weight:900;color:#fff}
 .ft-meta{font-size:9.5px;color:var(--muted);font-weight:700}
 .ft-badge{position:absolute;top:6px;right:6px;font-size:8px;font-weight:900;padding:1px 6px;border-radius:8px;background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3)}
-
 .preset-chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .p-chip{flex:1;min-width:70px;background:var(--card2);border:1px solid var(--border);color:#fff;border-radius:10px;padding:8px 4px;font-size:11px;font-weight:900;cursor:pointer;text-align:center;transition:.15s}
 .p-chip.sel{background:var(--gold-grad);color:#000;border-color:var(--gold)}
-
 .pkg-card{background:var(--card);border:1px solid var(--border2);border-radius:13px;padding:11px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.15s}
 .pkg-card.sel{border-color:var(--gold);background:rgba(255,215,0,.08)}
 .pkg-info h5{font-size:12px;font-weight:900;color:#fff}
 .pkg-info p{font-size:10px;color:var(--muted);margin-top:2px}
 .pkg-price{font-size:13px;font-weight:900;color:var(--gold)}
-
 .wd-input-group{margin-bottom:10px}
 .wd-input-wrap{position:relative;display:flex;align-items:center}
 .wd-input-wrap input{width:100%;padding:12px 14px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:13px;font-weight:700;outline:none;font-family:var(--font)}
@@ -465,9 +383,7 @@ header{
   display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;color:var(--green);
   background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);padding:4px 10px;border-radius:12px;
 }
-.qc-typing-text{
-  font-size:11.5px;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px;margin:8px 0 4px;
-}
+.qc-typing-text{font-size:11.5px;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px;margin:8px 0 4px}
 .qc-dots span{
   width:4px;height:4px;background:var(--gold);border-radius:50%;display:inline-block;
   animation:typingBlink 1.4s infinite ease-in-out both;
@@ -488,7 +404,6 @@ header{
   color:var(--gold);border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;margin-top:8px;transition:.18s;
 }
 .qc-support-btn:active{transform:scale(.97)}
-
 .trust-shield-card{
   background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;
   padding:10px 12px;display:flex;flex-direction:column;gap:6px;margin-top:12px;
@@ -538,7 +453,7 @@ header{
   color:var(--gold);font-size:10px;font-weight:900;padding:3px 12px;border-radius:12px;margin-bottom:8px;
 }
 .ad-title{font-size:15.5px;font-weight:900;color:#fff;margin-bottom:6px}
-.ad-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.ad-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:14px}
 .ad-bar-bg{
   width:100%;height:9px;background:rgba(255,255,255,.08);border-radius:10px;
   overflow:hidden;margin-bottom:10px;border:1px solid rgba(255,255,255,.05);
@@ -548,7 +463,16 @@ header{
   border-radius:10px;width:0%;transition:width .4s linear;
   box-shadow:0 0 14px rgba(255,215,0,.7);
 }
-.ad-timer-txt{font-size:13px;font-weight:900;color:var(--gold);font-family:monospace;letter-spacing:1px}
+.ad-timer-txt{font-size:13px;font-weight:900;color:var(--gold);font-family:monospace;letter-spacing:1px;margin-bottom:8px}
+
+/* 🚀 CPM Booster Button inside Modal */
+.ad-sponsor-btn{
+  width:100%;padding:8px;background:rgba(255,215,0,.12);border:1px dashed var(--gold);
+  border-radius:10px;color:var(--gold);font-size:10.5px;font-weight:900;cursor:pointer;
+  transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+}
+.ad-sponsor-btn:active{transform:scale(.96);background:rgba(255,215,0,.25)}
+
 .ad-close-btn{
   position:absolute;top:14px;right:14px;background:var(--card2);
   border:1px solid var(--border);border-radius:50%;width:32px;height:32px;
@@ -568,7 +492,7 @@ header{
 }
 
 /* ════════════════════════════════════════════════════
-   CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS (FIXED & HIGH Z-INDEX)
+   CUSTOMER SUPPORT LIVE CHAT & FAQ CHIPS (Z-INDEX: 1000)
 ════════════════════════════════════════════════════ */
 .support-chat-modal {
   position: fixed; inset: 0; background: rgba(5,7,14,0.96); backdrop-filter: blur(16px);
@@ -666,6 +590,8 @@ header{
     <div class="ad-desc" id="adDesc">17 ሰከንድ ያዩ — ካጠናቀቁ ቦነስዎን ይወስዳሉ!</div>
     <div class="ad-bar-bg"><div class="ad-bar-fill" id="adBarFill"></div></div>
     <div class="ad-timer-txt" id="adTimerTxt">17s ቀርቷል</div>
+    <!-- 🚀 CPM Booster Optional Sponsor Click Button -->
+    <button class="ad-sponsor-btn" id="adSponsorBtn" onclick="clickAdSponsor()">🎁 ስፖንሰሩን ይጎብኙ (+5 ETB ተጨማሪ ቦነስ)</button>
   </div>
 </div>
 
@@ -759,7 +685,7 @@ header{
 
   <div class="chat-container" id="chatMsgContainer">
     <div class="chat-bubble bubble-admin">
-      ሰላም! 🌼 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
+      ሰላም! 👋 ወደ Swap Money የድጋፍ ማዕከል እንኳን ደህና መጡ። ማንኛውንም ጥያቄ መፃፍ ይችላሉ፤ AI ፈጣን ምላሽ ይሰጥዎታል። የሰው አድሚኖቻችንን በቀጥታ በግሩፕ ማነጋገር ከፈለጉ «አዎ» ብለው መመለስ ይችላሉ።
       <div class="bubble-time">አሁን</div>
     </div>
   </div>
@@ -937,6 +863,18 @@ header{
       </div>
     </div>
     <button class="btn btn-gold" style="padding:6px 12px;font-size:10px;pointer-events:none">ይውሰዱ ➔</button>
+  </div>
+
+  <!-- 🚀 Special CPM Sponsor Link Card -->
+  <div class="smartlink-card" style="background:linear-gradient(135deg,#132218,#0a1b12,#09111c);border-color:var(--green);margin-bottom:10px" onclick="clickAdSponsor()">
+    <div class="sl-left">
+      <div class="sl-icon">🔥</div>
+      <div class="sl-info">
+        <h4 style="color:#fff">ልዩ የስፖንሰር ታስክ (High Partner)</h4>
+        <p style="color:var(--green)">ስፖንሰሩን ይጎብኙ +40 ETB ተጨማሪ ቦነስ ይውሰዱ!</p>
+      </div>
+    </div>
+    <button class="btn btn-green" style="padding:6px 12px;font-size:10px;pointer-events:none">ይጎብኙ ➔</button>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
@@ -1311,7 +1249,7 @@ header{
     <div class="pkg-card" onclick="selectDataPackage('Safaricom Data', 2700, this)">
       <div class="pkg-info">
         <h5>Safaricom — Monthly Unlimited</h5>
-        <p>30 Days Full Speed 4G/5G Access</p>
+        <p>30 Days Non-Stop 4G/5G Access</p>
       </div>
       <div class="pkg-price">2,700 ETB</div>
     </div>
@@ -1377,6 +1315,9 @@ const REQUIRED_REFS = 15;
 const REQUIRED_WD_ADS = 30;
 const AD_COOLDOWN_SEC = 2;
 const SUPPORT_SERVER_URL = "https://support-urrw.onrender.com";
+
+/* ── ⚡ አዲሱ እጅግ ፈጣን የ VERCEL LEADERBOARD SERVER ── */
+const RENDER_API_URL = "https://leaderbord-server.vercel.app/api/leaderboard";
 
 /* ── 🎟️ አዳዲስ ንቁ PROMO CODES ── */
 const ACTIVE_PROMO_CODES = [
@@ -1808,7 +1749,7 @@ function claimTask(id,reward){
 ════════════════════════════════════════════════════ */
 let adRunning = false;
 let adTimerInterval = null;
-let currentAdSession = null; // { type: 'watch'|'promo', step: 1, maxSteps: 2|3, reward: 20, btn: null, code: '' }
+let currentAdSession = null;
 
 function launchAdModalStep(session){
   currentAdSession = session;
@@ -1892,6 +1833,18 @@ function handleAdModalClose(){
     adRunning = false;
     currentAdSession = null;
   }
+}
+
+/* 🚀 CPM Booster Function (ስፖንሰር በመጎብኘት CTR እና CPM ማሳደጊያ) */
+function clickAdSponsor(){
+  recordActivity();
+  if(typeof show_11460944 === 'function'){
+    show_11460944('pop').catch(()=>{});
+  }
+  toast('🎁 ስፖንሰር ስለጎበኙ +5 ETB ተጨማሪ ቦነስ ተጨምሯል!');
+  S.balance += 5;
+  markLocalMutation();
+  if(syncReady) syncToSheet();
 }
 
 /* ── 2-STAGE WATCH AD LAUNCHER ── */
@@ -2121,7 +2074,7 @@ async function apiPost(payload){
 }
 
 /* ════════════════════════════════════════════════════
-   1,000,000 ብር LEADERBOARD (FAST REAL-TIME SYNC)
+   1,000,000 ብር LEADERBOARD (⚡ VERCEL ULTRA-FAST SYNC)
 ════════════════════════════════════════════════════ */
 let allLbData = [];
 let isExpanded100 = false;
@@ -2229,20 +2182,21 @@ function updateMyRankTab(){
   }
 }
 
-/* ⚡ FAST LEADERBOARD SYNC WITH ANTI-CACHE */
+/* ⚡ VERCEL ULTRA-FAST REAL-TIME LEADERBOARD SYNC */
 async function fetchLiveLeaderboard(){
   try{
-    const RENDER_API_URL = "https://leaderbord-server.vercel.app";
-    const res = await fetch(`${RENDER_API_URL}?t=` + Date.now());
+    const res = await fetch(`${RENDER_API_URL}?t=` + Date.now(), {
+      headers: { 'Cache-Control': 'no-cache' }
+    });
     const json = await res.json();
-    
-    if(json && json.result === 'success'){
-      allLbData = (json.data || []).map((u, i) => ({ ...u, rank: i+1, prize: getPrize(i+1) }));
+    if(json && (json.result === 'success' || Array.isArray(json.data) || Array.isArray(json))){
+      const rawData = json.data || (Array.isArray(json) ? json : []);
+      allLbData = rawData.map((u, i) => ({ ...u, rank: i+1, prize: getPrize(i+1) }));
       renderLeaderboardUI();
       updateMyRankTab();
     }
   }catch(e){
-    console.error('Fast Leaderboard error:', e);
+    console.error('Fast Vercel Leaderboard error:', e);
   }
 }
 
@@ -2289,7 +2243,7 @@ function shareStory(e){
     navigator.clipboard?.writeText(refLink);
     toast('📋 የሪፈራል ሊንክዎ ኮፒ ሆኗል! Story ላይ ያጋሩት');
   }
-  setTimeout(fetchLiveLeaderboard, 1500);
+  setTimeout(fetchLiveLeaderboard, 1200);
 }
 
 function shareInvite(){
@@ -2304,7 +2258,7 @@ function shareInvite(){
     navigator.clipboard?.writeText(refLink);
     toast('📋 ሊንክ ኮፒ ሆኗል!');
   }
-  setTimeout(fetchLiveLeaderboard, 1500);
+  setTimeout(fetchLiveLeaderboard, 1200);
 }
 
 /* ════════════════════════════════════════════════════
@@ -2746,7 +2700,7 @@ async function safeInit(){
 
 safeInit();
 setInterval(syncFromSheet, 25000);
-setInterval(fetchLiveLeaderboard, 15000); // ⚡ ፈጣን የደረጃዎች ማመሳሰል በየ 15 ሰከንዱ
+setInterval(fetchLiveLeaderboard, 12000); // ⚡ በየ 12 ሰከንዱ ከ Vercel Live አዳዲስ ደረጃዎችን ማመሳሰል
 
 /* ════════════════════════════════════════════════════
    CUSTOMER SUPPORT LIVE CHAT & SMART AI REFERRAL HELPER
@@ -2810,6 +2764,7 @@ function restoreLocalChatUI(){
 }
 
 function openSupportModal(){
+  recordActivity();
   const modal = document.getElementById('supportModal');
   if(!modal) return;
   modal.classList.add('active');
@@ -3224,4 +3179,5 @@ function appendPhotoBubble(src, cap){
 </script>
 </body>
 </html>
+
 
