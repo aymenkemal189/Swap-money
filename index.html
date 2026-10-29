@@ -1441,37 +1441,25 @@ header{
 
 <div id="toast"></div>
 
-<script>
-
-
-
 
 
 <script>
 /* ══════════════════════════════════════════════════════════════════
-   SWAP MONEY V5 — PRODUCTION JAVASCRIPT ENGINE (CBE-FIRST EDITION)
-   Pure Cyber-Fintech • 3-Step Wizard with CBE Priority & Guide
-   Zero Emojis • 3-Attempt 5-Min Lockout • v2- / FT / DJ Extractor
+   SWAP MONEY V5 — CRASH-PROOF JAVASCRIPT ENGINE (AUDITED)
+   Zero Emojis • CBE First • 3 Attempts / 5-Min Lockout
+   Intelligent Ref Extractor (v2- / FT / DJ)
 ══════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════════
    1. ALL SERVERS & ENDPOINTS CONFIGURATION
 ═══════════════════════════════════════════════════════════════════ */
 const SERVERS_CONFIG = {
-  // ዋናው የ Google Apps Script Web App
   MAIN_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec',
-
-  // አዲሱ ይፋዊ የክፍያ ማረጋገጫ Gateway
   VERIFY_GATEWAY_URL: 'https://verifiy-server.app.aletcloud.com/api/verify',
   SECRET_TOKEN: 'Verifi_Prod_9842_Aymen_X9!2026',
   VERIFY_TOKEN: 'Aymen2026',
-
-  // የቀጥታ ደንበኞች ድጋፍ ማዕከል
   SUPPORT_SERVER_URL: 'https://support-urrw.onrender.com',
-
-  // የ 1,000,000 ብር የውድድር ሰሌዳ API
   LEADERBOARD_API_URL: 'https://leaderbord-server.vercel.app/api/leaderboard',
-
   BOT_USERNAME: 'Swapmoney_bot'
 };
 
@@ -1490,6 +1478,32 @@ const ACTIVE_PROMO_CODES = [
   'BONUSMAX', 'JACKPOT100', 'WINNER2X', 'FREEBIRR', 'EARNFAST', 
   'VIPELITE', 'CASHBACK2026', 'MEGAWIN50', 'PROMO2026', 'LUCKY26'
 ];
+
+/* ── TASK LINKS & ICONS ── */
+const TG_CHANNEL1 = 'https://t.me/swapmoneybirr';
+const TG_CHANNEL2 = 'https://t.me/SwapMoney_ETH';
+const TG_BOT      = 'https://t.me/Swapmoney_bot';
+const YT_SUB      = 'https://www.youtube.com/@swapmoneyeth';
+const YT_SUB2     = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
+const YT_VID1     = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
+const BUNA_BOT    = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
+const PROMO_BOT   = 'https://t.me/tikvahetcryptobot/tikvaheth';
+
+const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
+const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
+
+const ALL_TASKS = [
+  { id: 'tg1',      label: 'TG Channel 1',        reward: 35, dur: 30, link: TG_CHANNEL1, icon: TG_ICON, bg: 'rgba(0,242,254,.15)' },
+  { id: 'tg2',      label: 'TG Channel 2',        reward: 35, dur: 30, link: TG_CHANNEL2, icon: TG_ICON, bg: 'rgba(0,242,254,.15)' },
+  { id: 'promobot', label: 'Promo Bot Join',      reward: 30, dur: 20, link: PROMO_BOT,   icon: TG_ICON, bg: 'rgba(245,208,97,.15)' },
+  { id: 'ytsub1',   label: 'YouTube Sub 1',       reward: 35, dur: 60, link: YT_SUB,      icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
+  { id: 'ytsub2',   label: 'YouTube Sub 2',       reward: 35, dur: 60, link: YT_SUB2,     icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
+  { id: 'ytvid1',   label: 'YouTube Video',       reward: 25, dur: 60, link: YT_VID1,     icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
+  { id: 'bunabot',  label: 'Buna Bot Join',       reward: 25, dur: 30, link: BUNA_BOT,    icon: TG_ICON, bg: 'rgba(0,242,254,.15)' }
+];
+
+const activeTaskTimers = new Set();
+const taskTimers = {};
 
 /* ── የክፍያ አካውንቶች ውቅር (CBE FIRST) ── */
 const ACCOUNTS_CONFIG = {
@@ -1539,12 +1553,6 @@ const V5_TIERS_CONFIG = {
     perksText: '8X የማስታወቂያ ክፍያ + 0 ሰው መጋበዝ + ቅጽበታዊ ክፍያ'
   }
 };
-
-const TG_CHANNEL1 = 'https://t.me/swapmoneybirr';
-const TG_CHANNEL2 = 'https://t.me/SwapMoney_ETH';
-const TG_BOT      = 'https://t.me/Swapmoney_bot';
-const YT_SUB      = 'https://www.youtube.com/@swapmoneyeth';
-const YT_SUB2     = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
 
 const AD_TIERS = [
   { upTo: 10, reward: 20 },
@@ -1612,46 +1620,48 @@ if (!devMockUid) {
 }
 
 if (tg) {
-  tg.ready();
-  tg.expand();
-  tgUser = tg.initDataUnsafe?.user || null;
-  const sp = tg.initDataUnsafe?.start_param || '';
-  if (sp.startsWith('ref_')) referrerId = sp.replace('ref_', '');
+  try {
+    tg.ready();
+    tg.expand();
+    tgUser = tg.initDataUnsafe?.user || null;
+    const sp = tg.initDataUnsafe?.start_param || '';
+    if (sp.startsWith('ref_')) referrerId = sp.replace('ref_', '');
 
-  if (tgUser) {
-    const firstLetter = (tgUser.first_name || 'U')[0].toUpperCase();
-    const fullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || 'Telegram User';
-    const userTag = `@${tgUser.username || tgUser.first_name}`;
+    if (tgUser) {
+      const firstLetter = (tgUser.first_name || 'U')[0].toUpperCase();
+      const fullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || 'Telegram User';
+      const userTag = `@${tgUser.username || tgUser.first_name}`;
 
-    const hdrAv = document.getElementById('hdrAv');
-    if (hdrAv) {
-      if (tgUser.photo_url) hdrAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
-      else hdrAv.textContent = firstLetter;
+      const hdrAv = document.getElementById('hdrAv');
+      if (hdrAv) {
+        if (tgUser.photo_url) hdrAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
+        else hdrAv.textContent = firstLetter;
+      }
+      setText('hdrWelcome', `እንኳን ደህና መጡ, ${tgUser.first_name}`);
+      setText('hdrUser', userTag);
+
+      const refInp = document.getElementById('refLinkInp');
+      if (refInp) refInp.value = `https://t.me/${SERVERS_CONFIG.BOT_USERNAME}/swapmoney?startapp=ref_${tgUser.id}`;
+
+      const wdAv = document.getElementById('wdProfileAv');
+      if (wdAv) {
+        if (tgUser.photo_url) wdAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
+        else wdAv.textContent = firstLetter;
+      }
+      setText('wdProfileName', fullName);
+      setText('wdProfileUser', userTag);
+      setText('wdProfileId', String(tgUser.id));
+
+      const pBigAv = document.getElementById('profBigAv');
+      if (pBigAv) {
+        if (tgUser.photo_url) pBigAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
+        else pBigAv.textContent = firstLetter;
+      }
+      setText('profBigName', fullName);
+      setText('profBigUser', userTag);
+      setText('profBigId', String(tgUser.id));
     }
-    setText('hdrWelcome', `እንኳን ደህና መጡ, ${tgUser.first_name}`);
-    setText('hdrUser', userTag);
-
-    const refInp = document.getElementById('refLinkInp');
-    if (refInp) refInp.value = `https://t.me/${SERVERS_CONFIG.BOT_USERNAME}/swapmoney?startapp=ref_${tgUser.id}`;
-
-    const wdAv = document.getElementById('wdProfileAv');
-    if (wdAv) {
-      if (tgUser.photo_url) wdAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
-      else wdAv.textContent = firstLetter;
-    }
-    setText('wdProfileName', fullName);
-    setText('wdProfileUser', userTag);
-    setText('wdProfileId', String(tgUser.id));
-
-    const pBigAv = document.getElementById('profBigAv');
-    if (pBigAv) {
-      if (tgUser.photo_url) pBigAv.innerHTML = `<img src="${tgUser.photo_url}" alt="Profile">`;
-      else pBigAv.textContent = firstLetter;
-    }
-    setText('profBigName', fullName);
-    setText('profBigUser', userTag);
-    setText('profBigId', String(tgUser.id));
-  }
+  } catch (e) {}
 } else {
   setText('hdrWelcome', 'እንኳን ደህና መጡ, ሞካሪ');
   setText('hdrUser', '@Tester');
@@ -1703,7 +1713,9 @@ function loadState() {
 }
 
 function saveState() {
-  localStorage.setItem(KEY_V5, JSON.stringify(S));
+  try {
+    localStorage.setItem(KEY_V5, JSON.stringify(S));
+  } catch (e) {}
 }
 
 let S = loadState();
@@ -1789,20 +1801,22 @@ function markLocalMutation() {
 }
 
 function showPage(id) {
-  recordActivity();
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.ni').forEach(b => b.classList.remove('active'));
+  try {
+    recordActivity();
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.ni').forEach(b => b.classList.remove('active'));
 
-  const pg = document.getElementById('page-' + id);
-  if (pg) pg.classList.add('active');
+    const pg = document.getElementById('page-' + id);
+    if (pg) pg.classList.add('active');
 
-  const nb = document.querySelector(`.ni[data-p="${id}"]`);
-  if (nb) nb.classList.add('active');
+    const nb = document.querySelector(`.ni[data-p="${id}"]`);
+    if (nb) nb.classList.add('active');
 
-  if (tg?.HapticFeedback) {
-    try { tg.HapticFeedback.impactOccurred('light'); } catch (e) {}
-  }
-  render();
+    if (tg?.HapticFeedback) {
+      try { tg.HapticFeedback.impactOccurred('light'); } catch (e) {}
+    }
+    render();
+  } catch (err) {}
 }
 
 /* ═══════════════ PAYOUT SCHEDULE CALCULATOR ═══════════════ */
@@ -1842,90 +1856,92 @@ function updatePayoutScheduleUI() {
   }
 }
 
-/* ═══════════════ MASTER RENDER FUNCTION ═══════════════ */
+/* ═══════════════ MASTER RENDER FUNCTION (SAFE GUARDED) ═══════════════ */
 function render() {
-  checkVipExpiry();
-  updatePayoutScheduleUI();
+  try {
+    checkVipExpiry();
+    updatePayoutScheduleUI();
 
-  const bal  = S.balance || 0;
-  const refs = S.totalRefs || 0;
-  const lv   = getLevel(bal);
-  const tier = (S.vipTier || 'None').toUpperCase();
+    const bal  = S.balance || 0;
+    const refs = S.totalRefs || 0;
+    const lv   = getLevel(bal);
+    const tier = (S.vipTier || 'None').toUpperCase();
 
-  setText('hdrETB', bal.toLocaleString());
-  setText('levelChip', `Level ${lv.n}`);
+    setText('hdrETB', bal.toLocaleString());
+    setText('levelChip', `Level ${lv.n}`);
 
-  const vipBadge = document.getElementById('vipHdrBadge');
-  if (vipBadge) {
-    if (tier !== 'NONE' && tier !== 'FREE' && V5_TIERS_CONFIG[tier]) {
-      vipBadge.style.display = 'inline-block';
-      vipBadge.textContent = tier + ' MEMBER';
-      if (tier === 'SOLO') vipBadge.style.background = 'var(--tier-solo)';
-      else if (tier === 'PRO') vipBadge.style.background = 'var(--gold-grad)';
-      else if (tier === 'PREMIER') vipBadge.style.background = 'var(--cyan-grad)';
-    } else {
-      vipBadge.style.display = 'none';
+    const vipBadge = document.getElementById('vipHdrBadge');
+    if (vipBadge) {
+      if (tier !== 'NONE' && tier !== 'FREE' && V5_TIERS_CONFIG[tier]) {
+        vipBadge.style.display = 'inline-block';
+        vipBadge.textContent = tier + ' MEMBER';
+        if (tier === 'SOLO') vipBadge.style.background = 'var(--tier-solo)';
+        else if (tier === 'PRO') vipBadge.style.background = 'var(--gold-grad)';
+        else if (tier === 'PREMIER') vipBadge.style.background = 'var(--cyan-grad)';
+      } else {
+        vipBadge.style.display = 'none';
+      }
     }
-  }
 
-  const streak = S.streakDays || 0;
-  const strEl = document.getElementById('streakChip');
-  if (strEl) strEl.textContent = streak > 0 ? `${streak} DAYS` : '';
+    const streak = S.streakDays || 0;
+    const strEl = document.getElementById('streakChip');
+    if (strEl) strEl.textContent = streak > 0 ? `${streak} DAYS` : '';
 
-  setText('mainBalance', bal.toLocaleString());
-  const mult = getVipMultiplier();
-  setText('balSub', mult > 1 ? `ደረጃ ${lv.n} | ${mult}X ${tier} Multiplier Active` : `ደረጃ ${lv.n} | Standard Rate`);
+    setText('mainBalance', bal.toLocaleString());
+    const mult = getVipMultiplier();
+    setText('balSub', mult > 1 ? `ደረጃ ${lv.n} | ${mult}X ${tier} Multiplier Active` : `ደረጃ ${lv.n} | Standard Rate`);
 
-  // Home Earning Engine Gauge
-  const speedTag = document.getElementById('homeYieldSpeedTag');
-  if (speedTag) speedTag.textContent = mult > 1 ? `${mult}X ACTIVE` : '1X STANDARD';
-  setText('todayAdsCountVal', S.daily30AdCount || 0);
-  setText('multiplierDisplayVal', `${mult}X`);
-  setText('estDailyCapVal', `${(200 * mult).toLocaleString()} ETB`);
+    // Home Earning Engine Gauge
+    const speedTag = document.getElementById('homeYieldSpeedTag');
+    if (speedTag) speedTag.textContent = mult > 1 ? `${mult}X ACTIVE` : '1X STANDARD';
+    setText('todayAdsCountVal', S.daily30AdCount || 0);
+    setText('multiplierDisplayVal', `${mult}X`);
+    setText('estDailyCapVal', `${(200 * mult).toLocaleString()} ETB`);
 
-  const engineFill = document.getElementById('dailyEngineBarFill');
-  if (engineFill) {
-    const fillPct = Math.min(100, ((S.daily30AdCount || 0) / 30) * 100);
-    engineFill.style.width = `${fillPct}%`;
-  }
-
-  // Ads page badge
-  const adBadge = document.getElementById('adMultiplierBadge');
-  if (adBadge) {
-    adBadge.textContent = mult > 1 ? `${mult}X ACTIVE` : '1X STANDARD';
-    adBadge.style.color = mult > 1 ? 'var(--cyan)' : 'var(--muted)';
-  }
-
-  // Withdrawal Page
-  setText('wdBalDisplay', bal.toLocaleString());
-  setText('minThresholdDisplay', `${MIN_WD.toLocaleString()} ETB`);
-  const eligEl = document.getElementById('wdEligTag');
-  if (eligEl) {
-    if (bal >= MIN_WD) {
-      eligEl.innerHTML = `<span style="color:var(--green)">ማውጣት ይችላሉ (${bal.toLocaleString()} ETB)</span>`;
-    } else {
-      eligEl.innerHTML = `<span style="color:var(--cyan)">${(MIN_WD - bal).toLocaleString()} ETB ይቀራል</span>`;
+    const engineFill = document.getElementById('dailyEngineBarFill');
+    if (engineFill) {
+      const fillPct = Math.min(100, ((S.daily30AdCount || 0) / 30) * 100);
+      engineFill.style.width = `${fillPct}%`;
     }
-  }
 
-  renderProfileHub();
-  renderWdButton();
-  renderQueueCard();
+    // Ads page badge
+    const adBadge = document.getElementById('adMultiplierBadge');
+    if (adBadge) {
+      adBadge.textContent = mult > 1 ? `${mult}X ACTIVE` : '1X STANDARD';
+      adBadge.style.color = mult > 1 ? 'var(--cyan)' : 'var(--muted)';
+    }
 
-  let refRate = REF_BONUS;
-  if (tier === 'PREMIER') refRate = 150;
-  else if (tier === 'PRO') refRate = 100;
-  else if (tier === 'SOLO') refRate = 75;
+    // Withdrawal Page
+    setText('wdBalDisplay', bal.toLocaleString());
+    setText('minThresholdDisplay', `${MIN_WD.toLocaleString()} ETB`);
+    const eligEl = document.getElementById('wdEligTag');
+    if (eligEl) {
+      if (bal >= MIN_WD) {
+        eligEl.innerHTML = `<span style="color:var(--green)">ማውጣት ይችላሉ (${bal.toLocaleString()} ETB)</span>`;
+      } else {
+        eligEl.innerHTML = `<span style="color:var(--cyan)">${(MIN_WD - bal).toLocaleString()} ETB ይቀራል</span>`;
+      }
+    }
 
-  setText('refEarned', (refs * refRate).toLocaleString() + ' ETB');
-  setText('refCount', refs);
-  setText('homeInvitePctBadge', `${refRate} ETB`);
-  const inviteTxt = document.getElementById('homeInviteBannerTxt');
-  if (inviteTxt) inviteTxt.innerHTML = `ሰው ሲጋብዙ <span style="color:var(--cyan);font-weight:800">${refRate} ETB</span> በቀጥታ ያግኙ!`;
+    renderProfileHub();
+    renderWdButton();
+    renderQueueCard();
 
-  renderHomeTasks();
-  renderPureAdsGrid();
-  updateMyRankTab();
+    let refRate = REF_BONUS;
+    if (tier === 'PREMIER') refRate = 150;
+    else if (tier === 'PRO') refRate = 100;
+    else if (tier === 'SOLO') refRate = 75;
+
+    setText('refEarned', (refs * refRate).toLocaleString() + ' ETB');
+    setText('refCount', refs);
+    setText('homeInvitePctBadge', `${refRate} ETB`);
+    const inviteTxt = document.getElementById('homeInviteBannerTxt');
+    if (inviteTxt) inviteTxt.innerHTML = `ሰው ሲጋብዙ <span style="color:var(--cyan);font-weight:800">${refRate} ETB</span> በቀጥታ ያግኙ!`;
+
+    renderHomeTasks();
+    renderPureAdsGrid();
+    updateMyRankTab();
+  } catch (err) {}
 }
 
 /* ═══════════════ PROFILE HUB RENDERER ═══════════════ */
@@ -1984,8 +2000,7 @@ function renderProfileHub() {
   }
 }
 
-/* ═══════════════ 📱 1-TAP COPY ENGINE ═══════════════ */
-// ነባሪው ክፍያ ወደ 'cbe' ተቀናጅቷል (CBE-First Priority)
+/* ═══════════════ 📱 1-TAP COPY ENGINE (CBE FIRST) ═══════════════ */
 let currentCheckoutMethod = 'cbe';
 
 function copyActiveAccount() {
@@ -2085,7 +2100,6 @@ let verifyAttempts = 0;
 let verifyPollingInterval = null;
 let isVerifyingBusy = false;
 
-// የ 5 ደቂቃ እገዳ መፈተሻ
 function checkIsLockedOut() {
   const now = Date.now();
   if (S.lockoutUntil && now < S.lockoutUntil) {
@@ -2132,7 +2146,6 @@ function openVipUpgradeModal(tier, price) {
   const modal = document.getElementById('vipPaymentModal');
   const lockoutBox = document.getElementById('wizardLockoutBox');
 
-  // የ 5 ደቂቃ እገዳ ላይ መሆኑን ማጣራት
   if (checkIsLockedOut()) {
     document.querySelectorAll('.checkout-step').forEach(s => s.style.display = 'none');
     document.getElementById('wizardStepIndicator').style.display = 'none';
@@ -2177,13 +2190,11 @@ function goPayStep(stepNumber) {
   const stepTarget = document.getElementById(`payStep${stepNumber}`);
   if (stepTarget) stepTarget.style.display = 'block';
 
-  // Step Indicator ማዘመን
   for (let i = 1; i <= 3; i++) {
     const pill = document.getElementById(`pillStep${i}`);
     if (pill) pill.classList.toggle('active', i === stepNumber);
   }
 
-  // ወደ Step 3 ሲገባ የ 10 ደቂቃ ቆጣሪ ማስጀመር
   if (stepNumber === 3) {
     start10MinWizardTimer();
     const attemptsLeft = Math.max(0, 3 - (S.verifyFailCount || 0));
@@ -2228,7 +2239,6 @@ function selectCheckoutMethod(method) {
   setText('checkoutAccNumber', cfg.displayNumber);
   setText('checkoutAccHolder', cfg.holder);
 
-  // መመሪያውን በግልጽ ማሳየት
   const guideBox = document.getElementById('checkoutPaymentGuideText');
   if (guideBox) guideBox.innerHTML = `<strong>የክፍያ አፈጻጸም መመሪያ፦</strong><br>${cfg.guideText}`;
 
@@ -2253,7 +2263,6 @@ async function submitDirectGatewayPayment() {
     return;
   }
 
-  // ንጹህ Ref ኮድ ነጥሮ ማውጣት (v2-..., FT... ወይም DJ...)
   const cleanRef = extractCleanReference(rawInput);
 
   if (!S.verifiedRefs) S.verifiedRefs = [];
@@ -2311,7 +2320,7 @@ async function runVerificationAttempt(cleanRef) {
       clearInterval(verifyPollingInterval);
       verifyPollingInterval = setTimeout(() => {
         runVerificationAttempt(cleanRef);
-      }, 10000); // በየ 10 ሰከንዱ በራስ-ሰር ድጋሚ መሞከር
+      }, 10000);
     } else {
       stopVerificationRadar();
       toast('የባንክ ኔትወርክ ምላሽ አልሰጠም፤ እባክዎ ጥቂት ቆይተው እንደገና ይሞክሩ።');
@@ -2324,12 +2333,11 @@ function handleGatewayResult(data, cleanRef) {
   const radarSub = document.getElementById('radarSubTxt');
   const rawStatus = (data?.status || data?.result || '').toLowerCase();
 
-  // 1. VERIFIED -> ክፍያው ሲጸድቅ
   if (rawStatus === 'verified' || data?.verified === true || data?.result === 'success') {
     stopVerificationRadar();
 
     S.verifiedRefs.push(cleanRef);
-    S.verifyFailCount = 0; // ቆጣሪውን ዜሮ ማድረግ
+    S.verifyFailCount = 0;
 
     const expDate = new Date();
     expDate.setDate(expDate.getDate() + 30);
@@ -2350,7 +2358,6 @@ function handleGatewayResult(data, cleanRef) {
     return;
   }
 
-  // 2. PENDING / RESOLVING -> በየ 10 ሰከንዱ እስከ 2 ደቂቃ መጠየቅ
   if (rawStatus === 'pending' || rawStatus === 'resolving') {
     if (verifyAttempts < 12) {
       if (radarStatus) radarStatus.textContent = 'ክፍያው በባንክ በኩል በመረጋገጥ ላይ ነው...';
@@ -2368,7 +2375,6 @@ function handleGatewayResult(data, cleanRef) {
     }
   }
 
-  // 3. ውድቅ ሲሆን እና የ 3 ሙከራ እገዳ አያያዝ
   stopVerificationRadar();
 
   S.verifyFailCount = (S.verifyFailCount || 0) + 1;
@@ -2377,7 +2383,6 @@ function handleGatewayResult(data, cleanRef) {
   const attemptsLeft = Math.max(0, 3 - S.verifyFailCount);
   setText('verifyAttemptsLeft', `${attemptsLeft}/3`);
 
-  // 3 ጊዜ ከተሳሳተ -> የ 5 ደቂቃ እገዳ ማስጀመር!
   if (S.verifyFailCount >= 3) {
     S.lockoutUntil = Date.now() + 5 * 60 * 1000; // 5 ደቂቃ
     saveState();
@@ -2411,25 +2416,6 @@ function stopVerificationRadar() {
 }
 
 /* ═══════════════ 📋 ALL TASKS ENGINE ═══════════════ */
-const TG_ICON = 'https://static.vecteezy.com/system/resources/previews/023/986/562/non_2x/telegram-logo-telegram-logo-transparent-telegram-icon-transparent-free-free-png.png';
-const YT_ICON = 'https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small_2x/youtube-logo-youtube-icon-transparent-free-png.png';
-const YT_VID1 = 'https://youtu.be/R_vcyPNxAW4?si=0ntjQfo-Okvg37Ax';
-const BUNA_BOT = 'https://t.me/Bunaairdropbot/buna?startapp=1493452810';
-const PROMO_BOT = 'https://t.me/tikvahetcryptobot/tikvaheth';
-
-const ALL_TASKS = [
-  { id: 'tg1',      label: 'TG Channel 1',        reward: 35, dur: 30, link: TG_CHANNEL1, icon: TG_ICON, bg: 'rgba(0,242,254,.15)' },
-  { id: 'tg2',      label: 'TG Channel 2',        reward: 35, dur: 30, link: TG_CHANNEL2, icon: TG_ICON, bg: 'rgba(0,242,254,.15)' },
-  { id: 'promobot', label: 'Promo Bot Join',      reward: 30, dur: 20, link: PROMO_BOT,   icon: TG_ICON, bg: 'rgba(245,208,97,.15)' },
-  { id: 'ytsub1',   label: 'YouTube Sub 1',       reward: 35, dur: 60, link: YT_SUB,      icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
-  { id: 'ytsub2',   label: 'YouTube Sub 2',       reward: 35, dur: 60, link: YT_SUB2,     icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
-  { id: 'ytvid1',   label: 'YouTube Video',       reward: 25, dur: 60, link: YT_VID1,     icon: YT_ICON, bg: 'rgba(239,68,68,.15)' },
-  { id: 'bunabot',  label: 'Buna Bot Join',       reward: 25, dur: 30, link: BUNA_BOT,    icon: TG_ICON, bg: 'rgba(0,242,254,.15)' }
-];
-
-const activeTaskTimers = new Set();
-const taskTimers = {};
-
 function taskGrid4ColHTML(t, prefix) {
   const done = S.completedTasks && S.completedTasks.includes(t.id);
   return `<div class="task-mini-card">
@@ -2443,9 +2429,11 @@ function taskGrid4ColHTML(t, prefix) {
 function renderHomeTasks() {
   const el = document.getElementById('homeTasksGrid');
   if (!el) return;
-  if (activeTaskTimers.size === 0) {
-    el.innerHTML = ALL_TASKS.map(t => taskGrid4ColHTML(t, 'htb_')).join('');
-  }
+  try {
+    if (activeTaskTimers.size === 0) {
+      el.innerHTML = ALL_TASKS.map(t => taskGrid4ColHTML(t, 'htb_')).join('');
+    }
+  } catch (e) {}
 }
 
 /* ═══════════════ 🌟 BRAND NEW ADS STREAM RENDERER ═══════════════ */
@@ -2774,18 +2762,19 @@ const FEED_ITEMS = [
 function rotateFeed() {
   const el = document.getElementById('liveFeed');
   if (!el) return;
-  const item = FEED_ITEMS[Math.floor(Math.random() * FEED_ITEMS.length)];
-
-  el.innerHTML = `<div class="feed-item">
-    <div style="display:flex;align-items:center;gap:8px">
-      <div class="feed-av">${item.name[0]}</div>
-      <div class="feed-info">
-        <h5>${item.name} ${item.amount.toLocaleString()} ETB አውጥተዋል</h5>
-        <p>${item.method} (${item.acct})</p>
+  try {
+    const item = FEED_ITEMS[Math.floor(Math.random() * FEED_ITEMS.length)];
+    el.innerHTML = `<div class="feed-item">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="feed-av">${item.name[0]}</div>
+        <div class="feed-info">
+          <h5>${item.name} ${item.amount.toLocaleString()} ETB አውጥተዋል</h5>
+          <p>${item.method} (${item.acct})</p>
+        </div>
       </div>
-    </div>
-    <div class="feed-amount">${item.amount.toLocaleString()} ETB</div>
-  </div>`;
+      <div class="feed-amount">${item.amount.toLocaleString()} ETB</div>
+    </div>`;
+  } catch (e) {}
 }
 setInterval(rotateFeed, 4500);
 rotateFeed();
@@ -3064,7 +3053,6 @@ function renderWdButton() {
   const refs = S.totalRefs || 0;
   const tier = (S.vipTier || 'None').toUpperCase();
 
-  // 1. PREMIER: 100% BYPASS ALL REQUIREMENTS
   if (tier === 'PREMIER') {
     if (notice) {
       notice.style.display = 'block';
@@ -3076,7 +3064,6 @@ function renderWdButton() {
     return;
   }
 
-  // 2. PRO: የ 15 ሰው ግብዣ ወደ 2 ሰው ብቻ ይወርዳል
   if (tier === 'PRO') {
     if (refs < 2) {
       if (notice) {
@@ -3098,7 +3085,6 @@ function renderWdButton() {
     return;
   }
 
-  // 3. SOLO: የማስታወቂያ ግዴታ ይነሳል
   if (tier === 'SOLO') {
     if (refs < 15) {
       if (notice) {
@@ -3115,7 +3101,6 @@ function renderWdButton() {
     return;
   }
 
-  // 4. FREE MEMBER: 15 ሰው ግዴታ ነው
   if (S.isWdTaskActive && refs < 15) {
     if (notice) {
       notice.style.display = 'block';
@@ -3330,7 +3315,6 @@ async function syncFromSheet() {
       if (typeof u.totalAds !== 'undefined') S.adsWatched = Math.max(S.adsWatched, Number(u.totalAds) || 0);
       if (typeof u.totalReferrals !== 'undefined') S.totalRefs = Number(u.totalReferrals) || 0;
 
-      // ታስኮች ከ Google Sheet መጥተው እንዲጠበቁ ማድረግ
       if (Array.isArray(u.completedTasks) && u.completedTasks.length > 0) {
         S.completedTasks = Array.from(new Set([...(S.completedTasks || []), ...u.completedTasks]));
       }
@@ -3392,7 +3376,9 @@ let syncReady = false;
 let pendingSyncAfterInit = false;
 
 async function safeInit() {
-  render();
+  try {
+    render();
+  } catch (e) {}
 
   try {
     const res = await fetch(`${SERVERS_CONFIG.MAIN_SCRIPT_URL}?action=getUser&userId=${ACTIVE_UID}`);
@@ -3434,9 +3420,7 @@ async function safeInit() {
         }, 800);
       }
     }
-  } catch (e) {
-    render();
-  }
+  } catch (e) {}
 
   syncReady = true;
   render();
@@ -3909,7 +3893,44 @@ function appendPhotoBubble(src, cap) {
   saveLocalChat();
   restoreLocalChatUI();
 }
+
+/* ═══════════════ WINDOW GLOBAL BINDINGS ═══════════════ */
+window.showPage = showPage;
+window.openVipUpgradeModal = openVipUpgradeModal;
+window.closeVipPaymentModal = closeVipPaymentModal;
+window.goPayStep = goPayStep;
+window.selectCheckoutMethod = selectCheckoutMethod;
+window.copyActiveAccount = copyActiveAccount;
+window.autoDetectTransactionRef = autoDetectTransactionRef;
+window.submitDirectGatewayPayment = submitDirectGatewayPayment;
+window.openSupportModal = openSupportModal;
+window.closeSupportModal = closeSupportModal;
+window.startTask = startTask;
+window.claimTask = claimTask;
+window.watchAd = watchAd;
+window.handleAdModalClose = handleAdModalClose;
+window.clickAdSponsor = clickAdSponsor;
+window.startPromoClaimFlow = startPromoClaimFlow;
+window.shareStory = shareStory;
+window.shareInvite = shareInvite;
+window.selFintechMethod = selFintechMethod;
+window.initiateWithdrawFlow = initiateWithdrawFlow;
+window.verifyAndExecuteWd = verifyAndExecuteWd;
+window.closeCaptcha = closeCaptcha;
+window.closeReceiptModal = closeReceiptModal;
+window.openTermsModal = openTermsModal;
+window.closeTermsModal = closeTermsModal;
+window.handleFAQ = handleFAQ;
+window.toggleVoiceRecording = toggleVoiceRecording;
+window.stopAndSendVoice = stopAndSendVoice;
+window.handlePhotoSelect = handlePhotoSelect;
+window.cancelPhotoUpload = cancelPhotoUpload;
+window.initiateSupportTicketSend = initiateSupportTicketSend;
+window.handleChatEnter = handleChatEnter;
+window.fetchLiveLeaderboard = fetchLiveLeaderboard;
+window.switchCompTab = switchCompTab;
+window.toggleFull100List = toggleFull100List;
 </script>
 </body>
 </html>
-   
+
