@@ -446,29 +446,106 @@ header{
 /* 🌟 3-STEP AUTOMATED PAYMENT WIZARD MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.active{display:flex}
-.wizard-checkout-card, .captcha-card, .receipt-card, .terms-card{
-  position:relative;background:linear-gradient(165deg, #0e1628 0%, #070b14 100%);
-  border:1.8px solid var(--cyan);border-radius:26px;padding:22px 18px;max-width:355px;width:100%;
-  max-height:88vh;overflow-y:auto;color:#fff;box-shadow:0 25px 60px rgba(0,0,0,.95), 0 0 35px var(--cyan-glow);
-}
-.lc-close-btn{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;cursor:pointer}
 
-/* Step Indicator Bar */
-.wizard-steps-bar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
-.w-step-pill{font-size:9.5px;font-weight:900;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,.08);color:var(--muted)}
-.w-step-pill.active{background:var(--cyan-grad);color:#000}
 
-.countdown-timer-box{
-  background:rgba(0,242,254,.08);border:1px dashed var(--cyan);border-radius:14px;
-  padding:10px;text-align:center;margin-bottom:12px;
-}
-.cd-timer-val{font-family:var(--mono);font-size:24px;font-weight:900;color:var(--cyan);letter-spacing:1px}
 
-.lockout-card-state{
-  background:rgba(239,68,68,.12);border:1.5px solid var(--red);border-radius:16px;
-  padding:18px;text-align:center;color:#fff;margin-bottom:10px;
+   
+/* ══════════════════════════════════════════════════════════════════
+   WIDE & SLEEK FINTECH MODAL STYLES (V5 - NO EMOJIS)
+══════════════════════════════════════════════════════════════════ */
+.wizard-checkout-card {
+  position: relative;
+  background: linear-gradient(165deg, #0b1324 0%, #060913 100%);
+  border: 1.8px solid var(--cyan);
+  border-radius: 28px;
+  padding: 24px 20px;
+  max-width: 440px; /* ሰፋ ያለ ማራኪ እይታ */
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: #fff;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 35px var(--cyan-glow);
 }
 
+.wizard-steps-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.w-step-pill {
+  font-size: 10px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  border: 1px solid transparent;
+}
+.w-step-pill.active {
+  background: var(--cyan-grad);
+  color: #000;
+}
+
+/* ሰፊና ግልጽ የክፍያ መመሪያ ሳጥን */
+.pay-guide-box {
+  background: rgba(0, 242, 254, 0.04);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+.pay-guide-box strong {
+  color: var(--cyan);
+}
+
+/* SMS ሲገባ ወዲያውኑ Ref ነጥሮ የሚያሳይበት ሳጥን */
+.extracted-ref-card {
+  display: none;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1.2px solid var(--green);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  transition: all 0.2s ease;
+}
+
+/* የ 10 ደቂቃ ቆጣሪ */
+.countdown-timer-box {
+  background: rgba(0, 242, 254, 0.06);
+  border: 1px dashed var(--cyan);
+  border-radius: 14px;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.cd-timer-val {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+/* የ 5 ደቂቃ የደህንነት እገዳ ማስጠንቀቂያ ሳጥን */
+.lockout-card-state {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1.5px solid var(--red);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+
+
+
+   
 /* LIVE BANK VERIFICATION RADAR */
 .radar-box{
   display:none;flex-direction:column;align-items:center;justify-content:center;
@@ -611,13 +688,19 @@ header{
   </div>
 </div>
 
+
+
+
+
+   
+
 <!-- ════════════════════════════════════════════════════
-     6. ⚡ 3-STEP AUTOMATED GATEWAY PAYMENT WIZARD MODAL
+     ⚡ 3-STEP AUTOMATED GATEWAY PAYMENT WIZARD MODAL (CBE-FIRST)
 ════════════════════════════════════════════════════ -->
 <div class="modal-overlay" id="vipPaymentModal">
   <div class="wizard-checkout-card">
     <button class="lc-close-btn" onclick="closeVipPaymentModal()">✕</button>
-    
+
     <div style="text-align:center;font-size:10px;font-weight:900;color:var(--cyan);letter-spacing:1px;margin-bottom:8px">
       AUTOMATED PAYMENT GATEWAY
     </div>
@@ -625,68 +708,79 @@ header{
     <!-- Step Progress Indicator -->
     <div class="wizard-steps-bar" id="wizardStepIndicator">
       <span class="w-step-pill active" id="pillStep1">1. ጥቅል</span>
-      <span class="w-step-pill" id="pillStep2">2. ክፍያ</span>
+      <span class="w-step-pill" id="pillStep2">2. ክፍያና መመሪያ</span>
       <span class="w-step-pill" id="pillStep3">3. ማረጋገጫ</span>
     </div>
 
-    <!-- ── 24-HOUR LOCKOUT WARNING (IF USER EXCEEDS 2 ATTEMPTS) ── -->
+    <!-- ── 5-MINUTE LOCKOUT WARNING (IF USER EXCEEDS 3 ATTEMPTS) ── -->
     <div class="lockout-card-state" id="wizardLockoutBox" style="display:none">
-      <h4 style="font-size:13.5px;font-weight:900;color:var(--red);margin-bottom:4px">24-HOUR SECURITY LOCKOUT</h4>
-      <p style="font-size:10.5px;color:#fff;line-height:1.4">ከ 2 ጊዜ በላይ የተሳሳተ ሙከራ በማድረስዎ ምክንያት የክፍያ ማረጋገጫ ለ 24 ሰዓት ተዘግቶብዎታል።</p>
-      <div style="margin-top:10px;font-family:var(--mono);font-size:14px;font-weight:900;color:var(--red)" id="lockoutTimerDisplay">23:59:59</div>
+      <h4 style="font-size:13.5px;font-weight:900;color:var(--red);margin-bottom:4px">SECURITY LOCKOUT (5 MINUTES)</h4>
+      <p style="font-size:10.5px;color:#fff;line-height:1.4">ከ 3 ጊዜ በላይ የተሳሳተ መረጃ በማስገባትዎ ምክንያት ማረጋገጫው ለ 5 ደቂቃ ተዘግቶብዎታል።</p>
+      <div style="margin-top:10px;font-family:var(--mono);font-size:18px;font-weight:900;color:var(--red)" id="lockoutTimerDisplay">05:00</div>
     </div>
 
     <!-- ── STEP 1: PACKAGE DETAILS ── -->
     <div class="checkout-step" id="payStep1">
       <div style="text-align:center;margin:10px 0 16px">
         <div id="vpModalTierPill" style="font-size:12px;font-weight:900;color:var(--cyan)">PRO TIER</div>
-        <h2 id="vpModalPrice" style="font-size:40px;font-weight:900;color:#fff">150 <span style="font-size:16px;color:var(--cyan)">ETB</span></h2>
-        <p style="font-size:10.5px;color:var(--muted);margin-top:4px" id="vpModalPerks">4X የማስታወቂያ ክፍያ + 2 ሰው ብቻ መጋበዝ</p>
+        <h2 id="vpModalPrice" style="font-size:42px;font-weight:900;color:#fff">150 <span style="font-size:16px;color:var(--cyan)">ETB</span></h2>
+        <p style="font-size:11px;color:var(--muted);margin-top:4px" id="vpModalPerks">4X የማስታወቂያ ክፍያ + 2 ሰው ብቻ መጋበዝ</p>
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border2);border-radius:14px;padding:12px;margin-bottom:14px;font-size:11px;color:var(--muted)">
-        <div>የተመረጠ ፓኬጅ: <strong style="color:#fff" id="vpSummaryTier">PRO</strong></div>
-        <div style="margin-top:4px">የሚከፈል መጠን: <strong style="color:var(--cyan)" id="vpSummaryPrice">150 ETB</strong></div>
+        <div style="display:flex;justify-content:space-between"><span>የተመረጠ ፓኬጅ፦</span> <strong style="color:#fff" id="vpSummaryTier">PRO</strong></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px"><span>የሚከፈለው ትክክለኛ መጠን፦</span> <strong style="color:var(--cyan)" id="vpSummaryPrice">150 ETB</strong></div>
       </div>
 
-      <button class="btn btn-cyan btn-block" style="padding:14px" onclick="goPayStep(2)">
-        ክፍያውን ፈጽም ➔
+      <button class="btn btn-cyan btn-block" style="padding:14px;font-size:13px" onclick="goPayStep(2)">
+        ክፍያውን ለመፈጸም ቀጥል ➔
       </button>
     </div>
 
-    <!-- ── STEP 2: ACCOUNT SELECTION & COPY ── -->
+    <!-- ── STEP 2: ACCOUNT SELECTION, COPY & GUIDE (CBE FIRST) ── -->
     <div class="checkout-step" id="payStep2" style="display:none">
-      <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:8px">የክፍያ መንገድ ይምረጡ፦</div>
+      <div style="font-size:11.5px;font-weight:900;color:#fff;margin-bottom:8px">የክፍያ መንገድ ይምረጡ፦</div>
       <div class="wd-method-select-grid" style="margin-bottom:12px">
-        <div class="wd-m-card active" id="cardTelebirr" onclick="selectCheckoutMethod('telebirr')">
-          <img src="https://i.postimg.cc/1zH5wqRj/20260805-174415.png" class="wd-m-logo" alt="Telebirr">
-          <div>
-            <div class="wd-m-name">Telebirr</div>
-            <div class="wd-m-sub">ቀጥታ በቴሌብር</div>
-          </div>
-        </div>
-
-        <div class="wd-m-card" id="cardCbe" onclick="selectCheckoutMethod('cbe')">
+        <!-- 1. CBE BANK (መጀመሪያ ተቀምጧል) -->
+        <div class="wd-m-card active" id="cardCbe" onclick="selectCheckoutMethod('cbe')">
           <img src="https://i.postimg.cc/Hk1pN2VS/20260805-174301.png" class="wd-m-logo" alt="CBE Bank">
           <div>
             <div class="wd-m-name">CBE Bank</div>
             <div class="wd-m-sub">ንግድ ባንክ</div>
           </div>
         </div>
+
+        <!-- 2. TELEBIRR (ሁለተኛ ተቀምጧል) -->
+        <div class="wd-m-card" id="cardTelebirr" onclick="selectCheckoutMethod('telebirr')">
+          <img src="https://i.postimg.cc/1zH5wqRj/20260805-174415.png" class="wd-m-logo" alt="Telebirr">
+          <div>
+            <div class="wd-m-name">Telebirr</div>
+            <div class="wd-m-sub">ቀጥታ በቴሌብር</div>
+          </div>
+        </div>
       </div>
 
-      <div style="background:linear-gradient(135deg, #0d1728, #070c18);border:1.2px solid rgba(0, 242, 254, 0.35);border-radius:16px;padding:14px;margin-bottom:14px">
+      <!-- Account Box (CBE በነባሪነት ይታያል) -->
+      <div style="background:linear-gradient(135deg, #0d1728, #070c18);border:1.2px solid rgba(0, 242, 254, 0.35);border-radius:16px;padding:14px;margin-bottom:12px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-          <span id="checkoutAccProviderLabel" style="font-size:10px;font-weight:900;color:var(--muted)">የ Telebirr ቁጥር</span>
+          <span id="checkoutAccProviderLabel" style="font-size:10px;font-weight:900;color:var(--muted)">የ CBE ባንክ ሂሳብ ቁጥር</span>
           <button style="background:rgba(0, 242, 254, 0.15);border:1px solid #00f2fe;color:#38bdf8;border-radius:8px;padding:4px 10px;font-size:10px;font-weight:900;cursor:pointer" onclick="copyActiveAccount()">
             <span id="copyIconState">ኮፒ</span> አድርግ
           </button>
         </div>
-        <div id="checkoutAccNumber" style="font-family:var(--mono);font-size:16px;font-weight:900;color:var(--cyan);letter-spacing:1px;margin:3px 0">0968260447</div>
-        <div id="checkoutAccHolder" style="font-size:10px;color:#94a3b8">የአካውንት ስም: Nebyu Mohammed</div>
+        <div id="checkoutAccNumber" style="font-family:var(--mono);font-size:17px;font-weight:900;color:var(--cyan);letter-spacing:1px;margin:3px 0">1000562339427</div>
+        <div id="checkoutAccHolder" style="font-size:10.5px;color:#94a3b8">የአካውንት ስም: Aymen kemal</div>
       </div>
 
-      <button class="btn btn-cyan btn-block" style="padding:14px" onclick="goPayStep(3)">
+      <!-- Clear Step-by-Step Payment Guide -->
+      <div class="pay-guide-box" id="checkoutPaymentGuideText">
+        <strong>የክፍያ አፈጻጸም መመሪያ፦</strong><br>
+        1. ከላይ ያለውን የ CBE ሂሳብ ቁጥር ኮፒ በማድረግ ወደ CBE Mobile Banking ወይም CBE Birr ይግቡ።<br>
+        2. ትክክለኛውን የፓኬጅ መጠን ያስተላልፉ።<br>
+        3. ክፍያው ሲጠናቀቅ በደረሰኙ ላይ ያለውን የትራንዛክሽን ቁጥር (e.g. FT... ወይም v2-...) ኮፒ በማድረግ ይዘው ይመለሱ።
+      </div>
+
+      <button class="btn btn-cyan btn-block" style="padding:14px;font-size:13px" onclick="goPayStep(3)">
         ከፍያለሁ (I Have Paid) ➔
       </button>
       <button class="btn btn-outline btn-block" style="margin-top:6px;border-color:transparent;color:var(--muted)" onclick="goPayStep(1)">
@@ -694,22 +788,29 @@ header{
       </button>
     </div>
 
-    <!-- ── STEP 3: 10-MIN COUNTDOWN & VERIFICATION ── -->
+    <!-- ── STEP 3: 10-MIN COUNTDOWN & AUTO-EXTRACT VERIFICATION ── -->
     <div class="checkout-step" id="payStep3" style="display:none">
-      <!-- 10-Minute Countdown Display -->
       <div class="countdown-timer-box">
         <div style="font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase">የክፍያ ማረጋገጫ ቀሪ ጊዜ</div>
         <div class="cd-timer-val" id="wizardCountdownTimer">10:00</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:2px">በዚህ ጊዜ ውስጥ ትክክለኛውን ደረሰኝ ያስገቡ</div>
+        <div style="font-size:9px;color:var(--muted);margin-top:2px">በዚህ ጊዜ ውስጥ ትክክለኛውን SMS ወይም TxID ያስገቡ</div>
       </div>
 
-      <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:4px">የትራንዛክሽን ቁጥር (TxID) ወይም ሙሉ SMS፦</div>
-      <textarea id="vpRefInput" rows="3" placeholder="ከቴሌብር ወይም ከባንክ የደረሰዎትን ሙሉ SMS ወይም የትራንዛክሽን ቁጥር (e.g. DJC... / FT...) እዚህ ያስገቡ..." style="width:100%;padding:10px;background:#050811;border:1px solid var(--border);border-radius:12px;color:var(--cyan);font-family:var(--mono);font-size:11px;outline:none;resize:none"></textarea>
+      <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:4px">የደረሰዎትን ሙሉ SMS፣ Link ወይም TxID እዚህ ያስገቡ፦</div>
+      <textarea id="vpRefInput" rows="3" placeholder="ከባንክ ወይም ከቴሌብር የደረሰዎትን ሙሉ SMS ወይም የደረሰኝ Link እዚህ Paste ያድርጉ..." oninput="autoDetectTransactionRef()" style="width:100%;padding:10px;background:#050811;border:1px solid var(--border);border-radius:12px;color:var(--cyan);font-family:var(--mono);font-size:11px;outline:none;resize:none"></textarea>
 
-      <!-- Security Notice & Remaining Attempts -->
+      <!-- Auto Extracted TxID Live Feedback Badge -->
+      <div class="extracted-ref-card" id="extractedRefBadge">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:10px;color:var(--green);font-weight:900" id="detectedTypeTag">የተገኘው ትክክለኛ REF</span>
+          <span style="font-family:var(--mono);font-size:12px;font-weight:900;color:#fff" id="detectedRefValue">FT...</span>
+        </div>
+      </div>
+
+      <!-- Security Notice & Remaining Attempts (3 Attempts / 5-Min Lockout) -->
       <div style="margin:8px 0;padding:8px 10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;font-size:10px;color:#fca5a5;line-height:1.4">
-        ማሳሰቢያ፦ ይህ የክፍያ ማረጋገጫ ብቻ ነው። ከ 2 ሙከራ በኋላ አካውንትዎ ለ 24 ሰዓት በራስ-ሰር ይታገዳል (Lock)!
-        <div style="margin-top:4px;font-weight:900;color:#fff">የቀረዎት ሙከራ: <span id="verifyAttemptsLeft" style="color:var(--cyan)">2/2</span></div>
+        ማሳሰቢያ፦ ይህ የክፍያ ማረጋገጫ ብቻ ነው። ከ 3 ሙከራ በኋላ ለ 5 ደቂቃ በራስ-ሰር ይታገዳል (Lock)!
+        <div style="margin-top:4px;font-weight:900;color:#fff">የቀረዎት ሙከራ: <span id="verifyAttemptsLeft" style="color:var(--cyan)">3/3</span></div>
       </div>
 
       <!-- Radar Animation -->
@@ -729,6 +830,15 @@ header{
   </div>
 </div>
 
+
+
+
+
+
+
+
+
+   
 <!-- 7. CUSTOMER SUPPORT MODAL -->
 <div class="support-chat-modal" id="supportModal">
   <div class="support-chat-wrapper">
@@ -1335,10 +1445,13 @@ header{
 
 
 
+
+
+<script>
 /* ══════════════════════════════════════════════════════════════════
-   SWAP MONEY V5 — PRODUCTION JAVASCRIPT ENGINE (FINAL AUDITED)
-   Pure Cyber-Fintech • 3-Step Wizard with Step-by-Step Guide
-   Zero Emojis • 2-Attempt 24hr Lockout • Dual-Token Fallback
+   SWAP MONEY V5 — PRODUCTION JAVASCRIPT ENGINE (CBE-FIRST EDITION)
+   Pure Cyber-Fintech • 3-Step Wizard with CBE Priority & Guide
+   Zero Emojis • 3-Attempt 5-Min Lockout • v2- / FT / DJ Extractor
 ══════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1378,21 +1491,21 @@ const ACTIVE_PROMO_CODES = [
   'VIPELITE', 'CASHBACK2026', 'MEGAWIN50', 'PROMO2026', 'LUCKY26'
 ];
 
-/* ── የክፍያ አካውንቶች ውቅር (TELEBIRR & CBE) ── */
+/* ── የክፍያ አካውንቶች ውቅር (CBE FIRST) ── */
 const ACCOUNTS_CONFIG = {
+  cbe: {
+    label: 'የ CBE ባንክ ሂሳብ ቁጥር',
+    displayNumber: '1000562339427',
+    cleanNumber: '1000562339427',
+    holder: 'የአካውንት ስም: Aymen kemal',
+    guideText: 'በ CBE Mobile Banking ወይም CBE Birr ወደ 1000562339427 ገንዘብ ያስተላልፉ። ከዛ በደረሰኙ ላይ ያለውን የትራንዛክሽን ቁጥር (e.g. FT... ወይም v2-...) ኮፒ በማድረግ ይዘው ይመለሱ።'
+  },
   telebirr: {
     label: 'የ Telebirr ቁጥር (P2P)',
     displayNumber: '0968260447',
     cleanNumber: '0968260447',
     holder: 'የአካውንት ስም: Nebyu Mohammed',
     guideText: 'ወደ Telebirr App ወይም *127# በመግባት ወደ 0968260447 ገንዘብ ያስተላልፉ። ከዛ የደረሰዎትን የትራንዛክሽን ቁጥር (TxID e.g. DJC5Q7...) ወይም ሙሉ SMS ኮፒ ያድርጉ።'
-  },
-  cbe: {
-    label: 'የ CBE ባንክ ሂሳብ ቁጥር',
-    displayNumber: '1000562339427',
-    cleanNumber: '1000562339427',
-    holder: 'የአካውንት ስም: Aymen kemal',
-    guideText: 'በ CBE Mobile Banking ወይም CBE Birr ወደ 1000562339427 ገንዘብ ያስተላልፉ። ከዛ በደረሰኙ ላይ ያለውን የትራንዛክሽን ቁጥር (e.g. FT...) ወይም ሙሉ SMS ኮፒ ያድርጉ።'
   }
 };
 
@@ -1563,7 +1676,7 @@ function loadState() {
     totalRefs: 0,
     isWdTaskActive: false,
     hasWelcomed: false,
-    selectedMethod: 'Telebirr',
+    selectedMethod: 'CBE Bank',
     streakDays: 0,
     lastLoginDate: '',
     lastAdFinishedTime: 0,
@@ -1872,7 +1985,8 @@ function renderProfileHub() {
 }
 
 /* ═══════════════ 📱 1-TAP COPY ENGINE ═══════════════ */
-let currentCheckoutMethod = 'telebirr';
+// ነባሪው ክፍያ ወደ 'cbe' ተቀናጅቷል (CBE-First Priority)
+let currentCheckoutMethod = 'cbe';
 
 function copyActiveAccount() {
   recordActivity();
@@ -1907,7 +2021,59 @@ function onCopySuccess(num) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   ⚡ 3-STEP WIZARD WITH SPATIOUS GUIDE & 24HR LOCKOUT
+   🧠 INTELLIGENT REFERENCE EXTRACTOR (CBE v2- / FT & TELEBIRR DJ)
+══════════════════════════════════════════════════════════════════ */
+function extractCleanReference(input) {
+  if (!input) return '';
+  var text = String(input).trim();
+
+  // 1. CBE link ውስጥ ያለ v2-XXXXX ማውጣት (e.g. v2-hfHCxNICasIHc1XNTm27)
+  var cbeV2Match = text.match(/\b(v2-[A-Za-z0-9_-]{10,40})\b/i) || 
+                   text.match(/mbreciept\.cbe\.com\.et\/(v2-[A-Za-z0-9_-]+)/i);
+  if (cbeV2Match) return cbeV2Match[1];
+
+  // 2. CBE መደበኛ FT Transaction Number (e.g. FT26085XXXXX)
+  var cbeFtMatch = text.match(/\b(FT[A-Za-z0-9]{8,24})\b/i);
+  if (cbeFtMatch) return cbeFtMatch[1];
+
+  // 3. Telebirr DJ Transaction Number (e.g. DJT1FXC95H or from receipt link)
+  var teleMatch = text.match(/\b(DJ[A-Za-z0-9]{8,14})\b/i) ||
+                  text.match(/receipt\/(DJ[A-Za-z0-9]+)/i) ||
+                  text.match(/(?:transaction\s+number\s+is|የትራንዛክሽን\s*ቁጥር(?:ዎ)?\s*(?:ነው)?)\s*[:፡]?\s*([A-Za-z0-9]+)/i);
+  if (teleMatch) return teleMatch[1];
+
+  // 4. ንጹህ ኮድ ብቻ ከሆነ
+  var rawClean = text.replace(/[^A-Za-z0-9_-]/g, '');
+  if (rawClean.length >= 8 && rawClean.length <= 32) return rawClean;
+
+  return text;
+}
+
+function autoDetectTransactionRef() {
+  var input = document.getElementById('vpRefInput')?.value || '';
+  var badge = document.getElementById('extractedRefBadge');
+  var tag = document.getElementById('detectedTypeTag');
+  var val = document.getElementById('detectedRefValue');
+  
+  if (!input.trim()) {
+    if (badge) badge.style.display = 'none';
+    return;
+  }
+
+  var extracted = extractCleanReference(input);
+  if (extracted && extracted !== input) {
+    if (badge) badge.style.display = 'block';
+    if (tag) tag.textContent = 'የተገኘው ትክክለኛ REF';
+    if (val) val.textContent = extracted;
+  } else {
+    if (badge) badge.style.display = 'block';
+    if (tag) tag.textContent = 'REF CODE';
+    if (val) val.textContent = extracted.slice(0, 24) + (extracted.length > 24 ? '...' : '');
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   ⚡ 3-STEP WIZARD WITH 5-MINUTE LOCKOUT (3 ATTEMPTS)
 ══════════════════════════════════════════════════════════════════ */
 let selectedVipTier = 'PRO';
 let selectedVipPrice = 150;
@@ -1919,6 +2085,7 @@ let verifyAttempts = 0;
 let verifyPollingInterval = null;
 let isVerifyingBusy = false;
 
+// የ 5 ደቂቃ እገዳ መፈተሻ
 function checkIsLockedOut() {
   const now = Date.now();
   if (S.lockoutUntil && now < S.lockoutUntil) {
@@ -1947,11 +2114,10 @@ function startLockoutCountdown() {
       goPayStep(1);
       return;
     }
-    const hrs = Math.floor(diff / (1000 * 60 * 60));
-    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const mins = Math.floor(diff / (1000 * 60));
     const secs = Math.floor((diff % (1000 * 60)) / 1000);
     if (timerDisplay) {
-      timerDisplay.textContent = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
   }
   update();
@@ -1966,7 +2132,7 @@ function openVipUpgradeModal(tier, price) {
   const modal = document.getElementById('vipPaymentModal');
   const lockoutBox = document.getElementById('wizardLockoutBox');
 
-  // Check 24-hour lockout
+  // የ 5 ደቂቃ እገዳ ላይ መሆኑን ማጣራት
   if (checkIsLockedOut()) {
     document.querySelectorAll('.checkout-step').forEach(s => s.style.display = 'none');
     document.getElementById('wizardStepIndicator').style.display = 'none';
@@ -1986,7 +2152,8 @@ function openVipUpgradeModal(tier, price) {
   setText('vpSummaryPrice', `${tierCfg.price} ETB`);
   setText('vpModalPerks', tierCfg.perksText);
 
-  selectCheckoutMethod('telebirr');
+  // CBE Bank ቀዳሚ ሆኖ ይመረጣል
+  selectCheckoutMethod('cbe');
   goPayStep(1);
 
   modal?.classList.add('active');
@@ -2010,17 +2177,17 @@ function goPayStep(stepNumber) {
   const stepTarget = document.getElementById(`payStep${stepNumber}`);
   if (stepTarget) stepTarget.style.display = 'block';
 
-  // Update pills
+  // Step Indicator ማዘመን
   for (let i = 1; i <= 3; i++) {
     const pill = document.getElementById(`pillStep${i}`);
     if (pill) pill.classList.toggle('active', i === stepNumber);
   }
 
-  // Step 3: Start 10-Minute Countdown
+  // ወደ Step 3 ሲገባ የ 10 ደቂቃ ቆጣሪ ማስጀመር
   if (stepNumber === 3) {
     start10MinWizardTimer();
-    const attemptsLeft = Math.max(0, 2 - (S.verifyFailCount || 0));
-    setText('verifyAttemptsLeft', `${attemptsLeft}/2`);
+    const attemptsLeft = Math.max(0, 3 - (S.verifyFailCount || 0));
+    setText('verifyAttemptsLeft', `${attemptsLeft}/3`);
   } else {
     clearInterval(wizardCountdownInterval);
   }
@@ -2035,7 +2202,7 @@ function start10MinWizardTimer() {
     wizardTimeLeft--;
     if (wizardTimeLeft <= 0) {
       clearInterval(wizardCountdownInterval);
-      toast('ማሳሰቢያ፦ የ 10 ደቂቃ የክፍያ ማረጋገጫ ጊዜ አልቋል! እንደገና ይሞክሩ። / Verification window expired.');
+      toast('ማሳሰቢያ፦ የ 10 ደቂቃ የክፍያ ማረጋገጫ ጊዜ አልቋል! እንደገና ይሞክሩ።');
       goPayStep(1);
       return;
     }
@@ -2053,28 +2220,28 @@ function selectCheckoutMethod(method) {
   recordActivity();
   currentCheckoutMethod = method;
 
-  document.getElementById('cardTelebirr')?.classList.toggle('active', method === 'telebirr');
   document.getElementById('cardCbe')?.classList.toggle('active', method === 'cbe');
+  document.getElementById('cardTelebirr')?.classList.toggle('active', method === 'telebirr');
 
   const cfg = ACCOUNTS_CONFIG[method];
   setText('checkoutAccProviderLabel', cfg.label);
   setText('checkoutAccNumber', cfg.displayNumber);
   setText('checkoutAccHolder', cfg.holder);
 
-  // Update spacious payment guide dynamically
+  // መመሪያውን በግልጽ ማሳየት
   const guideBox = document.getElementById('checkoutPaymentGuideText');
-  if (guideBox) guideBox.textContent = cfg.guideText;
+  if (guideBox) guideBox.innerHTML = `<strong>የክፍያ አፈጻጸም መመሪያ፦</strong><br>${cfg.guideText}`;
 
-  toast(`${method === 'telebirr' ? 'Telebirr' : 'CBE Bank'} ተመርጧል`);
+  toast(`${method === 'cbe' ? 'CBE Bank' : 'Telebirr'} ተመርጧል`);
 }
 
-/* ── 🚀 VERIFY PAYMENT VIA GOOGLE APPS SCRIPT CORE ── */
+/* ── 🚀 ክፍያውን በ Apps Script በኩል ማረጋገጥ ── */
 async function submitDirectGatewayPayment() {
   recordActivity();
   if (isVerifyingBusy) return;
 
   if (checkIsLockedOut()) {
-    toast('ማሳሰቢያ፦ አካውንትዎ ለ 24 ሰዓት ታግዷል! / Account locked out for 24 hours.');
+    toast('ማሳሰቢያ፦ አካውንትዎ ለ 5 ደቂቃ ታግዷል!');
     return;
   }
 
@@ -2082,13 +2249,16 @@ async function submitDirectGatewayPayment() {
   const rawInput = (refInput?.value || '').trim();
 
   if (!rawInput) {
-    toast('እባክዎ የትራንዛክሽን ቁጥር (TxID) ወይም ሙሉውን SMS ያስገቡ!\nPlease enter TxID or full SMS.');
+    toast('እባክዎ የትራንዛክሽን ቁጥር (TxID) ወይም ሙሉውን SMS ያስገቡ!');
     return;
   }
 
+  // ንጹህ Ref ኮድ ነጥሮ ማውጣት (v2-..., FT... ወይም DJ...)
+  const cleanRef = extractCleanReference(rawInput);
+
   if (!S.verifiedRefs) S.verifiedRefs = [];
-  if (S.verifiedRefs.includes(rawInput)) {
-    toast('ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል!\nThis reference code has already been used.');
+  if (S.verifiedRefs.includes(cleanRef)) {
+    toast('ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል!');
     return;
   }
 
@@ -2100,7 +2270,7 @@ async function submitDirectGatewayPayment() {
   if (radar) radar.style.display = 'flex';
 
   verifyAttempts = 0;
-  runVerificationAttempt(rawInput);
+  runVerificationAttempt(cleanRef);
 }
 
 async function runVerificationAttempt(cleanRef) {
@@ -2118,7 +2288,7 @@ async function runVerificationAttempt(cleanRef) {
       username: tgUser ? (tgUser.username || tgUser.first_name) : 'Tester',
       vipTier: selectedVipTier,
       ref: cleanRef,
-      method: currentCheckoutMethod === 'telebirr' ? 'Telebirr' : 'CBE Bank',
+      method: currentCheckoutMethod === 'cbe' ? 'CBE Bank' : 'Telebirr',
       fullSms: cleanRef
     };
 
@@ -2141,10 +2311,10 @@ async function runVerificationAttempt(cleanRef) {
       clearInterval(verifyPollingInterval);
       verifyPollingInterval = setTimeout(() => {
         runVerificationAttempt(cleanRef);
-      }, 10000);
+      }, 10000); // በየ 10 ሰከንዱ በራስ-ሰር ድጋሚ መሞከር
     } else {
       stopVerificationRadar();
-      toast('የባንክ ኔትወርክ ምላሽ አልሰጠም፤ እባክዎ ጥቂት ቆይተው እንደገና ይሞክሩ።\nBank network timeout. Please retry shortly.');
+      toast('የባንክ ኔትወርክ ምላሽ አልሰጠም፤ እባክዎ ጥቂት ቆይተው እንደገና ይሞክሩ።');
     }
   }
 }
@@ -2154,12 +2324,12 @@ function handleGatewayResult(data, cleanRef) {
   const radarSub = document.getElementById('radarSubTxt');
   const rawStatus = (data?.status || data?.result || '').toLowerCase();
 
-  // 1. VERIFIED
+  // 1. VERIFIED -> ክፍያው ሲጸድቅ
   if (rawStatus === 'verified' || data?.verified === true || data?.result === 'success') {
     stopVerificationRadar();
 
     S.verifiedRefs.push(cleanRef);
-    S.verifyFailCount = 0;
+    S.verifyFailCount = 0; // ቆጣሪውን ዜሮ ማድረግ
 
     const expDate = new Date();
     expDate.setDate(expDate.getDate() + 30);
@@ -2172,7 +2342,7 @@ function handleGatewayResult(data, cleanRef) {
     triggerFireworks();
     closeVipPaymentModal();
 
-    toast(`እንኳን ደስ አለዎት! የ ${selectedVipTier} አባልነትዎ በቅጽበት ነቅቷል!\nSubscription successfully activated.`);
+    toast(`እንኳን ደስ አለዎት! የ ${selectedVipTier} አባልነትዎ በቅጽበት ነቅቷል!`);
     if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 
     render();
@@ -2180,7 +2350,7 @@ function handleGatewayResult(data, cleanRef) {
     return;
   }
 
-  // 2. PENDING / RESOLVING -> Retry every 10s up to 2 minutes
+  // 2. PENDING / RESOLVING -> በየ 10 ሰከንዱ እስከ 2 ደቂቃ መጠየቅ
   if (rawStatus === 'pending' || rawStatus === 'resolving') {
     if (verifyAttempts < 12) {
       if (radarStatus) radarStatus.textContent = 'ክፍያው በባንክ በኩል በመረጋገጥ ላይ ነው...';
@@ -2193,23 +2363,23 @@ function handleGatewayResult(data, cleanRef) {
       return;
     } else {
       stopVerificationRadar();
-      toast('ክፍያዎ በባንክ ገና አልተጠናቀቀም፤ እባክዎ ከ 2 ደቂቃ በኋላ እንደገና ይሞክሩ።\nPayment still resolving at bank. Please retry in 2 minutes.');
+      toast('ክፍያዎ በባንክ ገና አልተጠናቀቀም፤ እባክዎ ከ 2 ደቂቃ በኋላ እንደገና ይሞክሩ።');
       return;
     }
   }
 
-  // 3. REJECTIONS & LOCKOUT LOGIC
+  // 3. ውድቅ ሲሆን እና የ 3 ሙከራ እገዳ አያያዝ
   stopVerificationRadar();
 
   S.verifyFailCount = (S.verifyFailCount || 0) + 1;
   saveState();
 
-  const attemptsLeft = Math.max(0, 2 - S.verifyFailCount);
-  setText('verifyAttemptsLeft', `${attemptsLeft}/2`);
+  const attemptsLeft = Math.max(0, 3 - S.verifyFailCount);
+  setText('verifyAttemptsLeft', `${attemptsLeft}/3`);
 
-  // IF FAILED 2 TIMES -> 24-HOUR LOCKOUT!
-  if (S.verifyFailCount >= 2) {
-    S.lockoutUntil = Date.now() + 24 * 60 * 60 * 1000;
+  // 3 ጊዜ ከተሳሳተ -> የ 5 ደቂቃ እገዳ ማስጀመር!
+  if (S.verifyFailCount >= 3) {
+    S.lockoutUntil = Date.now() + 5 * 60 * 1000; // 5 ደቂቃ
     saveState();
 
     document.querySelectorAll('.checkout-step').forEach(s => s.style.display = 'none');
@@ -2218,16 +2388,16 @@ function handleGatewayResult(data, cleanRef) {
     if (lockoutBox) lockoutBox.style.display = 'block';
     startLockoutCountdown();
 
-    toast('ከ 2 ጊዜ በላይ የተሳሳተ ሙከራ በማድረስዎ ምክንያት ለ 24 ሰዓት ታግደዋል!\nSecurity Lockout: Account blocked for 24 hours.');
+    toast('ከ 3 ጊዜ በላይ የተሳሳተ ሙከራ በማድረስዎ ምክንያት ለ 5 ደቂቃ ታግደዋል!');
     return;
   }
 
   if (rawStatus === 'alreadyused') {
-    toast(`ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል! (የቀረዎት ሙከራ: ${attemptsLeft})\nTransaction reference already used.`);
+    toast(`ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል! (የቀረዎት ሙከራ: ${attemptsLeft})`);
   } else if (rawStatus === 'invalidamount') {
-    toast(`የተከፈለው መጠን ከፓኬጁ ጋር አይዛመድም! (የቀረዎት ሙከራ: ${attemptsLeft})\nInvalid payment amount.`);
+    toast(`የተከፈለው መጠን ከፓኬጁ ጋር አይዛመድም! (የቀረዎት ሙከራ: ${attemptsLeft})`);
   } else {
-    toast(`ክፍያው አልተገኘም! ትክክለኛውን TxID ወይም SMS ያስገቡ። (የቀረዎት ሙከራ: ${attemptsLeft})\nPayment not found.`);
+    toast(`ክፍያው አልተገኘም! ትክክለኛውን TxID ወይም SMS ያስገቡ። (የቀረዎት ሙከራ: ${attemptsLeft})`);
   }
 }
 
@@ -2467,7 +2637,7 @@ function handleAdModalClose() {
 function clickAdSponsor() {
   recordActivity();
   if (typeof show_11460944 === 'function') {
-    show_11460944('pop').catch(() => {});
+    show_11460944().catch(() => {});
   }
   toast('ስፖንሰር ስለጎበኙ +5 ETB ተጨማሪ ቦነስ ተጨምሯል!');
   S.balance += 5;
@@ -3160,7 +3330,7 @@ async function syncFromSheet() {
       if (typeof u.totalAds !== 'undefined') S.adsWatched = Math.max(S.adsWatched, Number(u.totalAds) || 0);
       if (typeof u.totalReferrals !== 'undefined') S.totalRefs = Number(u.totalReferrals) || 0;
 
-      // 🛡️ ታስኮች ከ Google Sheet መጥተው እንዲጠበቁ ማድረግ
+      // ታስኮች ከ Google Sheet መጥተው እንዲጠበቁ ማድረግ
       if (Array.isArray(u.completedTasks) && u.completedTasks.length > 0) {
         S.completedTasks = Array.from(new Set([...(S.completedTasks || []), ...u.completedTasks]));
       }
@@ -3198,7 +3368,7 @@ async function syncToSheet() {
       totalAds: S.adsWatched,
       referredBy: String(referrerId || 'None'),
       vipTier: S.vipTier,
-      completedTasks: S.completedTasks || [] // ታስኮችን ወደ ሺት በቋሚነት መላክ
+      completedTasks: S.completedTasks || []
     });
     if (data && data.result === 'success') {
       saveState();
@@ -3237,7 +3407,6 @@ async function safeInit() {
       if (u.vipTier) S.vipTier = u.vipTier.toUpperCase();
       if (u.vipExpiry) S.vipExpiry = u.vipExpiry;
       
-      // 🛡️ ቋሚ የታስክ መዝገብ መጫን
       if (Array.isArray(u.completedTasks) && u.completedTasks.length > 0) {
         S.completedTasks = Array.from(new Set([...(S.completedTasks || []), ...u.completedTasks]));
       }
@@ -3743,5 +3912,4 @@ function appendPhotoBubble(src, cap) {
 </script>
 </body>
 </html>
-
-
+   
