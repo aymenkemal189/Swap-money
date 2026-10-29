@@ -1333,29 +1333,32 @@ header{
 
 <script>
 
+
+
 /* ══════════════════════════════════════════════════════════════════
-   SWAP MONEY V5 — PRODUCTION JAVASCRIPT ENGINE (NO EMOJIS)
-   Pure Cyber-Fintech • 3-Step Wizard • 24hr Anti-Spam Lockout
+   SWAP MONEY V5 — PRODUCTION JAVASCRIPT ENGINE (FINAL AUDITED)
+   Pure Cyber-Fintech • 3-Step Wizard with Step-by-Step Guide
+   Zero Emojis • 2-Attempt 24hr Lockout • Dual-Token Fallback
 ══════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════════
    1. ALL SERVERS & ENDPOINTS CONFIGURATION
 ═══════════════════════════════════════════════════════════════════ */
 const SERVERS_CONFIG = {
-  // ዋናው የ Google Apps Script (Cloud Database & Ledger)
+  // ዋናው የ Google Apps Script Web App
   MAIN_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxDii62Bjz7KNxIFY9deeDDxnjNx1ifHu93GRxkhmpC9srZ_ZFSAtQgttQYh8o1pXmIgQ/exec',
 
-  // አዲሱ ይፋዊ የክፍያ ማረጋገጫ Gateway (Automated Payment Gateway)
+  // አዲሱ ይፋዊ የክፍያ ማረጋገጫ Gateway
   VERIFY_GATEWAY_URL: 'https://verifiy-server.app.aletcloud.com/api/verify',
-  VERIFY_TOKEN: 'Verifi_Prod_9842_Aymen_X9!2026',
+  SECRET_TOKEN: 'Verifi_Prod_9842_Aymen_X9!2026',
+  VERIFY_TOKEN: 'Aymen2026',
 
-  // የቀጥታ ደንበኞች ድጋፍ ማዕከል (Live Support Engine)
+  // የቀጥታ ደንበኞች ድጋፍ ማዕከል
   SUPPORT_SERVER_URL: 'https://support-urrw.onrender.com',
 
-  // የ 1,000,000 ብር የውድድር ሰሌዳ API (Leaderboard)
+  // የ 1,000,000 ብር የውድድር ሰሌዳ API
   LEADERBOARD_API_URL: 'https://leaderbord-server.vercel.app/api/leaderboard',
 
-  // የቴሌግራም ቦት
   BOT_USERNAME: 'Swapmoney_bot'
 };
 
@@ -1381,13 +1384,15 @@ const ACCOUNTS_CONFIG = {
     label: 'የ Telebirr ቁጥር (P2P)',
     displayNumber: '0968260447',
     cleanNumber: '0968260447',
-    holder: 'የአካውንት ስም: Nebyu Mohammed'
+    holder: 'የአካውንት ስም: Nebyu Mohammed',
+    guideText: 'ወደ Telebirr App ወይም *127# በመግባት ወደ 0968260447 ገንዘብ ያስተላልፉ። ከዛ የደረሰዎትን የትራንዛክሽን ቁጥር (TxID e.g. DJC5Q7...) ወይም ሙሉ SMS ኮፒ ያድርጉ።'
   },
   cbe: {
     label: 'የ CBE ባንክ ሂሳብ ቁጥር',
     displayNumber: '1000562339427',
     cleanNumber: '1000562339427',
-    holder: 'የአካውንት ስም: Aymen kemal'
+    holder: 'የአካውንት ስም: Aymen kemal',
+    guideText: 'በ CBE Mobile Banking ወይም CBE Birr ወደ 1000562339427 ገንዘብ ያስተላልፉ። ከዛ በደረሰኙ ላይ ያለውን የትራንዛክሽን ቁጥር (e.g. FT...) ወይም ሙሉ SMS ኮፒ ያድርጉ።'
   }
 };
 
@@ -1407,7 +1412,7 @@ const V5_TIERS_CONFIG = {
     price: 150,
     multiplier: 4,
     refBonus: 100,
-    reqRefs: 2, // 15 ሰው ወደ 2 ሰው ብቻ ዝቅ ይላል
+    reqRefs: 2,
     skipAdsReq: true,
     perksText: '4X የማስታወቂያ ክፍያ + 2 ሰው ብቻ መጋበዝ + 24hr ክፍያ'
   },
@@ -1416,7 +1421,7 @@ const V5_TIERS_CONFIG = {
     price: 200,
     multiplier: 8,
     refBonus: 150,
-    reqRefs: 0, // ምንም ሰው መጋበዝ አያስፈልግም (100% Bypass All)
+    reqRefs: 0,
     skipAdsReq: true,
     perksText: '8X የማስታወቂያ ክፍያ + 0 ሰው መጋበዝ + ቅጽበታዊ ክፍያ'
   }
@@ -1428,7 +1433,6 @@ const TG_BOT      = 'https://t.me/Swapmoney_bot';
 const YT_SUB      = 'https://www.youtube.com/@swapmoneyeth';
 const YT_SUB2     = 'https://youtube.com/@ethioonlinework1?si=F2b0qRp7olWkUQXH';
 
-/* ── የማስታወቂያ ደረጃዎች እና የTIERS ማባዣዎች ── */
 const AD_TIERS = [
   { upTo: 10, reward: 20 },
   { upTo: 30, reward: 12 },
@@ -1569,10 +1573,10 @@ function loadState() {
     daily30AdCount: 0,
     last30AdQuestDate: '',
     claimedPromoCodes: [],
-    verifiedRefs: [],    // Idempotency: ቀድሞ የተረጋገጡ TxID/SMS ኮዶች
-    verifyFailCount: 0, // ያልተሳኩ የክፍያ ማረጋገጫ ሙከራዎች
-    lockoutUntil: 0,    // 24-ሰዓት የደህንነት እገዳ ማብቂያ ጊዜ
-    vipTier: 'None',    // 'None' | 'SOLO' | 'PRO' | 'PREMIER'
+    verifiedRefs: [],
+    verifyFailCount: 0,
+    lockoutUntil: 0,
+    vipTier: 'None',
     vipExpiry: '',
     pendingVip: null
   };
@@ -1830,7 +1834,6 @@ function renderProfileHub() {
     chip.innerHTML = `${tier} አባል`;
     if (freeCard) freeCard.style.display = 'none';
 
-    // Upgrade Filtering
     if (tier === 'SOLO') {
       if (cardSolo) cardSolo.style.display = 'none';
       if (cardPro) cardPro.style.display = 'block';
@@ -1904,13 +1907,13 @@ function onCopySuccess(num) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   ⚡ 3-STEP WIZARD & 24-HOUR ANTI-SPAM LOCKOUT ENGINE
+   ⚡ 3-STEP WIZARD WITH SPATIOUS GUIDE & 24HR LOCKOUT
 ══════════════════════════════════════════════════════════════════ */
 let selectedVipTier = 'PRO';
 let selectedVipPrice = 150;
 let currentWizardStep = 1;
 let wizardCountdownInterval = null;
-let wizardTimeLeft = 600; // 10 minutes (600s)
+let wizardTimeLeft = 600; // 10 minutes
 let lockoutTimerInterval = null;
 let verifyAttempts = 0;
 let verifyPollingInterval = null;
@@ -1921,7 +1924,6 @@ function checkIsLockedOut() {
   if (S.lockoutUntil && now < S.lockoutUntil) {
     return true;
   }
-  // Lockout expired -> reset count
   if (S.lockoutUntil && now >= S.lockoutUntil) {
     S.lockoutUntil = 0;
     S.verifyFailCount = 0;
@@ -2059,10 +2061,14 @@ function selectCheckoutMethod(method) {
   setText('checkoutAccNumber', cfg.displayNumber);
   setText('checkoutAccHolder', cfg.holder);
 
+  // Update spacious payment guide dynamically
+  const guideBox = document.getElementById('checkoutPaymentGuideText');
+  if (guideBox) guideBox.textContent = cfg.guideText;
+
   toast(`${method === 'telebirr' ? 'Telebirr' : 'CBE Bank'} ተመርጧል`);
 }
 
-/* ── 🚀 SUBMIT TO AUTOMATED GATEWAY VERIFY ── */
+/* ── 🚀 VERIFY PAYMENT VIA GOOGLE APPS SCRIPT CORE ── */
 async function submitDirectGatewayPayment() {
   recordActivity();
   if (isVerifyingBusy) return;
@@ -2080,16 +2086,11 @@ async function submitDirectGatewayPayment() {
     return;
   }
 
-  // Idempotency: ቀድሞ የተረጋገጠ Ref መሆኑን መፈተሽ
   if (!S.verifiedRefs) S.verifiedRefs = [];
   if (S.verifiedRefs.includes(rawInput)) {
     toast('ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል!\nThis reference code has already been used.');
     return;
   }
-
-  // Amount strictly from tier config (Never client input)
-  const tierConfig = V5_TIERS_CONFIG[selectedVipTier] || V5_TIERS_CONFIG['PRO'];
-  const forcedAmount = tierConfig.price;
 
   const radar = document.getElementById('radarScanBox');
   const submitBtn = document.getElementById('vpSubmitBtn');
@@ -2099,10 +2100,10 @@ async function submitDirectGatewayPayment() {
   if (radar) radar.style.display = 'flex';
 
   verifyAttempts = 0;
-  runVerificationAttempt(rawInput, forcedAmount);
+  runVerificationAttempt(rawInput);
 }
 
-async function runVerificationAttempt(cleanRef, forcedAmount) {
+async function runVerificationAttempt(cleanRef) {
   verifyAttempts++;
   const radarStatus = document.getElementById('radarStatusTxt');
   const radarSub = document.getElementById('radarSubTxt');
@@ -2110,24 +2111,36 @@ async function runVerificationAttempt(cleanRef, forcedAmount) {
   if (radarStatus) radarStatus.textContent = 'በባንክ ኔትወርክ በመጣራት ላይ...';
   if (radarSub) radarSub.textContent = `እባክዎ ጥቂት ሰከንዶች ይጠብቁ (ሙከራ ${verifyAttempts}/12)`;
 
-  const targetUrl = `${SERVERS_CONFIG.VERIFY_GATEWAY_URL}?token=${encodeURIComponent(SERVERS_CONFIG.VERIFY_TOKEN)}&ref=${encodeURIComponent(cleanRef)}&amount=${encodeURIComponent(forcedAmount)}`;
-
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 12000);
+    const payload = {
+      action: 'verifygatewaypayment',
+      userId: String(ACTIVE_UID),
+      username: tgUser ? (tgUser.username || tgUser.first_name) : 'Tester',
+      vipTier: selectedVipTier,
+      ref: cleanRef,
+      method: currentCheckoutMethod === 'telebirr' ? 'Telebirr' : 'CBE Bank',
+      fullSms: cleanRef
+    };
 
-    const res = await fetch(targetUrl, { signal: controller.signal });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 14000);
+
+    const res = await fetch(SERVERS_CONFIG.MAIN_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
     clearTimeout(timeoutId);
 
     const data = await res.json();
-    handleGatewayResult(data, cleanRef, forcedAmount);
+    handleGatewayResult(data, cleanRef);
   } catch (err) {
-    // Timeout or 5xx -> Retry up to 12 times every 10s (Never treat as paid)
     if (verifyAttempts < 12) {
       if (radarStatus) radarStatus.textContent = 'ኔትወርክ እየተሞከረ ነው... (Retrying)';
       clearInterval(verifyPollingInterval);
       verifyPollingInterval = setTimeout(() => {
-        runVerificationAttempt(cleanRef, forcedAmount);
+        runVerificationAttempt(cleanRef);
       }, 10000);
     } else {
       stopVerificationRadar();
@@ -2136,20 +2149,18 @@ async function runVerificationAttempt(cleanRef, forcedAmount) {
   }
 }
 
-function handleGatewayResult(data, cleanRef, forcedAmount) {
+function handleGatewayResult(data, cleanRef) {
   const radarStatus = document.getElementById('radarStatusTxt');
   const radarSub = document.getElementById('radarSubTxt');
   const rawStatus = (data?.status || data?.result || '').toLowerCase();
 
-  // 1. VERIFIED -> Credit Once!
-  if (rawStatus === 'verified' || data?.verified === true || data?.success === true) {
+  // 1. VERIFIED
+  if (rawStatus === 'verified' || data?.verified === true || data?.result === 'success') {
     stopVerificationRadar();
 
-    // Unique Constraint: ደረሰኙን መመዝገብ
     S.verifiedRefs.push(cleanRef);
-    S.verifyFailCount = 0; // Reset fail count on success
+    S.verifyFailCount = 0;
 
-    // 30 ቀናት የአባልነት ጊዜ
     const expDate = new Date();
     expDate.setDate(expDate.getDate() + 30);
     const expStr = expDate.toISOString().split('T')[0];
@@ -2177,7 +2188,7 @@ function handleGatewayResult(data, cleanRef, forcedAmount) {
 
       clearInterval(verifyPollingInterval);
       verifyPollingInterval = setTimeout(() => {
-        runVerificationAttempt(cleanRef, forcedAmount);
+        runVerificationAttempt(cleanRef);
       }, 10000);
       return;
     } else {
@@ -2187,7 +2198,7 @@ function handleGatewayResult(data, cleanRef, forcedAmount) {
     }
   }
 
-  // 3. REJECTIONS & FAIL COUNT HANDLING
+  // 3. REJECTIONS & LOCKOUT LOGIC
   stopVerificationRadar();
 
   S.verifyFailCount = (S.verifyFailCount || 0) + 1;
@@ -2196,7 +2207,7 @@ function handleGatewayResult(data, cleanRef, forcedAmount) {
   const attemptsLeft = Math.max(0, 2 - S.verifyFailCount);
   setText('verifyAttemptsLeft', `${attemptsLeft}/2`);
 
-  // IF FAILED 2 TIMES -> TRIGGER 24-HOUR LOCKOUT!
+  // IF FAILED 2 TIMES -> 24-HOUR LOCKOUT!
   if (S.verifyFailCount >= 2) {
     S.lockoutUntil = Date.now() + 24 * 60 * 60 * 1000;
     saveState();
@@ -2214,9 +2225,7 @@ function handleGatewayResult(data, cleanRef, forcedAmount) {
   if (rawStatus === 'alreadyused') {
     toast(`ይህ ደረሰኝ አስቀድሞ አገልግሎት ላይ ውሏል! (የቀረዎት ሙከራ: ${attemptsLeft})\nTransaction reference already used.`);
   } else if (rawStatus === 'invalidamount') {
-    toast(`የተከፈለው መጠን (${forcedAmount} ETB) ከፓኬጁ ጋር አይዛመድም! (የቀረዎት ሙከራ: ${attemptsLeft})\nInvalid payment amount.`);
-  } else if (rawStatus === 'invalid_transaction_type') {
-    toast(`ትክክለኛ የገንዘብ ማስተላለፊያ ደረሰኝ አይደለም! (የቀረዎት ሙከራ: ${attemptsLeft})\nInvalid transaction type.`);
+    toast(`የተከፈለው መጠን ከፓኬጁ ጋር አይዛመድም! (የቀረዎት ሙከራ: ${attemptsLeft})\nInvalid payment amount.`);
   } else {
     toast(`ክፍያው አልተገኘም! ትክክለኛውን TxID ወይም SMS ያስገቡ። (የቀረዎት ሙከራ: ${attemptsLeft})\nPayment not found.`);
   }
@@ -2252,7 +2261,7 @@ const activeTaskTimers = new Set();
 const taskTimers = {};
 
 function taskGrid4ColHTML(t, prefix) {
-  const done = S.completedTasks.includes(t.id);
+  const done = S.completedTasks && S.completedTasks.includes(t.id);
   return `<div class="task-mini-card">
     <div class="task-mini-icon" style="background:${t.bg}"><img src="${t.icon}" alt="${t.label}"></div>
     <div class="task-mini-title">${t.label}</div>
@@ -2271,7 +2280,6 @@ function renderHomeTasks() {
 
 /* ═══════════════ 🌟 BRAND NEW ADS STREAM RENDERER ═══════════════ */
 function renderPureAdsGrid() {
-  const mult = getVipMultiplier();
   const mEl = document.getElementById('mainAdGrid');
   if (!mEl) return;
 
@@ -2294,7 +2302,7 @@ function renderPureAdsGrid() {
 
 function startTask(id, url, reward, dur) {
   recordActivity();
-  if (S.completedTasks.includes(id)) { toast('አስቀድሞ ተቀብለዋል!'); return; }
+  if (S.completedTasks && S.completedTasks.includes(id)) { toast('አስቀድሞ ተቀብለዋል!'); return; }
 
   if (tg?.openLink) tg.openLink(url); else window.open(url, '_blank');
   if (tg?.HapticFeedback) { try { tg.HapticFeedback.impactOccurred('medium'); } catch (e) {} }
@@ -2320,7 +2328,7 @@ function startTask(id, url, reward, dur) {
     activeTaskTimers.delete(id);
     clearInterval(taskTimers[id]);
     document.removeEventListener('visibilitychange', onVisible);
-    if (S.completedTasks.includes(id)) return;
+    if (S.completedTasks && S.completedTasks.includes(id)) return;
     setBtn(`+${reward} ተቀበል`, false, true);
     toast(`ጨርሰዋል! +${reward} ETB ይቀበሉ`);
   }
@@ -2338,7 +2346,7 @@ function startTask(id, url, reward, dur) {
   const onVisible = () => {
     if (document.visibilityState === 'visible') {
       const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
-      if (remaining <= 0 && !S.completedTasks.includes(id)) {
+      if (remaining <= 0 && (!S.completedTasks || !S.completedTasks.includes(id))) {
         finishCountdown();
       }
     }
@@ -2348,7 +2356,9 @@ function startTask(id, url, reward, dur) {
 
 function claimTask(id, reward) {
   recordActivity();
+  if (!S.completedTasks) S.completedTasks = [];
   if (S.completedTasks.includes(id)) { toast('አስቀድሞ ተቀብለዋል!'); return; }
+  
   S.completedTasks.push(id);
   S.balance += reward;
   markLocalMutation();
@@ -3123,7 +3133,7 @@ async function executeWithdraw() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   GOOGLE APPS SCRIPT SYNC ENGINE
+   GOOGLE APPS SCRIPT SYNC ENGINE (COL 11 TASK PRESERVATION)
 ══════════════════════════════════════════════════════════════════ */
 async function syncFromSheet() {
   const uid = ACTIVE_UID;
@@ -3149,6 +3159,11 @@ async function syncFromSheet() {
 
       if (typeof u.totalAds !== 'undefined') S.adsWatched = Math.max(S.adsWatched, Number(u.totalAds) || 0);
       if (typeof u.totalReferrals !== 'undefined') S.totalRefs = Number(u.totalReferrals) || 0;
+
+      // 🛡️ ታስኮች ከ Google Sheet መጥተው እንዲጠበቁ ማድረግ
+      if (Array.isArray(u.completedTasks) && u.completedTasks.length > 0) {
+        S.completedTasks = Array.from(new Set([...(S.completedTasks || []), ...u.completedTasks]));
+      }
 
       if (u.vipTier && u.vipTier !== 'None') {
         const oldTier = S.vipTier;
@@ -3176,13 +3191,14 @@ async function syncToSheet() {
   }
   try {
     const data = await apiPost({
-      action: 'syncUser',
+      action: 'syncuser',
       userId: String(ACTIVE_UID),
       username: tgUser ? (tgUser.username || tgUser.first_name) : 'Tester',
       balance: S.balance,
       totalAds: S.adsWatched,
       referredBy: String(referrerId || 'None'),
-      vipTier: S.vipTier
+      vipTier: S.vipTier,
+      completedTasks: S.completedTasks || [] // ታስኮችን ወደ ሺት በቋሚነት መላክ
     });
     if (data && data.result === 'success') {
       saveState();
@@ -3220,16 +3236,23 @@ async function safeInit() {
       S.totalRefs  = Number(u.totalReferrals) || 0;
       if (u.vipTier) S.vipTier = u.vipTier.toUpperCase();
       if (u.vipExpiry) S.vipExpiry = u.vipExpiry;
+      
+      // 🛡️ ቋሚ የታስክ መዝገብ መጫን
+      if (Array.isArray(u.completedTasks) && u.completedTasks.length > 0) {
+        S.completedTasks = Array.from(new Set([...(S.completedTasks || []), ...u.completedTasks]));
+      }
+
       S.hasWelcomed = true;
       saveState();
     } else if (data.result === 'not_found') {
       const regData = await apiPost({
-        action: 'syncUser',
+        action: 'syncuser',
         userId: String(ACTIVE_UID),
         username: tgUser ? (tgUser.username || tgUser.first_name) : 'Tester',
         balance: WELCOME_ETB,
         totalAds: 0,
-        referredBy: String(referrerId || 'None')
+        referredBy: String(referrerId || 'None'),
+        completedTasks: []
       });
 
       if (regData && regData.result === 'success') {
@@ -3720,3 +3743,5 @@ function appendPhotoBubble(src, cap) {
 </script>
 </body>
 </html>
+
+
